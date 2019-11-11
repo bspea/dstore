@@ -1,0 +1,44 @@
+.mainBanner {
+    width: 1000px;
+    height: 450px;
+    background: black;
+}
+
+.mainBanner-img img {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 450px;
+}
+
+.banner-btn {
+    background: white;
+    height: 50px;
+}
+
+.banner-mobile {
+    display: none;
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+    .banner-mobile {
+        display: inherit;
+    }
+
+    .banner-pc {
+        display: none;
+    }
+
+    .banner-mobile img {
+        display: none;
+        width: 100%;
+    }
+} 
+
+
+@media screen and (max-width: 1170px) {
+    .mainBanner-img img {
+        width: 1170px;
+    }
+} 
