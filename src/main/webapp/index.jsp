@@ -67,7 +67,7 @@
              <!-- pc버전 -->
             <div class="size-pc">
                 <a href="loginForm.do">로그인</a>
-                <a href="">마이페이지</a>
+                <a href="">회원가입</a>
                 <a href="">장바구니</a>
                 <a href="">고객센터</a>
             </div>

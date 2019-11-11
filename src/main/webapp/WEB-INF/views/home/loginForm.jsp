@@ -115,7 +115,7 @@
 
     <div class="logo-top">
         <div class="topLeft">
-                <a href=""><img src="resources/images/logo.png" width=100px></a>
+                <a href="home.do"><img src="resources/images/logo.png" width=100px></a>
         </div>
 
         <div class="topMiddle">
@@ -125,7 +125,7 @@
         <div class="topRight">
              <!-- pc버전 -->
             <div class="size-pc">
-                <a href="">로그인</a>
+                <a href="loginForm.do">로그인</a>
                 <a href="">마이페이지</a>
                 <a href="">장바구니</a>
                 <a href="">고객센터</a>
@@ -179,17 +179,17 @@
                         
                         <div class="clearfix maya-small-padding"></div>
 
-                        <form>
+                        <form action="login.do" method="post">
                             <div class="form-group">
-                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="이메일/전화번호" required>
+                                <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="이메일" required>
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호" required>
+                                <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호" required>
                             </div>
                              <div class="checkbox" style="float:left;">
-                                <label>
+                                <!-- <label>
                                     <input type="checkbox"> <span class="text-gray-2 helvetica-12">아이디 기억하기</span>
-                                </label>
+                                </label> -->
                             </div> 
                             <!--비밀번호찾기  -->
                                                         <div class="checkbox" align="right" style="float:right">
@@ -198,14 +198,18 @@
                                     <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><span class="text-gray-2 helvetica-12">비밀번호찾기</span></button>
                                 </label>
                             </div>
-                            <!--일시적으로   -->
-                           <!--  <button type="submit" class="btn btn-block button-green-free btn-lg">로그인</button> -->
-                           <button type="button" class="btn btn-block button-green-free btn-lg" onclick="location.href='emailVerify.me';">로그인</button>
+                            
+                           <button type="submit" class="btn btn-block button-green-free btn-lg">로그인</button>
                         </form>
                         <div class="clearfix maya-tiny-padding"></div>
+                        <c:if test="${empty loginMsg }">
                         <p class="text-center">아직 회원이 아니신가요&nbsp;<a href="registerForm.me" class="text-secondary">&nbsp;회원가입</a></p>
                        <!--  <p class="text-center">비회원으로 주문하셨나요&nbsp;<a href="nonMemOrderViewForm.me" class="text-secondary">&nbsp;비회원주문조회</a></p> -->
                         <!-- <div class="clearfix maya-small-padding"></div> -->
+                        </c:if>
+                        <c:if test="${!empty loginMsg }">
+                        <p class="text-center" style="color:red">${loginMsg }</p>
+                        </c:if>
                         <div class="clearfix maya-tiny-padding"></div>
                                                 <div class="row">
                             <div class="col-md-12">
