@@ -1,0 +1,257 @@
+.specialMenu {
+    margin-bottom: 25px;
+    padding-bottom: 30px;
+    border: 2px solid rgb(240, 240, 240);
+    background: white;
+}
+/* 
+.spLeft {
+} */
+
+.spTitle {
+    margin-top: 25px;
+    /* padding-bottom:  */
+    font-size: 22px;
+    font-family: 'basic-font';
+    color: black;
+
+    cursor: default;
+}
+.spRankButtonDiv {
+    display: inline-block;
+    width: 20px;
+    margin-left: 5px;
+
+    background: gray;
+    border-radius: 50%;
+
+    text-align: center;
+    font-size: 14px;
+    color: white;
+    font-family: "basic-font";
+
+    cursor: pointer;
+    transition-duration: 0.5s;
+}
+
+.spLeftSelectRankDiv {
+    font-size: 0px; /* 공백 제거 */
+    margin-top: 25px;
+}
+.spRankTitle {
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 5px;
+
+    cursor: default;
+}
+
+
+.spLeftImageDiv {
+    height: 380px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.spLeftImageDiv img {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+
+    cursor:pointer;
+}
+.spLeftImageTitleDiv {
+    height: 90px;
+}
+
+.spLeftImageTitleDiv p {
+    display: none;
+    font-family: 'basic-font';
+    font-size: 22px;
+
+    cursor: default;
+}
+
+.spLeftDiscountRate {
+    display: none;
+    margin-right:15px;
+
+    font-family: 'basic-font';
+    color: rgb(247, 138, 161);
+    font-size: 28px;
+}
+
+.spLeftRawCost {
+    display: none;
+    text-decoration: line-through;
+
+    color:lightgray;
+    font-family: 'basic-font';
+    font-size: 16px;
+}
+
+.spLeftPrice {
+    display: none;
+    font-family: 'basic-font';
+    font-size: 32px;
+}
+
+.spLeftEtcDiv {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+
+    cursor:default;
+}
+
+.spLeftEtcDiv div {
+    display:none;
+    margin-right: 15px;
+    
+    color: gray;
+    font-size: 11px;
+    
+}
+
+
+/* 이후 오른쪽 */
+/* .spRight {
+
+} */
+
+.spRightNotice {
+    text-align: right;
+    margin-top: 35px;
+    margin-right: 50px;
+    
+    font-family: "basic-font";
+    color: rgb(150, 150, 150);
+
+    cursor:default;
+}
+
+.spRightSortMenu div {
+    float:left;
+}
+
+.spRightSortMenu {
+    height: 30px;
+    margin-top: 24px;
+    font-size: 0px;
+}  
+.spRightSortText {
+    font-family: 'basic-font';
+    font-size: 16px;
+    width: 150px;
+    line-height: 27px;
+}
+
+.spRightSortButton {
+    background: white;
+    border: 1px solid #8b0000;
+    border-radius: 5px;
+    padding-left: 7px;
+    padding-right: 7px;
+    margin-right: 5px;
+
+    font-size: 12px;
+    font-family: '맑은 고딕';
+    height: 25px;
+    line-height: 23px;
+
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
+.spRightSortButton:hover, .spRightSortButtonClick {
+    border: 1px solid rgb(245, 245, 245);
+    background: #8b0000;
+    color: white;
+    font-weight: bold;
+}
+
+.spRightProduct{
+    margin-top: 20px;
+}
+
+.spRightProductImage {
+    overflow: hidden;
+}
+
+.spRightProductImage img {
+    width: 100%;
+    height:  100%;
+
+    cursor:pointer;
+    transition-duration: 0.3s;
+}
+
+.spRightProductImage img:hover {
+    transform: scale(1.1);
+}
+
+.spRightProductTitle {
+    height: 40px;
+    /* background: red; */
+
+    font-size: 16px;
+    font-family: 'basic-font';
+}
+
+
+.spRightDiscountRate {
+    display: inline-block;
+    margin-right:5px;
+
+    font-family: 'basic-font';
+    color: rgb(247, 138, 161);
+    font-size: 16px;
+}
+
+.spRightRawCost {
+    display: inline-block;
+    text-decoration: line-through;
+
+    color:lightgray;
+    font-family: 'basic-font';
+    font-size: 10px;
+}
+
+.spRightPrice {
+    display: inline-block;
+    font-family: 'basic-font';
+    font-size: 20px;
+}
+
+/* 모바일 관련 display */
+.spMobile {
+    display: none;
+}
+
+/* 모바일 버전에서 hr 생기는 것 구현 */
+@media screen and (max-width: 768px) {
+    .spMobile {
+        display:inherit;
+    }
+    
+    .spPc {
+        display: none;
+    }
+
+    .spRightNotice {
+        text-align: center;
+        margin: 0px;
+        margin-top: 20px;
+
+        font-size: 24px;
+        color:black;
+    }
+
+    .mobileText {
+        text-align: center;
+        /* background: black; */
+    }
+
+    .mobileTextFocus {
+        font-size:32px;
+    }
+}
