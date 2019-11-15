@@ -74,20 +74,17 @@
                 <br>
                 <div class="card-body">
                     <div class="table-responsive">
-                    <form action="addingProduct.do" method="get" enctype="multipart/form-data">
+                    <form id="fileForm" method="post" enctype="multipart/form-data">
                         <table class="table table-bordered" style="width:80%; margin-left:auto; margin-right:auto;" >
-                            <tr>
+                            <%--<tr>
                             	<th colspan="4">
                             		본문이미지 추가 : &nbsp; &nbsp; &nbsp; 
                             		<input type="file" name="contentImg" id="imgfilein0">
                             	</th>
-                            </tr>
+                            </tr>--%>
                             <tr>
                                 <td class="thumbnailImgs">
-                                	<div id="imgfile1" class="imgPreviewArea">
-                                		<img style="width:100%; height:100%;">
-                                	</div>
-                                	<input multiple="multiple" type="file" name="thumbs" id="imgfilein" style="display:none;">
+                                	<input multiple="true" type="file" name="thumbs" id="imgfilein">
                                 </td>
                                 
                             </tr>
@@ -139,7 +136,7 @@
                        
                         <div class="btnArea" align="center">
                             <br>
-                            <button type="submit" class="btn btn-primary">저장</button>
+                            <button type="submit" class="btn btn-primary" id="formSave">저장</button>
                         </div>
                     </form>
                     </div>
@@ -236,6 +233,26 @@ $(function(){
 		console.log(ingre);
 	});
 	
+	
+	// -------------------------- 다중파일 처리 ajax  -----------------------------
+	$("#formSave").click(function(event){
+		var formData = new FormData($('#fileForm')[0]); 
+		$.ajax({ 
+			type: "POST", 
+			enctype: 'multipart/form-data', // 필수 
+			url: 'adminAddingProduct.do', 
+			data: formData, // 필수 
+			processData: false, // 필수 
+			contentType: false, // 필수 
+			success: function (result) { 
+				alert("성공!!!");	
+			}, 
+			error: function (e) { 
+				alert("실패..");
+			} 
+		});
+	});
+
 });
 	
 
