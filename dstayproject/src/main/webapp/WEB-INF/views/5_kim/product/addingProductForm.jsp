@@ -14,18 +14,25 @@
 
   <title>D-Store:Admin</title>
 
-  <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-  <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
+ 
     <style>
-        .imgPreviewArea{
-            background:lightgray;
-            width:100px;
-            height:100px;
+    
+    	.imgPreviewArea{
+    		background:lightgray;
+    		width:150px;
+        	height:150px;
+    	}
+        .imgPreviewArea:hover{
+        	cursor:pointer;
+        	background:white;
+        }
+        
+        .thumbnailImgs{
+        	width:150px;
+        	height:150px;
+        }
+        .inputStyle{
+        width:50%;
         }
     </style>
 
@@ -62,71 +69,82 @@
                 <a href="#" class="btn btn-primary">항목 삭제</a>
             </div>
             <br><br>
-
+			
             <div class="card shadow mb-4">
                 <br>
                 <div class="card-body">
                     <div class="table-responsive">
-                    <form action="" method="post">
-                        <table  class="table table-bordered" style="width:80%; margin-left:auto; margin-right:auto;" >
+                    <form action="addingProduct.do" method="get" enctype="multipart/form-data">
+                        <table class="table table-bordered" style="width:80%; margin-left:auto; margin-right:auto;" >
                             <tr>
-                                <td colspan="2"><span class="h5 text-gray-900">물품이름</span></td>
-                                <td colspan="2"><input type="text" placeholder="물품명"></td>
+                            	<th colspan="4">
+                            		본문이미지 추가 : &nbsp; &nbsp; &nbsp; 
+                            		<input type="file" name="contentImg" id="imgfilein0">
+                            	</th>
                             </tr>
                             <tr>
-                                <td colspan="2"><span class="h5 text-gray-900">가격</span></td>
-                                <td colspan="2"><input type="text" placeholder="가격"></td>
+                                <td class="thumbnailImgs">
+                                	<div id="imgfile1" class="imgPreviewArea">
+                                		<img style="width:100%; height:100%;">
+                                	</div>
+                                	<input multiple="multiple" type="file" name="thumbs" id="imgfilein" style="display:none;">
+                                </td>
+                                
+                            </tr>
+                            
+                            <tr>
+                                <th colspan="2">물품이름</th>
+                                <td colspan="2" style="padding:0;"><input type="text" name="name" placeholder="물품명" style="width:100%; height:50px;"></textarea></td>
                             </tr>
                             <tr>
-                                <td><div class="imgPreviewArea"></div></td>
-                                <td><div class="imgPreviewArea"></div></td>
-                                <td><div class="imgPreviewArea"></div></td>
-                                <td><div class="imgPreviewArea"></div></td>
+                                <th colspan="2">가격</th>
+                                <td colspan="2" style="padding:0;"><input type="text" name="price" placeholder="가격" style="width:100%; height:50px;"></td>
                             </tr>
                             <tr>
-                                <td colspan="4">상품성분</td>
+                                <th colspan="2">카테고리</th>
+                                <td colspan="2" style="padding:0;">
+                                	<select name="category" style="width:100%;">
+                                		<option value="1/lunchbox">1_도시락</option>
+                                		<option value="2/sidemenu">2_사이드</option>
+                                		<option value="3/drink">3_음료수</option>
+                                	</select>
+                                </td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <th colspan="2">칼로리</th>
+                                <td colspan="2" style="padding:0;"><input type="text" name="calories" placeholder="칼로리" style="width:80%; height:50px;"> &nbsp; kcal</td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" style="padding:0px;">
-                                    <textarea style="resize: none; height:100%; width:100%;"></textarea>
+                                <th colspan="2">성분</th>
+                                <td colspan="2">
+                                	<input type="checkbox" name="ingredients" id="ingreChicken" value="chicken"> <label for="ingreChicken">닭고기</label> &nbsp; &nbsp;  
+                                	<input type="checkbox" name="ingredients" id="ingreCow" value="meat"> <label for="ingreCow">소고기</label> &nbsp; &nbsp; 
+                                	<input type="checkbox" name="ingredients" id="ingreEgg" value="egg"> <label for="ingreEgg">계란</label> &nbsp; &nbsp; 
+                                	<input type="checkbox" name="ingredients" id="ingreMilk" value="milk"> <label for="ingreMilk">유제품</label><br>
+                                	<input type="checkbox" name="ingredients" id="ingreChicken1" value="chicken_fried"> <label for="ingreChicken1">닭고기</label> &nbsp; &nbsp;  
+                                	<input type="checkbox" name="ingredients" id="ingreCow1" value="meat_row"> <label for="ingreCow1">소고기</label> &nbsp; &nbsp; 
+                                	<input type="checkbox" name="ingredients" id="ingreEgg1" value="egg_scramble"> <label for="ingreEgg1">계란</label> &nbsp; &nbsp; 
+                                	<input type="checkbox" name="ingredients" id="ingreMilk1" value="milk_yogurt"> <label for="ingreMilk1">유제품</label>
+   
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="4" style="padding:0px;">
-                                    <textarea style="resize: none; height:100%; width:100%;"></textarea>
+                                    <textarea name="content" style="resize: none; height:100%; width:100%;" placeholder="상품간단설명"></textarea>
                                 </td>
                             </tr>
+                            
                         </table>
+                        
+                       
                         <div class="btnArea" align="center">
-                            <button type="button" class="btn btn-secondary">본문이미지 추가</button>
-                            <br><br>
+                            <br>
                             <button type="submit" class="btn btn-primary">저장</button>
                         </div>
-
-
                     </form>
                     </div>
                 </div>
             </div>
-
       </div>
       <!-- End of Main Content -->
 
@@ -166,16 +184,66 @@
     </div>
   </div>
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
 
 </body>
+<script>
 
+$(function(){
+	// -------------------------- 사진추가 -----------------------------
+	$("#imgfile1").click(function(){ $("#imgfilein").click(); });
+	
+	$("#imgfile2").click(function(){ $("#imgfilein2").click(); });
+	
+	$("#imgfile3").click(function(){ $("#imgfilein3").click(); });
+	
+	$("#imgfile4").click(function(){ $("#imgfilein4").click(); });
+	
+		
+	function readURL(input,num){
+		if(input.files && input.files[0]){
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				var imgfileN = "#imgfile"+num
+				var imgfileN_img = imgfileN+" img"
+				$(imgfileN_img).attr('src', e.target.result);
+				$(imgfileN).css('background','white');
+			} 
+			
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	
+	$("#imgfilein1").change(function(){
+		readURL(this,1);
+	});
+	
+	$("#imgfilein2").change(function(){
+		readURL(this,2);
+	});
+	
+	$("#imgfilein3").change(function(){
+		readURL(this,3);
+	});
+	
+	$("#imgfilein4").change(function(){
+		readURL(this,4);
+	});
+	
+	// -------------------------- 성분리스트 추가 -----------------------------
+	$(".ingreOptions").change(function(){
+		var ingre = $(".ingreOptions option:selected").val();
+		
+		console.log(ingre);
+	});
+	
+});
+	
+
+
+
+
+
+
+
+</script>
 </html>
