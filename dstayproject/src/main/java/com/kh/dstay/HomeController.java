@@ -3,15 +3,18 @@ package com.kh.dstay;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.Email;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.dstay.member.model.service.MemberService;
@@ -25,6 +28,8 @@ public class HomeController {
 	
 	@Autowired
 	private MemberService mService;
+	@Autowired
+	private Validator validator;
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	/**
@@ -43,7 +48,7 @@ public class HomeController {
 		return "2_bak/loginForm";
 	}
 	@RequestMapping("login.do")
-	public ModelAndView loginForm(ModelAndView mv,@RequestParam("email")String email,@RequestParam("password")String password,HttpSession session) {
+	public ModelAndView login(ModelAndView mv,@RequestParam("email")@Email String email,@RequestParam("password") String password,HttpSession session) {
 		
 		Member mem = new Member();
 		mem.setEmail(email); mem.setPassword("password");
@@ -77,5 +82,14 @@ public class HomeController {
 	@RequestMapping("resetPasswordForm")
 	public String resetPasswordForm() {
 		return "2_bak/resetPasswordForm";
+	}
+	@RequestMapping("ajaxEmailCheck.do")@ResponseBody
+	public String ajaxEmailCheck(@RequestParam("checkEmail")@Email String email) {
+		int result = mService.ajaxEmailCheck(email);
+		if(result>0) {
+			return "present";
+		}else {
+			return "absent";
+		}
 	}
 }

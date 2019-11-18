@@ -19,5 +19,10 @@
 	select * from member
 	where email=#{email} and status='Y'
 </select>
-  	
+ 
+ <select id="ajaxEmailCheck" resultType="_int">
+ 	select count(*)
+ 	from member
+ 	where email=#{email}
+ </select> 	
 </mapper>

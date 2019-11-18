@@ -111,6 +111,7 @@
 .p-3 {
   padding: 5px;
 }
+.guide{display:none;}.ok{color:green;text-align:center;}.ng{color:red;text-align:center;}
 
 
     /* 테스트용 CSS */
@@ -149,8 +150,13 @@
                                 <input type="text" class="form-control" id="fullname" placeholder="이름" required>
                             </div> --> 
                             <div class="form-group" >
-                                <input type="email" class="form-control" id="email" placeholder="이메일" required   >
+                                <input type="email" class="form-control" id="ajaxEmail" placeholder="이메일" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required >
+                                <span class="helvetica-12 guide ok" >사용가능</span>
+                                <span class="helvetica-12 guide ng" >사용불가능</span>
+                                <input type="hidden" id="hiddenCheck" value="0">
                                 <span class="text-gray-2 helvetica-12" align="center">이메일 내용을 확인한 후 인증하셔야 회원가입이 완료됩니다</span>
+                                <div class="clearfix maya-tiny-padding"></div>
+                                <button type="button" class="btn btn-outline-primary" id="verifybtn" disabled>인증받기</button>
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호" required>
@@ -209,5 +215,38 @@
 
 <!--kimi basic js-->
 <script src="resources/2_bak/kimi.js"></script>
+<script>
+	$(document).ready(function() {
+		$("#ajaxEmail").on("keyup",function() {
+			checkEmail();
+		})
+	})
+		function checkEmail() {
+		var reg = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$";
+		$.ajaxPrefilter(function ($("#ajaxEmail").val(),) {
+			if(reg.test($(this))) {
+				
+			}
+		})
+		$.ajax({
+			url:"ajaxEmailCheck.do",
+			method:"post",
+			data:{checkEmail:$("#ajaxEmail").val()},
+			error:function() {
+				console.log("disconnected")
+			},
+			success:function(string) {
+				if(string == "absent") {
+					$(".ok").show();
+					$(".ng").hide();
+					$("#hiddenCheck").val(1);
+					$("#verifybtn").attr("disabled","false");
+				}else {
+					$("#hiddenCheck").val(0);
+				}
+			}
+		})
+	}
+</script>
 </body>
 </html>
