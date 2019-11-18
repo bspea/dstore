@@ -4,7 +4,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-<<<<<<< HEAD
 	
 	<!-- Database Driver Setting -->
 	<bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
@@ -34,58 +33,4 @@
 		<!-- 배포용이 아닌, 포트폴리오용 프로젝트이기 때문에 업로드의 사이즈를 제한 없게 설정합니다. -->
 		<!-- 배포용이라고 가정한다면, 파일당 업로드제한 3메가 최대 업로드제한 10메가로 지정합니다. -->
 	</bean>
-=======
-	<!-- 
-		* root-context.xml
-		서버 구동시 web.xml을 거쳐 바로 로딩되는 문서
-		즉, pre-loading 되는 설정 파일
-		-> 서버 구동 시 바로 셋팅해야 되는 내용들을 작성
-		   ex) DB연결 설정, 트랜잭션 처리, AOP관련, 내 외부 모듈 연동 등등
-	 -->
-	 
-	 <!-- 1. DataSource 등록 -->
-	 <bean class="org.apache.commons.dbcp.BasicDataSource" 
-	 		id="dataSource" destroy-method="close">
-	 	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-	 	<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
-	 	<property name="username" value="dstay"/>
-	 	<property name="password" value="dstay"/>
-	 	<property name="defaultAutoCommit" value="false"/>
-	 </bean>
-	 <!-- 
-	 	BasicDataSource dataSource = new BasicDataSource();
-	 	dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-	 	dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:XE");
-	 	dataSource.setUserName("spring");
-	 	dataSource.setPassword("spring");
-	 	dataSource.setDefaultAutoCommit(false);
-	  -->
-	 <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSession">
-	  	<property name="configLocation" value="classpath:mybatis-config.xml"/>
-	  	<property name="dataSource" ref="dataSource"/>
-	 </bean>
-	 <!-- 
-	 	SqlSessionFactoryBean sqlSession = new SqlSessionFactoryBean();
-	 	sqlSession.setConfigLocation("classpath:mybatis-config.xml");
-	 	sqlSesssion.setDataSource(dataSource);
-	  -->
-	 <bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSessionTemplate">
-	 	<constructor-arg ref="sqlSession"/>
-	 </bean>
-	 <!-- 
-	 	SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSession);
-	  -->
-	  
-	  <!-- 
-	  	property : Setter
-	   	constructor-arg : 생성자 
-	   -->
-	 
-	 
-	 <!-- 파일 업로드 시 사용 (파일 크기 지정) -->
-	 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	 	<property name="maxUploadSize" value="100000000"/>
-	 	<property name="maxInMemorySize" value="100000000"/>
-	 </bean>	
->>>>>>> refs/remotes/origin/jonghwan
 </beans>
