@@ -15,7 +15,12 @@
     <script src="http://ricostacruz.com/jquery.transit/jquery.transit.min.js"></script>
 
     <!-- Boot Strap -->
-    <link href="${ pageContext.request.contextPath }/resources/css/1_common/bootstrap.min.css" rel="stylesheet">
+    <%-- <link href="${ pageContext.request.contextPath }/resources/css/1_common/bootstrap.min.css" rel="stylesheet"> --%>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    
     
 
     <style>
@@ -53,7 +58,7 @@
                 <a href="">로그인</a>
                 <a href="">마이페이지</a>
                 <a href="">장바구니</a>
-                <a href="">고객센터</a>
+                <a href="customerCenter.do">고객센터</a>
             </div>
 
             <!-- 모바일버전 (화면작은) -->
