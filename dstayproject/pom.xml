@@ -258,7 +258,12 @@
 		    <version>${org.springframework-version}</version>
 		</dependency>
 		
-		
+		<!--이메일 validation  -->
+		<dependency>
+		    <groupId>org.hibernate.validator</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		    <version>6.0.16.Final</version>
+		</dependency>
 		
 		
 	</dependencies>

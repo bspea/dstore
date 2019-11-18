@@ -1,5 +1,7 @@
 package com.kh.dstay.member.model.service;
 
+import javax.validation.constraints.Email;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,11 @@ public class MemberServiceImpl implements MemberService{
 	public Member login(Member mem) {
 		// TODO Auto-generated method stub
 		return mDao.login(mem);
+	}
+	@Override
+	public int ajaxEmailCheck(@Email String email) {
+		// TODO Auto-generated method stub
+		return mDao.ajaxEmailCheck(email);
 	}
 
 }
