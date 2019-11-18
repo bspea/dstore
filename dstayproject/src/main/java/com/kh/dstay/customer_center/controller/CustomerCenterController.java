@@ -18,7 +18,12 @@ public class CustomerCenterController {
 	}
 	
 	@RequestMapping("goToFrequencyQuestion1All.do")
-	public String frequencyQuestion() {
+	public String frequencyQuestion1() {
 		return "3_han/frequency_question_1_all";
+	}
+	
+	@RequestMapping("goToFrequencyQuestion2Delivery.do")
+	public String frequencyQuestion2() {
+		return "3_han/frequency_question_2_delivery";
 	}
 }

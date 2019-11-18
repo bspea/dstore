@@ -142,3 +142,12 @@ ul {
     display:none;
 }
 
+.modal-backdrop.in{
+	opacity:0;
+}
+
+
+.modal-dialog {
+    width: 600px;
+    margin: 150px auto 0 auto !important;
+}

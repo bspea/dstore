@@ -35,29 +35,18 @@
     <!-- 한도빈 Custom js -->
     <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/3_han/frequncy-question.js"></script>
         
-    <style>
-		.modal-backdrop.in{
-			opacity:0;
-		}
-		
-		
-		.modal-dialog {
-			
-		    width: 600px;
-		    margin: 150px auto 0 auto !important;
-		}
-    </style>
+
 </head>
 <body>
 	<%@ include file="../1_common/menubar.jsp" %>
 	
-    <div class="container-fluid" id="frequency-container" style="padding-bottom: 50px; padding-top: 20px;">
+    <div class="container-fluid" style="padding-bottom: 50px; padding-top: 20px;">
         <div class="row">
             <div class="col-md-2">
                 <ul class="nav nav-pills nav-stacked left-side-nav-stacked">
                     <li role="presentation" id="center-logo"><p>고객센터</p></li>
                     <li class="notice" role="presentation"><a href="notice.html">공지사항</a></li>
-                    <li role="presentation"><a href="frequency-question-1-all.html">자주 묻는 질문</a></li>
+                    <li role="presentation"><a href="goToFrequencyQuestion1All.do">자주 묻는 질문</a></li>
                     <li role="presentation"><a href="suggestion.html">제안하기</a></li>
                     <li role="presentation"><a href="#">나의 정보 조회</a></li>
                     <!--<li role="presentation"><a href="#">Frequently Asked Questions</a></li>-->
@@ -77,8 +66,8 @@
                 <!--frequency-question-menu 자주 묻는 질문 nav 시작-->
                 <div class="container-fluid frequency-question-menu hidden-xs">
                     <ul class="nav navbar-nav">
-                        <li><a href="frequency-question-1-all.html">전체</a></li>
-                        <li><a href="frequency-question-2-delivery.html">배송문의</a> </li>
+                        <li><a href="goToFrequencyQuestion1All.do">전체</a></li>
+                        <li><a href="goToFrequencyQuestion2Delivery.do">배송문의</a> </li>
                         <li><a href="frequency-question-3-return.html">반품/교환/환불</a></li>
                         <li><a href="frequency-question-4-order-and-payment.html">주문/결제</a></li>
                         <li><a href="frequency-question-5-member.html">회원서비스</a></li>
