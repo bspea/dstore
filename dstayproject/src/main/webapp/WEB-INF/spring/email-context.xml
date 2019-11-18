@@ -5,7 +5,17 @@
 
 
 	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl" id="javaMailSender">
-	
+		<property name="host" value="smtp.gmail.com"></property>
+		<property name="port" value="587"/>
+		<property name="defaultEncoding" value="utf-8"/>
+		<property name="username" value="dstay20191205@gmail.com"/>
+		<property name="password" value="dstayProject"/>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+			</props>
+		</property>
+		
 	
 	</bean>
 </beans>
