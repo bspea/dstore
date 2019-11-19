@@ -11,7 +11,10 @@
 </head>
 <body>
 
-	<jsp:include page="adminMain.do"/>
-
+<script>
+	$(function() {
+		location.href="home.do";
+	});
+</script>
 </body>
 </html>

@@ -26,7 +26,7 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		
 		
-		return "4_jong/mainPage";
+		return "5_kim/common/dashboard";
 	}
 	
 }

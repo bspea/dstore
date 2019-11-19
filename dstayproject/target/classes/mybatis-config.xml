@@ -7,15 +7,16 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
-<!--
-	<typeAliases>
-		<typeAlias type="com.kh.spring.member.model.vo.Member" alias="Member"/>
-	</typeAliases>
--->
 
-<!-- 
+
+	<typeAliases>
+		<typeAlias type="com.kh.dstay.product.model.vo.Product" alias="Product"/>
+		<typeAlias type="com.kh.dstay.product.model.vo.Ingredient" alias="Ingredient"/>
+		<typeAlias type="com.kh.dstay.product.model.vo.ProductImage" alias="ProductImage"/>
+	</typeAliases>
+
 	<mappers>
-		<mapper resource="mappers/member-mapper.xml"/>
+		<mapper resource="mappers/5_kim/product-mapper.xml"/>
 	</mappers>
--->
+
 </configuration>

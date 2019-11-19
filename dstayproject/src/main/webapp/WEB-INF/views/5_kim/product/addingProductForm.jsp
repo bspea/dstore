@@ -14,9 +14,7 @@
 
   <title>D-Store:Admin</title>
 
- 
-    <style>
-    
+	 <style>
     	.imgPreviewArea{
     		background:lightgray;
     		width:150px;
@@ -52,7 +50,6 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-
 <!------------------------------- 네비게이터 인클루드 ----------------------------------->
 	<jsp:include page="../common/navi-bar.jsp"/>
 
@@ -76,27 +73,22 @@
                     <div class="table-responsive">
                     <form id="fileForm" method="post" enctype="multipart/form-data">
                         <table class="table table-bordered" style="width:80%; margin-left:auto; margin-right:auto;" >
-                            <%--<tr>
-                            	<th colspan="4">
-                            		본문이미지 추가 : &nbsp; &nbsp; &nbsp; 
-                            		<input type="file" name="contentImg" id="imgfilein0">
-                            	</th>
-                            </tr>--%>
                             <tr>
-                                <td class="thumbnailImgs">
+                                <td colspan="4" class="thumbnailImgs">
                                 	<input multiple="true" type="file" name="thumbs" id="imgfilein">
                                 </td>
-                                
                             </tr>
                             
                             <tr>
                                 <th colspan="2">물품이름</th>
                                 <td colspan="2" style="padding:0;"><input type="text" name="name" placeholder="물품명" style="width:100%; height:50px;"></textarea></td>
                             </tr>
+                            
                             <tr>
                                 <th colspan="2">가격</th>
-                                <td colspan="2" style="padding:0;"><input type="text" name="price" placeholder="가격" style="width:100%; height:50px;"></td>
+                                <td colspan="2" style="padding:0;"><input type="number" name="price" placeholder="가격" style="width:100%; height:50px;" min="0"></td>
                             </tr>
+                            
                             <tr>
                                 <th colspan="2">카테고리</th>
                                 <td colspan="2" style="padding:0;">
@@ -107,24 +99,33 @@
                                 	</select>
                                 </td>
                             </tr>
+                            
                             <tr>
                                 <th colspan="2">칼로리</th>
                                 <td colspan="2" style="padding:0;"><input type="text" name="calories" placeholder="칼로리" style="width:80%; height:50px;"> &nbsp; kcal</td>
                             </tr>
+                            
                             <tr>
                                 <th colspan="2">성분</th>
                                 <td colspan="2">
-                                	<input type="checkbox" name="ingredients" id="ingreChicken" value="chicken"> <label for="ingreChicken">닭고기</label> &nbsp; &nbsp;  
-                                	<input type="checkbox" name="ingredients" id="ingreCow" value="meat"> <label for="ingreCow">소고기</label> &nbsp; &nbsp; 
-                                	<input type="checkbox" name="ingredients" id="ingreEgg" value="egg"> <label for="ingreEgg">계란</label> &nbsp; &nbsp; 
-                                	<input type="checkbox" name="ingredients" id="ingreMilk" value="milk"> <label for="ingreMilk">유제품</label><br>
-                                	<input type="checkbox" name="ingredients" id="ingreChicken1" value="chicken_fried"> <label for="ingreChicken1">닭고기</label> &nbsp; &nbsp;  
-                                	<input type="checkbox" name="ingredients" id="ingreCow1" value="meat_row"> <label for="ingreCow1">소고기</label> &nbsp; &nbsp; 
-                                	<input type="checkbox" name="ingredients" id="ingreEgg1" value="egg_scramble"> <label for="ingreEgg1">계란</label> &nbsp; &nbsp; 
-                                	<input type="checkbox" name="ingredients" id="ingreMilk1" value="milk_yogurt"> <label for="ingreMilk1">유제품</label>
+                                	<input type="checkbox" name="ingredients" id="ingreChicken" value="1"> <label for="ingreChicken">닭고기</label> &nbsp; &nbsp;  
+                                	<input type="checkbox" name="ingredients" id="ingreCow" value="2"> <label for="ingreCow">소고기</label> &nbsp; &nbsp; 
+                                	<input type="checkbox" name="ingredients" id="ingreEgg" value="3"> <label for="ingreEgg">계란</label> &nbsp; &nbsp; 
+                                	<input type="checkbox" name="ingredients" id="ingreMilk" value="4"> <label for="ingreMilk">유제품</label><br>
+                                	<input type="checkbox" name="ingredients" id="ingreChicken1" value="5"> <label for="ingreChicken1">닭고기</label> &nbsp; &nbsp;  
+                                	<input type="checkbox" name="ingredients" id="ingreCow1" value="6"> <label for="ingreCow1">소고기</label> &nbsp; &nbsp; 
+                                	<input type="checkbox" name="ingredients" id="ingreEgg1" value="7"> <label for="ingreEgg1">계란</label> &nbsp; &nbsp; 
+                                	<input type="checkbox" name="ingredients" id="ingreMilk1" value="8"> <label for="ingreMilk1">유제품</label>
    
                                 </td>
                             </tr>
+                            
+                            <tr>
+                            	<td colspan="4">
+                            		<input type="file" name="contentImg">
+                            	</td>
+                            </tr>
+                            
                             <tr>
                                 <td colspan="4" style="padding:0px;">
                                     <textarea name="content" style="resize: none; height:100%; width:100%;" placeholder="상품간단설명"></textarea>
@@ -136,7 +137,7 @@
                        
                         <div class="btnArea" align="center">
                             <br>
-                            <button type="submit" class="btn btn-primary" id="formSave">저장</button>
+                            <button type="button" class="btn btn-primary" id="formSave">저장</button>
                         </div>
                     </form>
                     </div>
@@ -186,15 +187,6 @@
 <script>
 
 $(function(){
-	// -------------------------- 사진추가 -----------------------------
-	$("#imgfile1").click(function(){ $("#imgfilein").click(); });
-	
-	$("#imgfile2").click(function(){ $("#imgfilein2").click(); });
-	
-	$("#imgfile3").click(function(){ $("#imgfilein3").click(); });
-	
-	$("#imgfile4").click(function(){ $("#imgfilein4").click(); });
-	
 		
 	function readURL(input,num){
 		if(input.files && input.files[0]){
@@ -204,27 +196,11 @@ $(function(){
 				var imgfileN_img = imgfileN+" img"
 				$(imgfileN_img).attr('src', e.target.result);
 				$(imgfileN).css('background','white');
-			} 
+			}
 			
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
-	
-	$("#imgfilein1").change(function(){
-		readURL(this,1);
-	});
-	
-	$("#imgfilein2").change(function(){
-		readURL(this,2);
-	});
-	
-	$("#imgfilein3").change(function(){
-		readURL(this,3);
-	});
-	
-	$("#imgfilein4").change(function(){
-		readURL(this,4);
-	});
 	
 	// -------------------------- 성분리스트 추가 -----------------------------
 	$(".ingreOptions").change(function(){
@@ -245,10 +221,11 @@ $(function(){
 			processData: false, // 필수 
 			contentType: false, // 필수 
 			success: function (result) { 
-				alert("성공!!!");	
+				location.href="adminProductList.do";
 			}, 
 			error: function (e) { 
-				alert("실패..");
+				console.log("ajax 데이터 전송 실패...");
+				
 			} 
 		});
 	});

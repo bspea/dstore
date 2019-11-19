@@ -90,29 +90,7 @@
                             <th colspan="4">상품 성분</th>
                           </tr>
                           <tr>
-                            <th>나트륨</th>
-                            <td>450mg</td>
-                            <th>탄수화물</th>
-                            <td>57g</td>
-                          </tr>
-                          <tr>
-                            <th>당류</th>
-                            <td>7g</td>
-                            <th>지방</th>
-                            <td>6g</td>
-                          </tr>
-                          <tr>
-                            <th>트랜스지방</th>
-                            <td>0g</td>
-                            <th>포화지방</th>
-                            <td>0.7g</td>
-                          </tr>
-                          <tr>
-                            <th>콜레스테롤</th>
-                            <td>13mg</td>
-                            <th>단백질</th>
-                            <td>13g</td>
-
+                            <td colspan="4">닭고기, 계란, 양배추, 쌀 </td>
                           </tr>
 
                         </table>

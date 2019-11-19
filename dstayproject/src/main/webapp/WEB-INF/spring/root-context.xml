@@ -19,6 +19,7 @@
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSession">
 		<property name="configLocation" value="classpath:mybatis-config.xml"/>
 		<property name="dataSource" ref="dataSource"/>
+		
 	</bean>
 	
 	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSessionTemplate">
@@ -33,4 +34,6 @@
 		<!-- 배포용이 아닌, 포트폴리오용 프로젝트이기 때문에 업로드의 사이즈를 제한 없게 설정합니다. -->
 		<!-- 배포용이라고 가정한다면, 파일당 업로드제한 3메가 최대 업로드제한 10메가로 지정합니다. -->
 	</bean>
+
+	
 </beans>
