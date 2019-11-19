@@ -11,6 +11,7 @@ import com.kh.dstay.member.model.vo.Member;
 @Service
 public class MemberServiceImpl implements MemberService{
 
+	// 박현정
 	@Autowired
 	private MemberDao mDao;
 	@Override

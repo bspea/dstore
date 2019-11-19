@@ -143,12 +143,12 @@
                         </div>
                         <div class="clearfix maya-small-padding"></div> -->
 
-                        <form>
+                        <form action="verifyEmail.do" method="post">
                            <!-- <div class="form-group">
                                 <input type="text" class="form-control" id="fullname" placeholder="이름" required>
                             </div> --> 
                             <div class="form-group" >
-                                <input type="email" class="form-control" id="ajaxEmail" placeholder="이메일(예:user01@dstay.com)" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required >
+                                <input type="email" class="form-control" id="ajaxEmail" placeholder="이메일(예:user01@dstay.com)" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" name = "email" required >
                                 <span class="helvetica-12 guide ok" >사용가능한 이메일 입니다</span>
                                 <span class="helvetica-12 guide ng" >이메일 형식에 맞춰 입력해 주세요</span>
                                 <input type="hidden" id="hiddenCheck" value="0"><br>
@@ -157,10 +157,10 @@
                                 <button type="submit" onclick="return validateEmail()" class="btn btn-outline-primary" id="validatebtn" disabled>인증받기</button>
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호" required>
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호" >
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" id="exampleInputPassword2" placeholder="비밀번호확인" required>
+                                <input type="password" class="form-control" id="exampleInputPassword2" placeholder="비밀번호확인">
                             </div>
 <!--                             <div class="form-group">
                                 <input type="tel" class="form-control" id="mobilenumber" placeholder="휴대폰 번호" required>
@@ -216,7 +216,7 @@
 <script>
 	$(document).ready(function() {
 		$("#ajaxEmail").on("keyup",function() {
-			var reg = new RegExp("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$");
+			var reg = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 			var check = $(this).val();
 			if(check == "" || !reg.test(check)) {
 				$(".ok").hide();
@@ -250,10 +250,11 @@
 						/* $(".ok").show();
 						$(".ng").hide(); */
 						$("#hiddenCheck").val(1);
-						//$("#validatebtn").attr("disabled","false");
+						$("#validatebtn").attr("disabled",false);
 						
 					}else {
 						$("#hiddenCheck").val(0);
+						$("#validatebtn").attr("disabled",true);
 						/* $(".ok").hide();
 						$(".ng").show(); */
 						
@@ -273,10 +274,10 @@
 				
 			function validateEmail() {
 				if($("#hiddenCheck").val() == 1) {
-					$("#validatebtn").attr("disabled","false");
+					//$("#validatebtn").attr("disabled",false);
 					return true;
 				}else {
-					$("#validatebtn").attr("disabled","true");
+					//$("#validatebtn").attr("disabled",true);
 					alert("올바른 이메일 형식으로 입력해 주세요");
 					$("#ajaxEmail").focus();
 					return false;

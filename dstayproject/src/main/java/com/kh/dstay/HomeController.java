@@ -2,6 +2,7 @@ package com.kh.dstay;
 
 import java.util.Locale;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Email;
 
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.dstay.member.model.service.MemberService;
 import com.kh.dstay.member.model.vo.Member;
+import com.kh.dstay.util.model.service.UtilService;
 
 /**
  * Handles requests for the application home page.
@@ -30,6 +32,9 @@ public class HomeController {
 	private MemberService mService;
 	@Autowired
 	private Validator validator;
+	@Autowired
+	private UtilService uService;
+	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	/**
@@ -85,12 +90,22 @@ public class HomeController {
 	}
 	@RequestMapping("ajaxDuplicateCheck.do")@ResponseBody
 	public String ajaxDuplicateCheck(@RequestParam("checkEmail")@Email String email) {
-		logger.info(email);
+		//logger.info(email);
 		int result = mService.ajaxDuplicateCheck(email);
 		if(result>0) {
 			return "unavailable";
 		}else {
 			return "available";
+		}
+	}
+	@RequestMapping("verifyEmail.do")
+	public void verifyEmail(HttpSession session, @RequestParam("email")@Email String email) throws MessagingException {
+		
+		int random = (int)Math.random() *10000 +1;
+		session.setAttribute("randome", random);
+		boolean result = uService.verifyEmail(email, random);
+		if(result) {
+			logger.info("success");
 		}
 	}
 }
