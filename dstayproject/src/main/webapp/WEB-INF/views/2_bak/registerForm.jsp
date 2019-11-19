@@ -110,7 +110,7 @@
 }
 .p-3 {padding: 5px;}
 .guide{display:none;}.ok{color:green;}.ng{color:red;}
-
+.hiddenNumber{display:none;}
 
     /* 테스트용 CSS */
     </style>
@@ -143,7 +143,7 @@
                         </div>
                         <div class="clearfix maya-small-padding"></div> -->
 
-                        <form action="verifyEmail.do" method="post">
+                        <form action="" method="post">
                            <!-- <div class="form-group">
                                 <input type="text" class="form-control" id="fullname" placeholder="이름" required>
                             </div> --> 
@@ -154,7 +154,11 @@
                                 <input type="hidden" id="hiddenCheck" value="0"><br>
                                 <span class="text-gray-2 helvetica-12" align="center">이메일 내용을 확인한 후 인증하셔야 회원가입이 완료됩니다</span>
                                 <div class="clearfix maya-tiny-padding"></div>
-                                <button type="submit" onclick="return validateEmail()" class="btn btn-outline-primary" id="validatebtn" disabled>인증받기</button>
+                                <button type="button" onclick="validateEmail()" class="btn btn-outline-primary" id="validatebtn" disabled>인증받기</button>
+                            </div>
+                            <div class="form-group hiddenNumber">
+                                <input type="text" class="form-control" id="exampleInputPassword" placeholder="인증번호를 입력해주세요">
+                                <button type="button" onclick="" class="btn btn-outline-primary" >확인</button>
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호" >
@@ -275,12 +279,23 @@
 			function validateEmail() {
 				if($("#hiddenCheck").val() == 1) {
 					//$("#validatebtn").attr("disabled",false);
-					return true;
+					$.ajax({
+						url:"ajaxVerifyEmail.do",
+						method:"post",
+						data:{email:$("#ajaxEmail").val()},
+						error:function() {
+							console.log("disconnected")
+						},
+						success:function(random) {
+							$(".hiddenNumber").show();
+						}
+						})
+						
 				}else {
 					//$("#validatebtn").attr("disabled",true);
 					alert("올바른 이메일 형식으로 입력해 주세요");
 					$("#ajaxEmail").focus();
-					return false;
+					
 				}
 			}
 				

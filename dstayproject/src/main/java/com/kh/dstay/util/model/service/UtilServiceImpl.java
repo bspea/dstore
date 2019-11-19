@@ -17,7 +17,7 @@ public class UtilServiceImpl implements UtilService{
 	private JavaMailSenderImpl javaMailSender;
 
 	@Override
-	public boolean verifyEmail(@Email String email, int random) throws MessagingException {
+	public boolean ajaxVerifyEmail(@Email String email, int random) throws MessagingException {
 		// TODO Auto-generated method stub
 		MimeMessage mMessage = javaMailSender.createMimeMessage();
 		/*
@@ -28,7 +28,7 @@ public class UtilServiceImpl implements UtilService{
 			      MimeMessageHelper message = new MimeMessageHelper(mMessage, true, "UTF-8");
 			      message.setFrom("dstay20191205@gmail.com");
 			     message.setTo(email);
-			     message.setSubject("my subject");
+			     message.setSubject("이메일 인증용 메일 입니다");
 			      message.setText(String.valueOf(random), true);
 			     // message.addInline("myLogo", new ClassPathResource("img/mylogo.gif"));
 			     // message.addAttachment("myDocument.pdf", new ClassPathResource("doc/myDocument.pdf");

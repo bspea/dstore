@@ -98,14 +98,16 @@ public class HomeController {
 			return "available";
 		}
 	}
-	@RequestMapping("verifyEmail.do")
-	public void verifyEmail(HttpSession session, @RequestParam("email")@Email String email) throws MessagingException {
+	@RequestMapping("ajaxVerifyEmail.do")@ResponseBody
+	public String ajaxVerifyEmail(HttpSession session, @RequestParam("email")@Email String email) throws MessagingException {
 		
-		int random = (int)Math.random() *10000 +1;
+		int random = (int)Math.random();
 		session.setAttribute("randome", random);
-		boolean result = uService.verifyEmail(email, random);
+		boolean result = uService.ajaxVerifyEmail(email, random);
 		if(result) {
-			logger.info("success");
+			return "success";
+		}else {
+			return "fail";
 		}
 	}
 }
