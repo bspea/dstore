@@ -108,10 +108,8 @@
         text-align: left;
         vertical-align: middle;
 }
-.p-3 {
-  padding: 5px;
-}
-.guide{display:none;}.ok{color:green;text-align:center;}.ng{color:red;text-align:center;}
+.p-3 {padding: 5px;}
+.guide{display:none;}.ok{color:green;}.ng{color:red;}
 
 
     /* 테스트용 CSS */
@@ -150,13 +148,13 @@
                                 <input type="text" class="form-control" id="fullname" placeholder="이름" required>
                             </div> --> 
                             <div class="form-group" >
-                                <input type="email" class="form-control" id="ajaxEmail" placeholder="이메일" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required >
-                                <span class="helvetica-12 guide ok" >사용가능</span>
-                                <span class="helvetica-12 guide ng" >사용불가능</span>
-                                <input type="hidden" id="hiddenCheck" value="0">
+                                <input type="email" class="form-control" id="ajaxEmail" placeholder="이메일(예:user01@dstay.com)" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required >
+                                <span class="helvetica-12 guide ok" >사용가능한 이메일 입니다</span>
+                                <span class="helvetica-12 guide ng" >이메일 형식에 맞춰 입력해 주세요</span>
+                                <input type="hidden" id="hiddenCheck" value="0"><br>
                                 <span class="text-gray-2 helvetica-12" align="center">이메일 내용을 확인한 후 인증하셔야 회원가입이 완료됩니다</span>
                                 <div class="clearfix maya-tiny-padding"></div>
-                                <button type="button" class="btn btn-outline-primary" id="verifybtn" disabled>인증받기</button>
+                                <button type="submit" onclick="return validateEmail()" class="btn btn-outline-primary" id="validatebtn" disabled>인증받기</button>
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호" required>
@@ -178,7 +176,7 @@
                                 </label>
                             </div>  -->
                             
-                            <button type="submit" class="btn btn-block button-green-free btn-lg" >가입하기</button>
+                            <button type="submit" class="btn btn-block button-green-free btn-lg" id="submitbtn" disabled>가입하기</button>
                         </form>
                         <div class="clearfix maya-tiny-padding"></div>
                         <p class="text-center">회원이신가요 &nbsp; <a href="loginForm.do" class="text-secondary">&nbsp;로그인</a></p>
@@ -218,35 +216,73 @@
 <script>
 	$(document).ready(function() {
 		$("#ajaxEmail").on("keyup",function() {
-			checkEmail();
+			var reg = new RegExp("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$");
+			var check = $(this).val();
+			if(check == "" || !reg.test(check)) {
+				$(".ok").hide();
+				$(".ng").show();
+				//$(".guide").hide();
+				$("#hiddenCheck").val(0);
+			}else if(reg.test(check)){
+			    $(".ng").hide();
+				$(".ok").show(); 
+				duplicateCheck();
+			}
 		})
 	})
-		function checkEmail() {
-		var reg = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$";
-		$.ajaxPrefilter(function ($("#ajaxEmail").val(),) {
-			if(reg.test($(this))) {
+		function duplicateCheck() {
+		//var reg = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$";
+		//$.ajaxPrefilter(function() {
+			//if(reg.test($("#ajaxEmail").val())) {
+					//console.log(reg.test($("ajaxEmail")));	
+					
 				
-			}
-		})
-		$.ajax({
-			url:"ajaxEmailCheck.do",
-			method:"post",
-			data:{checkEmail:$("#ajaxEmail").val()},
-			error:function() {
-				console.log("disconnected")
-			},
-			success:function(string) {
-				if(string == "absent") {
-					$(".ok").show();
-					$(".ng").hide();
-					$("#hiddenCheck").val(1);
-					$("#verifybtn").attr("disabled","false");
+				$.ajax({
+				url:"ajaxDuplicateCheck.do",
+				method:"post",
+				data:{checkEmail:$("#ajaxEmail").val()},
+				error:function() {
+					console.log("disconnected")
+				},
+				success:function(string) {
+					console.log("ongoing");
+					if(string == "available") {
+						/* $(".ok").show();
+						$(".ng").hide(); */
+						$("#hiddenCheck").val(1);
+						//$("#validatebtn").attr("disabled","false");
+						
+					}else {
+						$("#hiddenCheck").val(0);
+						/* $(".ok").hide();
+						$(".ng").show(); */
+						
+					}
+				}
+			})
+		}
+			/* function validateEmail() {
+				var reg = new RegExp("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$");
+				var check = $("#ajaxEmail").val();
+				if(check == "" || reg.test(check)) {
+					duplicateCheck();
 				}else {
-					$("#hiddenCheck").val(0);
+					alert("올바른 이메일 형식으로 입력해주세요");
+					}
+				} */
+				
+			function validateEmail() {
+				if($("#hiddenCheck").val() == 1) {
+					$("#validatebtn").attr("disabled","false");
+					return true;
+				}else {
+					$("#validatebtn").attr("disabled","true");
+					alert("올바른 이메일 형식으로 입력해 주세요");
+					$("#ajaxEmail").focus();
+					return false;
 				}
 			}
-		})
-	}
+				
 </script>
 </body>
 </html>

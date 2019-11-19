@@ -19,9 +19,9 @@ public class MemberServiceImpl implements MemberService{
 		return mDao.login(mem);
 	}
 	@Override
-	public int ajaxEmailCheck(@Email String email) {
+	public int ajaxDuplicateCheck(@Email String email) {
 		// TODO Auto-generated method stub
-		return mDao.ajaxEmailCheck(email);
+		return mDao.ajaxDuplicateCheck(email);
 	}
 
 }

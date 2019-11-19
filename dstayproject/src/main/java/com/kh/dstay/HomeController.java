@@ -83,13 +83,14 @@ public class HomeController {
 	public String resetPasswordForm() {
 		return "2_bak/resetPasswordForm";
 	}
-	@RequestMapping("ajaxEmailCheck.do")@ResponseBody
-	public String ajaxEmailCheck(@RequestParam("checkEmail")@Email String email) {
-		int result = mService.ajaxEmailCheck(email);
+	@RequestMapping("ajaxDuplicateCheck.do")@ResponseBody
+	public String ajaxDuplicateCheck(@RequestParam("checkEmail")@Email String email) {
+		logger.info(email);
+		int result = mService.ajaxDuplicateCheck(email);
 		if(result>0) {
-			return "present";
+			return "unavailable";
 		}else {
-			return "absent";
+			return "available";
 		}
 	}
 }

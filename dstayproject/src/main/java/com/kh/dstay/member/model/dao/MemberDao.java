@@ -19,9 +19,9 @@ public class MemberDao {
 		return sqlSession.selectOne("bakMapper.login",mem);
 	}
 
-	public int ajaxEmailCheck(@Email String email) {
+	public int ajaxDuplicateCheck(@Email String email) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("bakMapper.ajaxEmailCheck",email);
+		return sqlSession.selectOne("bakMapper.ajaxDuplicateCheck",email);
 	}
 	
 	

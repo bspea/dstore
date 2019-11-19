@@ -20,7 +20,7 @@
 	where email=#{email} and status='Y'
 </select>
  
- <select id="ajaxEmailCheck" resultType="_int">
+ <select id="ajaxDuplicateCheck" resultType="_int">
  	select count(*)
  	from member
  	where email=#{email}

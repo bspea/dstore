@@ -8,6 +8,6 @@ public interface MemberService {
 	//로그인용 서비스
 	Member login(Member mem);
 	//이메일 중복체크용 서비스
-	int ajaxEmailCheck(@Email String email);
+	int ajaxDuplicateCheck(@Email String email);
 
 }
