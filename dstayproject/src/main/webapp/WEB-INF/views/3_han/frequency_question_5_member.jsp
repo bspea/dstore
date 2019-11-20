@@ -78,7 +78,7 @@
                 <!--frequency-question-menu end 자주 묻는 nav 질문 끝-->
 
                 <section class="edit-channel-form">
-                    <h2 class="title less-margin">자주 묻는 질문 - 전체</h2>
+                    <h2 class="title less-margin">자주 묻는 질문 - 회원서비스</h2>
 
                     <!--table-->
                     <div class="row">

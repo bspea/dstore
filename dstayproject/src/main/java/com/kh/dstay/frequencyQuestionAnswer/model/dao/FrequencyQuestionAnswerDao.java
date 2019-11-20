@@ -27,4 +27,39 @@ public class FrequencyQuestionAnswerDao {
 		
 		return list;
 	}
+
+	public ArrayList<FrequencyQuestionAnswer> selectFQAListRefund() {
+		
+		ArrayList<FrequencyQuestionAnswer> list = (ArrayList)sqlSession.selectList("frequencyQuestionAnswerMapper.selectFQAListRefund");
+		
+		return list;
+	}
+
+	public ArrayList<FrequencyQuestionAnswer> selectFQAListOrder() {
+		
+		ArrayList<FrequencyQuestionAnswer> list = (ArrayList)sqlSession.selectList("frequencyQuestionAnswerMapper.selectFQAListOrder");
+		
+		return list;
+	}
+
+	public ArrayList<FrequencyQuestionAnswer> selectFQAListMember() {
+		
+		ArrayList<FrequencyQuestionAnswer> list = (ArrayList)sqlSession.selectList("frequencyQuestionAnswerMapper.selectFQAListMember");
+		
+		return list;
+	}
+
+	public ArrayList<FrequencyQuestionAnswer> selectFQAListReward() {
+		
+		ArrayList<FrequencyQuestionAnswer> list = (ArrayList)sqlSession.selectList("frequencyQuestionAnswerMapper.selectFQAListReward");
+		
+		return list;
+	}
+
+	public ArrayList<FrequencyQuestionAnswer> selectFQAListOther() {
+		
+		ArrayList<FrequencyQuestionAnswer> list = (ArrayList)sqlSession.selectList("frequencyQuestionAnswerMapper.selectFQAListOther");
+		
+		return list;
+	}
 }

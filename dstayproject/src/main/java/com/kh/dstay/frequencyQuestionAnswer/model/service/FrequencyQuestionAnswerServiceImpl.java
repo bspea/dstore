@@ -24,5 +24,30 @@ public class FrequencyQuestionAnswerServiceImpl implements FrequencyQuestionAnsw
 		return fqaDao.selectFQAListDelivery();
 	}
 
+	@Override
+	public ArrayList<FrequencyQuestionAnswer> selectFQAListRefund() {
+		return fqaDao.selectFQAListRefund();
+	}
+
+	@Override
+	public ArrayList<FrequencyQuestionAnswer> selectFQAListOrder() {
+		return fqaDao.selectFQAListOrder();
+	}
+
+	@Override
+	public ArrayList<FrequencyQuestionAnswer> selectFQAListMember() {
+		return fqaDao.selectFQAListMember();
+	}
+
+	@Override
+	public ArrayList<FrequencyQuestionAnswer> selectFQAListReward() {
+		return fqaDao.selectFQAListReward();
+	}
+
+	@Override
+	public ArrayList<FrequencyQuestionAnswer> selectFQAListOther() {
+		return fqaDao.selectFQAListOther();
+	}
+
 
 }

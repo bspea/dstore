@@ -101,7 +101,7 @@
                                     <table id="frequency-question-table" class="table table-hover table-header-gray">
                                         <tr>
                                             <th width="5%" class="text-center">구분</th>
-                                            <th width="10%" class="text-center">대분류</th>
+                                            <th width="15%" class="text-center">대분류</th>
                                             <th width="15%" class="text-center">중소분류</th>
                                             <th colspan="5">질문 내용</th>
                                         </tr>

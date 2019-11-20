@@ -10,6 +10,16 @@ public interface FrequencyQuestionAnswerService {
 	ArrayList<FrequencyQuestionAnswer> selectFQAListAll();
 
 	ArrayList<FrequencyQuestionAnswer> selectFQAListDelivery();
+
+	ArrayList<FrequencyQuestionAnswer> selectFQAListRefund();
+
+	ArrayList<FrequencyQuestionAnswer> selectFQAListOrder();
+
+	ArrayList<FrequencyQuestionAnswer> selectFQAListMember();
+
+	ArrayList<FrequencyQuestionAnswer> selectFQAListReward();
+
+	ArrayList<FrequencyQuestionAnswer> selectFQAListOther();
 	
 	
 }
