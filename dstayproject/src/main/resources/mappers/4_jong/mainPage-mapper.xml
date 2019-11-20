@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mainPageMapper">
+
+	<resultMap id="productResultSet" type="Product">
+		<id property="id" column="bid"/>
+		<result property="no" column="pNo"/>
+		<result property="categoryNo" column="pcNo"/>
+		<result property="name" column="pName"/>
+		<result property="price" column="price"/>
+		<result property="contents" column="pContents"/>
+		<result property="enrollDate" column="pEnrollDate"/>
+		<result property="calorie" column="calorie"/>
+		<result property="status" column="pStatus"/>
+		<result property="path" column="piPath"/>
+	</resultMap>
+	
+	
+	<select id="selectProduct" resultMap="productResultSet">
+		select Product.*, piPath
+		from Product
+		INNER JOIN PRODUCT_IMAGE on (Product.pNo=PRODUCT_IMAGE.pNo)
+	</select>
+	
+</mapper>
