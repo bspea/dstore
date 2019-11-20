@@ -15,8 +15,13 @@ public class FrequencyQuestionAnswerServiceImpl implements FrequencyQuestionAnsw
 	private FrequencyQuestionAnswerDao fqaDao;
 
 	@Override
-	public ArrayList<FrequencyQuestionAnswer> selectList() {
-		return fqaDao.selectList();
+	public ArrayList<FrequencyQuestionAnswer> selectFQAListAll() {
+		return fqaDao.selectFQAListAll();
+	}
+
+	@Override
+	public ArrayList<FrequencyQuestionAnswer> selectFQAListDelivery() {
+		return fqaDao.selectFQAListDelivery();
 	}
 
 

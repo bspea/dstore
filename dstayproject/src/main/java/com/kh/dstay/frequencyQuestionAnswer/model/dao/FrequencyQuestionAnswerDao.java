@@ -14,9 +14,16 @@ public class FrequencyQuestionAnswerDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public ArrayList<FrequencyQuestionAnswer> selectList() {
+	public ArrayList<FrequencyQuestionAnswer> selectFQAListAll() {
 		
-		ArrayList<FrequencyQuestionAnswer> list = (ArrayList)sqlSession.selectList("frequencyQuestionAnswerMapper.selectFQAList");
+		ArrayList<FrequencyQuestionAnswer> list = (ArrayList)sqlSession.selectList("frequencyQuestionAnswerMapper.selectFQAListAll");
+		
+		return list;
+	}
+
+	public ArrayList<FrequencyQuestionAnswer> selectFQAListDelivery() {
+		
+		ArrayList<FrequencyQuestionAnswer> list = (ArrayList)sqlSession.selectList("frequencyQuestionAnswerMapper.selectFQAListDelivery");
 		
 		return list;
 	}

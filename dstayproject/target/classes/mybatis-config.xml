@@ -13,9 +13,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	</typeAliases>
 -->
 
-<!-- 
+ 
 	<mappers>
-		<mapper resource="mappers/member-mapper.xml"/>
+		<mapper resource="mappers/3_han/frequencyQuestionAnswerMapper.xml"/>
 	</mappers>
--->
+
 </configuration>

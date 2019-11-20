@@ -17,23 +17,29 @@ public class FrequencyQuestionAnswerController {
 	
 	@Autowired
 	private FrequencyQuestionAnswerService fqaService;
-	
-	@RequestMapping("customerCenter.do")
-	public String customerCenter() {
-		return "3_han/customer_center_main";
-	}
+
 	
 
 	
-	@RequestMapping("fqaList.do")
-	public ModelAndView FrequencyQuestionAnswerList(ModelAndView mv) {
+	@RequestMapping("fqaList-all.do")
+	public ModelAndView frequencyQuestionAnswerListAll(ModelAndView mv) {
 		
-		ArrayList<FrequencyQuestionAnswer> list = fqaService.selectList();
-		
-		System.out.println(list);
+		ArrayList<FrequencyQuestionAnswer> list = fqaService.selectFQAListAll();
 		
 		mv.addObject("list", list).setViewName("3_han/frequency_question_1_all");
 		
 		return mv;
 	}
+	
+	@RequestMapping("fqaList-delivery.do")
+	public ModelAndView frequencyQuestionAnswerListDelivery(ModelAndView mv) {
+		
+		ArrayList<FrequencyQuestionAnswer> list = fqaService.selectFQAListDelivery();
+		
+		mv.addObject("list", list).setViewName("3_han/frequency_question_2_delivery");
+		
+		return mv;
+	}
+	
+	
 }

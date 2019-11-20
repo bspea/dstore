@@ -45,10 +45,10 @@
             <div class="col-md-2">
                 <ul class="nav nav-pills nav-stacked left-side-nav-stacked">
                     <li role="presentation" id="center-logo"><p>고객센터</p></li>
-                    <li class="notice" role="presentation"><a href="notice.html">공지사항</a></li>
-                    <li role="presentation"><a href="goToFrequencyQuestion1All.do">자주 묻는 질문</a></li>
-                    <li role="presentation"><a href="suggestion.html">제안하기</a></li>
-                    <li role="presentation"><a href="#">나의 정보 조회</a></li>
+                    <li class="notice" role="presentation"><a href="noticeList.do">공지사항</a></li>
+                    <li role="presentation"><a href="fqaList.do">자주 묻는 질문</a></li>
+                    <li role="presentation"><a href="suggestion.do">제안하기</a></li>
+                    <li role="presentation"><a href="inquireMyInfo.do">나의 정보 조회</a></li>
                     <!--<li role="presentation"><a href="#">Frequently Asked Questions</a></li>-->
                 </ul>
 
@@ -66,13 +66,13 @@
                 <!--frequency-question-menu 자주 묻는 질문 nav 시작-->
                 <div class="container-fluid frequency-question-menu hidden-xs">
                     <ul class="nav navbar-nav">
-                        <li><a href="goToFrequencyQuestion1All.do">전체</a></li>
-                        <li><a href="goToFrequencyQuestion2Delivery.do">배송문의</a> </li>
-                        <li><a href="frequency-question-3-return.html">반품/교환/환불</a></li>
-                        <li><a href="frequency-question-4-order-and-payment.html">주문/결제</a></li>
-                        <li><a href="frequency-question-5-member.html">회원서비스</a></li>
-                        <li><a href="frequency-question-6-reward.html">보상제도</a></li>
-                        <li><a href="frequency-question-7-other.html">기타</a></li>
+                        <li><a href="fqaList-all.do">전체</a></li>
+                        <li><a href="fqaList-delivery.do">배송문의</a> </li>
+                        <li><a href="fqaList-refund.do">반품/교환/환불</a></li>
+                        <li><a href="fqaList-order.do">주문/결제</a></li>
+                        <li><a href="fqaList-member.do">회원서비스</a></li>
+                        <li><a href="fqaList-reward.do">보상제도</a></li>
+                        <li><a href="fqaList-other.do">기타</a></li>
                     </ul>
                 </div>
                 <!--frequency-question-menu end 자주 묻는 nav 질문 끝-->
@@ -100,101 +100,19 @@
                                 <div class="box-body table-responsive no-padding">
                                     <table id="frequency-question-table" class="table table-hover table-header-gray">
                                         <tr>
-                                            <th>구분</th>
+                                            <th width="5%" class="text-center">구분</th>
+                                            <th width="10%" class="text-center">대분류</th>
+                                            <th width="15%" class="text-center">중소분류</th>
                                             <th colspan="5">질문 내용</th>
                                         </tr>
+                                        <c:forEach items="${ list }" var="fqaList">
                                         <tr>
-                                            <td>Q</td>
-                                            <td class="frequency-question" colspan="5" data-toggle="modal"
-                                                data-target="#fq1">[배송일정] 휴일에 상품을 받을 수 있나요?</td>
+                                            <td class="text-center">Q</td>
+                                            <td class="text-center">${ fqaList.category }</td>
+                                            <td class="text-center">${ fqaList.division }</td>
+                                            <td class="frequency-question" colspan="5" data-toggle="modal" data-target="#fq${ fqaList.fqaNo }">${ fqaList.QTitle }</td>
                                         </tr>
-                                        <tr>
-                                            <td>Q</td>
-                                            <td class="frequency-question" colspan="5" data-toggle="modal"
-                                                data-target="#fq2">[배송일정] 주문한 상품의 배송조회가 안됩니다.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Q</td>
-                                            <td class="frequency-question" colspan="5" data-toggle="modal"
-                                                data-target="#orderDetail">[분리배송] 여러 상품을 한 번에 주문했는데, 왜 배송이 따로따로 되는건가요?
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Q</td>
-                                            <td class="frequency-question" colspan="5" data-toggle="modal"
-                                                data-target="#orderDetail">[배송] 상품을 이미 받았는데 발송되었다는 문자메시지가 왔습니다. 왜 그런가요?
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Q</td>
-                                            <td class="frequency-question" colspan="5" data-toggle="modal"
-                                                data-target="#orderDetail">[배송일정] 배송 날짜와 시간을 지정할 수 있나요?</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Q</td>
-                                            <td class="frequency-question" colspan="5" data-toggle="modal"
-                                                data-target="#orderDetail">[배송완료미수령] 주문한 상품을 받지 못했는데 배송완료로 확인됩니다.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Q</td>
-                                            <td class="frequency-question" colspan="5" data-toggle="modal"
-                                                data-target="#orderDetail">[배송일정] 주문한 상품의 배송상태가 계속 상품준비중으로 표시됩니다.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Q</td>
-                                            <td class="frequency-question" colspan="5" data-toggle="modal"
-                                                data-target="#orderDetail">[상품파손] 배송 받은 상품이 파손되었을 경우 어떻게 해야 하나요?</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Q</td>
-                                            <td class="frequency-question" colspan="5" data-toggle="modal"
-                                                data-target="#orderDetail">[배송일정] 배송중인 상품의 위치를 알고 싶어요.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Q</td>
-                                            <td class="frequency-question" colspan="5" data-toggle="modal"
-                                                data-target="#orderDetail">[배송일정] 주문한 상품은 언제 배송되나요?</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Q</td>
-                                            <td class="frequency-question" colspan="5" data-toggle="modal"
-                                                data-target="#orderDetail">[배송지] 주문 후 결제까지 완료했는데 배송지를 변경하고 싶어요.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Q</td>
-                                            <td class="frequency-question" colspan="5" data-toggle="modal"
-                                                data-target="#orderDetail">[배송일정] 운송장 번호로 배송조회를 했는데 배송정보가 없다고 나와요.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Q</td>
-                                            <td class="frequency-question" colspan="5" data-toggle="modal"
-                                                data-target="#orderDetail">[해외 수령] 주문한 상품을 해외로 배송할 수 있나요?</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Q</td>
-                                            <td class="frequency-question" colspan="5" data-toggle="modal"
-                                                data-target="#orderDetail">[배송비] 부재중으로 상품이 반송된 경우, 배송비는 누가 부담하나요?</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Q</td>
-                                            <td class="frequency-question" colspan="5" data-toggle="modal"
-                                                data-target="#orderDetail">[주소 검색] '관련지번'이 무엇인가요?</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Q</td>
-                                            <td class="frequency-question" colspan="5" data-toggle="modal"
-                                                data-target="#orderDetail">[주소 검색] 신축 건물로 이사를 했는데 주소가 검색되지 않아요.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Q</td>
-                                            <td class="frequency-question" colspan="5" data-toggle="modal"
-                                                data-target="#orderDetail">[배송] 주문한 상품과 다른 상품이 배송되었어요.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Q</td>
-                                            <td class="frequency-question" colspan="5" data-toggle="modal"
-                                                data-target="#orderDetail">[상품분실] 택배사에서 상품을 분실했다고 합니다. 어떻게 해야 하나요?</td>
-                                        </tr>
+                                        </c:forEach>
                                     </table>
                                     <div class="btn btn-wrap col-xs-12" id="show-more-btn">더보기</div>
 
@@ -214,42 +132,25 @@
 
 
                 <!--modal order detail-->
-                <div class="modal fade" id="fq1" tabindex="-1" role="dialog" aria-labelledby="fq1">
+                <c:forEach items="${ list }" var="fqaList">
+                <div class="modal fade" id="fq${ fqaList.fqaNo }" tabindex="-1" role="dialog" aria-labelledby="fq${ fqaList.fqaNo }">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                         aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">상품을 못 받았는데 배송 완료래</h4>
+                                <h4 class="modal-title" id="myModalLabel">${ fqaList.QTitle }</h4>
                             </div>
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <table class="table table-hover">
                                             <tr>
-                                                <th colspan="2">자~ 이렇게 해보라 이 말이야</th>
+                                                <th colspan="2">${ fqaList.ATitle }</th>
                                             </tr>
                                             <tr>
                                                 <td colspan="2">
-                                                    만약 배송을 요청한 장소에 상품이 없다면 다음을 먼저 확인해 주십시오<br>
-                                                    1) 로켓 배송의 경우, 문자 혹은 [마이쿠팡 > 주문목록/배송조회] > [배송조회]에서 사진 확인<br>
-                                                    2) 대리 수령 가능 장소(경비실, 이웃, 주변 편의점 등) 확인
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">
-                                                    ■ 로켓배송 상품을 받지 못한 경우<br>
-                                                    - [마이쿠팡 > 고객센터] > 상담하기
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">
-                                                    ■ 판매자 배송 상품을 받지 못한 경우<br>
-                                                    [마이쿠팡 > 주문목록/배송조회]<br>
-                                                    - [택배기사에게 전화하기] 선택<br>
-                                                    - [판매자에게 문의하기<br>
-                                                    - [배송조회] > 택배사 연락처로 문의<br>
-                                                    ※ 택배기사 연락처는 배송완료 직후까지만 확인 가능합니다.
+                                                    ${ fqaList.AContents }
                                                 </td>
                                             </tr>
                                         </table>
@@ -259,52 +160,10 @@
                         </div>
                     </div>
                 </div>
+                </c:forEach>
 
 
-                <div class="modal fade" id="fq2" tabindex="-1" role="dialog" aria-labelledby="fq2">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                        aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">상품을 못 받았는데 배송 완료래</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <table class="table table-hover">
-                                            <tr>
-                                                <th colspan="2">상품이 파손되어 배송된 경우 교환 및 반품을 신청하실 수 있습니다.</th>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">
-                                                    단, 교환의 경우 구매상품과 동일한 상품만 교환이 가능합니다.<br>
-                                                    색상 및 사이즈 변경의 경우에는 반품접수 후 재구매 부탁드립니다.<br>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">
-                                                    ■ 로켓배송 상품을 받지 못한 경우<br>
-                                                    - [마이쿠팡 > 고객센터] > 상담하기
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">
-                                                    ■ 판매자 배송 상품을 받지 못한 경우<br>
-                                                    [마이쿠팡 > 주문목록/배송조회]<br>
-                                                    - [택배기사에게 전화하기] 선택<br>
-                                                    - [판매자에게 문의하기<br>
-                                                    - [배송조회] > 택배사 연락처로 문의<br>
-                                                    ※ 택배기사 연락처는 배송완료 직후까지만 확인 가능합니다.
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
 
 
             </div>

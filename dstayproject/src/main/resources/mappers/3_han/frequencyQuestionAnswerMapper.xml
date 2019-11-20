@@ -13,9 +13,16 @@
 	</resultMap>
 	
 	<!-- fqa 전체 리스트 조회 -->
-	<select id="selectFQAList" resultMap="FQAResultSet">
+	<select id="selectFQAListAll" resultMap="FQAResultSet">
 		select *
 		from FQA
 		where status='Y'
+	</select>
+	
+	<!-- fqa 배송 리스트 조회 -->
+	<select id="selectFQAListDelivery" resultMap="FQAResultSet">
+		select *
+		from FQA
+		where status='Y' and category='배송'
 	</select>
 </mapper>
