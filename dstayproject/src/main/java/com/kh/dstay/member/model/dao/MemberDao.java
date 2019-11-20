@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.kh.dstay.member.model.dao;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -9,3 +10,10 @@ public class MemberDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 }
+=======
+package com.kh.dstay.member.model.dao;
+
+public class MemberDao {
+
+}
+>>>>>>> refs/remotes/origin/dobin

@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 Manifest-Version: 1.0
 Built-By: user2
 Build-Jdk: 1.8.0_202
 Created-By: Maven Integration for Eclipse
 
+=======
+Manifest-Version: 1.0
+Built-By: Han
+Build-Jdk: 1.8.0_202
+Created-By: Maven Integration for Eclipse
+
+>>>>>>> refs/remotes/origin/dobin

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .mainBanner {
     width: 1000px;
     height: 450px;
@@ -112,4 +113,120 @@
         display: none;
     }
 }
+=======
+.mainBanner {
+    width: 1000px;
+    height: 450px;
+}
+
+.mainBanner-img img {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 450px;
+}
+
+.banner-btn {
+    height: 100%;
+    transition-duration: 0.2s;
+    cursor:pointer;
+
+    /* 텍스트 수직정렬 */
+    display: table;
+    table-layout: fixed;
+}
+
+
+.banner-btn p {
+    display:table-cell;
+    vertical-align:middle;
+    text-align:center;
+}
+
+.banner-menu-right {
+    float:right;
+    
+}
+
+.banner-btn-click2 {
+    background: rgb(245, 245, 245);
+    border-bottom: 1px solid rgb(211, 53, 53);
+}
+
+.banner-btn:hover, .banner-btn-click {
+    color: rgb(211, 53, 53);
+    border-bottom: 3px solid rgb(211, 53, 53);
+    font-weight: bold;
+}
+
+
+.banner-mobile {
+    display: none;
+}
+
+.bannerBtn-div {
+    margin:0px;
+    padding: 0px;
+    margin: auto;
+
+    background: white;
+    border-left: 1px solid rgb(200, 200, 200);
+    border-bottom: 1px solid rgb(200, 200, 200);
+    border-right: 1px solid rgb(200, 200, 200);
+    height: 50px;
+}
+
+.rightArrow, .leftArrow {
+    position: absolute;
+    margin-top: 6px;
+    cursor:pointer;
+}
+.leftArrow {
+    transform: translateX(-50px);
+}
+.rightArrow {
+    transform: translateX(20px);
+}
+
+
+
+
+
+
+
+
+/* Mobile */
+@media screen and (max-width: 768px)  {
+    .banner-mobile {
+        display: inherit;
+    }
+
+    .banner-pc {
+        display: none;
+    }
+
+    .banner-mobile img {
+        width: 100%;
+    }
+
+    .banner-pc img {
+        display: none;
+    }
+
+    .banner-btn {
+        font-size: 10px;
+    }
+} 
+
+
+@media screen and (max-width: 1170px) and (min-width : 768px) {
+    .mainBanner-img img {
+        width: 1170px;
+    }
+
+    .banner-mobile img {
+        display: none;
+    }
+}
+>>>>>>> refs/remotes/origin/dobin
  
