@@ -10,5 +10,7 @@ public interface MemberService {
 	Member login(Member mem);
 	//이메일 중복체크용 서비스
 	int ajaxDuplicateCheck(@Email String email);
+	//회원가입용 서비스
+	int insertMember(Member mem);
 
 }

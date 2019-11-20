@@ -37,7 +37,10 @@
     <meta name="twitter:image" content="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/apple-touch-icon.png">
     <meta name="twitter:site" content="@backtokimi">
 
-
+	<!-- 플러그인  -->
+	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script> -->
     <link rel="icon" href="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/favicon.ico">
     <link rel="apple-touch-icon" href="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/apple-touch-icon.png">
 	<!--  -->
@@ -109,7 +112,8 @@
         vertical-align: middle;
 }
 .p-3 {padding: 5px;}
-.guide{display:none;}.ok{color:green;}.ng{color:red;}.guidePw{display:none;}.okPw{color:green;}.ngPw{color:red;}
+.guide{display:none;}.ok{color:green;}.ng{color:red;}.guidePw{display:none;}.okPw{color:green;}
+.ngNum{color:red;}.ngSpe{color:red;}.ngLower{color:red;}.ngUpper{color:red;}
 .hiddenNumber{display:none;}
 
     /* 테스트용 CSS */
@@ -128,7 +132,6 @@
 
         <div class="clearfix"></div>
 
-
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
                 <div class="row">
@@ -143,7 +146,7 @@
                         </div>
                         <div class="clearfix maya-small-padding"></div> -->
 
-                        <form action="" method="post">
+                        <form action="insertMember.do" method="post">
                            <!-- <div class="form-group">
                                 <input type="text" class="form-control" id="fullname" placeholder="이름" required>
                             </div> --> 
@@ -164,20 +167,20 @@
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" id="exampleInputPassword1" pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}"
-                                title="하나이상의 숫자/대문자/소문자/특수문자 를 전부 포함해 주세요" placeholder="비밀번호" name="password" required onkeyup="validatePw()">
+                                title="하나이상의 숫자/대문자/소문자/특수문자 를 전부 포함해 주세요" placeholder="비밀번호" name="password" required >
                             	<span class="helvetica-12 guidePw okPw" >적합한 비밀번호 입니다</span>
-                                <span class="helvetica-12 guidePw ngNum" >하나이상의 숫자를 입력해 주세요</span>
+                                <!-- <span class="helvetica-12 guidePw ngNum" >하나이상의 숫자를 입력해 주세요</span>
                                 <span class="helvetica-12 guidePw ngUpper" >하나이상의 대문자를 입력해 주세요</span>
                                 <span class="helvetica-12 guidePw ngLower" >하나이상의 소문자를 입력해 주세요</span>
-                                <span class="helvetica-12 guidePw ngSpe" >하나이상의 특수문자를 입력해 주세요</span>
-                                <input type="hidden" id="hiddenCheck" value="0"><br>
+                                <span class="helvetica-12 guidePw ngSpe" >하나이상의 특수문자를 입력해 주세요</span> -->
+                                <!-- <input type="hidden" id="hiddenCheck" value="0"><br> -->
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" id="exampleInputPassword2" placeholder="비밀번호확인">
                             </div>
-<!--                             <div class="form-group">
-                                <input type="tel" class="form-control" id="mobilenumber" placeholder="휴대폰 번호" required>
-                            </div> -->
+                          <div class="form-group">
+                                <input type="text" class="form-control" id="mobilenumber" placeholder="닉네임" name="nickName" required>
+                          </div> 
 
 <!--인증추가  -->
 <!--                              <div class="checkbox" align="center">
@@ -232,6 +235,11 @@
 				duplicateCheck();
 			}
 		})
+		$("#exampleInputPassword2").on("keyup", function() {
+					if(($("#exampleInputPassword2").val()) != "" && ($("#exampleInputPassword2").val() == $("#exampleInputPassword1").val())) {
+						$("#submitbtn").attr("disabled",false);
+					}
+				})
 	})
 		function duplicateCheck() {
 		//var reg = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$";
@@ -313,13 +321,39 @@
 			function resetInput() {
 				$(".guide").hide();$(".hiddenNumber").hide();$("#validatebtn").attr("disabled",true);
 			}
-			function validatePw() {
+			//function validatePw() {
+				$("#exampleInputPassword1").change(function() {
 				var reg = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/);
 				var checkPw = $("#exampleInputPassword1").val();
 				if(reg.test(checkPw)) {
 					
+					console.log(reg.test(checkPw));
+					$(".okPw").show();
+				/* }else {
+					if((checkPw.search(/[0-9]/g)) < 1) {
+						$(".ngNum").show();$(".ngLower").hide();$(".ngUpper").hide();$(".ngSpe").hide();
+					}
+					if((checkPw.search(/[a-z]/ig)) < 1) {
+						$(".ngLower").show();$(".ngNum").hide();$(".ngUpper").hide();$(".ngSpe").hide();
+					}
+					if((checkPw.search(/[A-Z]/g)) < 1) {
+						$(".ngUpper").show();$(".ngNum").hide();$(".ngLower").hide();$(".ngSpe").hide();
+					}
+					if((checkPw.search(/[#?!@$%^&*-]/gi)) < 1) {
+						$(".ngSpe").show();$(".ngNum").hide();$(".ngUpper").hide();$(".ngLower").hide();
+					}
+				} */
+				}else {
+					alert("다시 입력해 주세요");
 				}
-			}
+			})
+				$("#exampleInputPassword2").on("change", function() {
+					if(($("#exampleInputPassword2").val()) != "" && ($("#exampleInputPassword2").val() == $("#exampleInputPassword1").val())) {
+						$("#submitbtn").attr("disabled",false);
+					}
+				})
+			
+			
 				
 </script>
 </body>

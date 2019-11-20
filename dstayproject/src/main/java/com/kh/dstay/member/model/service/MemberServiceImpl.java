@@ -24,5 +24,10 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return mDao.ajaxDuplicateCheck(email);
 	}
+	@Override
+	public int insertMember(Member mem) {
+		// TODO Auto-generated method stub
+		return mDao.insertMember(mem);
+	}
 
 }

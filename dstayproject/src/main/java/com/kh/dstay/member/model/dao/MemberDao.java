@@ -23,6 +23,11 @@ public class MemberDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("bakMapper.ajaxDuplicateCheck",email);
 	}
+
+	public int insertMember(Member mem) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("bakMapper.insertMember", mem);
+	}
 	
 	
 }

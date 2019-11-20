@@ -1,6 +1,5 @@
 package com.kh.dstay;
 
-import java.util.HashMap;
 import java.util.Locale;
 
 import javax.mail.MessagingException;
@@ -10,6 +9,7 @@ import javax.validation.constraints.Email;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Validator;
@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
+import com.kh.dstay.guestOrder.model.service.GuestOrderService;
+import com.kh.dstay.guestOrder.model.vo.GuestOrder;
 import com.kh.dstay.member.model.service.MemberService;
 import com.kh.dstay.member.model.vo.Member;
 import com.kh.dstay.util.model.service.UtilService;
@@ -36,6 +37,10 @@ public class HomeController {
 	private Validator validator;
 	@Autowired
 	private UtilService uService;
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	@Autowired
+	private GuestOrderService gService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -58,9 +63,9 @@ public class HomeController {
 	public ModelAndView login(ModelAndView mv,@RequestParam("email")@Email String email,@RequestParam("password") String password,HttpSession session) {
 		
 		Member mem = new Member();
-		mem.setEmail(email); mem.setPassword("password");
+		mem.setEmail(email); 
 		Member loginUser = mService.login(mem);
-		if(loginUser != null) {
+		if(loginUser != null && bcryptPasswordEncoder.matches(password, mem.getPassword())) {
 			session.setAttribute("loginUser", loginUser);
 			mv.setViewName("redirect:home.do");
 		}else {
@@ -111,5 +116,31 @@ public class HomeController {
 		}else {
 			return "fail";
 		}
+	}
+	@RequestMapping("insertMember.do")
+	public String insertMember(@RequestParam("email")String email,@RequestParam("password")String password,@RequestParam("nickName")String nickName) {
+		Member mem = new Member();
+		mem.setEmail(email);mem.setNickName(nickName);
+		mem.setPassword(bcryptPasswordEncoder.encode(password));
+		int result = mService.insertMember(mem);
+		if(result >0) {
+			return "redirect:home.do";
+		}else {
+			return "registerForm";
+		}
+	}
+	@RequestMapping("reviewNonMemberOrder.do")
+	public String reviewNonMemberOrder(@RequestParam("goNo")int goNo,@RequestParam("gPhone")String phone) {
+		GuestOrder requestGo = new GuestOrder();
+		requestGo.setGoNo(goNo);requestGo.setPhone(phone);
+		GuestOrder reviewOrder = gService.reviewNonMemberOrder(requestGo);
+		if(reviewOrder != null) {
+			logger.info(reviewOrder.toString());
+			return "home";//비회원 주문 내역 조회 페이지로 변경해야 합니다
+		}else {
+			return "redirect:home.do";
+		}
+		
+		
 	}
 }

@@ -225,18 +225,18 @@
                         <h3 class="text-center text-gray-1">비회원 주문 조회</h3>
                         <div class="clearfix maya-small-padding"></div>
 						
-                        <form>
+                        <form action="reviewNonMemberOrder.do" method="post">
                             <!-- <div class="form-group">
                                 <input type="text" class="form-control" id="business_name" placeholder="이름" required>
                             </div> -->
                             <div class="form-group">
-                                <input type="text" class="form-control" id="tagline" placeholder="주문 번호" required>
+                                <input type="text" class="form-control" id="tagline" placeholder="주문 번호" required name="goNo">
                             </div>
 <!--                             <div class="form-group">
                                 <input type="email" class="form-control" id="bank_account" placeholder="이메일">
                             </div> -->
                             <div class="form-group">
-                                <input type="tel" class="form-control" id="account_number" placeholder="휴대폰 번호" required>
+                                <input type="tel" class="form-control" id="account_number" placeholder="휴대폰 번호" required name="phone">
                             </div>
 
 <!--                             <div class="form-group">

@@ -15,6 +15,21 @@
 	<result property="date" column="m_date"/>
 	<result property="status" column="status"/>
 </resultMap>
+
+<resultMap id="guestOrderResultSet" type="GuestOrder">
+	<id property="goNo" column="gono"/>
+	<result property="payNo" column="payno"/>
+	<result property="no" column="pno"/>
+	<result property="name" column="gname"/>
+	<result property="phone" column="gphone"/>
+	<result property="email" column="gemail"/>
+	<result property="post" column="gpost"/>
+	<result property="address" column="gaddress"/>
+	<result property="detailAddress" column="gdetailaddress"/>
+	<result property="request" column="gorequest"/>
+	<result property="date" column="godate"/>
+	<result property="status" column="gostatus"/>
+</resultMap>
 <select id="login" resultMap="memberResultSet">
 	select * from member
 	where email=#{email} and status='Y'
@@ -24,5 +39,13 @@
  	select count(*)
  	from member
  	where email=#{email}
- </select> 	
+ </select>
+ <insert id="insertMember">
+ 	insert into Member(mno,msno,email,password,nickname,mdate)
+ 	values(seq_member.nextval,2,#{email},#{password},#{nickName},sysdate)
+ </insert> 	
+ <select id="reviewNonMemberOrder" resultMap="guestOrderResultSet">
+ 	select * from guest_orders
+ 	where gono = #{goNo} and gphone=#{phone}
+ </select>
 </mapper>
