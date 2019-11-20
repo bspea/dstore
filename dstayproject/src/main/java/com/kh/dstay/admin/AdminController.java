@@ -35,11 +35,6 @@ public class AdminController {
 		return "5_kim/coupon/addingCouponForm";
 	}
 	
-	@RequestMapping("adminProductDetail.do")
-	public String productDetail() {
-		return "5_kim/product/productDetail";
-	}
-	
 	@RequestMapping("adminQuantityReceiving.do")
 	public String quantityReceiving() {
 		return "5_kim/product/quantityReceiving";

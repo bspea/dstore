@@ -26,6 +26,8 @@
         margin-left:20px;
         margin-right:20px;
       }
+      
+
     </style>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -68,31 +70,51 @@
                       <div class="table-responsive">
                         <table class="table table-bordered" cellspacing="0" style="width:80%; height:100%; margin-left:auto; margin-right:auto;">
                           <tr >
-                            <td colspan="2" rowspan="8">
-                                  <img src="resources/images/5_kim/testCupon.png" style="width:200px; height:200px;">
-                                  <img src="resources/images/5_kim/testCupon.png" style="width:200px; height:200px;"><br>
-                                  <img src="resources/images/5_kim/testCupon.png" style="width:200px; height:200px;">
-                                  <img src="resources/images/5_kim/testCupon.png" style="width:200px; height:200px;">
+                            <td colspan="2" rowspan="8" style="width:50%;">
+                            	<div style="width:100; margin:0 auto; display:inline-block;">
+                            	<c:forEach var="imgs" items="${imgs }" varStatus="imgStatus">
+                            		<c:choose>
+                            			<c:when test="${0 eq imgs.orderBy }">
+                            				<img style="height:50%; width:50%; float:left;" src="${pageContext.request.contextPath}${imgs.path }">
+                            			</c:when>
+                            			<c:when test="${1 eq imgs.orderBy }">
+                            				<img style="height:50%; width:50%; float:right;" src="${pageContext.request.contextPath}${imgs.path }"><br><br>
+                            			</c:when>
+                            			<c:when test="${2 eq imgs.orderBy }">
+                            				<img style="height:50%; width:50%; float:left;" src="${pageContext.request.contextPath}${imgs.path }">
+                            			</c:when>
+                            			<c:when test="${3 eq imgs.orderBy }">
+                            				<img style="height:50%; width:50%; float:right;" src="${pageContext.request.contextPath}${imgs.path }">
+                            			</c:when>
+                            		</c:choose>
+                            		
+                            	</c:forEach>
+                            	</div>
                             </td>
                             <th>상품번호 </th>
-                            <td colspan="3"><input type="number" value="1233223"></td>
+                            <td colspan="3">${p.no }</td>
                             
                           </tr>
                           <tr>
                             <th>상품명</th>
-                            <td colspan="3"><input type="text" value="a도시락"></td>
+                            <td colspan="3">${p.name }</td>
                           </tr>
                           <tr>
                             <th>가격</th>
-                            <td colspan="3"><input type="text" value="12,000"></td>
+                            <td colspan="3">${p.price }원</td>
                           </tr>
                           <tr>
                             <th colspan="4">상품 성분</th>
                           </tr>
                           <tr>
-                            <td colspan="4">닭고기, 계란, 양배추, 쌀 </td>
+                            <td colspan="4">
+                            	<label>
+	                            	<c:forEach var="ingres" items="${iclist}" varStatus="ingStatus"> 
+	                            		${ingres.name } &nbsp;
+	                            	</c:forEach>
+                            	</label>
+                            </td>
                           </tr>
-
                         </table>
                       </div>
                     </div>     
@@ -101,28 +123,38 @@
                 <!--두번째 카드-->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">입고내역</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">입출고내역</h6>
                     </div>
                     <div class="card-body">
-                        <table class="table table-bordered" cellspacing="0">
-                          <thead>
-                            <tr>
-                              <th>입고번호</th>
-                              <th>입고일</th>
-                              <th>수량</th>
-                              <th>유통기한</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>66332</td>
-                              <td>2019-11-07</td>
-                              <td>30개</td>
-                              <td>2019-11-01~2019-11-15</td>
-                            </tr>
-
-                          </tbody>
-                        </table>
+                    	<div class="table-responsive">
+	                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+	                          <thead>
+	                            <tr>
+	                              <th>입출고번호</th>
+	                              <th>입출고날짜</th>
+	                              <th>수량</th>
+	                            </tr>
+	                          </thead>
+	                          <tbody>
+	                          <c:forEach var="storage" items="${slist }" varStatus="strgStatus">
+	                            <tr>
+	                              <td>${storage.no }</td>
+	                              <td>${storage.createDate }</td>
+	                              <td>
+	                              	 <c:choose>
+		                              	 <c:when test="${'입고' eq storage.type }">
+		                              	 	+
+		                              	 </c:when>
+		                              	 <c:otherwise>
+		                              	 	-
+		                              	 </c:otherwise>
+	                              	 </c:choose>
+	                             ${storage.count }</td>
+	                            </tr>
+							  </c:forEach>
+	                          </tbody>
+	                        </table>
+	                      </div>
 
                         
                   <!-- 페이징 -->

@@ -14,13 +14,37 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
+
+<link rel="stylesheet" href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css"/> 
+    <script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+    <script>
+        jQuery(function($){
+            $("#dataTable").DataTable();
+        });
+    </script>
+
 <title>D-Store:Admin</title>
 
 <style>
-.clickableTr:hover {
-	color: navy;
-	cursor: pointer;
-}
+	*{font-size:15px;}
+	
+	.clickableTr:hover{
+		cursor:pointer;
+		color:red;
+	}
+	.table-responsive>div{
+		display:inline-block;
+	}
+	
+	#dataTable_wrapper{
+		width:100%;
+	}
+	.page-link:hover{
+		cursor:pointer;
+	}
+	
+	
+
 </style>
 
 <script
@@ -32,7 +56,7 @@
 		$('#collapseTwo').children().children().eq(1).addClass('active');
 	});
 </script>
-</head>
+
 
 <body id="page-top">
 	<!-- Page Wrapper -->
@@ -56,129 +80,64 @@
 					<br> <br>
 					<!--첫번째 카드-->
 					<div class="card shadow mb-4">
-
-						<!-- 검색 -->
-						<div class="card-header py-3">
-							<form action="" method="POST">
-								<div class="row">
-									<br> <select
-										style="margin-left: 20%; margin-right: 1%; width: 80px; height: 35px;">
-										<option value="id">아이디</option>
-										<option value="name">이름</option>
-									</select> <input type="search" class="form-control form-control-sm"
-										style="width: 40%; height: 35px;">
-									<button type="submit"
-										class="btn btn-primary btn-icon-split btn-lg"
-										style="margin-left: 1%; margin-right: 15%; width: 80px; height: 35px;">
-										<span>검색</span>
-									</button>
-									<br>
-								</div>
-							</form>
-
-						</div>
-						<!-- end of 검색-->
-						<!-- 모든 테이블 영역 -->
 						<div class="card-body">
 							<div class="table-responsive">
-								<a href="adminProductDetail.do">물품 상세보기</a>
-
-								<!-- 정렬 -->
-								<div style="float: right;">
-									<form action="" method="GET">
-										<select class="form-control-sm" name="sorting">
-											<option value="recentNotice">물품명 가나다순</option>
-										</select>
-										<button class="btn btn-primary btn-icon-split btn-lg"
-											type="submit">
-											<img src="resources/images/5_kim/refresh.png"
-												style="width: 30px; height: 30px;">
-										</button>
-									</form>
-								</div>
-								<br> <br>
-
-								<!-- 테이블-->
-								<table class="table table-bordered" id="dataTable" width="100%"
-									cellspacing="0">
+								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
-										<tr>
+							         	<tr>
 											<th>상품번호</th>
+											<th>상품사진</th>
 											<th width="400">상품명</th>
-											<th>총수량*</th>
+											<th>총수량</th>
 											<th>1개가격</th>
-											<th>세일여부*</th>
-											<th>최근입고일*</th>
+											<th>세일여부</th>
+											<th>최근입고일</th>
 											<th>블라인드 여부</th>
 											<th width="200">관리</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr class="clickableTr">
-											<c:forEach var="product" items="${pList}" varStatus="status">
-												<tr class="clickableTr">
-													<td>${product.no }</td>
-													<td>${product.name } ${requestScope.contextPath }&nbsp; 
-														<c:forEach var="pic" items="${piList }" varStatus="picStatus">
-															<c:if test="${product.no eq pic.productNo }">
-																<img src= "${pic.path }" style="width: 50px; height: 50px; border: 1px solid gray;">
-															</c:if>
-														</c:forEach>
-														
-													</td>
-													<td>*</td>
-													<td>${product.price }원</td>
-													<td>*</td>
-													<td>*</td>
-													<td>
-														<c:if test="${'Y' eq product.status }">
-															판매중
-														</c:if>
-														<c:if test="${ 'N' eq product.status }">
-															미판매
-														</c:if>
-													</td>
-													<td>
-														<button
-															onclick="location.href='adminQuantityReceiving.do'"
-															type="button" class="btn btn-sm btn-warning">재고관리</button>
-														<button
-															onclick="location.href='adminAddingDiscountForm.do'"
-															type="button" class="btn btn-sm btn-info">세일관리</button>
-													</td>
-												</tr>
-											</c:forEach>
-									</tbody>
+										</tr>   
+							        </thead>
+							        <tbody>
+								    	<c:forEach var='product' items='${pList}' varStatus='status'>   
+											 <tr class='clickableTr'>  
+												 <td>${product.no }</td>  
+												 <td><c:forEach var='pic' items="${piList }" varStatus='picStatus'>   
+													 	 <c:if test="${product.no eq pic.productNo }">   
+															 <c:if test="${0 eq pic.orderBy }">   
+																 <img src="${pageContext.request.contextPath}${pic.path }" style='width: 75px; height: 75px; border: 1px solid gray;'>  
+															 </c:if>  
+														 </c:if>  
+													 </c:forEach>  
+												 </td>  
+												 <td>${product.name }</td>  
+												 <td>*</td>  
+												 <td>${product.price }원</td>  
+												 <td>*</td> <td>*</td>  
+												 <td><c:if test="${'Y' eq product.status }">판매중</c:if>  
+													 <c:if test="${ 'N' eq product.status }">미판매</c:if></td>  
+												 <td><a href='adminQuantityReceiving.do' class='btn btn-sm btn-warning'>재고관리</a>   
+													  <a href='adminAddingDiscountForm.do' class='btn btn-sm btn-info'>세일관리</a>   
+												 </td>   
+										 	</tr>   
+									 </c:forEach> 
+				
+								    </tbody>
 								</table>
-								<!-- end of 테이블-->
-
-								<!-- 페이징 -->
-								<div class="row"
-									style="margin-right: auto; margin-left: auto; width: 300px;">
-									<button class="page-link">&lt;</button>
-									<a href="" class="page-link">1 </a> <a href=""
-										class="page-link">2 </a> <a href="" class="page-link">3 </a> <a
-										href="" class="page-link">4 </a> <a href="" class="page-link">5
-									</a>
-									<button class="page-link">&gt;</button>
-								</div>
 							</div>
 						</div>
-						<!-- end of 페이징-->
 					</div>
+					<!--end of 첫번째 카드-->
 				</div>
-				<!-- end of 모든 테이블 영역-->
-			</div>
-			<!--end of 첫번째 카드-->
-		</div>
+			 <!-- End of 메인 내용 -->
 
-	</div>
-	<!-- End of 메인 내용 -->
-
-	<!-----------------------------------------------------  [5 footer]  ----------------------------------------------------->
-	<jsp:include page="../common/footer.jsp" />
 	</div>
 	<!-- End of Content Wrapper -->
+	
+	
+	
+	<!-----------------------------------------------------  [5 footer]  ----------------------------------------------------->
+	<jsp:include page="../common/footer.jsp" />
+	
+	
 
 	</div>
 	<!-- End of Page Wrapper -->
@@ -215,14 +174,19 @@
 
 	<script>
 		$(function() {
-
-			$(".clickableTr").click(function() {
-				var clickedNo = $(this).children().eq(0).text();
-				console.log(clickedNo);
+			$('#dataTable tbody').on('click', 'tr', function(){
+				var pNo = $(this).children().eq(0).text();
+				location.href="adminProductDetail.do?pNo="+pNo;
+				console.log(pNo);
+				
 			});
+			
+			
 		});
+		
+		
+	</script>
 
-		</body>
 
-		</html>
-	
+</body>
+</html>

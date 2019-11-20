@@ -27,6 +27,7 @@ public class HomeController {
 		
 		
 		return "5_kim/common/dashboard";
+//		return "home";
 	}
 	
 }
