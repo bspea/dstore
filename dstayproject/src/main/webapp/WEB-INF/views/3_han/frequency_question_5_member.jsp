@@ -46,7 +46,7 @@
                 <ul class="nav nav-pills nav-stacked left-side-nav-stacked">
                     <li role="presentation" id="center-logo"><p>고객센터</p></li>
                     <li class="notice" role="presentation"><a href="noticeList.do">공지사항</a></li>
-                    <li role="presentation"><a href="fqaList.do">자주 묻는 질문</a></li>
+                    <li role="presentation"><a href="fqaList-all.do">자주 묻는 질문</a></li>
                     <li role="presentation"><a href="suggestion.do">제안하기</a></li>
                     <li role="presentation"><a href="inquireMyInfo.do">나의 정보 조회</a></li>
                     <!--<li role="presentation"><a href="#">Frequently Asked Questions</a></li>-->
