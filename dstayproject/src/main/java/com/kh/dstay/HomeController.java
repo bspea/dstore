@@ -1,5 +1,6 @@
 package com.kh.dstay;
 
+import java.util.HashMap;
 import java.util.Locale;
 
 import javax.mail.MessagingException;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.dstay.member.model.service.MemberService;
 import com.kh.dstay.member.model.vo.Member;
 import com.kh.dstay.util.model.service.UtilService;
@@ -99,13 +101,13 @@ public class HomeController {
 		}
 	}
 	@RequestMapping("ajaxVerifyEmail.do")@ResponseBody
-	public String ajaxVerifyEmail(HttpSession session, @RequestParam("email")@Email String email) throws MessagingException {
+	public String ajaxVerifyEmail(@RequestParam("email")@Email String email) throws MessagingException {
 		
-		int random = (int)Math.random();
-		session.setAttribute("randome", random);
+		String random = String.valueOf((int)(Math.random()*10000000 + 1));
+		//logger.debug(random);
 		boolean result = uService.ajaxVerifyEmail(email, random);
 		if(result) {
-			return "success";
+			return random;
 		}else {
 			return "fail";
 		}

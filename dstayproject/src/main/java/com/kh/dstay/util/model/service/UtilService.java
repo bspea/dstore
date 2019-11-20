@@ -5,7 +5,7 @@ import javax.validation.constraints.Email;
 
 public interface UtilService {
 	//이메일 인증 보내는 서비스
-	boolean ajaxVerifyEmail(@Email String email, int random) throws MessagingException;
+	boolean ajaxVerifyEmail(@Email String email, String random) throws MessagingException;
 
 
 }

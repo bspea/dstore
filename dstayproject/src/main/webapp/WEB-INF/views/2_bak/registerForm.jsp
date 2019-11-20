@@ -109,7 +109,7 @@
         vertical-align: middle;
 }
 .p-3 {padding: 5px;}
-.guide{display:none;}.ok{color:green;}.ng{color:red;}
+.guide{display:none;}.ok{color:green;}.ng{color:red;}.guidePw{display:none;}.okPw{color:green;}.ngPw{color:red;}
 .hiddenNumber{display:none;}
 
     /* 테스트용 CSS */
@@ -158,10 +158,19 @@
                             </div>
                             <div class="form-group hiddenNumber">
                                 <input type="text" class="form-control" id="exampleInputPassword" placeholder="인증번호를 입력해주세요">
-                                <button type="button" onclick="" class="btn btn-outline-primary" >확인</button>
+                                <div class="clearfix maya-tiny-padding"></div>
+                                <button type="button" onclick="verifyEmail()" class="btn btn-outline-primary" >확인</button>
+                                <button type="reset" onclick="resetInput()" class="btn btn-outline-primary" >재입력</button>
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호" >
+                                <input type="password" class="form-control" id="exampleInputPassword1" pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}"
+                                title="하나이상의 숫자/대문자/소문자/특수문자 를 전부 포함해 주세요" placeholder="비밀번호" name="password" required onkeyup="validatePw()">
+                            	<span class="helvetica-12 guidePw okPw" >적합한 비밀번호 입니다</span>
+                                <span class="helvetica-12 guidePw ngNum" >하나이상의 숫자를 입력해 주세요</span>
+                                <span class="helvetica-12 guidePw ngUpper" >하나이상의 대문자를 입력해 주세요</span>
+                                <span class="helvetica-12 guidePw ngLower" >하나이상의 소문자를 입력해 주세요</span>
+                                <span class="helvetica-12 guidePw ngSpe" >하나이상의 특수문자를 입력해 주세요</span>
+                                <input type="hidden" id="hiddenCheck" value="0"><br>
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" id="exampleInputPassword2" placeholder="비밀번호확인">
@@ -187,16 +196,6 @@
                         
                         <!-- <p class="text-center">비회원으로 주문하셨나요&nbsp;<a href="nonMemOrderViewForm.me" class="text-secondary">&nbsp;비회원주문조회</a></p> -->
                     </div>
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
                 </div>
             </div>
         </div>
@@ -275,7 +274,7 @@
 					alert("올바른 이메일 형식으로 입력해주세요");
 					}
 				} */
-				
+				var randomKey;
 			function validateEmail() {
 				if($("#hiddenCheck").val() == 1) {
 					//$("#validatebtn").attr("disabled",false);
@@ -288,6 +287,9 @@
 						},
 						success:function(random) {
 							$(".hiddenNumber").show();
+							randomKey = random;
+							$("#exampleInputPassword").focus();
+							console.log(randomKey);
 						}
 						})
 						
@@ -295,6 +297,26 @@
 					//$("#validatebtn").attr("disabled",true);
 					alert("올바른 이메일 형식으로 입력해 주세요");
 					$("#ajaxEmail").focus();
+					
+				}
+			}
+			function verifyEmail() {
+				if($("#exampleInputPassword").val() == randomKey) {
+					alert("인증이 완료되었습니다");
+					$("#ajaxEmail").attr("readonly",true);
+					$("#exampleInputPassword1").focus();
+				}else {
+					alert("인증번호가 일치하지 않습니다");
+					$("#exampleInputPassword").focus();
+				}
+			}
+			function resetInput() {
+				$(".guide").hide();$(".hiddenNumber").hide();$("#validatebtn").attr("disabled",true);
+			}
+			function validatePw() {
+				var reg = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/);
+				var checkPw = $("#exampleInputPassword1").val();
+				if(reg.test(checkPw)) {
 					
 				}
 			}
