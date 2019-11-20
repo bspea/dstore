@@ -14,8 +14,6 @@
     <!-- Boot Strap -->
     <link href="${ pageContext.request.contextPath }/resources/css/1_common/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Template css-->
-    <link href="${ pageContext.request.contextPath }/resources/css/1_common/kimi.css" rel="stylesheet">
 
     <!-- Custom css -->
     <link href="${ pageContext.request.contextPath }/resources/css/4_jong/top-menu.css?ver=1" rel="stylesheet">
@@ -38,6 +36,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    
+    <style>
+    	.pagination span{
+    		color:black;
+    	}
+    </style>
 </head>
 <body>
 	<jsp:include page="../1_common/menubar.jsp"/>
@@ -76,25 +80,14 @@
                                     <th width="65%" style="font-weight:normal">제목</th>
                                     <th width="15%" style="font-weight:normal">등록일</th>
                                 </tr>
+                                <c:forEach items="${ list }" var="nList">
                                 <tr class="notice-line">
-                                    <td class="notice-no">003</td>
-                                    <td class="notice-class"><p class="p-purple">일반</p></td>
-                                    <td class="notice-title"><a href="notice-detail.html">[공지] 개인정보처리방침 개정 안내</a></td>
-                                    <td class="notice-date">2019.11.11</td>
+                                    <td class="notice-no">${ nList.noticeNo }</td>
+                                    <td class="notice-class"><p class="p-purple">${ nList.noticeCategory }</p></td>
+                                    <td class="notice-title"><a href="notice-detail.html">${ nList.noticeTitle }</a></td>
+                                    <td class="notice-date">${ nList.writeDate }</td>
                                 </tr>
-                                <tr class="notice-line">
-                                    <td class="notice-no">002</td>
-                                    <td class="notice-class"><p class="p-purple">당첨자 발표</p></td>
-                                    <td class="notice-title"><a href="notice-detail.html">[공지|당첨자발표] 2019년 11월 적립금 당첨자 발표</a></td>
-                                    <td class="notice-date">2019.11.09</td>
-                                </tr>
-                                <tr class="notice-line">
-                                    <td class="notice-no">001</td>
-                                    <td class="notice-class"><p class="p-purple">지식재산권</p></td>
-                                    <td class="notice-title"><a href="notice-detail.html">[공지] 지식재산권 보호 센터(IPS) 개편 안내</a></td>
-                                    <td class="notice-date">2019.11.07</td>
-                                </tr>
-
+                                </c:forEach>
                             </table>
                         </div>
                         <br>
@@ -102,21 +95,55 @@
                         <div id="pagination-div">
                             <nav>
                                 <ul class="pagination">
-                                    <li>
-                                    <a href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                    </li>
-                                    <li><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li>
-                                    <a href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                    </li>
+                                	<c:if test="${ pi.currentPage eq 1 }">
+                                		<li>
+                                			<span aria-hidden="true">&laquo;</span>
+                                		</li>
+                                	</c:if>
+                                	<c:if test="${ pi.currentPage ne 1 }">
+                                		<c:url value="noticeList.do" var="before">
+                                			<c:param name="currentPage" value="${ pi.currentPage -1 }"/>
+		                                    <li>
+			                                    <a href="" aria-label="Previous">
+			                                        <span aria-hidden="true">&laquo;</span>
+			                                    </a>
+		                                    </li>
+		                                </c:url>
+	                                </c:if>
+	                                
+	                                
+	                                <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+	                                	<c:if test="${ p eq pi.currentPage }">
+	                                		<li><span aria-hidden="true">${ p }</span></li>
+	                                	</c:if>
+	                                	
+	                                	<c:if test="${ p ne pi.currentPage }">
+	                                		<c:url value="noticeList.do" var="page">
+	                                			<c:param name="currentPage" value="${ p }"/>
+	                                		</c:url>
+	                                		<li><a href="${ page }"><span>${ p }</span></a></li>
+	                                	</c:if>
+	                                </c:forEach>
+                                    
+                                    
+                                    <c:if test="${ pi.currentPage eq pi.maxPage }">
+                                    	<li>
+                                			<span aria-hidden="true">&raquo;</span>
+                                		</li>
+                                    </c:if>
+                                    <c:if test="${ pi.currentPage ne pi.maxPage }">
+                                    	<c:url value="noticeList.do" var="after">
+                                    		<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+                                    	</c:url>
+	                                    	<li>
+			                                    <a href="${ after }" aria-label="Next">
+			                                        <span aria-hidden="true">&raquo;</span>
+			                                    </a>
+	                                    	</li>
+                                    </c:if>
+                                    
+                                    
+                                    
                                 </ul>
                             </nav>
                         </div>

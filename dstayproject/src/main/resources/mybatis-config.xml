@@ -16,6 +16,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
  
 	<mappers>
 		<mapper resource="mappers/3_han/frequencyQuestionAnswerMapper.xml"/>
+		<mapper resource="mappers/3_han/noticeMapper.xml"/>
 	</mappers>
 
 </configuration>
