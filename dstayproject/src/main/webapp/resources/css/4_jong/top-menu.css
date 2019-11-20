@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 .menu-div {
     height: 55px;
     background: white;
@@ -43,4 +44,28 @@
     cursor:pointer;
     color: rgb(231, 98, 126);
 >>>>>>> refs/remotes/origin/dobin
+=======
+
+
+.menu-div {
+    height: 55px;
+    background: white;
+    text-align: center;
+    width: 100%;
+    line-height: 55px;
+}
+.menu-line {
+    display: inline-block;
+    font-family: 'basic-font';
+    color: gray;
+    margin-left: 5px;
+    margin-right: 5px;
+
+    transition-duration: 0.5s;
+}
+.menu-line:hover {
+    font-weight: bold;
+    cursor:pointer;
+    color: rgb(231, 98, 126);
+>>>>>>> refs/remotes/origin/hyunjung
 }

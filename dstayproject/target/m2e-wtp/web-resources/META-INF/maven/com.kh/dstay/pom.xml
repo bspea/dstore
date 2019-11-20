@@ -244,6 +244,35 @@
 		    <scope>provided</scope>
 		</dependency>
 		
+<<<<<<< HEAD
+=======
+		<!-- 메일보내기 -->
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>javax.mail-api</artifactId>
+		    <version>1.6.2</version>
+		</dependency>
+		
+		<!-- 메일보내기-->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+		
+		<!--이메일 validation  -->
+		<dependency>
+		    <groupId>org.hibernate.validator</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		    <version>6.0.16.Final</version>
+		</dependency>
+		<!--이메일 보내기 -->
+		<dependency>
+		    <groupId>com.sun.mail</groupId>
+		    <artifactId>javax.mail</artifactId>
+		    <version>1.6.2</version>
+		</dependency>
+>>>>>>> refs/remotes/origin/hyunjung
 		
 		
 	</dependencies>

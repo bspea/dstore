@@ -1,5 +1,9 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: user2
+=======
+Built-By: 82104
+>>>>>>> refs/remotes/origin/hyunjung
 Build-Jdk: 1.8.0_202
 Created-By: Maven Integration for Eclipse
 

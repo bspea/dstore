@@ -244,6 +244,24 @@
 		    <scope>provided</scope>
 		</dependency>
 		
+<<<<<<< HEAD
+=======
+		<!-- 메일보내기 -->
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>javax.mail-api</artifactId>
+		    <version>1.6.2</version>
+		</dependency>
+		
+		<!-- 메일보내기-->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+		
+		
+>>>>>>> refs/remotes/origin/hyunjung
 		
 		
 	</dependencies>
