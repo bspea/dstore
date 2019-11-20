@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -19,7 +20,6 @@
     <link href="${ pageContext.request.contextPath }/resources/css/1_common/kimi.css" rel="stylesheet">
 
     <!-- Custom css -->
-    <link href="${ pageContext.request.contextPath }/resources/css/4_jong/top-menu.css?ver=1" rel="stylesheet">
     <link href="${ pageContext.request.contextPath }/resources/css/4_jong/mainBanner.css?ver=4" rel="stylesheet">
     <link href="${ pageContext.request.contextPath }/resources/css/4_jong/specialCategory.css" rel="stylesheet">
 
@@ -99,17 +99,17 @@
         <div class="">
             <div class="row">
                 <h2 class="default-userProductList-InfoBar-title text-center"><i class="fa fa-heart-o" aria-hidden="true"></i> This Week Favoourites</h2>
-    
+    			<c:forEach items="${ list }" var="b">
                 <div class="col-sm-6 col-md-4" data-behavior="sample_code">
-                    <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
-                        <img class="detailImage" src="${ pageContext.request.contextPath }/resources/images/4_jong/nurung.jpg" alt="risotto lemon">
+                    <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin" style="margin-bottom:0px;">
+                        <img class="detailImage" src="${ b.path }" alt="risotto lemon">
                     </a>
                     <div class="caption box">
-                        <h3>현미 누룽지 5종 세트</h3>
+                        <h3 style="height:35px;">${b.name} </h3>
                         <div class="row">
                             <div class="col-sm-8 col-xs-6">
-                                <p class="default-userProductList-CardList-price">25,000원</p>
-                                <span class="min-order">여기에 네모낳게 div 들어감</span>
+                                <p class="default-userProductList-CardList-price"><fmt:formatNumber value="${b.price}" pattern="#,###"/>원 </p>
+                                <!-- 네모낳게 div 들어가는 것. 현재 안만들어놓았음 --><span class="min-order"></span>
                             </div>
     
                             <div class="col-sm-4 col-xs-6">
@@ -118,68 +118,12 @@
                         </div>
                     </div>
                 </div>
+                </c:forEach>
     
-                <div class="col-sm-6 col-md-4" data-behavior="sample_code">
-                    <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
-                        <img class="detailImage" src="${ pageContext.request.contextPath }/resources/images/4_jong/testImage1.jpg" alt="risotto lemon">
-                    </a>
-                    <div class="caption box">
-                        <h3>간코치 시즌1 현미밥 도시락 3종 10팩</h3>
-                        <div class="row">
-                            <div class="col-sm-8 col-xs-6">
-                                <p class="default-userProductList-CardList-price">Rp 45.000 / pcs</p>
-                                <span class="min-order">10 pcs min order</span>
-                            </div>
-    
-                            <div class="col-sm-4 col-xs-6">
-                                <button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 col-md-4" data-behavior="sample_code">
-                    <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
-                        <img class="detailImage" src="${ pageContext.request.contextPath }/resources/images/4_jong/testImage2.jpg" alt="risotto lemon">
-                    </a>
-                    <div class="caption box">
-                        <h3>하루한끼 토핑 샐러드 5종 5팩</h3>
-                        <div class="row">
-                            <div class="col-sm-8 col-xs-6">
-                                <p class="default-userProductList-CardList-price">Rp 45.000 / pcs</p>
-                                <span class="min-order">10 pcs min order</span>
-                            </div>
-    
-                            <div class="col-sm-4 col-xs-6">
-                                <button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 col-md-4" data-behavior="sample_code">
-                    <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
-                        <img class="detailImage" src="${ pageContext.request.contextPath }/resources/images/4_jong/testImage3.jpg" alt="risotto lemon">
-                    </a>
-                    <div class="caption box">
-                        <h3>더 진한 닭가슴살 스프 6종 12팩</h3>
-                        <div class="row">
-                            <div class="col-sm-8 col-xs-6">
-                                <p class="default-userProductList-CardList-price">Rp 45.000 / pcs</p>
-                                <span class="min-order">10 pcs min order</span>
-                            </div>
-    
-                            <div class="col-sm-4 col-xs-6">
-                                <button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
 
             </div>
         </div>
-
+ㅁㄴㅇㄼㅈㄷㄱㅂㅈㄷㄱ
     <!-- BootStrap Template END-->
     <!-- 베스트 메뉴 칸 -->
     <div class="container specialMenu">
@@ -406,6 +350,10 @@
 
             specialBtnSortIndex = index;
         }
+        
+        $(function() {
+        	console.log();
+        });
     </script>
 </body>
 </html>

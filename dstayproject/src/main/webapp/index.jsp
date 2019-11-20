@@ -13,7 +13,7 @@
 
 <script>
 	$(function() {
-		location.href="home.do";
+		location.href="main.do";
 	});
 </script>
 </body>

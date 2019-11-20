@@ -1,11 +1,6 @@
 @font-face {
     font-family: 'basic-font';
-    src: url('../fonts/THE명품굴림B.ttf');
-}
-
-@font-face {
-    font-family: 'titleName-font';
-    src: url('../fonts/toto.ttf');
+    src: url('../../font/THE명품굴림B.ttf');
 }
 
 .topFixedDiv {
@@ -179,7 +174,7 @@
     .menu-div {
         border-bottom: 1px solid rgb(240, 240, 240);
         box-shadow: 0 4px 6px -6px gray;
-    }	
+    }
 
     .size-pc {
         display: none;

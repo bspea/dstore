@@ -7,15 +7,12 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
-<!--
+	
 	<typeAliases>
-		<typeAlias type="com.kh.spring.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.dstay.product.model.vo.Product" alias="Product"/>
 	</typeAliases>
--->
 
- 
 	<mappers>
-		<mapper resource="mappers/3_han/frequencyQuestionAnswerMapper.xml"/>
+		<mapper resource="mappers/4_jong/mainPage-mapper.xml"/>
 	</mappers>
-
 </configuration>
