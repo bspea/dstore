@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration 
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
@@ -17,49 +15,4 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<mappers>
 		<mapper resource="mappers/4_jong/mainPage-mapper.xml"/>
 	</mappers>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE configuration 
-PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
-"http://mybatis.org/dtd/mybatis-3-config.dtd" >
-
-<configuration>
-	<settings>
-		<setting name="jdbcTypeForNull" value="NULL"/>
-	</settings>
-<!--
-	<typeAliases>
-		<typeAlias type="com.kh.spring.member.model.vo.Member" alias="Member"/>
-	</typeAliases>
--->
-
- 
-	<mappers>
-		<mapper resource="mappers/3_han/frequencyQuestionAnswerMapper.xml"/>
-	</mappers>
-
->>>>>>> refs/remotes/origin/dobin
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE configuration 
-PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
-"http://mybatis.org/dtd/mybatis-3-config.dtd" >
-
-<configuration>
-	<settings>
-		<setting name="jdbcTypeForNull" value="NULL"/>
-	</settings>
-
-	<typeAliases>
-		<typeAlias type="com.kh.dstay.member.model.vo.Member" alias="Member"/>
-	</typeAliases>
-
-
-
-	<mappers>
-		<mapper resource="mappers/2_bak/bak-mapper.xml"/>
-	</mappers>
-
-
->>>>>>> refs/remotes/origin/hyunjung
 </configuration>

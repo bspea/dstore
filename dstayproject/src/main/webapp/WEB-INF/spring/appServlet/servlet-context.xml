@@ -24,8 +24,5 @@
 	<context:component-scan base-package="com.kh.dstay" />
 	
 	
-<<<<<<< HEAD
 	
-=======
->>>>>>> refs/remotes/origin/hyunjung
 </beans:beans>

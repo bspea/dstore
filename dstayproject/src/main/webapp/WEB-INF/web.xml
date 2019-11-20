@@ -9,10 +9,6 @@
 		<param-value>
 			/WEB-INF/spring/root-context.xml
 			/WEB-INF/spring/spring-security.xml
-<<<<<<< HEAD
-=======
-			/WEB-INF/spring/email-context.xml
->>>>>>> refs/remotes/origin/hyunjung
 		</param-value>
 		
 	</context-param>
