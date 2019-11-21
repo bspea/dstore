@@ -1,13 +1,18 @@
 package com.kh.dstay.notice.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,7 +65,7 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="noticeFilesUpload.do", method=RequestMethod.POST)
-	public void noticeImageUpload(HttpServletRequest request, HttpServletResponse response, MultipartHttpServletRequest multiFile) {
+	public String noticeImageUpload(HttpServletRequest request, HttpServletResponse response, MultipartHttpServletRequest multiFile) throws IOException {
 		
 		//
 		JsonObject json = new JsonObject();
@@ -74,37 +79,83 @@ public class NoticeController {
 		// 파일선택 버튼의 name 값
 		MultipartFile file = multiFile.getFile("upload");
 		
+		// webapp 아래 resources 폴더 절대 경로
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		
+		// resources 위치 + nFiles -> 실제 저장되는 경로
+		String savePath = root + "/nFiles";
+		
+		
+		// 파일이 있을 때,
 		if(file != null) {
 			
-			if(file.getSize() > 0 && StringUtils.)
+			// 파일 사이즈가 0이상이고, 빈칸이 아닐 때
+			if(file.getSize() > 0 && StringUtils.isNotBlank(file.getName())) {
+				
+				
+				
+				String originFileName = file.getOriginalFilename();
+				
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+				
+				String renameFileName = sdf.format(new Date(System.currentTimeMillis())) + "." + originFileName.substring(originFileName.lastIndexOf(".")+1);
+				
+				try {
+					
+					byte[] bytes = file.getBytes();
+					
+					File uploadFile = new File(savePath);
+					
+					if(!uploadFile.exists()) {
+						uploadFile.mkdir();
+					}
+					
+					out = new FileOutputStream(new File(savePath));
+					
+					out.write(bytes);
+					
+					printWriter = response.getWriter();
+					response.setContentType("text/html");
+					String fileUrl = savePath + "/" + renameFileName;
+					
+					json.addProperty("uploaded", 1);
+					json.addProperty("fileName", renameFileName);
+					json.addProperty("url", fileUrl);
+					
+					printWriter.println(json);
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					if(out != null){
+                        out.close();
+                    }
+                    if(printWriter != null){
+                        printWriter.close();
+                    }
+
+
+
+				}
+					
+					
+					
+				
+			}
+			
+			
 		}
 		
 		
 		
 		
+		return null;
+		
+		
+		
         
-        response.setCharacterEncoding("utf-8");
-        response.setContentType("text/html;charset=utf-8");
-        
-        // webapp/resources의 resources절대경로 알기
-        String root = request.getSession().getServletContext().getRealPath("resources");
-        
-        
-        String uploadPath = root + "/nuploadFiles";
-        
-        
-        try {
-        	
-        	String fileName = upload.getOriginalFilename();
-			byte[] bytes = upload.getBytes();
-			
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
-        		
+
         		
         		
 	}
