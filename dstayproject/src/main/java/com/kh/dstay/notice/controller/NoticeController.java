@@ -1,14 +1,23 @@
 package com.kh.dstay.notice.controller;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.JsonObject;
 import com.kh.dstay.common.Pagination;
 import com.kh.dstay.notice.model.service.NoticeService;
 import com.kh.dstay.notice.model.vo.Notice;
@@ -48,5 +57,55 @@ public class NoticeController {
 		System.out.println(file);
 		
 		return "redirect:noticeList.do";
+	}
+	
+	@RequestMapping(value="noticeFilesUpload.do", method=RequestMethod.POST)
+	public void noticeImageUpload(HttpServletRequest request, HttpServletResponse response, MultipartHttpServletRequest multiFile) {
+		
+		//
+		JsonObject json = new JsonObject();
+		
+		//
+		PrintWriter printWriter = null;
+		
+		//
+		OutputStream out = null;
+		
+		// 파일선택 버튼의 name 값
+		MultipartFile file = multiFile.getFile("upload");
+		
+		if(file != null) {
+			
+			if(file.getSize() > 0 && StringUtils.)
+		}
+		
+		
+		
+		
+        
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=utf-8");
+        
+        // webapp/resources의 resources절대경로 알기
+        String root = request.getSession().getServletContext().getRealPath("resources");
+        
+        
+        String uploadPath = root + "/nuploadFiles";
+        
+        
+        try {
+        	
+        	String fileName = upload.getOriginalFilename();
+			byte[] bytes = upload.getBytes();
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        		
+        		
+        		
 	}
 }
