@@ -55,7 +55,7 @@
                 <a href="">로그인</a>
                 <a href="">마이페이지</a>
                 <a href="">장바구니</a>
-                <a href="">고객센터</a>
+                <a href="customerCenter.do">고객센터</a>
             </div>
 
             <!-- 모바일버전 (화면작은) -->
