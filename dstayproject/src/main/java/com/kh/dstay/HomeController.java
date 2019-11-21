@@ -87,9 +87,9 @@ public class HomeController {
 	public String register() {
 		return "2_bak/registerForm";
 	}
-	@RequestMapping("findEmail.do")
+	@RequestMapping("findEmailForm.do")
 	public String findEmail() {
-		return "2_bak/findEmail";
+		return "2_bak/findEmailForm";
 	}
 	@RequestMapping("resetPasswordForm")
 	public String resetPasswordForm() {
@@ -107,10 +107,12 @@ public class HomeController {
 	}
 	@RequestMapping("ajaxVerifyEmail.do")@ResponseBody
 	public String ajaxVerifyEmail(@RequestParam("email")@Email String email) throws MessagingException {
-		
+		return verifyEmail(email);
+	}
+	public String verifyEmail(String email) throws MessagingException {
 		String random = String.valueOf((int)(Math.random()*10000000 + 1));
-		//logger.debug(random);
-		boolean result = uService.ajaxVerifyEmail(email, random);
+		//logger.info(random);
+		boolean result = uService.verifyEmail(email, random);
 		if(result) {
 			return random;
 		}else {
@@ -130,17 +132,27 @@ public class HomeController {
 		}
 	}
 	@RequestMapping("reviewNonMemberOrder.do")
-	public String reviewNonMemberOrder(@RequestParam("goNo")int goNo,@RequestParam("gPhone")String phone) {
+	public ModelAndView reviewNonMemberOrder(ModelAndView mv,@RequestParam("goNo")int goNo,@RequestParam("phone")String phone) {
 		GuestOrder requestGo = new GuestOrder();
 		requestGo.setGoNo(goNo);requestGo.setPhone(phone);
 		GuestOrder reviewOrder = gService.reviewNonMemberOrder(requestGo);
 		if(reviewOrder != null) {
-			logger.info(reviewOrder.toString());
-			return "home";//비회원 주문 내역 조회 페이지로 변경해야 합니다
+			//logger.info(reviewOrder.toString());
+			mv.addObject("reviewOrder",reviewOrder).setViewName("home");//비회원 주문 내역 조회 페이지로 변경해야 합니다
 		}else {
-			return "redirect:home.do";
+			mv.setViewName("redirect:home.do");
 		}
-		
+		return mv;
+	}
+	@RequestMapping("findEmail.do")
+	public void findEmail(@RequestParam("phone")String phone) {
+		logger.info(phone);
+	}
+	@RequestMapping("sendAnEmail.do")
+	public void sendAnEmail(@RequestParam("email")String email) throws MessagingException {
+		//logger.info(email);
+		String t = verifyEmail(email);
+		//logger.info(random);
 		
 	}
 }

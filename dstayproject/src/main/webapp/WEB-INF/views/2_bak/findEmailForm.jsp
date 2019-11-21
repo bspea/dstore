@@ -74,11 +74,14 @@
     <script type="text/javascript" src="resources/js/2_bak/mainBanner.js"></script>
 
 	<!-- 휴대폰 인증용 자바스크립트 -->
-	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<!-- 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script> -->
     <![endif]-->
 </head>
-
+<!-- <script>
+	var IMP = window.IMP;
+	IMP.init("imp82047249");
+</script> -->
 <body>
 <jsp:include page="../1_common/menubar.jsp"/>
 
@@ -102,34 +105,34 @@
                 <div class="row">
                     <div class="box-bg-white col-md-12 col-xs-12 form-medium-padding">
                         <h3 class="text-center text-gray-1">이메일아이디 찾기</h3>
-                        <p class="text-center">회원정보에 등록한 휴대전화로 인증</p>
+                        <p class="text-center">회원정보에 등록한 휴대전화를 입력해 주세요</p>
                         <div class="clearfix maya-small-padding"></div>
 
-                        <form>
-                             <div class="form-group">
-                                <input type="text" class="form-control" id="business_name" placeholder="이름" required >
+                        <form action="findEmail.do" action="post">
+<!--                              <div class="form-group">
+                                <input type="text" class="form-control" id="business_name" placeholder="이름" required name="importName">
                             </div>
                            <div class="form-group">
-                                <input type="text" class="form-control" id="tagline" placeholder="생년월일(예:2019-11-15)" required>
-                            </div> 
+                                <input type="text" class="form-control" id="tagline" placeholder="생년월일(예:20191115)" required name="importBirth">
+                            </div>  -->
                             
 <!--                             <div class="form-group">
                                 <input type="email" class="form-control" id="bank_account" placeholder="이메일">
                             </div>  -->
                             <div class="form-group">
-                                <input type="tel" class="form-control" id="account_number" placeholder="휴대폰 번호" required>
+                                <input type="tel" class="form-control" id="account_number" placeholder="휴대폰 번호" required name="phone">
                             </div> 
 
-                           <div class="form-group">
+<!--                            <div class="form-group">
                                 <input type="text" class="form-control" id="bank_account_name" placeholder="인증번호 6자리 숫자입력" disabled>
                             </div> 
 							
                             <button type="button" class="btn btn-block button-green-free btn-lg" data-toggle="tooltip" data-placement="top" 
                             		title="인증번호가 오지 않으면 다시 한 번 눌러주세요"
-                            		onclick="location.href='resetPasswordForm.do';">
+                            		onclick="callImport()">
                             	인증받기
-                            </button>
-                            
+                            </button> -->
+                            <button type="submit" class="btn btn-block button-green-free btn-lg">확인</button>
                         </form>
                         <div class="clearfix maya-tiny-padding"></div>
                         <!-- <p class="text-center"><a href="emailVerify.me" class="text-secondary">이메일로 인증</a></p> -->
@@ -160,7 +163,21 @@
 <script>
 $(function () {
 	  $('[data-toggle="tooltip"]').tooltip()
-	})
+	
+/*   // IMP.certification(param, callback) 호출
+  function callImport() {
+	
+	  IMP.certification({ // param
+	    
+	  }, function (rsp) { // callback
+	    if (rsp.success) {
+	      console.log("success");
+	    } else {
+	      console.log("fail");
+	    }
+	  });
+	} */	
+})
 </script>
 </body>
 </html>

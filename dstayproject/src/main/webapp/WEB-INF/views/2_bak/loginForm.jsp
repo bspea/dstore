@@ -156,7 +156,7 @@
                                                         <div class="checkbox" align="right" style="float:right">
                                                         <div class="clearfix maya-tiny-padding"></div>
                                  <label>
-                                    <button type="button" onclick="location.href='findEmail.do';" class="btn btn-outline-primary"><span class="text-gray-2 helvetica-12">이메일아이디 찾기</span></button>
+                                    <button type="button" onclick="location.href='findEmailForm.do';" class="btn btn-outline-primary"><span class="text-gray-2 helvetica-12">이메일아이디 찾기</span></button>
                                 </label>                       
                                 <label>
                                     <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><span class="text-gray-2 helvetica-12">비밀번호찾기</span></button>
@@ -203,18 +203,18 @@
          <!--  <span aria-hidden="true">&times;</span> -->
        <!--  </button> -->
       </div>
+        <form id="modalSendAnEmailForm" method="post">
       <div class="modal-body">
-        <form>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label" style="float:left">이메일아이디</label>
-            <input type="email" class="form-control" id="recipient-name">
+            <input type="email" class="form-control" id="recipient-name" name="email">
           </div>
-        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary">비밀번호 발송</button>
+        <button type="submit" class="btn btn-outline-primary" >비밀번호 발송</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
       </div>
+        </form>
     </div>
   </div>
 </div>
@@ -300,5 +300,22 @@
 
 <!--kimi basic js-->
 <script src="resources/js/2_bak/kimi.js"></script>
+<script>
+	$(document).ready(function() {
+		$("#modalSendAnEmailForm").on("submit",function() {
+			$.ajax({
+				url:"sendAnEmail.do",
+				method:"post",
+				data:$("#modalSendAnEmailForm").serialize(),
+				error:function() {
+					console.log("disconnected");
+				},
+				success:function() {
+					console.log("connected");
+				}
+			})
+		})
+	})
+</script>
 </body>
 </html>
