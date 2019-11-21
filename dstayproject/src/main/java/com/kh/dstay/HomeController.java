@@ -1,8 +1,11 @@
 package com.kh.dstay;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Locale;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Email;
 
@@ -19,11 +22,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.dstay.guestOrder.model.service.GuestOrderService;
 import com.kh.dstay.guestOrder.model.vo.GuestOrder;
 import com.kh.dstay.member.model.service.MemberService;
 import com.kh.dstay.member.model.vo.Member;
 import com.kh.dstay.util.model.service.UtilService;
+
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 /**
  * Handles requests for the application home page.
@@ -55,15 +63,21 @@ public class HomeController {
 	}
 	
 	@RequestMapping("loginForm.do")
-	public String loginForm() {
-		
-		return "2_bak/loginForm";
+	public ModelAndView loginForm(ModelAndView mv,@RequestParam(value="email", required=false)String findEmail ) {
+		logger.info(findEmail);
+		if(findEmail != null) {
+			mv.addObject("findEmail",findEmail).setViewName("2_bak/loginForm");
+		}else {
+			mv.setViewName("2_bak/loginForm");
+		}
+		return mv;
 	}
 	@RequestMapping("login.do")
 	public ModelAndView login(ModelAndView mv,@RequestParam("email")@Email String email,@RequestParam("password") String password,HttpSession session) {
 		
 		Member mem = new Member();
 		mem.setEmail(email); 
+		mem.setPassword(bcryptPasswordEncoder.encode(password));
 		Member loginUser = mService.login(mem);
 		if(loginUser != null && bcryptPasswordEncoder.matches(password, mem.getPassword())) {
 			session.setAttribute("loginUser", loginUser);
@@ -107,12 +121,12 @@ public class HomeController {
 	}
 	@RequestMapping("ajaxVerifyEmail.do")@ResponseBody
 	public String ajaxVerifyEmail(@RequestParam("email")@Email String email) throws MessagingException {
-		return verifyEmail(email);
+		return verifyEmail(email,"인증번호");
 	}
-	public String verifyEmail(String email) throws MessagingException {
+	public String verifyEmail(String email, String emailMsg) throws MessagingException {
 		String random = String.valueOf((int)(Math.random()*10000000 + 1));
 		//logger.info(random);
-		boolean result = uService.verifyEmail(email, random);
+		boolean result = uService.verifyEmail(email, emailMsg, random);
 		if(result) {
 			return random;
 		}else {
@@ -144,15 +158,42 @@ public class HomeController {
 		}
 		return mv;
 	}
-	@RequestMapping("findEmail.do")
-	public void findEmail(@RequestParam("phone")String phone) {
-		logger.info(phone);
+	@RequestMapping(value="ajaxfindEmail.do")
+	public void findEmail(HttpServletResponse response,@RequestParam("phone")String phone) throws CoolsmsException, JsonIOException, IOException {
+		//logger.info(phone);
+		
+		Member findEmailMem = mService.selectFindEmailMember(phone);
+		String randomSMS =  String.valueOf((int)(Math.random()*10000000 + 1));
+		if(findEmailMem != null) {
+			boolean result = uService.selectFindEmailMember(phone, randomSMS);
+			if(result) {
+				//logger.info("sendMsgSuccess");
+				//logger.info(randomSMS);
+				HashMap<String,String> infoMap = new HashMap<String,String>();
+				infoMap.put("SMS", randomSMS);
+				infoMap.put("mem", findEmailMem.getEmail());
+				//logger.info(infoMap.toString());
+				response.setContentType("application/json; charset=utf-8");
+				Gson gson = new Gson();
+				gson.toJson(infoMap, response.getWriter());
+			}
+		}
+		//return "none";
 	}
 	@RequestMapping("sendAnEmail.do")
-	public void sendAnEmail(@RequestParam("email")String email) throws MessagingException {
+	public ModelAndView sendAnEmail(ModelAndView mv,@RequestParam("email")String email) throws MessagingException {
 		//logger.info(email);
-		String t = verifyEmail(email);
-		//logger.info(random);
-		
+		String tempPassword = verifyEmail(email,"임시비밀번호");
+		//logger.info(tempPassword);
+		Member tempMem = new Member();
+		tempMem.setEmail(email);
+		tempMem.setPassword(bcryptPasswordEncoder.encode(tempPassword));
+		int result = mService.updateTempMember(tempMem);
+		if(result>0) {
+			mv.setViewName("loginForm");
+		}else {
+			mv.addObject("findEmailMsg","해당 이메일이 없습니다");//
+		}
+		return mv;
 	}
 }

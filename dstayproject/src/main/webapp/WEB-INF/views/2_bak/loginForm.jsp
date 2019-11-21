@@ -142,7 +142,12 @@
 
                         <form action="login.do" method="post">
                             <div class="form-group">
+                            	<c:if test="${empty findEmail }">
                                 <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="이메일" required>
+                            	</c:if>
+                            	<c:if test="${!empty findEmail }">
+                            	<input type="email" name="email" class="form-control" value="${findEmail }" readonly>
+                            	</c:if>
                             </div>
                             <div class="form-group">
                                 <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호" required>

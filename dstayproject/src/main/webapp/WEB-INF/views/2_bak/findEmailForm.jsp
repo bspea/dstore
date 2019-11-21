@@ -105,10 +105,10 @@
                 <div class="row">
                     <div class="box-bg-white col-md-12 col-xs-12 form-medium-padding">
                         <h3 class="text-center text-gray-1">이메일아이디 찾기</h3>
-                        <p class="text-center">회원정보에 등록한 휴대전화를 입력해 주세요</p>
+                        <p class="text-center">회원정보에 등록한 휴대전화를 입력</p>
                         <div class="clearfix maya-small-padding"></div>
 
-                        <form action="findEmail.do" action="post">
+                        <form id="ajaxFindEmailForm" action="" method="post">
 <!--                              <div class="form-group">
                                 <input type="text" class="form-control" id="business_name" placeholder="이름" required name="importName">
                             </div>
@@ -123,16 +123,18 @@
                                 <input type="tel" class="form-control" id="account_number" placeholder="휴대폰 번호" required name="phone">
                             </div> 
 
-<!--                            <div class="form-group">
+                            <button type="button" onclick="sendSMS()" class="btn btn-outline-primary">인증받기</button>
+                            <div class="clearfix maya-tiny-padding"></div>
+                            <div class="form-group">
                                 <input type="text" class="form-control" id="bank_account_name" placeholder="인증번호 6자리 숫자입력" disabled>
                             </div> 
-							
-                            <button type="button" class="btn btn-block button-green-free btn-lg" data-toggle="tooltip" data-placement="top" 
+                            <button type="button" onclick="compareSMS()" class="btn btn-block button-green-free btn-lg">확인</button>
+                           <!-- <button type="button" class="btn btn-block button-green-free btn-lg" data-toggle="tooltip" data-placement="top" 
                             		title="인증번호가 오지 않으면 다시 한 번 눌러주세요"
                             		onclick="callImport()">
                             	인증받기
                             </button> -->
-                            <button type="submit" class="btn btn-block button-green-free btn-lg">확인</button>
+                            <input type="hidden" id="hiddenEmail">
                         </form>
                         <div class="clearfix maya-tiny-padding"></div>
                         <!-- <p class="text-center"><a href="emailVerify.me" class="text-secondary">이메일로 인증</a></p> -->
@@ -176,8 +178,51 @@ $(function () {
 	      console.log("fail");
 	    }
 	  });
-	} */	
-})
+	} */
+	//$("#ajaxFindEmailForm").on("submit",function() {
+		})
+		var randomSMS;
+		var infoMem;
+		function sendSMS() {
+		$.ajax({
+			url:"ajaxfindEmail.do",
+			method:"post",
+			data:{phone:$("#account_number").val()},
+			dataType:"json",
+			error:function() {
+				console.log("disconnected");
+			},
+			success:function(infoMap) {
+				if( infoMap != null) {
+					randomSMS = infoMap.SMS;
+					infoMem = infoMap.mem;
+					console.log(randomSMS);
+					$("#bank_account_name").attr("disabled", false);
+				}else {
+					alert("휴대폰 번호를 잘 입력해 주세요");
+				}
+			}
+		})
+	}
+		function compareSMS() {
+			if($("#bank_account_name").val() == randomSMS) {
+				//console.log(infoMem);
+				$.ajax({
+					url:"loginForm.do",
+					method:"post",
+					data:{email:infoMem},
+					error:function() {
+						console.log("disconnected");
+					},
+					success:function() {
+						console.log("connected");
+					}
+					})
+				}else {
+				alert("인증번호가 다릅니다");
+			}
+		}
+
 </script>
 </body>
 </html>

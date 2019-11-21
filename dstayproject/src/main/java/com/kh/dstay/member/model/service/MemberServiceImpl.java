@@ -29,5 +29,15 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return mDao.insertMember(mem);
 	}
+	@Override
+	public int updateTempMember(Member tempMem) {
+		// TODO Auto-generated method stub
+		return mDao.updateTempMember(tempMem);
+	}
+	@Override
+	public Member selectFindEmailMember(String phone) {
+		// TODO Auto-generated method stub
+		return mDao.selectFindEmailMember(phone);
+	}
 
 }

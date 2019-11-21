@@ -166,7 +166,7 @@
                                 <button type="reset" onclick="resetInput()" class="btn btn-outline-primary" >재입력</button>
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" id="exampleInputPassword1" pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}"
+                                <input type="text" class="form-control" id="exampleInputPassword1" pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}"
                                 title="하나이상의 숫자/대문자/소문자/특수문자 를 전부 포함해 주세요" placeholder="비밀번호" name="password" required >
                             	<span class="helvetica-12 guidePw okPw" >적합한 비밀번호 입니다</span>
                                 <!-- <span class="helvetica-12 guidePw ngNum" >하나이상의 숫자를 입력해 주세요</span>
@@ -176,7 +176,7 @@
                                 <!-- <input type="hidden" id="hiddenCheck" value="0"><br> -->
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" id="exampleInputPassword2" placeholder="비밀번호확인">
+                                <input type="text" class="form-control" id="exampleInputPassword2" placeholder="비밀번호확인">
                             </div>
                           <div class="form-group">
                                 <input type="text" class="form-control" id="mobilenumber" placeholder="닉네임" name="nickName" required>

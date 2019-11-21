@@ -28,6 +28,16 @@ public class MemberDao {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("bakMapper.insertMember", mem);
 	}
+
+	public int updateTempMember(Member tempMem) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("bakMapper.udpateTempMember",tempMem);
+	}
+
+	public Member selectFindEmailMember(String phone) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("bakMapper.selectFindEmailMember",phone);
+	}
 	
 	
 }
