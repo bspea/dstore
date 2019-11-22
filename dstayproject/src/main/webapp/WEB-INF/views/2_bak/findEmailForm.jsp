@@ -207,7 +207,7 @@ $(function () {
 		function compareSMS() {
 			if($("#bank_account_name").val() == randomSMS) {
 				//console.log(infoMem);
-				$.ajax({
+				/* $.ajax({
 					url:"loginForm.do",
 					method:"post",
 					data:{email:infoMem},
@@ -215,9 +215,11 @@ $(function () {
 						console.log("disconnected");
 					},
 					success:function() {
-						console.log("connected");
+						//console.log("connected");
 					}
-					})
+					}) */
+						alert("귀하의 이메일은 " + infoMem + " 입니다");
+						location.href="loginForm.do";
 				}else {
 				alert("인증번호가 다릅니다");
 			}
