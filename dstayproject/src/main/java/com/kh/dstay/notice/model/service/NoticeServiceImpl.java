@@ -26,6 +26,30 @@ public class NoticeServiceImpl implements NoticeService{
 		
 		return nDao.selectNoticeList(pi);
 	}
+
+	@Override
+	public int insertNotice(Notice n) {
+		
+		return nDao.insertNotice(n);
+	}
+
+	@Override
+	public Notice selectNotice(int noticeNo) {
+		
+		return nDao.selectnotice(noticeNo);
+	}
+
+	@Override
+	public Notice selectPrevNotice(int noticeNo) {
+		
+		return nDao.selectPrevNotice(noticeNo);
+	}
+
+	@Override
+	public Notice selectNextNotice(int noticeNo) {
+		
+		return nDao.selectNextNotice(noticeNo);
+	}
 	
 	
 }

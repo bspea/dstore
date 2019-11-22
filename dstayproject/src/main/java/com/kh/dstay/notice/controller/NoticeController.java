@@ -26,7 +26,10 @@ import com.google.gson.JsonObject;
 import com.kh.dstay.common.Pagination;
 import com.kh.dstay.notice.model.service.NoticeService;
 import com.kh.dstay.notice.model.vo.Notice;
+import com.kh.dstay.notice.model.vo.NoticeFiles;
 import com.kh.dstay.notice.model.vo.PageInfo;
+
+import oracle.net.aso.n;
 
 @Controller
 public class NoticeController {
@@ -55,49 +58,43 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("noticeInsert.do")
-	public String insertNotice(Notice n,
-							   @RequestParam(value="uploadFile", required=false) MultipartFile file) {
+	public String insertNotice(Notice n) {
 		
+		n.setNoticeCategory("����");
 		System.out.println(n);
-		System.out.println(file);
+		int result = nService.insertNotice(n);
 		
-		return "redirect:noticeList.do";
+		if(result > 0) {
+			return "redirect:noticeList.do";
+		}else {
+			return "redirect:noticeList.do";
+		}
+		
+		
 	}
 	
 	@RequestMapping(value="noticeFilesUpload.do", method=RequestMethod.POST)
-	public String noticeImageUpload(HttpServletRequest request, HttpServletResponse response, MultipartHttpServletRequest multiFile) throws IOException {
+	public String noticeImageUpload(HttpServletRequest request,
+									HttpServletResponse response,
+									MultipartHttpServletRequest multiFile,
+									NoticeFiles nf) throws IOException {
 		
-		//
+		
 		JsonObject json = new JsonObject();
-		
-		//
 		PrintWriter printWriter = null;
-		
-		//
 		OutputStream out = null;
-		
-		// 파일선택 버튼의 name 값
 		MultipartFile file = multiFile.getFile("upload");
 		
-		// webapp 아래 resources 폴더 절대 경로
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		
-		// resources 위치 + nFiles -> 실제 저장되는 경로
+		 
 		String savePath = root + "/nFiles";
 		
-		
-		// 파일이 있을 때,
 		if(file != null) {
 			
-			// 파일 사이즈가 0이상이고, 빈칸이 아닐 때
 			if(file.getSize() > 0 && StringUtils.isNotBlank(file.getName())) {
 				
-				
-				
 				String originFileName = file.getOriginalFilename();
-				
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-				
 				String renameFileName = sdf.format(new Date(System.currentTimeMillis())) + "." + originFileName.substring(originFileName.lastIndexOf(".")+1);
 				
 				try {
@@ -110,19 +107,27 @@ public class NoticeController {
 						uploadFile.mkdir();
 					}
 					
-					out = new FileOutputStream(new File(savePath));
+					out = new FileOutputStream(new File(savePath + "/" + renameFileName));
 					
 					out.write(bytes);
 					
+					out.flush();
+					
 					printWriter = response.getWriter();
-					response.setContentType("text/html");
-					String fileUrl = savePath + "/" + renameFileName;
+					response.setContentType("text/html; charset=utf-8");
+					String fileUrl = "resources/nFiles/" + renameFileName;
 					
 					json.addProperty("uploaded", 1);
 					json.addProperty("fileName", renameFileName);
 					json.addProperty("url", fileUrl);
 					
+					nf.setOriginFileName(originFileName);
+					nf.setModifiedFileName(renameFileName);
+					
+					response.setContentType("application/json; charset=UTF-8");
 					printWriter.println(json);
+					
+					printWriter.flush();
 					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -134,29 +139,26 @@ public class NoticeController {
                     if(printWriter != null){
                         printWriter.close();
                     }
-
-
-
 				}
-					
-					
-					
-				
 			}
-			
-			
 		}
 		
-		
-		
-		
 		return null;
-		
-		
-		
-        
 
-        		
-        		
+	}
+	
+	@RequestMapping("noticeDetail.do")
+	public ModelAndView noticeDatail(int noticeNo, ModelAndView mv) {
+		
+		Notice n = nService.selectNotice(noticeNo);
+		
+		Notice prevN = nService.selectPrevNotice(noticeNo);
+		Notice nextN = nService.selectNextNotice(noticeNo);
+		
+		if(n != null) {
+			mv.addObject("n", n).addObject("prevN", prevN).addObject("nextN", nextN).setViewName("3_han/noticeDetailView");
+		}
+		
+		return mv;
 	}
 }

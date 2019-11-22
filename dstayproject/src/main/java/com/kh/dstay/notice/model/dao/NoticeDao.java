@@ -30,4 +30,24 @@ public class NoticeDao {
 		
 		return list;
 	}
+
+	public int insertNotice(Notice n) {
+		
+		return sqlSession.insert("noticeMapper.insertNotice", n);
+	}
+
+	public Notice selectnotice(int noticeNo) {
+		
+		return sqlSession.selectOne("noticeMapper.selectNotice", noticeNo);
+	}
+
+	public Notice selectPrevNotice(int noticeNo) {
+		
+		return sqlSession.selectOne("noticeMapper.selectPrevNotice", noticeNo);
+	}
+
+	public Notice selectNextNotice(int noticeNo) {
+
+		return sqlSession.selectOne("noticeMapper.selectNextNotice", noticeNo);
+	}
 }

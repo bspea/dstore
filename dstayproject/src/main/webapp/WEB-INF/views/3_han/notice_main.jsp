@@ -77,7 +77,7 @@
                                 <tr class="notice-line">
                                     <td class="notice-no">${ nList.noticeNo }</td>
                                     <td class="notice-class"><p class="p-purple">${ nList.noticeCategory }</p></td>
-                                    <td class="notice-title"><a href="notice-detail.html">${ nList.noticeTitle }</a></td>
+                                    <td class="notice-title"><a href="noticeDetail.do?noticeNo=${ nList.noticeNo }">${ nList.noticeTitle }</a></td>
                                     <td class="notice-date">${ nList.writeDate }</td>
                                 </tr>
                                 </c:forEach>
