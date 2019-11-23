@@ -39,4 +39,3 @@ public class MemberDao {
 		return sqlSession.selectOne("bakMapper.selectFindEmailMember",phone);
 	}
 }
-

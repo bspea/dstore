@@ -15,7 +15,6 @@
     transition-duration: 0.2s;
     cursor:pointer;
 
-    /* �뀓�뒪�듃 �닔吏곸젙�젹 */
     display: table;
     table-layout: fixed;
 }

@@ -88,7 +88,7 @@
     </div>
 
     <div class="menu-div">
-        <div class="menu-line">메뉴목록</div>
+        <div class="menu-line"><a href="product.do">메뉴목록</a></div>
         <div class="menu-line">베스트목록</div>
         <div class="menu-line">신상품</div>
         <div class="menu-line">할인품목</div>

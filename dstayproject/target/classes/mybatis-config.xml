@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE configuration 
+<!DOCTYPE configuration
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 
@@ -12,12 +12,33 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.kh.dstay.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.dstay.product.model.vo.Product" alias="Product"/>
 		<typeAlias type="com.kh.dstay.guestOrder.model.vo.GuestOrder" alias="GuestOrder"/>
+		
+		
+		
+		<typeAlias alias="productCategory" type="com.kh.dstay.lee.products.model.vo.ProductCategory"/>
+		
+		
+		<!-- 현지씨 해당 vo가 존재하지 않아 비활성화 처리. 
+		<typeAlias type="com.kh.dstay.product.model.vo.Ingredient" alias="Ingredient"/>
+		<typeAlias type="com.kh.dstay.product.model.vo.ProductImage" alias="ProductImage"/>
+		<typeAlias type="com.kh.dstay.product.model.vo.ProductStorage" alias="ProductStorage"/>
+		<typeAlias type="com.kh.dstay.product.model.vo.IngredientCategory" alias="IngredientCategory"/>
+		-->
+		
+		<!-- 동일 네임 겹쳐서 비활성화 처리
+			<typeAlias alias="Member" type="com.kh.dstay.lee.login.model.vo.Member"/>
+			<typeAlias alias="product" type="com.kh.dstay.lee.products.model.vo.Product"/>
+		-->
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="mappers/4_jong/mainPage-mapper.xml"/>
 		<mapper resource="mappers/3_han/frequencyQuestionAnswerMapper.xml"/>
 		<mapper resource="mappers/3_han/noticeMapper.xml"/>
-				<mapper resource="mappers/2_bak/bak-mapper.xml"/>
+		<mapper resource="mappers/2_bak/bak-mapper.xml"/>
+		
+		<mapper resource="mappers/6_lee/member-mapper.xml"/>
+		<mapper resource="mappers/6_lee/product-mapper.xml"/>
+		<!-- <mapper resource="mappers/5_kim/product-mapper.xml"/> -->
 	</mappers>
 </configuration>
