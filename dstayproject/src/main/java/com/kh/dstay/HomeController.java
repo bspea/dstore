@@ -64,7 +64,7 @@ public class HomeController {
 	
 	@RequestMapping("loginForm.do")
 	public ModelAndView loginForm(ModelAndView mv,@RequestParam(value="email", required=false)String findEmail ) {
-		logger.info(findEmail);
+		//logger.info(findEmail);
 		if(findEmail != null) {
 			mv.addObject("findEmail",findEmail).setViewName("2_bak/loginForm");
 		}else {
@@ -88,7 +88,6 @@ public class HomeController {
 		}
 		return mv;
 	}
-	
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {
 		session.invalidate();
@@ -166,6 +165,7 @@ public class HomeController {
 		
 		Member findEmailMem = mService.selectFindEmailMember(phone);
 		String randomSMS =  String.valueOf((int)(Math.random()*10000000 + 1));
+		//logger.info(findEmailMem.toString());
 		if(findEmailMem != null) {
 			boolean result = uService.selectFindEmailMember(phone, randomSMS);
 			if(result) {
