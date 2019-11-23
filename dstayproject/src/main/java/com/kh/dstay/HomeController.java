@@ -64,7 +64,7 @@ public class HomeController {
 	
 	@RequestMapping("loginForm.do")
 	public ModelAndView loginForm(ModelAndView mv,@RequestParam(value="email", required=false)String findEmail ) {
-		logger.info(findEmail);
+		//logger.info(findEmail);
 		if(findEmail != null) {
 			mv.addObject("findEmail",findEmail).setViewName("2_bak/loginForm");
 		}else {
@@ -86,6 +86,11 @@ public class HomeController {
 			mv.addObject("loginMsg","존재하지 않는 아이디거나 비밀번호가 다릅니다").setViewName("2_bak/loginForm");
 		}
 		return mv;
+	}
+	@RequestMapping("googleLogin.do")@ResponseBody
+	public void googleLogin(@RequestParam("googleEmail")String googleEmail,@RequestParam("idToken")String idToken) {
+		//logger.info(googleEmail + "/" + idToken);
+		
 	}
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {
@@ -164,6 +169,7 @@ public class HomeController {
 		
 		Member findEmailMem = mService.selectFindEmailMember(phone);
 		String randomSMS =  String.valueOf((int)(Math.random()*10000000 + 1));
+		//logger.info(findEmailMem.toString());
 		if(findEmailMem != null) {
 			boolean result = uService.selectFindEmailMember(phone, randomSMS);
 			if(result) {

@@ -36,17 +36,15 @@
     <meta name="twitter:description" content="Kimi is a curated foods and beverages artisans.">
     <meta name="twitter:image" content="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/apple-touch-icon.png">
     <meta name="twitter:site" content="@backtokimi">
-
-
+    
     <link rel="icon" href="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/favicon.ico">
     <link rel="apple-touch-icon" href="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/apple-touch-icon.png">
-	<!--  -->
+	
 	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
 	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous"> 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" crossorigin="anonymous"> -->
 
-    <!--  -->
 
     <!-- Bootstrap core CSS -->
     <link href="resources/css/2_bak/bootstrap.min.css?after" rel="stylesheet">
@@ -72,8 +70,6 @@
     <!-- Custom JavaScript-->
     <script type="text/javascript" src="resources/js/2_bak/mobile-menu.js"></script>
     <script type="text/javascript" src="resources/js/2_bak/mainBanner.js"></script>
-
-
 
     <style>
     html, body {
@@ -116,6 +112,8 @@
     /* 테스트용 CSS */
     </style>
 </head>
+<!--구글로 로그인  -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <body>
 <jsp:include page="../1_common/menubar.jsp"/>
 
@@ -180,11 +178,12 @@
                         <p class="text-center" style="color:red">${loginMsg }</p>
                         </c:if>
                         <div class="clearfix maya-tiny-padding"></div>
+
                                                 <div class="row">
                             <div class="col-md-12">
-                                <button class="button-connect-google btn-block"><i class="fa fa-google" style="font-size:24px;margin-right:18px"></i>구글로 로그인하기</button>
+                                <button class="button-connect-google btn-block" onclick="init()" id="googleLoginbtn"><i class="fa fa-google" style="font-size:24px;margin-right:18px"></i>구글로 로그인하기</button>
                             </div>
-                        </div>
+                        </div> 
                         
                                                 <div class="row">
                             <div class="col-md-12">
@@ -305,6 +304,7 @@
 
 <!--kimi basic js-->
 <script src="resources/js/2_bak/kimi.js"></script>
+
 <script>
 	$(document).ready(function() {
 		$("#modalSendAnEmailForm").on("submit",function() {
@@ -321,6 +321,59 @@
 			})
 		})
 	})
+		/* 구글로 로그인 */
+		function init() {
+		  console.log('call init ');
+		  gapi.load('auth2', function() {
+		    /* Ready. Make a call to gapi.auth2.init or some other API */
+		    console.log("loaded auth2 ");
+		    var googleAuth = gapi.auth2.init({
+		    	  client_id: "772225320155-psolb8vekpte4t7h2bl88b0tt3p3sfn6.apps.googleusercontent.com"
+		    })
+		    googleAuth.then(function() {
+		    	console.log("googleAuth initialized");
+		    	if(googleAuth.isSignedIn.get()) {
+		    		console.log("logined");
+		    		/* googleAuth.signIn().then(function() {
+		    			console.log("userLogin"); 
+		    		})*/
+		    		googleAuth.signIn();
+		    		var googleUser = googleAuth.currentUser.get();
+		    			//console.log(google);
+		    			/* if(googleUser.isSignedIn()) {
+		    				console.log("userLogin");
+		    			} */
+		    		  var profile = googleUser.getBasicProfile();
+			    		  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+			    		  console.log('Name: ' + profile.getName());
+			    		  console.log('Image URL: ' + profile.getImageUrl());
+			    		  console.log('Email: ' + profile.getEmail());
+			    	  var googleEmail = profile.getEmail();
+			    	  var id_token = googleUser.getAuthResponse().id_token;
+			    	  	  //console.log(id_token);
+			    	  	  $.ajax({
+			    			  url:"googleLogin.do",
+			    			  method:"post",
+			    			  data:{googleEmail:googleEmail,idToken:id_token},
+			    			  error:function() {
+			    				  console.log("googleUser loading failed");
+			    			  },
+			    			  success:function() {
+			    				  console.log("googleUser loading proceeded");
+			    			  }
+			    		  })
+			    		  
+		    			 
+		    	}else {
+		    		console.log("unlogined");
+		    	}
+		    }, function() {
+		    	console.log("googleAuth failed to initialize");
+		    })
+		  });
+		}
 </script>
+<!--구글로 로그인  -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
 </html>
