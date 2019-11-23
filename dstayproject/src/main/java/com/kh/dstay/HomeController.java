@@ -72,6 +72,7 @@ public class HomeController {
 		}
 		return mv;
 	}
+	
 	@RequestMapping("login.do")
 	public ModelAndView login(ModelAndView mv,@RequestParam("email")@Email String email,@RequestParam("password") String password,HttpSession session) {
 		
@@ -86,11 +87,6 @@ public class HomeController {
 			mv.addObject("loginMsg","존재하지 않는 아이디거나 비밀번호가 다릅니다").setViewName("2_bak/loginForm");
 		}
 		return mv;
-	}
-	@RequestMapping("googleLogin.do")@ResponseBody
-	public void googleLogin(@RequestParam("googleEmail")String googleEmail,@RequestParam("idToken")String idToken) {
-		//logger.info(googleEmail + "/" + idToken);
-		
 	}
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {

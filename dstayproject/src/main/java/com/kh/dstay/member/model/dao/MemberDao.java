@@ -38,7 +38,4 @@ public class MemberDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("bakMapper.selectFindEmailMember",phone);
 	}
-	
-	
 }
-

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="noticeMapper">
+ 	
+ 	<resultMap id="noticeResultSet" type="com.kh.dstay.notice.model.vo.Notice">
+ 		<id property="noticeNo" column="nno"/>
+ 		<result property="noticeTitle" column="ntitle"/>
+ 		<result property="noticeContents" column="ncontents"/>
+ 		<result property="writeDate" column="ndate"/>
+ 		<result property="noticeCategory" column="ncategory"/>
+ 		<result property="status" column="nstatus"/>
+ 		
+ 	</resultMap>
+ 	
+	<select id="getNoticeListCount" resultType="_int">
+		select count(*)
+		from notice
+		where nstatus='Y'
+	</select>
+	
+	<select id="selectNoticeList" resultMap="noticeResultSet">
+		select *
+		from notice
+		where nstatus='Y'
+		order by nno desc
+	</select>
+	
+	<insert id="insertNotice">
+		insert into notice
+		values(seq_notice.nextval, #{noticeTitle}, #{noticeContents}, #{noticeCategory}, sysdate, default)
+	</insert>
+	
+	<select id="selectNotice" resultMap="noticeResultSet">
+		select *
+		from notice
+		where nno=#{noticeNo}
+	</select>
+	
+	<select id="selectPrevNotice" resultMap="noticeResultSet">
+		SELECT *
+		FROM (SELECT ROWNUM AS PeckingOrder, NOTICE.* FROM NOTICE)
+		WHERE PeckingOrder=(SELECT SelectedOrder FROM (SELECT ROWNUM AS SelectedOrder, NOTICE.* FROM NOTICE) WHERE NNO=#{noticeNo})-1
+	</select>
+	
+	<select id="selectNextNotice" resultMap="noticeResultSet">
+		SELECT *
+		FROM (SELECT ROWNUM AS PeckingOrder, NOTICE.* FROM NOTICE)
+		WHERE PeckingOrder=(SELECT SelectedOrder FROM (SELECT ROWNUM AS SelectedOrder, NOTICE.* FROM NOTICE) WHERE NNO=#{noticeNo})+1
+	</select>
+</mapper>

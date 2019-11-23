@@ -244,6 +244,14 @@
 		    <scope>provided</scope>
 		</dependency>
 		
+		<!-- StringUtils를 쓰기 위함 -->
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		    <version>3.7</version>
+		</dependency>
+		
+		
 		<!-- 메일보내기 -->
 		<dependency>
 		    <groupId>javax.mail</groupId>
@@ -276,7 +284,6 @@
 		    <artifactId>javaSDK</artifactId>
 		    <version>2.2</version>
 		</dependency>
-
 		
 	</dependencies>
     <build>

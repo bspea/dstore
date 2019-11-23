@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="productMapper">
+		<!-- 상품 메퍼  -->
+		<resultMap id="productResultSet" type="Product">
+		
+		<id property="pno" column="pno"/>
+		<result property="pcno" column="pcno"/>
+		<result property="pname" column="pname"/>
+		<result property="price" column="price"/>
+		<result property="pcontents" column="pcontents"/>
+		<result property="penrolldate" column="penrolldate"/>
+		<result property="calorie" column="calorie"/>
+		<result property="pstatus" column="pstatus"/>
+		<result property="pipath" column="pipath"/>
+		<result property="pcname" column="pcname"/>
+		
+		<!-- 카테고리 메퍼 -->
+		</resultMap>
+		
+		<resultMap id="productCateResultSet" type="ProductCategory">
+		
+		<id property="no" column="pcno"/>
+		<result property="name" column="pcname"/>
+		<result property="original_fileName" column="original_filename"/>
+		<result property="pcSum" column="pcsum"/>
+		
+		</resultMap>
+		
+		<!-- 해당 카테고리의 상품 총 갯수 -->
+		<select id="getCateListCount" resultType="_int">
+			select count(*)
+			from product
+			where pcno = #{caNo}
+		
+		</select>
+		
+		<!-- 카테고리의 상세정보와 카테고리에 해당하는 각 상품들의 총 갯수  -->
+		<select id="cateSelect" resultMap="productCateResultSet">
+		
+			select pc.*, (select count(*) from product where pc.pcno=pcno)pcsum
+			from product_category pc
+		
+		</select>
+		
+		<!-- 카테고리 안의 상품들의 정보와 이미지경로 -->
+		<select id="selectCategory" resultMap="productResultSet">
+		
+			select p.*, pi.pipath
+			from product p, product_image pi
+			where (pi.piorderby=2 and p.pcno = #{caNo})and p.pno = pi.pno
+			
+		</select>
+		
+		<select id="selectProduct" resultMap="productResultSet">
+		
+			select p.*, pcname
+			from product p, product_category pc
+			where (p.pcno = pc.pcno) and p.pno = #{pdNo}
+		
+		</select>
+		
+		
+		
+</mapper>

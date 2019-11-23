@@ -15,7 +15,6 @@
     transition-duration: 0.2s;
     cursor:pointer;
 
-    /* 텍스트 수직정렬 */
     display: table;
     table-layout: fixed;
 }
@@ -112,4 +111,3 @@
         display: none;
     }
 }
- 

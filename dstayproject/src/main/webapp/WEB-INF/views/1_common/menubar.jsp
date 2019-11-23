@@ -5,10 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>menubar</title>
+<title>Insert title here</title>
 
     <!-- Custom css -->
-    <link href="${ pageContext.request.contextPath }/resources/css/4_jong/logo-top.css?ver=3" rel="stylesheet">
+    <link href="${ pageContext.request.contextPath }/resources/css/4_jong/logo-top.css?ver=4" rel="stylesheet">
     
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -17,24 +17,8 @@
     <!-- Boot Strap -->
     <link href="${ pageContext.request.contextPath }/resources/css/1_common/bootstrap.min.css" rel="stylesheet">
     
-    <!--  -->
-    <!-- Boot Strap -->
-    <link href="resources/css/2_bak/bootstrap.min.css?after" rel="stylesheet">
-
-    <!-- Template css-->
-    <link href="resources/css/2_bak/kimi.css" rel="stylesheet">
-
     <!-- Custom css -->
-    <link href="resources/css/2_bak/logo-top.css" rel="stylesheet">
-    <link href="resources/css/2_bak/top-menu.css" rel="stylesheet">
-    <link href="resources/css/2_bak/mainBanner.css" rel="stylesheet">
-
-    <!-- Custom JavaScript-->
-    <script type="text/javascript" src="resources/js/mobile-menu.js"></script>
-    <script type="text/javascript" src="resources/js/mainBanner.js"></script>
-    <!--  -->
-    
-    
+    <link href="${ pageContext.request.contextPath }/resources/css/4_jong/top-menu.css?ver=1" rel="stylesheet">
 
     <style>
     html, body {
@@ -58,14 +42,14 @@
     <div class="topFixedDiv">
     <div class="logo-top">
         <div class="topLeft">
-                <a href="home.do"><img src="${ pageContext.request.contextPath }/resources/images/4_jong/logo.png" width=100px></a>
+                <a href=""><img src="${ pageContext.request.contextPath }/resources/images/4_jong/logo.png" width=100px></a>
         </div>
 
         <div class="topMiddle">
             <input type="text" placeholder="검색어를 입력해주세요.">
         </div>
 
-        <div class="topRight">
+		<div class="topRight">
              <!-- pc버전 -->
             <div class="size-pc">
             <c:if test="${empty loginUser }">
@@ -82,7 +66,7 @@
             </c:if>
             
                 <a href="">장바구니</a>
-                <a href="">고객센터</a>
+                <a href="customerCenter.do">고객센터</a>
             </div>
 
             <!-- 모바일버전 (화면작은) -->
@@ -104,7 +88,7 @@
     </div>
 
     <div class="menu-div">
-        <div class="menu-line">메뉴목록</div>
+        <div class="menu-line"><a href="product.do">메뉴목록</a></div>
         <div class="menu-line">베스트목록</div>
         <div class="menu-line">신상품</div>
         <div class="menu-line">할인품목</div>
