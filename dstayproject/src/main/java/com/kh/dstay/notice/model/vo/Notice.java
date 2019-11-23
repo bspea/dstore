@@ -15,10 +15,10 @@ import lombok.ToString;
 @ToString
 public class Notice {
 	
-	private int noticeNo;				// 공지사항 번호
-	private String noticeTitle;			// 공지사항 제목
-	private String noticeContents;		// 공지사항 내용
-	private Date writeDate;				// 공지사항 등록일
-	private String noticeCategory;		// 공지사항 분류
-	private String status;				// 공지사항 상태
+	private int noticeNo;				
+	private String noticeTitle;			
+	private String noticeContents;		
+	private Date writeDate;				
+	private String noticeCategory;		
+	private String status;				
 }
