@@ -15,7 +15,7 @@
     transition-duration: 0.2s;
     cursor:pointer;
 
-    /* 텍스트 수직정렬 */
+    /* �뀓�뒪�듃 �닔吏곸젙�젹 */
     display: table;
     table-layout: fixed;
 }
@@ -112,5 +112,3 @@
         display: none;
     }
 }
-
- 

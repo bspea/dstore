@@ -1,17 +1,13 @@
 package com.kh.dstay.member.model.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.validation.constraints.Email;
 
-import com.kh.dstay.member.model.dao.MemberDao;
-
-public interface MemberService {
-}
-=======
-package com.kh.dstay.member.model.service;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.kh.dstay.member.model.dao.MemberDao;
+import com.kh.dstay.member.model.vo.Member;
 
 public interface MemberService {
+	Member login(Member mem);
+	int ajaxDuplicateCheck(@Email String email);
+	int insertMember(Member mem);
+	int updateTempMember(Member tempMem);
+	Member selectFindEmailMember(String phone);
 }

@@ -11,11 +11,13 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<typeAliases>
 		<typeAlias type="com.kh.dstay.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.dstay.product.model.vo.Product" alias="Product"/>
+		<typeAlias type="com.kh.dstay.guestOrder.model.vo.GuestOrder" alias="GuestOrder"/>
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="mappers/4_jong/mainPage-mapper.xml"/>
 		<mapper resource="mappers/3_han/frequencyQuestionAnswerMapper.xml"/>
 		<mapper resource="mappers/3_han/noticeMapper.xml"/>
+				<mapper resource="mappers/2_bak/bak-mapper.xml"/>
 	</mappers>
 </configuration>

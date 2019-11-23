@@ -49,11 +49,22 @@
             <input type="text" placeholder="검색어를 입력해주세요.">
         </div>
 
-        <div class="topRight">
+		<div class="topRight">
              <!-- pc버전 -->
             <div class="size-pc">
-                <a href="">로그인</a>
+            <c:if test="${empty loginUser }">
+            	<a href="loginForm.do">로그인</a>
+                <a href="registerForm.do">회원가입</a>
+            </c:if>
+            <c:if test="${!empty loginUser && loginUser.email eq 'admin@dstay.com' }">
+	            <a href="">관리자</a>
+	            <a href="logout.do">로그아웃</a>
+            </c:if>
+            <c:if test="${!empty loginUser && loginUser.email ne 'admin@dstay.com'}">
+                <a href="logout.do">로그아웃</a>
                 <a href="">마이페이지</a>
+            </c:if>
+            
                 <a href="">장바구니</a>
                 <a href="customerCenter.do">고객센터</a>
             </div>
