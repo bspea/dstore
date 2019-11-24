@@ -114,6 +114,15 @@
 </head>
 <!--구글로 로그인  -->
 <script src="https://apis.google.com/js/platform.js" async defer></script>
+<!--네이버로 로그인  -->
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<!--카카오로 로그인  -->
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 <body>
 <jsp:include page="../1_common/menubar.jsp"/>
 
@@ -186,14 +195,14 @@
                         </div> 
                         
                                                 <div class="row">
-                            <div class="col-md-12">
-                                <button class="button-connect-naver btn-block"><img src="resources/images/2_bak/naver_icon_img.PNG">네이버로 로그인하기</button>
+                            <div class="col-md-12" >
+                                <button class="button-connect-naver btn-block" id="naver_id_login" onclick="location.href='javascript:naverGenerateState()';'"><img src="resources/images/2_bak/naver_icon_img.PNG">네이버로 로그인하기</button>
                             </div>
-                        </div>
-                        
-                        						<div class="row">
+                        </div> 
+                         <!-- <div id="naver_id_login"></div> -->
+                      						<div class="row">
                             <div class="col-md-12">
-                                <button class="button-connect-kakao btn-block"><img src="resources/images/2_bak/kakaolink_btn_small.png">카카오로 로그인하기</button>
+                                <button class="button-connect-kakao btn-block" onclick="location.href='javascript:loginWithKakao()';"><img src="resources/images/2_bak/kakaolink_btn_small.png">카카오로 로그인하기</button>
                             </div>
                         </div>
 
@@ -330,14 +339,14 @@
 		    var googleAuth = gapi.auth2.init({
 		    	  client_id: "772225320155-psolb8vekpte4t7h2bl88b0tt3p3sfn6.apps.googleusercontent.com"
 		    })
-		    googleAuth.then(function() {
+		    googleAuth.signIn().then(function() {
 		    	console.log("googleAuth initialized");
+		    		
 		    	if(googleAuth.isSignedIn.get()) {
 		    		console.log("logined");
 		    		/* googleAuth.signIn().then(function() {
 		    			console.log("userLogin"); 
 		    		})*/
-		    		googleAuth.signIn();
 		    		var googleUser = googleAuth.currentUser.get();
 		    			//console.log(google);
 		    			/* if(googleUser.isSignedIn()) {
@@ -349,17 +358,22 @@
 			    		  console.log('Image URL: ' + profile.getImageUrl());
 			    		  console.log('Email: ' + profile.getEmail());
 			    	  var googleEmail = profile.getEmail();
-			    	  var id_token = googleUser.getAuthResponse().id_token;
+			    	  //var id_token = googleUser.getAuthResponse().id_token;
 			    	  	  //console.log(id_token);
 			    	  	  $.ajax({
-			    			  url:"googleLogin.do",
+			    			  url:"ajaxGoogleLogin.do",
 			    			  method:"post",
-			    			  data:{googleEmail:googleEmail,idToken:id_token},
+			    			  data:{googleEmail:googleEmail,idToken:profile.getId()},
 			    			  error:function() {
-			    				  console.log("googleUser loading failed");
+			    				  console.log("googleUser loading disconnected");
 			    			  },
-			    			  success:function() {
-			    				  console.log("googleUser loading proceeded");
+			    			  success:function(msg) {
+			    				  if(msg =="googleLoginSucess") {
+			    					  //console.log("googleUser loading proceeded");
+			    					  location.href="home.do";
+			    				  }else {
+			    					  console.log("googleUser loading failed");
+			    				  }
 			    			  }
 			    		  })
 			    		  
@@ -369,9 +383,69 @@
 		    	}
 		    }, function() {
 		    	console.log("googleAuth failed to initialize");
+		    }).catch(function(err) {
+		    	console.log("catch");
 		    })
 		  });
 		}
+		
+</script>
+<!--네이버로 로그인  -->
+  <script type="text/javascript">
+  function naverGenerateState() {
+	  
+	  	var naver_id_login = new naver_id_login("s6CPRgwP1X7_hKKChRiV", "http://localhost:9020/dstay/naverLogin.do");
+	  	var state = naver_id_login.getUniqState();
+	  	naver_id_login.setButton("white", 2,40);
+	  	naver_id_login.setDomain("http://localhost:9020/dstay/loginForm.do");
+	  	naver_id_login.setState(state);
+	  	naver_id_login.setPopup();
+	  	naver_id_login.init_naver_id_login();
+  }
+  </script>
+<!--카카오로 로그인  -->
+<script type='text/javascript'>
+  //<![CDATA[
+    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    var list;
+    Kakao.init('b6ca5845154feff6cc055835f1f75513');
+    function loginWithKakao() {
+      // 로그인 창을 띄웁니다.
+      Kakao.Auth.login({
+        success: function(authObj) {
+          //alert(JSON.stringify(authObj));
+          console.log("kakaoAuth loaded");
+          Kakao.API.request({
+              url: '/v2/user/me',
+              success: function(res) {
+                //alert(JSON.stringify(res));
+                console.log(JSON.stringify(res));
+               	console.log(res["id"]);
+               	$.ajax({
+               		url:"ajaxKakaoLogin.do",
+               		method:"post",
+               		data:{res:JSON.stringify(res)},
+               		success:function() {
+               			//console.log("kakaoLogin success");
+               		},
+               		error:function() {
+               			console.log("kakaoLogin error");
+               		}
+               	})
+              },
+              fail: function(error) {
+                //alert(JSON.stringify(error));
+                console.log("failed to load kakaoProfile");
+              }
+            });
+        },
+        fail: function(err) {
+          //alert(JSON.stringify(err));
+          console.log("kakaoAuth err");
+        }
+      });
+    };
+  //]]>
 </script>
 <!--구글로 로그인  -->
 <script src="https://apis.google.com/js/platform.js" async defer></script>

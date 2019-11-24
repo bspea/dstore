@@ -45,5 +45,20 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return mDao.selectFindEmailMember(phone);
 	}
+	@Override
+	public Member ajaxGoogleLogin(Member mem) {
+		// TODO Auto-generated method stub
+		Member checkMem = mDao.ajaxGoogleLogin(mem);
+		if(checkMem != null) {
+			return checkMem;
+		}else {
+			 int result = mDao.insertGoogleMember(mem);
+			 if(result>0) {
+				 return mem;
+			 }else {
+				 return new Member();
+			 }
+		}
+	}
 
 }
