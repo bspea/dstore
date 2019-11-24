@@ -1,6 +1,8 @@
 package com.kh.dstay;
 
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -23,13 +25,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.kh.dstay.guestOrder.model.service.GuestOrderService;
 import com.kh.dstay.guestOrder.model.vo.GuestOrder;
 import com.kh.dstay.member.model.service.MemberService;
 import com.kh.dstay.member.model.vo.Member;
 import com.kh.dstay.util.model.service.UtilService;
+
 
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
@@ -88,16 +90,38 @@ public class HomeController {
 		}
 		return mv;
 	}
+	@RequestMapping("ajaxGoogleLogin.do")@ResponseBody
+	public String ajaxGoogleLogin(HttpSession session,@RequestParam("googleEmail")String googleEmail,@RequestParam("idToken")String idToken) {
+		Member mem = new Member();
+		mem.setEmail(googleEmail);
+		mem.setPassword(idToken);
+		Member loginUser = mService.ajaxGoogleLogin(mem);
+		if(loginUser != null) {
+			session.setAttribute("loginUser", loginUser);
+			logger.info(loginUser.toString());
+			return "googleLoginSucess";
+		}else {
+			return "googleLoginFail";
+		}
+	}
+	@RequestMapping("naverLogin.do")
+	public String naverLogin() {
+		return "2_bak/naverLogin";
+	}
+	@RequestMapping("ajaxKakaoLogin.do")
+	public void kakaoLogin(@RequestParam("res")String res) {
+		logger.info(res);
+	}
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		//System.out.println(session.getId());
 		return "redirect:home.do";	
 	}
-	@RequestMapping("home.do")
-	public String home() {
-		return "home";
-	}
+
+	/*
+	 * @RequestMapping("home.do") public String home() { return "home"; }
+	 */
 	@RequestMapping("registerForm.do")
 	public String register() {
 		return "2_bak/registerForm";
@@ -135,12 +159,13 @@ public class HomeController {
 		}
 	}
 	@RequestMapping("insertMember.do")
-	public String insertMember(@RequestParam("email")String email,@RequestParam("password")String password,@RequestParam("nickName")String nickName) {
+	public String insertMember(HttpSession session,@RequestParam("email")String email,@RequestParam("password")String password,@RequestParam("nickName")String nickName) {
 		Member mem = new Member();
 		mem.setEmail(email);mem.setNickName(nickName);
 		mem.setPassword(bcryptPasswordEncoder.encode(password));
 		int result = mService.insertMember(mem);
 		if(result >0) {
+			session.setAttribute("loginUser",mem);
 			return "redirect:home.do";
 		}else {
 			return "registerForm";

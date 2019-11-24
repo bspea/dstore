@@ -57,4 +57,12 @@
  	select * from member
  	where phone=#{phone}
  </select>
+ <select id="ajaxGoogleLogin" resultMap="memberResultSet">
+ 	select * from member
+ 	where email=#{email}
+ </select>
+ <insert id="insertGoogleMember">
+ 	insert into member(mno,msno,email,nickname,mdate)
+ 	values(seq_member.nextval,2,#{email},default,sysdate)
+ </insert>
 </mapper>

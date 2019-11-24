@@ -36,6 +36,11 @@
     }
     /* 테스트용 CSS */
     </style>
+    <!--네이버 로그인  -->
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<!--구글  -->
+<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 </head>
 <body>
     <div class="fixedArea">
@@ -61,7 +66,7 @@
 	            <a href="logout.do">로그아웃</a>
             </c:if>
             <c:if test="${!empty loginUser && loginUser.email ne 'admin@dstay.com'}">
-                <a href="logout.do">로그아웃</a>
+                <a href="javascript:test()">로그아웃</a>
                 <a href="">마이페이지</a>
             </c:if>
             
@@ -95,5 +100,40 @@
     </div>
     </div>
     </div>
+<!-- <script type="text/javascript">
+  var naver_id_login = new naver_id_login("s6CPRgwP1X7_hKKChRiV", "http://localhost:9020/dstay/naverLogin.do");
+  // 접근 토큰 값 출력
+  alert(naver_id_login.oauthParams.access_token);
+  // 네이버 사용자 프로필 조회
+  naver_id_login.get_naver_userprofile("naverSignInCallback()");
+  // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+  function naverSignInCallback() {
+    alert(naver_id_login.getProfileData('email'));
+    alert(naver_id_login.getProfileData('nickname'));
+    alert(naver_id_login.getProfileData('age'));
+  }
+</script> -->
+
+<script>
+	var googleAuth;
+	function init() {
+		  gapi.load('auth2', function() {
+		    /* Ready. Make a call to gapi.auth2.init or some other API */
+		  console.log("auth2 loaded");  
+		  googleAuth = gapi.auth2.init({
+			  client_id: "772225320155-psolb8vekpte4t7h2bl88b0tt3p3sfn6.apps.googleusercontent.com"
+		  })
+		  });
+		}
+	function test() {
+		console.log("logOut");
+		if(googleAuth.isSignedIn.get()) {
+			console.log("googleAuthIsSignedIn");
+			googleAuth.signOut().then(function() {
+				location.href="logout.do";
+			});
+		}
+	}
+</script>
 </body>
 </html>

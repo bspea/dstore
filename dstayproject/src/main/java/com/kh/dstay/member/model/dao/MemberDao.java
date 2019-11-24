@@ -38,4 +38,14 @@ public class MemberDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("bakMapper.selectFindEmailMember",phone);
 	}
+
+	public Member ajaxGoogleLogin(Member mem) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("bakMapper.ajaxGoogleLogin",mem);
+	}
+
+	public int insertGoogleMember(Member mem) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("bakMapper.insertGoogleMember", mem);
+	}
 }
