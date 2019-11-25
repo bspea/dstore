@@ -35,30 +35,8 @@ public class AdminController {
 		return "5_kim/coupon/addingCouponForm";
 	}
 	
-	@RequestMapping("adminQuantityReceiving.do")
-	public String quantityReceiving() {
-		return "5_kim/product/quantityReceiving";
-	}
 	
-	@RequestMapping("adminAddingProductForm.do")
-	public String addingProductForm() {
-		return "5_kim/product/addingProductForm";
-	}
 	
-	@RequestMapping("adminStorageList.do")
-	public String storageList() {
-		return "5_kim/product/storageList";
-	}
-	
-	@RequestMapping("adminDiscountList.do")
-	public String discountList() {
-		return "5_kim/product/discountList";
-	}
-	
-	@RequestMapping("adminAddingDiscountForm.do")
-	public String addingDiscountForm() {
-		return "5_kim/product/addingDiscountForm";
-	}
 	
 	@RequestMapping("adminPurchaseList.do")
 	public String purchaseList() {

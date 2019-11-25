@@ -77,41 +77,50 @@
                         <table class="table table-bordered">
                         	<tr align="center">
 	                        	<td rowspan="5" width="300">
-									<img src="resources/images/5_kim/8806046_1.jpg" style="width:100px; height:100px;">
-									<img src="resources/images/5_kim/8806046_1.jpg" style="width:100px; height:100px;"><br>
-									<img src="resources/images/5_kim/8806046_1.jpg" style="width:100px; height:100px;">
-									<img src="resources/images/5_kim/8806046_1.jpg" style="width:100px; height:100px;">
+									<div style="width:100; margin:0 auto; display:inline-block;">
+                            	<c:forEach var="imgs" items="${imgs }" varStatus="imgStatus">
+                            		<c:choose>
+                            			<c:when test="${0 eq imgs.orderBy }">
+                            				<img style="height:50%; width:50%; float:left;" src="${pageContext.request.contextPath}${imgs.path }">
+                            			</c:when>
+                            			<c:when test="${1 eq imgs.orderBy }">
+                            				<img style="height:50%; width:50%; float:right;" src="${pageContext.request.contextPath}${imgs.path }"><br><br>
+                            			</c:when>
+                            			<c:when test="${2 eq imgs.orderBy }">
+                            				<img style="height:50%; width:50%; float:left;" src="${pageContext.request.contextPath}${imgs.path }">
+                            			</c:when>
+                            			<c:when test="${3 eq imgs.orderBy }">
+                            				<img style="height:50%; width:50%; float:right;" src="${pageContext.request.contextPath}${imgs.path }">
+                            			</c:when>
+                            		</c:choose>
+                            		
+                            	</c:forEach>
+                            	</div>
 								</td>
 	                        	<th>상품번호</th>
-	                        	<td>[112324]</td>
+	                        	<td colspan="3">${p.no }</td>
                         	</tr>
                         	<tr align="center">
                         		<th>상품명</th>
-                        		<td>A도시락</td>
+                        		 <td colspan="3">${p.name }</td>
                         	</tr>
                         	<tr align="center">
-                        		<th>1</th>
-                        		<td>1</td>
+                        		<th>가격</th>
+                            	<td colspan="3">${p.price }원</td>
                         	</tr>
-                        	<tr align="center">
-                        		<th>2</th>
-                        		<td>2</td>
-                        	</tr>
-                        	<tr align="center">
-                        		<th>3</th>
-                        		<td>3</td>
-                        	</tr>
+                        	
                         </table>
                         <br>
-						<form action="" method="post">
+						<form action="adminChangeQuantity.do" method="post">
+							<input type="hidden" name="pNo" value="${p.no }">
 							<div align="center">
-								<select  style="height:38px;">
+								<select name="type" style="height:38px;">
 									<option>정상입고</option>
 									<option>출고</option>
 									<option>직접작성</option>
 								</select>
 								&nbsp; 
-								<input type="text" style="height:38px;">
+								<input type="text" name="amount" style="height:38px;">
 								&nbsp; 
 								<button type="submit" class="btn btn-primary"> 품목 입고처리 </button>
 							</div>

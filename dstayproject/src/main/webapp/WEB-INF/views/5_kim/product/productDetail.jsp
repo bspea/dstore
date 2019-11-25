@@ -56,10 +56,11 @@
         <div class="container-fluid">
           <br>
           <span class="h3 mb-1 text-gray-900">&nbsp; 물품상세 </span>
-<%--	  <div class="btnDiv" style="float:right;">
-              <a class="btn btn-primary" href="adminQuantityReceiving.do">수량 입고</a>
+		  <div style="float:right;">
+          	 <a href="adminQuantityReceiving.do?pNo=${p.no }" class="btn btn-secondary">재고관리</a>&nbsp; &nbsp; &nbsp;
+          	 <a href="adminProductUpdate.do?pNo=${p.no }" class="btn btn-primary">물품수정</a>
           </div>
- --%>     <br><br>
+ 	      <br><br>
 
                 <!--첫번째 카드-->
                 <div class="card shadow mb-4">
@@ -123,7 +124,7 @@
                 <!--두번째 카드-->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">입출고내역</h6>
+                        <span class="h6 m-0 font-weight-bold text-primary">입출고내역</span>
                     </div>
                     <div class="card-body">
                     	<div class="table-responsive">

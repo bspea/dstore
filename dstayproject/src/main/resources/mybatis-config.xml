@@ -15,6 +15,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.kh.dstay.product.model.vo.ProductImage" alias="ProductImage"/>
 		<typeAlias type="com.kh.dstay.product.model.vo.ProductStorage" alias="ProductStorage"/>
 		<typeAlias type="com.kh.dstay.product.model.vo.IngredientCategory" alias="IngredientCategory"/>
+		<typeAlias type="com.kh.dstay.product.model.vo.ProductCategory" alias="ProductCategory"/>
+		<typeAlias type="com.kh.dstay.product.model.vo.ProductSale" alias="ProductSale"/>
 	</typeAliases>
 
 	<mappers>
