@@ -98,7 +98,7 @@ public class HomeController {
 		Member loginUser = mService.ajaxGoogleLogin(mem);
 		if(loginUser != null) {
 			session.setAttribute("loginUser", loginUser);
-			logger.info(loginUser.toString());
+			//logger.info(loginUser.toString());
 			return "googleLoginSucess";
 		}else {
 			return "googleLoginFail";
@@ -107,6 +107,11 @@ public class HomeController {
 	@RequestMapping("naverLogin.do")
 	public String naverLogin() {
 		return "2_bak/naverLogin";
+	}
+	@RequestMapping("ajaxNaverUserprofile.do")
+	public void ajaxNaverUserprofile(@RequestParam("email")String email,@RequestParam("nickName")String nickName) {
+		logger.info(email);
+		logger.info(nickName);
 	}
 	@RequestMapping("ajaxKakaoLogin.do")
 	public void kakaoLogin(@RequestParam("res")String res) {
