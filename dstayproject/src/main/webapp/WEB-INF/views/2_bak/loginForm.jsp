@@ -350,7 +350,7 @@
 		    	}
 		    })
 		    var googleAuth = gapi.auth2.init({
-		    	  client_id: googleClientId
+		    	  client_id: "772225320155-psolb8vekpte4t7h2bl88b0tt3p3sfn6.apps.googleusercontent.com"
 		    })
 		    googleAuth.signIn().then(function() {
 		    	console.log("googleAuth initialized");
@@ -412,7 +412,7 @@
 	  	naver_id_login.setButton("green", 300 ,50);
 	  	naver_id_login.setDomain("http://localhost:9020");
 	  	naver_id_login.setState(state);
-	  	naver_id_login.setPopup();
+	  	//naver_id_login.setPopup();
 	  	naver_id_login.init_naver_id_login();
   
   </script>
@@ -420,7 +420,7 @@
 <script type='text/javascript'>
   //<![CDATA[
     // 사용할 앱의 JavaScript 키를 설정해 주세요.
-    var list;
+    //var list[];
     Kakao.init('b6ca5845154feff6cc055835f1f75513');
     function loginWithKakao() {
       // 로그인 창을 띄웁니다.
@@ -432,17 +432,22 @@
               url: '/v2/user/me',
               success: function(res) {
                 //alert(JSON.stringify(res));
-                console.log(JSON.stringify(res));
-               	console.log(res["id"]);
+                //console.log(JSON.stringify(res));
+               	//console.log(res["id"]);
+               	//console.log(res.properties["nickname"]);
+               	//console.log(JSON.stringify(res.kakao_account["email"]));
                	$.ajax({
-               		url:"ajaxKakaoLogin.do",
+               		url:"ajaxNaverUserprofile.do",
                		method:"post",
-               		data:{res:JSON.stringify(res)},
+               		data:{id:res["id"],
+               			  nickName:res.properties["nickname"],
+               			  email:res.kakao_account["email"]},
                		success:function() {
-               			//console.log("kakaoLogin success");
+               			console.log("apiLoginSuccess");
+               			location.href="home.do";
                		},
                		error:function() {
-               			console.log("kakaoLogin error");
+               			console.log("apiLoginFail");
                		}
                	})
               },

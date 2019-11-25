@@ -62,7 +62,11 @@
  	where email=#{email}
  </select>
  <insert id="insertGoogleMember">
- 	insert into member(mno,msno,email,nickname,mdate)
- 	values(seq_member.nextval,2,#{email},default,sysdate)
+ 	insert into member(mno,msno,email,password,nickname,mdate)
+ 	values(seq_member.nextval,2,#{email},#{password},default,sysdate)
+ </insert>
+ <insert id="ajaxNaverUserprofile">
+ 	insert into member(mno,msno,email,password,nickname,mdate)
+ 	values(seq_member.nextval,2,#{email},#{password},#{nickName},sysdate)
  </insert>
 </mapper>

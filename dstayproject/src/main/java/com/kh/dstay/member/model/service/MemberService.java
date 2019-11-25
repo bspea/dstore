@@ -17,4 +17,6 @@ public interface MemberService {
 	Member selectFindEmailMember(String phone);
 	//구글로 로그인 서비스
 	Member ajaxGoogleLogin(Member mem);
+	//네이버로 로그인 서비스
+	Member ajaxNaverUserprofile(Member mem);
 }

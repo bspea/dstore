@@ -27,12 +27,18 @@
     	url:"ajaxNaverUserprofile.do",
     	method:"post",
     	data:{email:naver_id_login.getProfileData('email'),
-    		  nickName:naver_id_login.getProfileData('nickname')},
+    		  nickName:naver_id_login.getProfileData('nickname'),
+    		  id:naver_id_login.getProfileData('id')},
     	error:function() {
     		console.log("failed to login with naver");
     	},
-    	success:function() {
-    		alert("go next");
+    	success:function(msg) {
+    		//console.log("msg");
+    		if(msg == "apiLoginSuccess") {
+	    		location.href="home.do";
+    		}else {
+    			console.log("go next");
+    		}
     	}
     })
   }

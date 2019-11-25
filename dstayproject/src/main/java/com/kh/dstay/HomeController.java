@@ -1,8 +1,6 @@
 package com.kh.dstay;
 
 import java.io.IOException;
-import java.math.BigInteger;
-import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -11,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Email;
 
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +24,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
+import com.google.gson.JsonParser;
 import com.kh.dstay.guestOrder.model.service.GuestOrderService;
 import com.kh.dstay.guestOrder.model.vo.GuestOrder;
 import com.kh.dstay.member.model.service.MemberService;
 import com.kh.dstay.member.model.vo.Member;
 import com.kh.dstay.util.model.service.UtilService;
-
 
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
@@ -108,14 +108,20 @@ public class HomeController {
 	public String naverLogin() {
 		return "2_bak/naverLogin";
 	}
-	@RequestMapping("ajaxNaverUserprofile.do")
-	public void ajaxNaverUserprofile(@RequestParam("email")String email,@RequestParam("nickName")String nickName) {
-		logger.info(email);
-		logger.info(nickName);
-	}
-	@RequestMapping("ajaxKakaoLogin.do")
-	public void kakaoLogin(@RequestParam("res")String res) {
-		logger.info(res);
+	@RequestMapping("ajaxNaverUserprofile.do")@ResponseBody
+	public String ajaxNaverUserprofile(HttpSession session,@RequestParam("email")String email,@RequestParam("nickName")String nickName,@RequestParam("id")String password) {
+		//logger.info(email+"/"+nickName+"/"+password);
+		Member mem = new Member();
+		mem.setEmail(email);
+		mem.setNickName(nickName);
+		mem.setPassword(password);
+		Member loginUser = mService.ajaxNaverUserprofile(mem);
+		if(loginUser !=null) {
+			session.setAttribute("loginUser", loginUser);
+			return "apiLoginSuccess";
+		}else {
+			return "apiLoginFail";
+		}
 	}
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {
