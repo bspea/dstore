@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>naverLogin</title>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
@@ -14,15 +14,36 @@
 <script type="text/javascript">
   var naver_id_login = new naver_id_login("s6CPRgwP1X7_hKKChRiV", "http://localhost:9020/dstay/naverLogin.do");
  
-  alert(naver_id_login.oauthParams.access_token);
+  //alert(naver_id_login.oauthParams.access_token);
+  
   // 네이버 사용자 프로필 조회
   naver_id_login.get_naver_userprofile("naverSignInCallback()");
   // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
   function naverSignInCallback() {
-    alert(naver_id_login.getProfileData('email'));
-    alert(naver_id_login.getProfileData('nickname'));
-    alert(naver_id_login.getProfileData('age'));
+   // alert(naver_id_login.getProfileData('email'));
+   // alert(naver_id_login.getProfileData('nickname'));
+   // alert(naver_id_login.getProfileData('age'));
+    $.ajax({
+    	url:"ajaxNaverUserprofile.do",
+    	method:"post",
+    	data:{email:naver_id_login.getProfileData('email'),
+    		  nickName:naver_id_login.getProfileData('nickname'),
+    		  id:naver_id_login.getProfileData('id')},
+    	error:function() {
+    		console.log("failed to login with naver");
+    	},
+    	success:function(msg) {
+    		//console.log("msg");
+    		if(msg == "apiLoginSuccess") {
+	    		location.href="home.do";
+    		}else {
+    			console.log("go next");
+    		}
+    	}
+    })
   }
+ // window.close();
 </script>
+
 </body>
 </html>

@@ -48,4 +48,9 @@ public class MemberDao {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("bakMapper.insertGoogleMember", mem);
 	}
+
+	public int ajaxNaverUserprofile(Member mem) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("bakMapper.ajaxNaverUserprofile",mem);
+	}
 }

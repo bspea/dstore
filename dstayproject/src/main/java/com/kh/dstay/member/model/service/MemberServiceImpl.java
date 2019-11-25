@@ -60,5 +60,20 @@ public class MemberServiceImpl implements MemberService{
 			 }
 		}
 	}
+	@Override
+	public Member ajaxNaverUserprofile(Member mem) {
+		// TODO Auto-generated method stub
+		Member checkMem = mDao.ajaxGoogleLogin(mem);
+		if(checkMem != null) {
+			return checkMem;
+		}else {
+			int result = mDao.ajaxNaverUserprofile(mem);
+			if(result>0) {
+				return mem;
+			}else {
+				return new Member();
+			}
+		}
+	}
 
 }
