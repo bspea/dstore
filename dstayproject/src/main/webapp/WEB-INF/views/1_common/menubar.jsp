@@ -47,7 +47,7 @@
     <div class="topFixedDiv">
     <div class="logo-top">
         <div class="topLeft">
-                <a href=""><img src="${ pageContext.request.contextPath }/resources/images/4_jong/logo.png" width=100px></a>
+                <a href="home.do"><img src="${ pageContext.request.contextPath }/resources/images/4_jong/logo.png" width=100px></a>
         </div>
 
         <div class="topMiddle">

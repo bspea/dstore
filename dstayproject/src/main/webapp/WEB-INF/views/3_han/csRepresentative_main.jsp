@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>D_Stay 고객센터 - 공지사항</title>
+<meta charset="EUC-KR">
+<title>D STAY - 상담사 페이지</title>
 
 	<!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -27,18 +27,16 @@
     <!-- 한도빈 Custom css -->
     <link href="${ pageContext.request.contextPath }/resources/css/3_han/customer-center-main.css" rel="stylesheet">
     <link href="${ pageContext.request.contextPath }/resources/css/3_han/frequency-question.css" rel="stylesheet">
-    <link href="${ pageContext.request.contextPath }/resources/css/3_han/notice-theme.css" rel="stylesheet">
+    <link href="${ pageContext.request.contextPath }/resources/css/3_han/csRepresentative-theme.css" rel="stylesheet">
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    
-    
 </head>
 <body>
 	<jsp:include page="../1_common/menubar.jsp"/>
-
+	
 	<div class="container-fluid" id="notice-container" style="padding-bottom: 50px; padding-top: 20px;">
         <div class="row">
             <div class="col-md-2">
@@ -48,6 +46,7 @@
                     <li role="presentation"><a href="fqaList-all.do">자주 묻는 질문</a></li>
                     <li role="presentation"><a href="suggestion.do">제안하기</a></li>
                     <li role="presentation"><a href="inquireMyInfo.do">나의 정보 조회</a></li>
+                    <li role="presentation"><a href="csRepresentative.do">상담사 전용</a></li>
                     <!--<li role="presentation"><a href="#">Frequently Asked Questions</a></li>-->
                 </ul>
 
@@ -65,20 +64,23 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="notice-table-outer">
-                            <h3>공지사항</h3><br>
+                            <h3>상담사 페이지</h3><br>
                             <table class="notice-table" class="table table-hover">
                                 <tr>
                                     <th width="10%" style="font-weight:normal">번호</th>
                                     <th width="10%" style="font-weight:normal">분류</th>
-                                    <th width="65%" style="font-weight:normal">제목</th>
+                                    <th width="55%" style="font-weight:normal">제목</th>
                                     <th width="15%" style="font-weight:normal">등록일</th>
+                                    <th width="10%" style="font-weight:normal">처리여부</th>
                                 </tr>
+                                
                                 <c:forEach items="${ list }" var="nList">
                                 <tr class="notice-line">
                                     <td class="notice-no">${ nList.noticeNo }</td>
                                     <td class="notice-class"><p class="p-purple">${ nList.noticeCategory }</p></td>
                                     <td class="notice-title"><a href="noticeDetail.do?noticeNo=${ nList.noticeNo }">${ nList.noticeTitle }</a></td>
                                     <td class="notice-date">${ nList.writeDate }</td>
+                                    <td></td>
                                 </tr>
                                 </c:forEach>
                             </table>

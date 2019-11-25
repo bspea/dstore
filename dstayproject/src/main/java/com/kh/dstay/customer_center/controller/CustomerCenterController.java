@@ -17,5 +17,9 @@ public class CustomerCenterController {
 		return "3_han/customer_center_main";
 	}
 	
+	@RequestMapping("csRepresentative.do")
+	public String csRepresentative() {
+		return "3_han/csRepresentative_main";
+	}
 	
 }

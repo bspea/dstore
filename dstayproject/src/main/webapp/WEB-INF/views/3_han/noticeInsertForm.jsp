@@ -41,7 +41,7 @@
         <div class="row">
             <div class="col-md-2">
                 <ul class="nav nav-pills nav-stacked left-side-nav-stacked">
-                    <li role="presentation" id="center-logo"><p>고객센터</p></li>                    
+                    <li role="presentation" id="center-logo"><p onclick="location.href='customerCenter.do';">고객센터</p></li>                    
                     <li class="notice" role="presentation"><a href="noticeList.do">공지사항</a></li>
                     <li role="presentation"><a href="fqaList-all.do">자주 묻는 질문</a></li>
                     <li role="presentation"><a href="suggestion.do">제안하기</a></li>
