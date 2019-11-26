@@ -44,5 +44,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		
 		<mapper resource="mappers/6_lee/member-mapper.xml"/>
 		<mapper resource="mappers/6_lee/product-mapper.xml"/>
+		
 	</mappers>
 </configuration>
