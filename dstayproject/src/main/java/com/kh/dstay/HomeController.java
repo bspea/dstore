@@ -3,10 +3,13 @@ package com.kh.dstay;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Email;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +17,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Validator;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.kh.dstay.guestOrder.model.service.GuestOrderService;
@@ -27,6 +33,7 @@ import com.kh.dstay.member.model.service.MemberService;
 import com.kh.dstay.member.model.vo.Member;
 import com.kh.dstay.util.model.service.UtilService;
 import com.kh.dstay.util.model.vo.UtilParameter;
+
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 /**
@@ -101,18 +108,45 @@ public class HomeController {
 	public String naverLogin() {
 		return "2_bak/naverLogin";
 	}
-	@RequestMapping("ajaxNaverUserprofile.do")@ResponseBody
-	public String ajaxNaverUserprofile(HttpSession session,@RequestParam("email")String email,@RequestParam("nickName")String nickName,@RequestParam("id")String password) {
-		mem.setEmail(email);
+	@RequestMapping(value="ajaxNaverUserprofile.do")@ResponseBody
+	public String ajaxNaverUserprofile(HttpSession session,@RequestParam(value="email",required=false)String email,@RequestParam("nickName")String nickName,@RequestParam("id")String password) {
 		mem.setNickName(nickName);
 		mem.setPassword(password);
-		Member loginUser = mService.ajaxNaverUserprofile(mem);
-		if(loginUser !=null) {
-			session.setAttribute("loginUser", loginUser);
-			return "apiLoginSuccess";
-		}else {
-			return "apiLoginFail";
+		
+		  if(email != "" || email != null) {
+			  session.setAttribute("mem", mem);
+			  logger.info(mem.toString());
+			  return "";
+		  }else {
+			mem.setEmail(email);
+			Member loginUser = mService.ajaxNaverUserprofile(mem);
+			if(loginUser !=null) {
+				session.setAttribute("loginUser", loginUser);
+				return "apiLoginSuccess";
+			}else {
+				return "apiLoginFail";
+			}	
 		}
+	}
+	@RequestMapping("kakaoLoginForm.do")
+	public String kakaoLogin() {
+		return "2_bak/kakaoLoginForm";
+	}
+	@RequestMapping("kakaoLogin.do")
+	public String kakaoLogin(HttpSession session,@RequestParam("email")@Email String email,@RequestParam("nickName")String nickName,@RequestParam("password")String password) {
+		/*mem.setEmail(email);
+		mem.setNickName(nickName);
+		mem.setPassword(password);
+		int result = mService.insertMember(mem);
+		if(result>0) {
+			session.setAttribute("loginUser", mem);
+			session.removeAttribute("kakaoTemp");
+			return "redirect:home.do";
+		}else {
+			return "home";
+		}*/
+		logger.info(email+"//"+nickName+"//"+password);
+		return "";
 	}
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {
@@ -155,7 +189,8 @@ public class HomeController {
 	}
 	@RequestMapping("insertMember.do")
 	public String insertMember(HttpSession session,@RequestParam("email")String email,@RequestParam("password")String password,@RequestParam("nickName")String nickName) {
-		mem.setEmail(email);mem.setNickName(nickName);
+		mem.setEmail(email);
+		mem.setNickName(nickName);
 		mem.setPassword(bcryptPasswordEncoder.encode(password));
 		int result = mService.insertMember(mem);
 		if(result >0) {
