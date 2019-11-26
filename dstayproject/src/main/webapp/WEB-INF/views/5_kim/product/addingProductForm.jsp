@@ -74,7 +74,10 @@
                     <form id="fileForm" method="post" enctype="multipart/form-data">
                         <table class="table table-bordered" style="width:80%; margin-left:auto; margin-right:auto;" >
                             <tr>
-                                <td colspan="4" class="thumbnailImgs">
+                            	<th colspan="2">
+                            		썸네일 이미지
+                            	</th>
+                                <td colspan="2">
                                 	<input multiple="true" type="file" name="thumbs" id="imgfilein">
                                 </td>
                             </tr>
@@ -92,11 +95,11 @@
                             <tr>
                                 <th colspan="2">카테고리</th>
                                 <td colspan="2" style="padding:0;">
-                                	<select name="category" style="width:100%;">
-                                		<option value="1/lunchbox">1_도시락</option>
-                                		<option value="2/sidemenu">2_사이드</option>
-                                		<option value="3/drink">3_음료수</option>
-                                	</select>
+                                	<select id="categorySelect" name="category" style="width:100%;">
+                                		<c:forEach var="productCategory" items="${allpclist }" varStatus="pcStatus">
+                                			<option value="${productCategory.no }">  ${productCategory.no }_${productCategory.name }
+                                		</c:forEach>
+                               		</select> 	
                                 </td>
                             </tr>
                             
@@ -106,22 +109,20 @@
                             </tr>
                             
                             <tr>
-                                <th colspan="2">성분</th>
-                                <td colspan="2">
-                                	<input type="checkbox" name="ingredients" id="ingreChicken" value="1"> <label for="ingreChicken">닭고기</label> &nbsp; &nbsp;  
-                                	<input type="checkbox" name="ingredients" id="ingreCow" value="2"> <label for="ingreCow">소고기</label> &nbsp; &nbsp; 
-                                	<input type="checkbox" name="ingredients" id="ingreEgg" value="3"> <label for="ingreEgg">계란</label> &nbsp; &nbsp; 
-                                	<input type="checkbox" name="ingredients" id="ingreMilk" value="4"> <label for="ingreMilk">유제품</label><br>
-                                	<input type="checkbox" name="ingredients" id="ingreChicken1" value="5"> <label for="ingreChicken1">닭고기</label> &nbsp; &nbsp;  
-                                	<input type="checkbox" name="ingredients" id="ingreCow1" value="6"> <label for="ingreCow1">소고기</label> &nbsp; &nbsp; 
-                                	<input type="checkbox" name="ingredients" id="ingreEgg1" value="7"> <label for="ingreEgg1">계란</label> &nbsp; &nbsp; 
-                                	<input type="checkbox" name="ingredients" id="ingreMilk1" value="8"> <label for="ingreMilk1">유제품</label>
+                                <th colspan="4">성분</th>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                	<c:forEach var="ing" items="${alliclist }" varStatus="ingStatus">
+                                		<input type="checkbox" name="ingredients" value="${ing.no }"> ${ing.name } &nbsp; &nbsp;
+                                	</c:forEach>
    
                                 </td>
                             </tr>
                             
                             <tr>
-                            	<td colspan="4">
+                            	<th colspan="2">본문이미지</th>
+                            	<td colspan="2">
                             		<input type="file" name="contentImg">
                             	</td>
                             </tr>
@@ -187,6 +188,7 @@
 <script>
 
 $(function(){
+		
 		
 	function readURL(input,num){
 		if(input.files && input.files[0]){

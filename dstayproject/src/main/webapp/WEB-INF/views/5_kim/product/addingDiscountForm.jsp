@@ -14,13 +14,6 @@
 
   <title>D-Store:Admin</title>
 
-  <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-  <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script>
       $(function(){
@@ -52,30 +45,49 @@
                        <div class="card-body">
                             <table class="table table-bordered">
                                 <tr>
-                                    <td rowspan="3" width="200" height="200"></td>
-                                    <th colspan="2">상품번호<br>상품이름</th>
-                                    <td>12001<br>A도시락</td>
+                                    <th colspan="2">상품번호</th>
+                                    <td>${p.no }</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">상품이름</th>
+                                    <td>${p.name}</td>
+                                </tr>
+                                <tr>
+                                	<th colspan="2">가격</th>
+                                	<td>${p.price }</td>
+                                </tr>
+                                <tr>
+                                	<th colspan="2">블라인드상태</th>
+                                	<td><c:if test="${'Y' eq p.status }">
+                                			판매중
+                                		</c:if>
+                                		<c:if test="${'N' eq p.status}">
+                                			미판매
+                                		</c:if>
+                                	</td>
                                 </tr>
                             </table>
                             <br>
 
-                            <div style="height:30px;">
-                                <form action="" method="">
+                            <div style="height:200px;">
+                                <form action="adminAddingNewDiscount.do" method="POST">
+                                <input type="hidden" name="productNo" value="${p.no }">
+                                <input type="hidden" name="productName" value="${p.name }">
                                     <table class="table table-bordered">
                                         <tr>
-                                            <td><input type="date"></td>
+                                            <td><input name="startDate" type="date"></td>
                                             <th>일 부터</th>
-                                            <td><input type="date"></td>
+                                            <td><input name="endDate" type="date"></td>
                                             <th>일 까지</th>
                                         </tr>
                                         <tr>
                                             <th colspan="2">할인율</th>
-                                            <td><input type="text"></td>
+                                            <td><input type="text" name="percent"></td>
                                             <th>%</th>
                                         </tr>
                                         <tr>
                                             <th colspan="2">한정수량</th>
-                                            <td><input type="text"></td>
+                                            <td><input type="text" name="limitedAmount"></td>
                                             <th>개</th>
                                         </tr>
 
@@ -87,7 +99,7 @@
                             </div>
                             <br>
                         </div>
-                        <br><br><br><br><br><br><br><br>
+                       <br>
                         <div style="float:left;">
                             <button class="btn btn-secondary">이전페이지로</button>
                         </div>
@@ -131,17 +143,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
-
 </body>
 
 </html>

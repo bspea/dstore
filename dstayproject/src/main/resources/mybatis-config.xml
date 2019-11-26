@@ -19,10 +19,13 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		
 		
 		<!-- 현지씨 해당 vo가 존재하지 않아 비활성화 처리. 
+		<typeAlias type="com.kh.dstay.product.model.vo.Product" alias="Product"/>
 		<typeAlias type="com.kh.dstay.product.model.vo.Ingredient" alias="Ingredient"/>
 		<typeAlias type="com.kh.dstay.product.model.vo.ProductImage" alias="ProductImage"/>
 		<typeAlias type="com.kh.dstay.product.model.vo.ProductStorage" alias="ProductStorage"/>
 		<typeAlias type="com.kh.dstay.product.model.vo.IngredientCategory" alias="IngredientCategory"/>
+		<typeAlias type="com.kh.dstay.product.model.vo.ProductCategory" alias="ProductCategory"/>
+		<typeAlias type="com.kh.dstay.product.model.vo.ProductSale" alias="ProductSale"/>
 		-->
 		
 		<!-- 동일 네임 겹쳐서 비활성화 처리

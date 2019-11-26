@@ -14,19 +14,58 @@
 
   <title>D-Store:Admin</title>
 
-  <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="http://api.typolink.co.kr/css?family=THELuxGoB:400" />
-  <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
-  <style>
-    .clickableTr:hover{
-      color:navy;
-      cursor:pointer;
-    }
-    
+  <script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+  
+  <script>
+    jQuery(function($){
+        $("#dataTable").DataTable();
+    });
+  </script>
+
+
+
+  <style>.clickableTr:hover{
+		cursor:pointer;
+		color:red;
+	}
+	
+	.table-repsonsive, #dataTable_wrapper{
+		width:100%;
+	}
+	
+	#dataTable_wrapper div{
+		margin-bottom:7px;
+	}
+  	
+	.table-responsive>div{
+		display:inline-block;
+	}
+	.page-link:hover{
+		cursor:pointer;
+	}
+	
+	.pagination > li > a, .pagination > li > span{
+		margin:0px; 
+		padding:10px; 
+		background-color:white; 
+		color:rgb(119,119,119);
+		border:1px solid rgb(221, 221, 221);
+	}
+	.pagination > li.active > a, .pagination > li.active > span{
+		background-color:rgb(51, 122, 183); 
+		color:white;
+	}
+	
+	#dataTable thead th{
+			cursor:pointer;
+	}
+	
+	#dataTable thead th:hover{
+		text-decoration:underline;
+	}
+	
+	
   </style>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -37,8 +76,8 @@
         $('#collapseTwo').children().children().eq(3).addClass('active');
       
         $('.clickableTr').click(function(){
-        	confirm($(this).children().eq(1).text() + " 입출고페이지로 넘어감");
-        	console.log($(this).children().eq(2).text());
+        	var num = $(this).children().eq(1).text();
+        	location.href="adminProductDetail.do?pNo="+num;
         });
       });
   </script>
@@ -60,28 +99,12 @@
       <div id="content">
         <div class="container-fluid">
           <br>
-          <h3 class="h3 mb-1 text-gray-900">&nbsp; 세일관리 </h3><br>
+          <span class="h3 mb-1 text-gray-900">&nbsp; 세일관리 </span><br> <br>
                 <!--첫번째 카드-->
                 <div class="card shadow mb-4">
-                    <!-- 검색 -->
-                    
-                    <!-- 모든 테이블 영역 -->
+  
                     <div class="card-body">
                       <div class="table-responsive">
-                        <!-- 정렬 -->
-                        <div style="float:right;">
-                          <form action="" method="GET">
-                          <select class="form-control-sm" name="sorting">
-                            <option value="recentNotice">최근 신고받은순</option>
-                            <option value="mostNotice">많이 신고받은순</option>
-                            <option value="recentCreate">최근 가입날짜순</option>
-                          </select>
-                          <button class="btn btn-primary btn-icon-split btn-lg" type="submit">
-                            <img src="resources/images/5_kim/refresh.png" style="width:30px; height:30px;">
-                          </button>
-                        </form>
-                        </div><br><br>
-
                         <!-- 테이블-->
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                           <thead>
@@ -95,36 +118,25 @@
                             </tr>
                           </thead>
                           <tbody>
+                          	<c:forEach var="sale" items='${salelist }' varStatus='saleStatus'>
                             <tr class="clickableTr">
-                              <td>223511</td>
-                              <td>110031</td>
-                              <td>A도시락</td>
-                              <td>23%</td>
-                              <td>2019-11-01 ~ 2019- 11-08</td>
-                              <td>종료</td>
+                              <td>${sale.no }</td>
+                              <td>${sale.productNo }</td>
+                              <td>${sale.productName }</td>
+                              <td>${sale.salePercent } %</td>
+                              <td>${sale.startDate } ~ ${sale.endDate }</td>
+                              <td></td>
                             </tr>
+                            </c:forEach>
                           </tbody>
                         </table>
                         <!-- end of 테이블-->
-                        <!-- 페이징 -->
-                        <div class="row" style="margin-right:auto; margin-left: auto; width:300px;">
-                          <button class="page-link">&lt;</button>
-                          <a href="" class="page-link">1 </a>
-                          <a href="" class="page-link">2 </a>
-                          <a href="" class="page-link">3 </a>
-                          <a href="" class="page-link">4 </a>
-                          <a href="" class="page-link">5 </a>
-                          <button class="page-link">&gt;</button>
-                          </div>
-                        </div>
-                        </div>
-                        <!-- end of 페이징-->
-                      </div>
-                    </div>
-                    <!-- end of 모든 테이블 영역-->
-                  </div>
-                   <!--end of 첫번째 카드-->
-        </div>
+                        
+                      </div>  <!-- end of table-responsive -->
+                                          
+                    </div>	<!-- end of card-body -->
+                  </div> <!--end of card shadow mb-4 -->
+        </div> <!-- end of container-fluid -->
 
       </div>
       <!-- End of 메인 내용 -->

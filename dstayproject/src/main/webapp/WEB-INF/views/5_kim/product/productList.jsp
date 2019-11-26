@@ -14,38 +14,70 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-
-<link rel="stylesheet" href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css"/> 
-    <script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
-    <script>
-        jQuery(function($){
-            $("#dataTable").DataTable();
-        });
-    </script>
-
 <title>D-Store:Admin</title>
 
+
+
+<!-- Custom fonts for this template-->
+  <link href="resources/assets/5_kim/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="http://api.typolink.co.kr/css?family=THELuxGoB:400" />
+  <!-- Custom styles for this template-->
+  <link href="resources/css/5_kim/sb-admin-2.min.css" rel="stylesheet">
+
 <style>
-	*{font-size:15px;}
-	
 	.clickableTr:hover{
 		cursor:pointer;
 		color:red;
 	}
-	.table-responsive>div{
-		display:inline-block;
+	
+	.table-repsonsive, #dataTable_wrapper{
+		width:100%;
 	}
 	
-	#dataTable_wrapper{
-		width:100%;
+	#dataTable_wrapper div{
+		margin-bottom:7px;
+	}
+  	
+	.table-responsive>div{
+		display:inline-block;
 	}
 	.page-link:hover{
 		cursor:pointer;
 	}
 	
+	.pagination > li > a, .pagination > li > span{
+		margin:0px; 
+		padding:10px; 
+		background-color:white; 
+		color:rgb(119,119,119);
+		border:1px solid rgb(221, 221, 221);
+	}
+	.pagination > li.active > a, .pagination > li.active > span{
+		background-color:rgb(51, 122, 183); 
+		color:white;
+	}
 	
-
+	#dataTable thead th{
+			cursor:pointer;
+	}
+	
+	#dataTable thead th:hover{
+		text-decoration:underline;
+	}
+	
+	
 </style>
+
+<!-- <link rel="stylesheet" href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css"/>
+-->
+
+<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+    <script>
+        jQuery(function($){
+            $("#dataTable").DataTable();
+        });
+    </script>
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -76,31 +108,36 @@
 					<div class="btnDiv" style="float: right;">
 						<a class="btn btn-secondary" href="adminAddingProductForm.do">물품종류
 							추가</a>
-					</div>
+					
 					<br> <br>
-					<!--첫번째 카드-->
+					
 					<div class="card shadow mb-4">
-						<div class="card-body">
-							<div class="table-responsive">
+						<div class="card-body" >
+							<div class="table-responsive" align="center">
+							<!-- ----------------------------------------------------------------v -->
+	
+    					 	
+							<!-- ----------------------------------------------------------------v -->
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+								
 									<thead>
 							         	<tr>
-											<th>상품번호</th>
-											<th>상품사진</th>
+											<th width="100">상품번호</th>
+											<th width="100">상품사진</th>
 											<th width="400">상품명</th>
 											<th>총수량</th>
 											<th>1개가격</th>
 											<th>세일여부</th>
 											<th>최근입고일</th>
 											<th>블라인드 여부</th>
-											<th width="200">관리</th>
+											<th width="100">관리</th>
 										</tr>   
 							        </thead>
 							        <tbody>
 								    	<c:forEach var='product' items='${pList}' varStatus='status'>   
 											 <tr class='clickableTr'>  
-												 <td>${product.no }</td>  
-												 <td><c:forEach var='pic' items="${piList }" varStatus='picStatus'>   
+												 <td class="clickable">${product.no }</td>  
+												 <td class="clickable"><c:forEach var='pic' items="${piList }" varStatus='picStatus'>   
 													 	 <c:if test="${product.no eq pic.productNo }">   
 															 <c:if test="${0 eq pic.orderBy }">   
 																 <img src="${pageContext.request.contextPath}${pic.path }" style='width: 75px; height: 75px; border: 1px solid gray;'>  
@@ -108,40 +145,36 @@
 														 </c:if>  
 													 </c:forEach>  
 												 </td>  
-												 <td>${product.name }</td>  
-												 <td>*</td>  
-												 <td>${product.price }원</td>  
-												 <td>*</td> <td>*</td>  
-												 <td><c:if test="${'Y' eq product.status }">판매중</c:if>  
+												 <td class="clickable">${product.name }</td>  
+												 <td class="clickable">*</td>  
+												 <td class="clickable">${product.price }원</td>  
+												 <td class="clickable">*</td> 
+												 <td class="clickable">*</td>  
+												 <td class="clickable"><c:if test="${'Y' eq product.status }">판매중</c:if>  
 													 <c:if test="${ 'N' eq product.status }">미판매</c:if></td>  
-												 <td><a href='adminQuantityReceiving.do' class='btn btn-sm btn-warning'>재고관리</a>   
-													  <a href='adminAddingDiscountForm.do' class='btn btn-sm btn-info'>세일관리</a>   
+												 <td class="buttonTd" style="padding:0; padding-top:5px; padding-bottom:5px;">
+												 	<button type="button" class="manageAmount btn btn-sm btn-warning" style="width:100%;">재고관리</button>  
+													 <button type="button" class="manageSale btn btn-sm btn-info" style="width:100%;">세일관리</button>   
 												 </td>   
 										 	</tr>   
 									 </c:forEach> 
 				
 								    </tbody>
 								</table>
-							</div>
-						</div>
-					</div>
-					<!--end of 첫번째 카드-->
-				</div>
-			 <!-- End of 메인 내용 -->
-
-	</div>
-	<!-- End of Content Wrapper -->
-	
-	
-	
-	<!-----------------------------------------------------  [5 footer]  ----------------------------------------------------->
+							</div>	<!-- end of 'table-responsive' -->
+						</div>	<!-- end of 'card-body' -->
+					</div>	<!-- end of 'card shadow mb-4' -->
+					
+				</div> <!-- end of container-fluid -->
+			</div>	<!-- end of 메인내용 -->
+			
+			<!-----------------------------------------------------  [5 footer]  ----------------------------------------------------->
 	<jsp:include page="../common/footer.jsp" />
+		</div> <!-- End of Content Wrapper -->
+	</div>	<!-- End of Wrapper -->
+
 	
 	
-
-	</div>
-	<!-- End of Page Wrapper -->
-
 
 	<!-- Scroll to Top Button-->
 	<a class="scroll-to-top rounded" href="#page-top"> <i
@@ -169,19 +202,28 @@
 				</div>
 			</div>
 		</div>
-	</div>
 
 
 	<script>
 		$(function() {
-			$('#dataTable tbody').on('click', 'tr', function(){
-				var pNo = $(this).children().eq(0).text();
+			$('.clickable').click(function(){
+				var pNo = $(this).parent().children().eq(0).text();
 				location.href="adminProductDetail.do?pNo="+pNo;
-				console.log(pNo);
-				
+			
 			});
 			
 			
+			
+			$('.manageAmount').click(function(){
+				var pNo = $(this).parent().parent().children().eq(0).text();
+				location.href='adminQuantityReceiving.do?pNo='+pNo;
+				
+			});
+			
+			$('.manageSale').click(function(){
+				var pNo = $(this).parent().parent().children().eq(0).text();
+				location.href='adminAddingDiscountForm.do?pNo='+pNo;
+			});
 		});
 		
 		

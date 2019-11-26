@@ -19,10 +19,13 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		
 		
 		<!-- 현지씨 해당 vo가 존재하지 않아 비활성화 처리. 
+		<typeAlias type="com.kh.dstay.product.model.vo.Product" alias="Product"/>
 		<typeAlias type="com.kh.dstay.product.model.vo.Ingredient" alias="Ingredient"/>
 		<typeAlias type="com.kh.dstay.product.model.vo.ProductImage" alias="ProductImage"/>
 		<typeAlias type="com.kh.dstay.product.model.vo.ProductStorage" alias="ProductStorage"/>
 		<typeAlias type="com.kh.dstay.product.model.vo.IngredientCategory" alias="IngredientCategory"/>
+		<typeAlias type="com.kh.dstay.product.model.vo.ProductCategory" alias="ProductCategory"/>
+		<typeAlias type="com.kh.dstay.product.model.vo.ProductSale" alias="ProductSale"/>
 		-->
 		
 		<!-- 동일 네임 겹쳐서 비활성화 처리
@@ -34,11 +37,12 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<mappers>
 		<mapper resource="mappers/4_jong/mainPage-mapper.xml"/>
 		<mapper resource="mappers/3_han/frequencyQuestionAnswerMapper.xml"/>
+
+		<mapper resource="mappers/3_han/suggestionMapper.xml"/>
 		<mapper resource="mappers/3_han/noticeMapper.xml"/>
 		<mapper resource="mappers/2_bak/bak-mapper.xml"/>
 		
 		<mapper resource="mappers/6_lee/member-mapper.xml"/>
 		<mapper resource="mappers/6_lee/product-mapper.xml"/>
-		<!-- <mapper resource="mappers/5_kim/product-mapper.xml"/> -->
 	</mappers>
 </configuration>
