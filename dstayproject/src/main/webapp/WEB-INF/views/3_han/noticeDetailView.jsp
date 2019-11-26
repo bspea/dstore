@@ -23,14 +23,45 @@
     
     <style>
     	.notice-write-outer{
-            width:95%;
+			width:95%;
             margin-left:auto;
             margin-right:auto;
         }
         #notice-area{
         	background:white;
         }
-        
+        .prevNotice{
+			background:red;
+			padding:3px;
+			color:white;
+			font-size:11px;
+			text-align:center;
+			font-weight:bold;
+			margin:0 12px 12px 0;
+        }
+        .nextNotice{
+			background:blue;
+			padding:3px;
+			color:white;
+			font-size:11px;
+			text-align:center;
+			font-weight:bold;
+			margin:0 12px 12px 0;
+        }
+        .prevNoticeTitle{
+			text-decoration:none;
+			margin-bottom:12px;
+			color:rgb(150, 150, 150);
+			font-size:12px;
+        }
+        .prevNoticeTitle>a, .nextNoticeTitle>a{
+        	text-decoration:none !important;
+        }
+        .nextNoticeTitle{
+        	 margin-bottom:12px;
+        	 color:rgb(150, 150, 150);
+        	 font-size:12px;
+        }
     </style>
 </head>
 <body>
@@ -40,7 +71,7 @@
         <div class="row">
             <div class="col-md-2">
                 <ul class="nav nav-pills nav-stacked left-side-nav-stacked">
-                    <li role="presentation" id="center-logo"><p>고객센터</p></li>                    
+                    <li role="presentation" id="center-logo"><p onclick="location.href='customerCenter.do';">고객센터</p></li>                    
                     <li class="notice" role="presentation"><a href="noticeList.do">공지사항</a></li>
                     <li role="presentation"><a href="fqaList-all.do">자주 묻는 질문</a></li>
                     <li role="presentation"><a href="suggestion.do">제안하기</a></li>
@@ -91,15 +122,15 @@
 							<hr>
 							<table id="notice-list-table" align="left">
                                 <tr>
-                                    <td><div style="background:red; padding:3px; color:white; font-size:11px; text-align:center; font-weight:bold; margin:0 12px 12px 0;">이전글</div></td>
+                                    <td><div class="prevNotice">이전글</div></td>
                                     <td></td>
                                     	
                                     	<c:choose>
                                     		<c:when test="${ empty prevN }">
-                                    			<td><div style="margin-bottom:12px; color:rgb(150, 150, 150); font-size:12px;">이전 글이 없습니다.</div></td>
+                                    			<td><div class="prevNoticeTitle">이전 글이 없습니다.</div></td>
                                     		</c:when>
                                     		<c:otherwise>
-                                    			<td><a href="noticeDetail.do?noticeNo=${ prevN.noticeNo }">${ prevN.noticeTitle }</a></td>
+                                    			<td><div class="prevNoticeTitle"><a href="noticeDetail.do?noticeNo=${ prevN.noticeNo }">${ prevN.noticeTitle }</a></div></td>
                                     		</c:otherwise>
                                     	</c:choose>
                                     	
@@ -112,15 +143,15 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><div style="background:blue; padding:3px; color:white; font-size:11px; text-align:center; font-weight:bold; margin:0 12px 12px 0;">다음글</div></td>
+                                    <td><div class="nextNotice">다음글</div></td>
                                     <td></td>
                                     
                                     	<c:choose>
                                     		<c:when test="${ empty nextN }">
-                                    			<td><div style="margin-bottom:12px; color:rgb(150, 150, 150); font-size:12px;">다음 글이 없습니다.</div></td>
+                                    			<td><div class="nextNoticeTitle">다음 글이 없습니다.</div></td>
                                     		</c:when>
                                     		<c:otherwise>
-                                    			<td><a href="noticeDetail.do?noticeNo=${ nextN.noticeNo }">${ nextN.noticeTitle }</a></td>
+                                    			<td><div class="nextNoticeTitle"><a href="noticeDetail.do?noticeNo=${ nextN.noticeNo }">${ nextN.noticeTitle }</a></div></td>
                                     		</c:otherwise>
                                     	</c:choose>
                                     

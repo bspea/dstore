@@ -34,11 +34,12 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<mappers>
 		<mapper resource="mappers/4_jong/mainPage-mapper.xml"/>
 		<mapper resource="mappers/3_han/frequencyQuestionAnswerMapper.xml"/>
+
+		<mapper resource="mappers/3_han/suggestionMapper.xml"/>
 		<mapper resource="mappers/3_han/noticeMapper.xml"/>
 		<mapper resource="mappers/2_bak/bak-mapper.xml"/>
 		
 		<mapper resource="mappers/6_lee/member-mapper.xml"/>
 		<mapper resource="mappers/6_lee/product-mapper.xml"/>
-		<!-- <mapper resource="mappers/5_kim/product-mapper.xml"/> -->
 	</mappers>
 </configuration>

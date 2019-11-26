@@ -1,0 +1,13 @@
+.suggestion-write-outer{
+    width:95%;
+    margin-left:auto;
+    margin-right:auto;
+    
+}
+#suggestion-area{
+	background:white;
+}
+#suggestionDivision1, #suggestionDivision1{
+	min-height:0 !important;
+}
+
