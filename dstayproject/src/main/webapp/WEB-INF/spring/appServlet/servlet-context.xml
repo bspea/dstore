@@ -22,4 +22,11 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.kh.dstay" />
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/customerCenter.do"/>
+			<beans:bean id="CustomerCenterInterceptor" class="com.kh.dstay.common.interceptor.CustomerCenterInterceptor"/>
+		</interceptor>
+	</interceptors>
 </beans:beans>

@@ -2,7 +2,7 @@ package com.kh.dstay.customer_center.controller;
 
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.dstay.common.SuggestionPagination;
 import com.kh.dstay.customer_center.model.service.CustomerCenterService;
+import com.kh.dstay.member.model.vo.Member;
 import com.kh.dstay.suggestion.model.vo.Suggestion;
 import com.kh.dstay.suggestion.model.vo.SuggestionPageInfo;
 
@@ -24,11 +25,13 @@ public class CustomerCenterController {
 	
 	@RequestMapping("customerCenter.do")
 	public String customerCenter() {
+		
 		return "3_han/customer_center_main";
 	}
 	
 	@RequestMapping("csRepresentative.do")
-	public ModelAndView csRepresentative(ModelAndView mv, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+	public ModelAndView csRepresentative(ModelAndView mv,
+										 @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
 		
 		int suggestionListCount = ccService.getSuggestionListCount();
 		
