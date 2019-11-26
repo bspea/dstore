@@ -8,22 +8,17 @@
 <title>Insert title here</title>
 
     <!-- Custom css -->
-    <link href="${ pageContext.request.contextPath }/resources/css/4_jong/logo-top.css?ver=3" rel="stylesheet">
+    <link href="${ pageContext.request.contextPath }/resources/css/4_jong/logo-top.css?ver=4" rel="stylesheet">
     
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="http://ricostacruz.com/jquery.transit/jquery.transit.min.js"></script>
 
     <!-- Boot Strap -->
-    <%-- <link href="${ pageContext.request.contextPath }/resources/css/1_common/bootstrap.min.css" rel="stylesheet"> --%>
+    <link href="${ pageContext.request.contextPath }/resources/css/1_common/bootstrap.min.css" rel="stylesheet">
     
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-	
-	
-    
+    <!-- Custom css -->
+    <link href="${ pageContext.request.contextPath }/resources/css/4_jong/top-menu.css?ver=1" rel="stylesheet">
 
     <style>
     html, body {
@@ -41,24 +36,40 @@
     }
     /* 테스트용 CSS */
     </style>
+    <!--네이버 로그인  -->
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<!--구글  -->
+<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 </head>
 <body>
     <div class="fixedArea">
     <div class="topFixedDiv">
     <div class="logo-top">
         <div class="topLeft">
-                <a href="home.do"><img src="${ pageContext.request.contextPath }/resources/images/4_jong/logo.png" width=100px></a>
+                <a href=""><img src="${ pageContext.request.contextPath }/resources/images/4_jong/logo.png" width=100px></a>
         </div>
 
         <div class="topMiddle">
             <input type="text" placeholder="검색어를 입력해주세요.">
         </div>
 
-        <div class="topRight">
+		<div class="topRight">
              <!-- pc버전 -->
             <div class="size-pc">
-                <a href="">로그인</a>
+            <c:if test="${empty loginUser }">
+            	<a href="loginForm.do">로그인</a>
+                <a href="registerForm.do">회원가입</a>
+            </c:if>
+            <c:if test="${!empty loginUser && loginUser.email eq 'admin@dstay.com' }">
+	            <a href="">관리자</a>
+	            <a href="logout.do">로그아웃</a>
+            </c:if>
+            <c:if test="${!empty loginUser && loginUser.email ne 'admin@dstay.com'}">
+                <a href="javascript:test()">로그아웃</a>
                 <a href="">마이페이지</a>
+            </c:if>
+            
                 <a href="">장바구니</a>
                 <a href="customerCenter.do">고객센터</a>
             </div>
@@ -82,14 +93,47 @@
     </div>
 
     <div class="menu-div">
-        <div class="menu-line">메뉴목록</div>
+        <div class="menu-line"><a href="product.do">메뉴목록</a></div>
         <div class="menu-line">베스트목록</div>
         <div class="menu-line">신상품</div>
         <div class="menu-line">할인품목</div>
     </div>
     </div>
     </div>
-    
-    
+<!-- <script type="text/javascript">
+  var naver_id_login = new naver_id_login("s6CPRgwP1X7_hKKChRiV", "http://localhost:9020/dstay/naverLogin.do");
+  // 접근 토큰 값 출력
+  alert(naver_id_login.oauthParams.access_token);
+  // 네이버 사용자 프로필 조회
+  naver_id_login.get_naver_userprofile("naverSignInCallback()");
+  // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+  function naverSignInCallback() {
+    alert(naver_id_login.getProfileData('email'));
+    alert(naver_id_login.getProfileData('nickname'));
+    alert(naver_id_login.getProfileData('age'));
+  }
+</script> -->
+
+<script>
+	var googleAuth;
+	function init() {
+		  gapi.load('auth2', function() {
+		    /* Ready. Make a call to gapi.auth2.init or some other API */
+		  console.log("auth2 loaded");  
+		  googleAuth = gapi.auth2.init({
+			  client_id: "772225320155-psolb8vekpte4t7h2bl88b0tt3p3sfn6.apps.googleusercontent.com"
+		  })
+		  });
+		}
+	function test() {
+		console.log("logOut");
+		if(googleAuth.isSignedIn.get()) {
+			console.log("googleAuthIsSignedIn");
+			googleAuth.signOut().then(function() {
+				location.href="logout.do";
+			});
+		}
+	}
+</script>
 </body>
 </html>

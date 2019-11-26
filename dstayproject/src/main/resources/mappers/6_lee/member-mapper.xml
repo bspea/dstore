@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="memberMapper">
+
+	<resultMap id="memberResultSet" type="Member">
+		<id property="mno" column="mno"></id>
+		<result property="msNo" column="msno"/>
+		<result property="email" column="email"/>
+		<result property="password" column="password"/>
+		<result property="phone" column="phone"/>
+		<result property="nickName" column="nickname"/>
+		<result property="gender" column="gender"/>
+		<result property="age" column="age"/>
+		<result property="goalCalroie" column="goalcalroie"/>
+		<result property="mdate" column="mdate"/>
+	</resultMap>
+
+	<select id="loginUser" resultMap="memberResultSet">
+		select*
+		from member 
+		where email=#{email} and password=#{password}
+	</select>
+
+
+
+
+  
+</mapper>

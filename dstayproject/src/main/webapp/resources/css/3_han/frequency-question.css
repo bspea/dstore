@@ -3,6 +3,7 @@
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
+    background:white;
 }
 .nav {
     padding-left: 0;
@@ -143,7 +144,7 @@ ul {
 }
 
 .modal-backdrop.in{
-	opacity:0;
+	opacity:0 !important;
 }
 
 

@@ -51,6 +51,8 @@
                     <li role="presentation"><a href="fqaList-all.do">자주 묻는 질문</a></li>
                     <li role="presentation"><a href="suggestion.do">제안하기</a></li>
                     <li role="presentation"><a href="inquireMyInfo.do">나의 정보 조회</a></li>
+                    <li role="presentation"><a href="oneOnOne.do"
+                    						   onclick="window.open(this.href, '_blanck', 'width=328, height=517, left=100'); return false">1:1 채팅문의</a></li>
                     <li role="presentation"><a href="csRepresentative.do">상담사 전용</a></li>
                     <!--<li role="presentation"><a href="#">Frequently Asked Questions</a></li>-->
                 </ul>
