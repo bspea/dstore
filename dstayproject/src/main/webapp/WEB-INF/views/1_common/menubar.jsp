@@ -85,7 +85,7 @@
 
                 <!-- 아이콘 누르면 나타날 메뉴리스트 -->
                 <div class="icon-menuList">
-                    <div class="menuList-title">차종환 님</div>
+                    <div class="menuList-title">${loginUser.nickName }님</div>
                     <div id="menuList-select"></div>
                     <div><img src="${ pageContext.request.contextPath }/resources/images/4_jong/menusmallicon.png">로그인</div>
                     <div><img src="${ pageContext.request.contextPath }/resources/images/4_jong/menusmallicon.png">마이페이지</div>
@@ -113,28 +113,22 @@
 		    /* Ready. Make a call to gapi.auth2.init or some other API */
 		   console.log("auth2 loaded");  
 		  googleAuth = gapi.auth2.init({
-			  client_id: "772225320155-psolb8vekpte4t7h2bl88b0tt3p3sfn6.apps.googleusercontent.com"
+			  client_id: "${googleClientId}"
 		  })
 		  });
 		}  
-	Kakao.init('b6ca5845154feff6cc055835f1f75513');
+	Kakao.init('${kakaoJavascriptKey}');
 	function logout() {
 		Kakao.Auth.logout(function() {
 			location.href="logout.do";
 		})
-//		if(googleAuth.isSignedIn.get()) {
-	//		console.log("googleAuthIsSignedIn");
+
 			googleAuth.signOut().then(function() {
 				location.href="logout.do";
-		//	});
-	//	}else {
+
 		})
 	}
-	/* function logout() {
-		Kakao.Auth.logout(function() {
-			location.href="logout.do";
-		})
-	} */
+
 </script>
 </body>
 </html>

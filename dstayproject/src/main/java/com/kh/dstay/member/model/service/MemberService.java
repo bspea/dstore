@@ -1,7 +1,6 @@
 package com.kh.dstay.member.model.service;
 
 import javax.validation.constraints.Email;
-
 import com.kh.dstay.member.model.vo.Member;
 
 public interface MemberService {

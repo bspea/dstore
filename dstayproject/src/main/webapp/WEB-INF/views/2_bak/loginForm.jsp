@@ -308,7 +308,7 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="resources/js/2_bak/jquery.min.js"></script>
+<script src="resources/js/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script src="resources/js/2_bak/bootstrap.min.js"></script>
 
@@ -337,42 +337,16 @@
 		  gapi.load('auth2', function() {
 		    /* Ready. Make a call to gapi.auth2.init or some other API */
 		    console.log("loaded auth2 ");
-		    var googleClientId;
-		    $.ajax({
-		    	url:"ajaxGetGoogleClientId.do",
-		    	method:"post",
-		    	error:function() {
-		    		console.log("failed to get googleClientId");
-		    	},
-		    	success:function(string) {
-		    		googleClientId = string;
-		    		//console.log(googleClientId);
-		    	}
-		    })
 		    var googleAuth = gapi.auth2.init({
-		    	  client_id: "772225320155-psolb8vekpte4t7h2bl88b0tt3p3sfn6.apps.googleusercontent.com"
+		    	  client_id: "${googleClientId}"
 		    })
 		    googleAuth.signIn().then(function() {
 		    	console.log("googleAuth initialized");
-		    		
 		    	if(googleAuth.isSignedIn.get()) {
 		    		console.log("logined");
-		    		/* googleAuth.signIn().then(function() {
-		    			console.log("userLogin"); 
-		    		})*/
 		    		var googleUser = googleAuth.currentUser.get();
-		    			//console.log(google);
-		    			/* if(googleUser.isSignedIn()) {
-		    				console.log("userLogin");
-		    			} */
 		    		  var profile = googleUser.getBasicProfile();
-			    		  //console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-			    		  //console.log('Name: ' + profile.getName());
-			    		  //console.log('Image URL: ' + profile.getImageUrl());
-			    		  //console.log('Email: ' + profile.getEmail());
 			    	  var googleEmail = profile.getEmail();
-			    	  //var id_token = googleUser.getAuthResponse().id_token;
-			    	  	  //console.log(id_token);
 			    	  	  $.ajax({
 			    			  url:"ajaxGoogleLogin.do",
 			    			  method:"post",
@@ -382,15 +356,12 @@
 			    			  },
 			    			  success:function(msg) {
 			    				  if(msg =="googleLoginSucess") {
-			    					  //console.log("googleUser loading proceeded");
 			    					  location.href="home.do";
 			    				  }else {
 			    					  console.log("googleUser loading failed");
 			    				  }
 			    			  }
 			    		  })
-			    		  
-		    			 
 		    	}else {
 		    		console.log("unlogined");
 		    	}
@@ -401,49 +372,36 @@
 		    })
 		  });
 		}
-		
 </script>
 <!--네이버로 로그인  -->
   <script type="text/javascript">
- 
-	  
-	  	var naver_id_login = new naver_id_login("s6CPRgwP1X7_hKKChRiV", "http://localhost:9020/dstay/naverLogin.do");
+	  	var naver_id_login = new naver_id_login("${naverClientId}", "http://localhost:9020/dstay/naverLogin.do");
 	  	var state = naver_id_login.getUniqState();
 	  	naver_id_login.setButton("green", 300 ,50);
 	  	naver_id_login.setDomain("http://localhost:9020");
 	  	naver_id_login.setState(state);
 	  	//naver_id_login.setPopup();
 	  	naver_id_login.init_naver_id_login();
-  
   </script>
 <!--카카오로 로그인  -->
 <script type='text/javascript'>
   //<![CDATA[
     // 사용할 앱의 JavaScript 키를 설정해 주세요.
-    //var list[];
-    Kakao.init('b6ca5845154feff6cc055835f1f75513');
+    Kakao.init('${kakaoJavascriptKey}');
     function loginWithKakao() {
       // 로그인 창을 띄웁니다.
       Kakao.Auth.login({
         success: function(authObj) {
-          //alert(JSON.stringify(authObj));
           console.log("kakaoAuth loaded");
           Kakao.API.request({
               url: '/v2/user/me',
               success: function(res) {
-                //alert(JSON.stringify(res));
-                //console.log(JSON.stringify(res));
-               	//console.log(res["id"]);
-               	//console.log(res.properties["nickname"]);
-               	//console.log(JSON.stringify(res.kakao_account["email"]));
-               	$.ajax({
                		url:"ajaxNaverUserprofile.do",
                		method:"post",
                		data:{id:res["id"],
                			  nickName:res.properties["nickname"],
                			  email:res.kakao_account["email"]},
                		success:function() {
-               			console.log("apiLoginSuccess");
                			location.href="home.do";
                		},
                		error:function() {
@@ -452,13 +410,11 @@
                	})
               },
               fail: function(error) {
-                //alert(JSON.stringify(error));
                 console.log("failed to load kakaoProfile");
               }
             });
         },
         fail: function(err) {
-          //alert(JSON.stringify(err));
           console.log("kakaoAuth err");
         }
       });

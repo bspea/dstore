@@ -2,17 +2,9 @@ package com.kh.dstay.member.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.kh.dstay.member.model.dao.MemberDao;
-
 import javax.validation.constraints.Email;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.kh.dstay.member.model.dao.MemberDao;
 import com.kh.dstay.member.model.vo.Member;
-
 import com.kh.dstay.member.model.service.MemberService;
 
 @Service
@@ -29,7 +21,6 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return mDao.ajaxDuplicateCheck(email);
 	}
-
 	@Override
 	public int insertMember(Member mem) {
 		// TODO Auto-generated method stub
@@ -75,5 +66,4 @@ public class MemberServiceImpl implements MemberService{
 			}
 		}
 	}
-
 }
