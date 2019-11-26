@@ -396,18 +396,28 @@
           Kakao.API.request({
               url: '/v2/user/me',
               success: function(res) {
-               		url:"ajaxNaverUserprofile.do",
-               		method:"post",
-               		data:{id:res["id"],
-               			  nickName:res.properties["nickname"],
-               			  email:res.kakao_account["email"]},
-               		success:function() {
-               			location.href="home.do";
-               		},
-               		error:function() {
-               			console.log("apiLoginFail");
-               		}
-               	})
+            	  console.log(JSON.stringify(res));
+            	  if(res.kakao_account["email"] == "") {
+	            	  $.ajax({
+	               		url:"ajaxNaverUserprofile.do",
+	               		method:"post",
+	               		data:{id:res["id"],
+	               			  nickName:res.properties["nickname"],
+	               			  email:res.kakao_account["email"]},
+	               		success:function(msg) {
+	               			if(msg == "apiLoginSuccess") {
+	               				location.href="home.do";
+	               			}else {
+								location.href="loginForm.do";
+	               			}
+	               		},
+	               		error:function() {
+	               			console.log("apiLoginFail");
+	               		}
+	               	})
+            	  }else {
+						location.href="kakaoLoginForm.do";
+            	  }
               },
               fail: function(error) {
                 console.log("failed to load kakaoProfile");
