@@ -13,6 +13,7 @@
 		}
 		body{
 			height:auto!important;
+			background:white!important;
 		}
 	</style>
 <title>MYPAGE</title>
@@ -181,6 +182,8 @@
 	  }
 	  window.onpopstate = function(event) {
 		  console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
+		  roadMypageContent(event.state,1);
+		  checkTag(event.state);
 	  };
 	  function roadMypageContent(url,page){
 		  $.ajax({
