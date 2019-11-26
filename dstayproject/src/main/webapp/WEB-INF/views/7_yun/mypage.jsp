@@ -24,7 +24,7 @@
             <ul class="navUl1">
 
                 <li class="navLi1">
-                    <a href="home" class="myMenu menu-active">
+                    <a href="home.do" class="myMenu menu-active">
                         <div class="menu-tag">홈</div>
                         <div class="bottom-bar">
                             <div class="bottom-box"></div>
@@ -33,7 +33,7 @@
 
                 </li>
                 <li class="navLi1">
-                    <a href="diet" class="myMenu">
+                    <a href="diet.do" class="myMenu">
                         <div class="menu-tag">식단관리</div>
                         <div class="bottom-bar">
                             <div class="bottom-box"></div>
@@ -42,7 +42,7 @@
 
                 </li>
                 <li class="navLi1">
-                    <a href="order" class="myMenu">
+                    <a href="order.do" class="myMenu">
                         <div class="menu-tag">주문내역</div>
                         <div class="bottom-bar">
                             <div class="bottom-box"></div>
@@ -51,7 +51,7 @@
 
                 </li>
                 <li class="navLi1">
-                    <a href="wishes" class="myMenu">
+                    <a href="wishes.do" class="myMenu">
                         <div class="menu-tag">찜</div>
                         <div class="bottom-bar">
                             <div class="bottom-box"></div>
@@ -60,7 +60,7 @@
 
                 </li>
                 <li class="navLi1">
-                    <a href="review" class="myMenu">
+                    <a href="review.do" class="myMenu">
                         <div class="menu-tag">구매후기</div>
                         <div class="bottom-bar">
                             <div class="bottom-box"></div>
@@ -69,7 +69,7 @@
 
                 </li>
                 <li class="navLi1">
-                    <a href="coupon" class="myMenu">
+                    <a href="coupon.do" class="myMenu">
                         <div class="menu-tag">쿠폰</div>
                         <div class="bottom-bar">
                             <div class="bottom-box"></div>
@@ -78,7 +78,7 @@
 
                 </li>
                 <li class="navLi1">
-                    <a href="info" class="myMenu">
+                    <a href="info.do" class="myMenu">
                         <div class="menu-tag">개인정보</div>
                         <div class="bottom-bar">
                             <div class="bottom-box"></div>
@@ -95,37 +95,37 @@
             <ul class="navUl2">
 
                 <li class="navLi2">
-                    <a href="home" class="myMenu2 menu-active">
+                    <a href="home.do" class="myMenu2 menu-active">
                         <div class="menu-tag">홈</div>
                     </a>
                 </li>
                 <li class="navLi2">
-                    <a href="diet" class="myMenu2">
+                    <a href="diet.do" class="myMenu2">
                         <div class="menu-tag">식단관리</div>
                     </a>
                 </li>
                 <li class="navLi2">
-                    <a href="order" class="myMenu2">
+                    <a href="order.do" class="myMenu2">
                         <div class="menu-tag">주문내역</div>
                     </a>
                 </li>
-                <li class="navUl2">
-                    <a href="wishes" class="myMenu2">
+                <li class="navLi2">
+                    <a href="wishes.do" class="myMenu2">
                         <div class="menu-tag">찜</div>
                     </a>
                 </li>
                 <li class="navLi2">
-                    <a href="review" class="myMenu2">
+                    <a href="review.do" class="myMenu2">
                         <div class="menu-tag">구매후기</div>
                     </a>
                 </li>
                 <li class="navLi2">
-                    <a href="coupon" class="myMenu2">
+                    <a href="coupon.do" class="myMenu2">
                         <div class="menu-tag">쿠폰</div>
                     </a>
                 </li>
                 <li class="navLi2">
-                    <a href="info" class="myMenu2">
+                    <a href="info.do" class="myMenu2">
                         <div class="menu-tag">개인정보</div>
                     </a>
                 </li>
@@ -147,22 +147,20 @@
     </div>
 	<script>
 	  $(function(){
+		  var pathname=location.pathname;
+		  var url=pathname.replace("/dstay/mypage/","");
+		  roadMypageContent(url,1);
+		  checkTag(url);
 	      $(".navLi1").click(function(){
-	          $(".myMenu").removeClass("menu-active");
-	          $(".myMenu2").removeClass("menu-active");
-	          $(this).find(".myMenu").addClass("menu-active");
 	          var tag=$(this).find(".myMenu").attr("href");
-	          $(".myMenu2[href="+tag+"]").addClass("menu-active");
+	          checkTag(tag);
 	          var X=$(this).offset().left;
 	          var _scrollX=$(".navUl1").scrollLeft();
 	          $(".navUl1").scrollLeft(_scrollX+X-(screen.width/2)+($(this).outerWidth()/2));
 	      })
 	      $(".navLi2").click(function(){
-	    	  $(".myMenu").removeClass("menu-active");
-	          $(".myMenu2").removeClass("menu-active");
-	          $(this).find(".myMenu2").addClass("menu-active");
 	          var tag=$(this).find(".myMenu2").attr("href");
-	          $(".myMenu[href="+tag+"]").addClass("menu-active");
+	          checkTag(tag);
 	      })
 	      $(document).on("click",".review-img-open>img",function(){
 	          
@@ -175,13 +173,19 @@
 	      	roadMypageContent(url,1);
 	      })
 	  })
+	  function checkTag(tag){
+		  $(".myMenu").removeClass("menu-active");
+          $(".myMenu2").removeClass("menu-active");
+          $(".myMenu[href='"+tag+"']").addClass("menu-active");
+          $(".myMenu2[href='"+tag+"']").addClass("menu-active");
+	  }
 	  window.onpopstate = function(event) {
 		  console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
 	  };
 	  function roadMypageContent(url,page){
 		  $.ajax({
-			  url:url+".do",
-			  data:{page:page},
+			  url:"ajax"+url,
+			  data:{url:url,page:page},
 			  dataType:"json",
 			  complete:function(data){
 				  var $myPageTitle=$(".myPageTitle");
@@ -191,19 +195,19 @@
 				  $myPageTitleInfo.text("");
 				  $myPage_content.html("");
 				  switch(url){
-				  case "home":
+				  case "home.do":
 					  $myPageTitle.text("유저님 환영합니다");
 					  $myPageTitleInfo.text("회원님의 정보를 관리하여 편리하게 dstay를 이용하실 수 있습니다");
 					  
 					  
 					  break;
-				  case "diet":
+				  case "diet.do":
 					  $myPageTitle.text("식단관리");
 					  $myPageTitleInfo.text("오늘의 식사를 입력해주세요");
 					  
 					  
 					  break;
-				  case "order":
+				  case "order.do":
 					  $myPageTitle.text("주문내역");
 					  $myPageTitleInfo.text("주문정보를 확인하실 수 있습니다");
 					  var str="<div class='myPage-order-date'>"
@@ -277,29 +281,47 @@
 				      paging(url,page);
 				      
 				      break;
-				  case "wishes":
+				  case "wishes.do":
 					  $myPageTitle.text("찜");
 					  $myPageTitleInfo.text("찜하신 상품을 모아놓았습니다");
 					  
 					  
 					  break;
-				  case "review":
+				  case "review.do":
 					  $myPageTitle.text("구매후기");
 					  $myPageTitleInfo.text("구매하신 상품에 대한 후기를 남길 수 있습니다");
 					  
 					  
 					  break;
-				  case "coupon":
+				  case "coupon.do":
 					  $myPageTitle.text("쿠폰");
 					  $myPageTitleInfo.text("가지고계신 쿠폰을 확인하실 수 있습니다");
 					  
 					  
 					  break;
-				  case "info":
+				  case "info.do":
 					  $myPageTitle.text("개인정보");
 					  $myPageTitleInfo.text("dstay에서 사용될 회원님의 기본정보입니다");
-					  
-					  
+					  var str="<div class='myProfile-wrap'>"
+			                    +"<div class='myProfile myProfile-required'>"
+			                        +"<div class='profile-title'>개인정보</div>"                        
+			                        +"<ul class='margin-top-18'>"
+			                            +"<li><span>아이디</span><div class='user-id'>(userid)</div></li>"
+			                            +"<li><span>비밀번호</span><button class='btn-red max-width-180' id='change-pw'>변경하기</button></li>"
+			                            +"<li><span>닉네임</span><div class='user-nickname'>(nickname)<button class='btn-red margin-left-10' id='change-nickname'>변경하기</button></div></li>"
+			                            +"<li><span>휴대폰</span><div class='user-phone'>01011112222<button class='btn-red margin-left-10' id='change-phone'>변경하기</button></div></li>"
+			                        +"</ul>"
+			                    +"</div>"
+			                    +"<div class='myProfile myProfile-address'>"
+			                        +"<div class='profile-title'>주소지 관리</div>"
+			                        +"<button class='btn-red margin-top-18' id='address'>주소지 관리</button>"
+			                    +"</div>"
+			                    +"<div class='myProfile myProfile-address'>"
+			                        +"<div class='profile-title'>회원탈퇴</div>"
+			                        +"<button class='btn-black margin-top-18' id='withdrawal'>탈퇴하기</button>"
+			                    +"</div>"
+							+"</div>";
+						$myPage_content.html(str);
 					  break;
 				  }
 			  },

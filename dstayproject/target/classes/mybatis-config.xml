@@ -29,6 +29,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			<typeAlias alias="Member" type="com.kh.dstay.lee.login.model.vo.Member"/>
 			<typeAlias alias="product" type="com.kh.dstay.lee.products.model.vo.Product"/>
 		-->
+		
+		<typeAlias type="com.kh.dstay.member.model.vo.Review" alias="Review"/>
+		<typeAlias type="com.kh.dstay.member.model.vo.ReviewImage" alias="ReviewImage"/>
 	</typeAliases>
 
 	<mappers>
@@ -40,5 +43,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mappers/6_lee/member-mapper.xml"/>
 		<mapper resource="mappers/6_lee/product-mapper.xml"/>
 		<!-- <mapper resource="mappers/5_kim/product-mapper.xml"/> -->
+		<mapper resource="mappers/7_yun/mypage-mapper.xml"/>
+		
 	</mappers>
 </configuration>

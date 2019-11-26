@@ -85,7 +85,8 @@ a{
     padding-top:24px;
 }
 .myPage-content{
-    padding-top:18px;
+	max-width:840px;
+	padding-top:18px;
 }
 .myPage-order-date{
     display:flex;
@@ -274,6 +275,7 @@ a{
 .myProfile ul li span{
     padding:8px 0;
     flex:0 0 30%;
+    font-weight:bold;
 }
 .myProfile-input{
     border:1px solid #8b0000;
@@ -306,7 +308,7 @@ a{
     cursor:pointer;
 }
 .profile-title{
-    font-size:1.3rem;
+    font-size:2rem;
 }
 .myProfile-input-short{
     border:1px solid #8b0000;
@@ -461,18 +463,16 @@ a{
     background:white;
     cursor:pointer;
 }
-
-@media screen and (min-width : 768px) {
-    .btn-red-min{
-        border:0;
-        padding:8px 18px;
-        margin:0 6px;
-        order:10;
-        border-radius:2px;
-        background:#8b0000;
-        color:white;
-    }
+.max-width-180{
+    max-width:180px;
 }
+.margin-left-10{
+    margin-left:10px;
+}
+.margin-top-18{
+	margin-top:18px;
+}
+
 @media screen and (min-width : 1024px) {
     .navWrap1{
         display:none;
