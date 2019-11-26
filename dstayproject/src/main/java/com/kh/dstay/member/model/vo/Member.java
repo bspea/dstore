@@ -1,13 +1,12 @@
 package com.kh.dstay.member.model.vo;
 
 import java.sql.Date;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-
+import org.springframework.stereotype.Component;
 import lombok.Data;
 
-@Data
+@Data@Component
 public class Member {
 	private int no;
 	@Email@NotNull
