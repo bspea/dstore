@@ -32,6 +32,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		
 		<typeAlias type="com.kh.dstay.member.model.vo.Review" alias="Review"/>
 		<typeAlias type="com.kh.dstay.member.model.vo.ReviewImage" alias="ReviewImage"/>
+		<typeAlias type="com.kh.dstay.member.model.vo.Diet" alias="Diet"/>
+		<typeAlias type="com.kh.dstay.member.model.vo.FoodSearch" alias="FoodSearch"/>
+		
 	</typeAliases>
 
 	<mappers>

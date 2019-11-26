@@ -24,5 +24,4 @@ public class Diet {
 	private String memo;	// 메모
 	private String status; // 상태(삭제 등)
 	
-
 }
