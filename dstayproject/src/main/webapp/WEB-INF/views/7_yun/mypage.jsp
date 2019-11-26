@@ -12,6 +12,7 @@
 			text-decoration:none!important;
 		}
 		body{
+			min-height:100%;
 			height:auto!important;
 			background:white!important;
 		}
