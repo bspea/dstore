@@ -42,6 +42,18 @@ public class ProductServiceImpl implements ProductService{
 		return pDao.selectProduct(pdNo);
 	}
 
+	@Override
+	public int getProductInqueryList(int pdNo) {
+		
+		return pDao.getProductInqueryList(pdNo);
+	}
+
+	@Override
+	public ArrayList<ProductInquery> selectProductInquery(PdPageInfo pipg, int pdNo) {
+		
+		return pDao.selectProductInquery(pipg,pdNo);
+	}
+
 
 	
 	

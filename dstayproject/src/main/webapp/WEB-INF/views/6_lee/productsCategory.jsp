@@ -80,7 +80,7 @@
 		  <c:forEach items="${pd}" var="pd">
             <div class="col-sm-6 col-md-4" data-behavior="sample_code">
                 <a href="productDetail.do?pdno=${pd.pno}" class="thumbnail_item thumbnail less-padding less-margin">
-                    <img src="${pd.pipath}" alt="risotto lemon">
+                    <img src="${pd.pi1}" alt="risotto lemon">
                 </a>
                 <div class="caption box">
                     <h3 style="height: 52px;">${pd.pname}</h3>
@@ -98,7 +98,7 @@
 		  </c:forEach>
        					
        					
-       					<!-- 페이징 바  -->
+       					<!-- 페이징 바 start  -->
             <div class="col-md-12 hidden-xs text-center">
                 
                 <nav aria-label="Page navigation">
@@ -148,7 +148,7 @@
                     </ul>
                 </nav>
 
-                <!--pagination ends-->
+                <!--페이징바 ends-->
             </div>
         </div>
     </div>

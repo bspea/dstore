@@ -16,6 +16,7 @@ import com.kh.dstay.lee.products.model.service.ProductService;
 import com.kh.dstay.lee.products.model.vo.PdPageInfo;
 import com.kh.dstay.lee.products.model.vo.Product;
 import com.kh.dstay.lee.products.model.vo.ProductCategory;
+import com.kh.dstay.lee.products.model.vo.ProductInquery;
 
 @Controller
 public class ProductController {
@@ -28,7 +29,7 @@ public class ProductController {
 	public String productPage(HttpSession session) {
 
 		// 카테고리 가져오기
-		ArrayList<ProductCategory> pc = pService.cateSelect();
+		ArrayList<ProductCategory> pc = pService.cateSelect(); // 카테고리 객체
 			
 		session.setAttribute("pc", pc);
 		
@@ -45,13 +46,13 @@ public class ProductController {
 		
 		caNo = Integer.parseInt(request.getParameter("pcno").trim()); // 카테고리 번호
 		
-		String pcName = request.getParameter("pcName");
 		
 		int cateListCount = pService.getCateListCount(caNo); // 해당 카테고리의 상품 총 갯수
 		
-		PdPageInfo pp = ProductPagination.getPageInfo(currentPage, cateListCount); // 페이징 처리
+		PdPageInfo pp = ProductPagination.getProductPageInfo(currentPage, cateListCount); // 상품 목록 페이징 처리
 		
 		ArrayList<Product> pd = pService.selectCategory(pp,caNo); // 해당 번호 카테고리의 상품 가져오기(페이징처리 포함) 
+		
 		
 		mv.addObject("pd",pd).addObject("pp",pp).addObject("caNo",caNo).setViewName("6_lee/productsCategory");
 			
@@ -61,20 +62,27 @@ public class ProductController {
 	
 	// 상품 디테일
 	@RequestMapping("productDetail.do")
-	public ModelAndView productDetail(HttpServletRequest request, ModelAndView mv, HttpSession session) {
+	public ModelAndView productDetail(HttpServletRequest request, ModelAndView mv, HttpSession session,
+			 						@RequestParam(value="currentPage",defaultValue="1")int currentPage) {
 		
 		int pdNo = 0;	// 상품번호
 		
 		pdNo = Integer.parseInt(request.getParameter("pdno"));
 		
-		Product pd = pService.selectProduct(pdNo);
+		Product pd = pService.selectProduct(pdNo); // 상품 객체 가져오기
+		
+		int ProductInquery  = pService.getProductInqueryList(pdNo); // 해당상품의 문의사항 총 갯수 가져오기
+		
+		PdPageInfo pipg = ProductPagination.getProductInqueryPageInfo(currentPage, ProductInquery); // 문의 목록
+		
+		ArrayList<ProductInquery> pi = pService.selectProductInquery(pipg,pdNo);
 		
 		
-		
-		mv.addObject("pd",pd).setViewName("6_lee/productDetail");
+		mv.addObject("pd",pd).addObject("pq",pi).addObject("pipg",pipg).setViewName("6_lee/productDetail");
 		
 		return mv;
 	}
+	
 	
 	
 

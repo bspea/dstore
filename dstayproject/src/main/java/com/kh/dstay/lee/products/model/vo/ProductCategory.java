@@ -18,7 +18,7 @@ public class ProductCategory {
 
 	private int no;
 	private String name;
-	private String original_fileName;
+	private String origin_fileName;
 	private int pcSum;
 	
 

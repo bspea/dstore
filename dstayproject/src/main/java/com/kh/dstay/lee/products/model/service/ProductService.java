@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.dstay.lee.products.model.vo.PdPageInfo;
 import com.kh.dstay.lee.products.model.vo.Product;
 import com.kh.dstay.lee.products.model.vo.ProductCategory;
+import com.kh.dstay.lee.products.model.vo.ProductInquery;
 
 public interface ProductService {
 	
@@ -21,5 +22,11 @@ public interface ProductService {
 	
 	// 상품 디테일
 	Product selectProduct(int pdNo);
+	
+	// 해당 상품 문의 총 갯수 가져오기
+	int getProductInqueryList(int pdNo);
+	
+	// 문의 가져오기
+	ArrayList<ProductInquery> selectProductInquery(PdPageInfo pipg, int pdNo);
 	
 }

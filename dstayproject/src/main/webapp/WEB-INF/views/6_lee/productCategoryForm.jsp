@@ -65,7 +65,7 @@
 		            <div class="scrim"></div>
 		            	<span class="small-text-overlay">${pc.pcSum} Products</span>
 		            <p>${pc.name}</p>
-		            <img src="resources/images/6_lee/${pc.original_fileName}" width="100%">
+		            <img src="resources/images/6_lee/${pc.origin_fileName}" width="100%">
 		        </a> 
 		        
 	        </c:forEach>

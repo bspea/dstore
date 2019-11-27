@@ -209,7 +209,7 @@
         
         <!-- 배송지 모달창  start-->
     
-     <div class="modal modal-center fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal modal-center fade" id="testModal" tabindex="-1" role="dialog" style="z-index: 1111111;" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">

@@ -49,6 +49,17 @@
     <link href="resources/css/6_lee/kimi.css" rel="stylesheet">
     <link href="resources/css/6_lee/font-awesome.min.css" rel="stylesheet">
 
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<style>
+	
+	.modal-backdrop.in{
+		opacity: 0 !important;
+	
+	}
+	
+	
+	
+	</style>
 </head>
 
 <body>
@@ -80,13 +91,38 @@
                                 <div class="carousel slide" id="myCarousel">
                                     <!-- Carousel items -->
                                     <div class="carousel-inner">
+                                        
                                         <div class="active item" data-slide-number="0">
-                                            <img src="resources/images/6_lee/sosisSolo_carousel.jpg">
+                                            <img src="${pd.pi1}">
+                                        </div>
+								
+                                        <div class="item" data-slide-number="1">
+	                                          
+	                                          <c:choose>
+					                        	<c:when test="${empty pd.pi2}">
+					                    			 <img src="resources/images/6_lee/ImgIsNull.png"> 
+					                    		</c:when>
+					                    	
+					                    		<c:otherwise>                    		
+					                        		<img src="${pd.pi2}">
+					                    		</c:otherwise>
+					  						 </c:choose>
+                                     
                                         </div>
 
-                                        <div class="item" data-slide-number="1">
-                                            <img src="resources/images/6_lee/sosisSolo_carousel_2.jpg">
-                                        </div>
+                                        <div class="item" data-slide-number="2">
+                                            <c:choose>
+					                        	<c:when test="${empty pd.pi3}">
+					                    			 <img src="resources/images/6_lee/ImgIsNull.png"> 
+					                    		</c:when>
+					                    	
+					                    		<c:otherwise>                    		
+					                        		<img src="${pd.pi3}">
+					                    		</c:otherwise>
+					  						</c:choose>
+                                        </div>  
+                                        
+                                  	
 
                                     </div>
                                     <!-- Carousel nav -->
@@ -101,17 +137,46 @@
                         </div>
                     </div>
                 </div>
-                <!--/Slider-->
+                <!--슬라이드-->
 
                 <div class="col-sm-3" id="slider-thumbs">
-                    <a class="thumbnail" id="carousel-selector-0">
-                        <img src="resources/images/6_lee/sosisSolo_carousel.jpg">
+                    
+                     <a class="thumbnail" id="carousel-selector-0">
+						<c:choose>
+                        	<c:when test="${empty pd.pi1}">
+                    			 <img src="resources/images/6_lee/ImgIsNull.png"> 
+                    		</c:when>
+                    	
+                    		<c:otherwise>                    		
+                        		<img src="${pd.pi1}">
+                    		</c:otherwise>
+  						</c:choose>
                     </a>
-
-                    <a class="thumbnail" id="carousel-selector-1">
-                        <img src="resources/images/6_lee/sosisSolo_carousel_2.jpg">
+                    
+                      <a class="thumbnail" id="carousel-selector-1">
+						<c:choose>
+                        	<c:when test="${empty pd.pi2}">
+                    			 <img src="resources/images/6_lee/ImgIsNull.png"> 
+                    		</c:when>
+                    	
+                    		<c:otherwise>                    		
+                        		<img src="${pd.pi2}">
+                    		</c:otherwise>
+  						</c:choose>
                     </a>
-
+                    
+                      <a class="thumbnail" id="carousel-selector-2">
+						<c:choose>
+                        	<c:when test="${empty pd.pi3}">
+                    			 <img src="resources/images/6_lee/ImgIsNull.png"> 
+                    		</c:when>
+                    	
+                    		<c:otherwise>                    		
+                        		<img src="${pd.pi3}">
+                    		</c:otherwise>
+  						</c:choose>
+                    </a> 
+                    
                 </div>
             </div>
 
@@ -127,10 +192,11 @@
 
 
         <p class="product-description">${pd.pcontents}</p>
-        <p class="product-description">조리법(전자레인지 몇분 등등), 보관법(냉장,실온)</p>
-		<p class="product-description">성분표(함량말고 성분들만 대략적으로)</p>
+        <p class="product-description">조리법 : ${pd.precipe}</p>
+		<p class="product-description">성분 : ${pd.pingredient}</p>
+	 	<p class="product-description">Calorie : ${pd.calorie}kcal</p> 
         <div class="product-detail-tag-container">
-            <h1>평점(5점 만점) </h1>
+            <h1>평점 : ${pd.paverage} </h1>
         </div>
 
         <div class="clearfix"></div>
@@ -140,34 +206,68 @@
                 <h3>￦ ${pd.price}</h3>
             </div>
             <div class="col-md-6" style="padding-top: 18px;">
-                <p class="pull-left" style="line-height: 35px; margin-right: 20px;">Quantity</p>
-                <form class="form-inline product-detail-form">
-                    <div class="form-group pull-left"><button class="btn btn-default">-</button></div>
-                    <div class="form-group pull-left">
-                        <input type="number" class="form-control number-input" id="" placeholder="10" style="width: 60px; border: none; font-weight: bold; font-size: 20px;">
-                    </div>
-                    <div class="form-group"><button class="btn btn-default">+</button></div>
-                </form>
+               
             </div>
         </div>
 
         <div class="product-detail-action-button-container">
-            <button onclick="location.href='shoppingCart.do'" class="btn button-add-to-bag" style="margin-right: 10px;">장바구니</button>
+            
+             <button id="shoppingCart" class="btn button-add-to-bag" onclick="addProduct()" style="margin-right: 10px;">장바구니</button> 
+			             
+	
+           <!--  <button class="frequency-question"  data-toggle="modal" data-target="#fq">장바구니</button> -->
+
             <button class="btn btn-default button-black button-learn-more" id="bookmarkButton">찜하기</button>
-            <button class="btn btn-default button-black button-learn-more" id="deleteBookmarkButton" style="display: none;">장바구니 해제</button>
+            <button class="btn btn-default button-black button-learn-more" id="deleteBookmarkButton" style="display: none;">찜 해제</button>
         </div>
 
 
     </div>
 </div><!-- /.container -->
 
+
+	
+
+
 <div class="container" style="background: white; padding-bottom: 50px;">
     <h2 class="text-center">${pd.pname}</h2>
     <hr class="hr-short">
 
     <div class="col-md-8 col-md-offset-2">
-        <p class="helvetica-18 text-center">간단히 적을 곳(품절이나/제고입예정 등등/주의/안내문구)</p>
-        <img src="resources/images/6_lee/sosisSolo_landscape.jpg" width="100%" class="maya-small-padding" style="margin: 30px 0;">
+        <p class="helvetica-18 text-center">${pd.pnotice}</p>
+        
+        <c:choose>
+           <c:when test="${empty pd.pi1}">
+       		 <img src=""> 
+       		</c:when>
+                    	
+            <c:otherwise>                    		
+                <img src="${pd.pi1}" width="100%" class="maya-small-padding" style="margin: 30px 0;">
+            </c:otherwise>
+  		</c:choose>
+  		
+  		 <c:choose>
+           <c:when test="${empty pd.pi2}">
+       		 <img src=""> 
+       		</c:when>
+                    	
+            <c:otherwise>                    		
+                <img src="${pd.pi2}" width="100%" class="maya-small-padding" style="margin: 30px 0;">
+            </c:otherwise>
+  		</c:choose>
+  		
+  		 <c:choose>
+           <c:when test="${empty pd.pi3}">
+       		 <img src=""> 
+       		</c:when>
+                    	
+            <c:otherwise>                    		
+                <img src="${pd.pi3}" width="100%" class="maya-small-padding" style="margin: 30px 0;">
+            </c:otherwise>
+  		</c:choose>
+        
+        
+        
 
         <p class="helvetica-18 text-center">원산지/성분함량/제조사 등등(위의 img태그에 이미지로 ))</p>
     </div>
@@ -242,9 +342,23 @@
     </div>
 </div>
 
+  			<!-- 장바구니 모달창 start -->
+			  
+			   <div class="modal modal-center fade" id="testModal" tabindex="-1" role="dialog" style="top:53%;;" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content" style=" height: 70px; width: 50%; position: absolute; left: 36%; top: 172px;">
+										<p style="text-align: center;">장바구니에 추가되었습니다</p>
+									<button class="btn" type="submit" data-dismiss="modal" onclick="location.href='shoppingCart.do';" style=" position: absolute; bottom: 16%; left: 10%;">장바구니 이동</button>
+									<button class="btn" type="button" data-dismiss="modal" style="position: absolute; bottom: 16%; left: 61%;">돌아아기</button>
+						</div>
+					</div>
+				</div>
+			 
+				<!-- 장바구니 모달창 end -->
+
 				<!-- 후기 / 문의   버튼-->
 <div class="container" style=" background:white; padding-bottom: 50px; ">
- <a id="inquiry" class="btn pull-right button-green-top-nav" style="width:50%;">문의(문의 갯수)</a>
+ <a id="inquiry" class="btn pull-right button-green-top-nav" style="width:50%;">문의(${pd.inquerySum})</a>
  <span><a id="review" class="btn pull-right button-green-top-nav" style="width:50%;">후기(후기 갯수)</a></span>
 </div>
 					
@@ -304,7 +418,14 @@
         
         		<!-- 후기 -->
 			<div id="inquiryFormReply">
-		<p>프로불편러 : 맛이 이게 뭡니까? [2010-11-11]</p>
+		<c:forEach items="${pq}" var="pq">
+			<p>${pq.membernickname} : ${pq.pititle } [${pq.pidate}]</p>
+			<p>${pq.picontents }</p>
+			<p>└관리자 : ${pq.pianswer} [${pq.pianswerdate}]</p>
+			<hr>
+		</c:forEach>
+		
+		<!-- <p>프로불편러 : 맛이 이게 뭡니까? [2010-11-11]</p>
 		<p> └괸라자 : 감솨합니다 다음에 또 이용해주세요 2010-11-11</p>
 		<hr>
 		<p>프로불편러 : 맛이 이게 뭡니까? [2010-11-11]</p>
@@ -327,138 +448,219 @@
 		<hr>
 		<p>프로불편러 : 맛이 이게 뭡니까? [2010-11-11]</p>
 		<p> └괸라자 : 감솨합니다 다음에 또 이용해주세요 2010-11-11</p>
-		<hr>
+		<hr> -->
 			
 		</div>
 		
 		
-		<!-- 페이징 바  -->
-		 <div class="col-md-12 hidden-xs text-center">
-                <!--pagination-->
+		 		<!-- 문의 페이징 바  start  이건 후에 하자.-->
+            <div class="col-md-12 hidden-xs text-center">
+                
                 <nav aria-label="Page navigation">
                     <ul class="pagination">
-                        <li class="current"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
+                        <li class="current">
+                        	
+                        	<!-- 첫 페이지  -->
+                        	<%-- <c:if test="${pipg.currentPage eq 1 }"> --%>
+								<a href="${before}" style="font-size: 40px; background-color: rosybrown; pointer-events: none; cursor: default;">&lt</a>
+							<%-- </c:if> --%>
+							
+							<!-- 첫 페이지가 아닐 때 -->
+							<%-- <c:if test="${pipg.currentPage ne 1 }">
+								<c:url value="productDetail.do" var="before">
+									<c:param name="pcno" value="${pdNo}"/>
+									<c:param name="currentPage" value="${pipg.currentPage-1}"/>
+								</c:url> --%>
+								<a href="${before}" style="font-size: 40px">&lt</a>
+							<%-- </c:if> --%>
+							
+							 <c:forEach begin="${pipg.startPage}" end="${pipg.endPage}" var="p"> 
+							<!-- 현재 페이지 -->
+								<%--  <c:if test="${p eq pipg.currentPage}">  --%>
+									<a style="background-color:coral">${p}</a>
+								<%-- </c:if> --%>
+							<!-- 현재 페이지가 아닐 때 -->			
+								<%-- <c:if test="${p ne pipg.currentPage}">
+									<c:url value="productDetail.do" var="page">
+										<c:param name="pcno" value="${pdNo }"/>
+										<c:param name="currentPage" value="${p}"/>
+									</c:url> --%>
+									<a href="${page}">${p}</a>
+                              <%-- </c:if>   --%>
+			
+							</c:forEach> 
+							
+							<!-- 마지막 페이지  -->
+							<%-- <c:if test="${pipg.currentPage eq pipg.maxPage}"> --%>
+								<a href="${after}" style="font-size: 40px; background-color: rosybrown; pointer-events: none; cursor: default;">&gt</a>
+							<%-- </c:if> --%>
+							
+							<!-- 마지막 페이지가 아닐 때  -->
+							<%-- <c:if test="${pipg.currentPage ne pipg.maxPage }">
+								<c:url value="productDetail.do" var="after">
+									<c:param name="pcno" value="${caNo }"/>
+									<c:param name="currentPage" value="${pipg.currentPage+1 }"/>
+								</c:url> --%>
+								<a href="${after}" style="font-size: 40px">&gt</a>
+							<%-- </c:if> --%>
+                        </li>
+                        
                     </ul>
                 </nav>
-                <!--pagination ends-->
-           </div>
+
+               
+        <!--문의 페이징바 ends-->
 		
 		
 		
 		
 </div>
-			
-	
-		
-		
-
-<!--include footer-->
-<jsp:include page="footer.jsp"/>
 
 
-<!-- Bootstrap core JavaScript
+
+			<!--include footer-->
+			<jsp:include page="footer.jsp" />
+
+
+			<!-- Bootstrap core JavaScript
 ================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="resources/js/6_lee/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-<script src="resources/js/6_lee/bootstrap.min.js"></script>
+			<!-- Placed at the end of the document so the pages load faster -->
+			<!-- <script src="resources/js/6_lee/jquery.min.js"></script> -->
+			<script>
+				window.jQuery
+						|| document
+								.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
+			</script>
+			<script src="resources/js/6_lee/bootstrap.min.js"></script>
 
-<script>
-      
-        	/* 문의 글자 제한  */
-        $(function(){
-            // textarea에 keyup이벤트가 발생했을 경우 
-            $("#inquiryTextarea").on("keydown",function(){
-                // 현재 요소(textarea)의 값의 길이를 알아내기
-               var inputLength = $(this).val().length;
-                
-                $("#content1").text(inputLength);
-                if(inputLength >= 3000){
-                    alert("글자수가 초과되었습니다");
-                    $("#counter").css("color","red");
-                }else{
-                    $("#counter").css("color","black");
-                }
-            });
-        });
-       
-        	
-        /* 클릭 시 분리  */
-        $(function(){
-        	$("#inquiry").on('click', function(){
-        		$("#inquiryForm").css("display","");
-        		$("#reviewForm").css("display","none");
-        	});
-        
-        	$("#review").on('click', function(){
-        		$("#inquiryForm").css("display","none");
-        		$("#reviewForm").css("display","");
-        	});
-        
-        
-        
-        
-        
-        });
-        
-        
-        
-    </script>
+			<script>
+				/* 문의 글자 제한  */
+				$(function() {
+					// textarea에 keyup이벤트가 발생했을 경우 
+					$("#inquiryTextarea").on("keydown", function() {
+						// 현재 요소(textarea)의 값의 길이를 알아내기
+						var inputLength = $(this).val().length;
+
+						$("#content1").text(inputLength);
+						if (inputLength >= 3000) {
+							alert("글자수가 초과되었습니다");
+							$("#counter").css("color", "red");
+						} else {
+							$("#counter").css("color", "black");
+						}
+					});
+				});
+
+				/* 클릭 시 분리  */
+				$(function() {
+					$("#inquiry").on('click', function() {
+						$("#inquiryForm").css("display", "");
+						$("#reviewForm").css("display", "none");
+					});
+
+					$("#review").on('click', function() {
+						$("#inquiryForm").css("display", "none");
+						$("#reviewForm").css("display", "");
+					});
+
+				});
+
+				/* 모달창  */
+				var element_wrap = document.getElementById('wrap');
+				function foldDaumPostcode() {
+					// iframe을 넣은 element를 안보이게 한다.
+					element_wrap.style.display = 'none';
+				}
+
+				/* 장바구니 모달창 클릭 시 */
+				$('#shoppingCart').click(function(e) {
+					$('#testModal').modal({
+						backdrop : 'static'
+					});
+					e.preventDefault();
+					$('#testModal').modal("show");
+	
+					
+				});
+				 
+	
+			
+		    jQuery(document).ready(function($) {
+		
+		        // bookmark
+		        $('.bookmarked').hide();
+		
+		
+		        $('#bookmarkButton').on('click', function () {
+		            $('.bookmarked').fadeIn(200);
+		            $('#bookmarkButton').hide();
+		            $('#deleteBookmarkButton').show();
+		        });
 
 
-<script>
-    jQuery(document).ready(function($) {
 
-        // bookmark
-        $('.bookmarked').hide();
-
-
-        $('#bookmarkButton').on('click', function () {
-            $('.bookmarked').fadeIn(200);
-            $('#bookmarkButton').hide();
-            $('#deleteBookmarkButton').show();
-        });
-
-
-
-        // Delete bookmark
-
-        $('#deleteBookmarkButton').on('click', function () {
-            $('.bookmarked').fadeOut(200);
-            $('#bookmarkButton').show();
-            $('#deleteBookmarkButton').hide();
-        });
-
-
-        $('#myCarousel').carousel({
-            interval: 5000
-        });
-
-        //Handles the carousel thumbnails
-        $('[id^=carousel-selector-]').click(function () {
-            var id_selector = $(this).attr("id");
-            try {
-                var id = /-(\d+)$/.exec(id_selector)[1];
-                console.log(id_selector, id);
-                jQuery('#myCarousel').carousel(parseInt(id));
-            } catch (e) {
-                console.log('Regex failed!', e);
-            }
-        });
-        // When the carousel slides, auto update the text
-        $('#myCarousel').on('slid.bs.carousel', function (e) {
-            var id = $('.item.active').data('slide-number');
-            $('#carousel-text').html($('#slide-content-'+id).html());
-        });
-    });
+		        // Delete bookmark
+		
+		        $('#deleteBookmarkButton').on('click', function () {
+		            $('.bookmarked').fadeOut(200);
+		            $('#bookmarkButton').show();
+		            $('#deleteBookmarkButton').hide();
+		        });
+		
+		
+		        $('#myCarousel').carousel({
+		            interval: 5000
+		        });
+		
+		        //Handles the carousel thumbnails
+		        $('[id^=carousel-selector-]').click(function () {
+		            var id_selector = $(this).attr("id");
+		            try {
+		                var id = /-(\d+)$/.exec(id_selector)[1];
+		                console.log(id_selector, id);
+		                jQuery('#myCarousel').carousel(parseInt(id));
+		            } catch (e) {
+		                console.log('Regex failed!', e);
+		            }
+		        });
+		        // When the carousel slides, auto update the text
+		        $('#myCarousel').on('slid.bs.carousel', function (e) {
+		            var id = $('.item.active').data('slide-number');
+		            $('#carousel-text').html($('#slide-content-'+id).html());
+		        });
+		    });
+		    
+		    function addProduct(){
+		    	
+		    	var pdNo = ${pd.pno};
+		    	
+		    	var	mno = ${loginUser.mno}
+		    		
+		    	
+		    	
+		    	
+		    	
+		    	console.log(pdNo);
+		    	console.log(mno);
+		    	
+		    	
+		    	
+		    	
+		    }
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
 </script>
 
-<!--kimi basic js-->
-<script src="resources/js/6_lee/kimi.js"></script>
-
+			<!--kimi basic js-->
+			<script src="resources/js/6_lee/kimi.js"></script>
+			
 </body>
 </html>

@@ -17,7 +17,6 @@ public class LoginController {
 	@Autowired
 	private LoginService lService;
 	
-//	현정씨와 동일네임 겹쳐서 주석처리
 //	@RequestMapping("login.do")
 //	public String login(@ModelAttribute Member user, HttpSession session, Model model ) {
 //		
@@ -30,6 +29,8 @@ public class LoginController {
 //			
 //			return "redirect:home.do";
 //		}else {
+//			
+//			session.setAttribute("loginUser", loginUser);
 //			return "redirect:home.do";
 //			
 //		}

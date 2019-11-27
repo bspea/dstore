@@ -33,10 +33,11 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.kh.dstay.product.model.vo.ProductSale" alias="ProductSale"/>
 		-->
 		
-		<!-- 동일 네임 겹쳐서 비활성화 처리
-			<typeAlias alias="Member" type="com.kh.dstay.lee.login.model.vo.Member"/>
-			<typeAlias alias="product" type="com.kh.dstay.lee.products.model.vo.Product"/>
-		-->
+		<typeAlias type="com.kh.dstay.lee.login.model.vo.Member" alias="Member_Lee"/>
+		<typeAlias type="com.kh.dstay.lee.products.model.vo.Product" alias="product_Lee"/>
+		<typeAlias type="com.kh.dstay.lee.products.model.vo.ProductCategory" alias="productCategory_Lee"/>
+		<typeAlias type="com.kh.dstay.lee.products.model.vo.ProductInquery" alias="productInquery_lee"/>
+		<typeAlias type="com.kh.dstay.lee.perchase.model.vo.ShoppingCart" alias="shoppingCart_lee"/>
 	</typeAliases>
 
 	<mappers>
@@ -49,6 +50,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		
 		<mapper resource="mappers/6_lee/member-mapper.xml"/>
 		<mapper resource="mappers/6_lee/product-mapper.xml"/>
+		<mapper resource="mappers/6_lee/perchase-mapper.xml"/>
 		
 		<mapper resource="mappers/7_yun/mypage-mapper.xml"/>
 	</mappers>

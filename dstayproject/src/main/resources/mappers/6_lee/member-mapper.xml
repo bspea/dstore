@@ -4,7 +4,7 @@
 
 <mapper namespace="memberMapper">
 
-	<resultMap id="memberResultSet" type="Member">
+	<resultMap id="memberResultSet_lee" type="Member_lee">
 		<id property="mno" column="mno"></id>
 		<result property="msNo" column="msno"/>
 		<result property="email" column="email"/>
@@ -17,7 +17,7 @@
 		<result property="mdate" column="mdate"/>
 	</resultMap>
 
-	<select id="loginUser" resultMap="memberResultSet">
+	<select id="loginUser_lee" resultMap="memberResultSet_lee">
 		select*
 		from member 
 		where email=#{email} and password=#{password}

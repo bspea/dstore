@@ -18,17 +18,25 @@ import lombok.ToString;
 @AllArgsConstructor
 @EqualsAndHashCode
 
-public class Product {
+public class Product{
 
-	private int pno;
-	private int pcno;
-	private String pname;
-	private int price;
-	private String pcontents;
-	private Date penrolldate;
-	private int calorie;
-	private String pstatus;
-	private String pipath;
-	private String pcname;
+	private int pno;			// 상품번호
+	private int pcno;			// 상품카테고리번
+	private String pname;		// 상품명
+	private int price;			// 가격
+	private String pcontents;	// 상품간단설명
+	private String precipe;		// 조리법
+	private Date penrolldate;	// 등록일
+	private String pingredient;	// 성분
+	private int calorie;		// 칼로리
+	private String pstatus;		// 상태
+	private String pcname;		// 카테고리명
+	private int paverage;		// 평점
+	private String pnotice; 	// 공지
+	private String pi1;			// 이미지1경로(카테고리 상품목록 대표 이미지)
+	private String pi2;			// 이미지2경로
+	private String pi3;			// 이미지3경로
+	private int inquerySum;		// 문의 총 갯수
+								// 리뷰 총 갯수(추가예정)
 }
 

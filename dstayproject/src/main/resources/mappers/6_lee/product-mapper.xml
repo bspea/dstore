@@ -3,34 +3,67 @@
 
 
 <mapper namespace="productMapper">
+		
+		<!-- resultMap start -->
+		
 		<!-- 상품 메퍼  -->
-		<resultMap id="productResultSet" type="Product">
+		<resultMap id="productResultSet_lee" type="Product_lee">
 		
 		<id property="pno" column="pno"/>
 		<result property="pcno" column="pcno"/>
 		<result property="pname" column="pname"/>
 		<result property="price" column="price"/>
 		<result property="pcontents" column="pcontents"/>
+		<result property="precipe" column="precipe"/>
 		<result property="penrolldate" column="penrolldate"/>
+		<result property="pingredient" column="pingredient"/>
 		<result property="calorie" column="calorie"/>
 		<result property="pstatus" column="pstatus"/>
 		<result property="pipath" column="pipath"/>
 		<result property="pcname" column="pcname"/>
+		<result property="paverage" column="paverage"/>
+		<result property="pnotice" column="pnotice"/>
+		<result property="pi1" column="pi1"/>
+		<result property="pi2" column="pi2"/>
+		<result property="pi3" column="pi3"/>
+		<result property="inquerySum" column="inquerysum"/>
 		
 		<!-- 카테고리 메퍼 -->
 		</resultMap>
 		
-		<resultMap id="productCateResultSet" type="ProductCategory">
+		<resultMap id="productCateResultSet_lee" type="ProductCategory_lee">
 		
 		<id property="no" column="pcno"/>
 		<result property="name" column="pcname"/>
-		<result property="original_fileName" column="original_filename"/>
+		<result property="origin_fileName" column="origin_filename"/>
 		<result property="pcSum" column="pcsum"/>
 		
 		</resultMap>
 		
+		<!-- 상품 문의사항 -->
+		<resultMap id="productInqueryResultSet_lee" type="ProductInquery_lee">
+		
+		<id property="pino" column="pino"/>
+		<result property="mno" column="mno"/>
+		<result property="pno" column="pno"/>
+		<result property="pititle" column="pititle"/>
+		<result property="picontents" column="picontents"/>
+		<result property="pidate" column="pidate"/>
+		<result property="pistatus" column="pistatus"/>
+		<result property="pianswer" column="pianswer"/>
+		<result property="pianswerdate" column="pianswerdate"/>
+		<result property="membernickname" column="membernickname"/>
+		
+		</resultMap>
+		
+		
+		<!-- resultMap End -->
+		
+		
+		
+		
 		<!-- 해당 카테고리의 상품 총 갯수 -->
-		<select id="getCateListCount" resultType="_int">
+		<select id="getCateListCount_lee" resultType="_int">
 			select count(*)
 			from product
 			where pcno = #{caNo}
@@ -38,30 +71,62 @@
 		</select>
 		
 		<!-- 카테고리의 상세정보와 카테고리에 해당하는 각 상품들의 총 갯수  -->
-		<select id="cateSelect" resultMap="productCateResultSet">
+		<select id="cateSelect_lee" resultMap="productCateResultSet_lee">
 		
-			select pc.*, (select count(*) from product where pc.pcno=pcno)pcsum
+			select pc.*, (select count(*) from product where (pc.pcno=pcno) and pstatus='Y' )pcsum
 			from product_category pc
-		
 		</select>
 		
-		<!-- 카테고리 안의 상품들의 정보와 이미지경로 -->
-		<select id="selectCategory" resultMap="productResultSet">
+		<!-- 카테고리 안의 상품목록들의 정보와 이미지경로 -->
+		<select id="selectCategory_lee" resultMap="productResultSet_lee">
 		
-			select p.*, pi.pipath
+			select p.*, pi.pipath as pi1 
 			from product p, product_image pi
-			where (pi.piorderby=2 and p.pcno = #{caNo})and p.pno = pi.pno
-			
+			where (pi.piorderby=1 and p.pcno = #{caNo}and p.pno = pi.pno) and p.pstatus='Y'
+			order by p.pno desc
 		</select>
 		
-		<select id="selectProduct" resultMap="productResultSet">
-		
-			select p.*, pcname
+		<!--상품 디테일 객체 가져오기  -->
+		<select id="selectProduct_lee" resultMap="productResultSet_lee">
+
+			select p.*, 
+			       pcname,
+			       (select pipath
+			       from product_image
+			       where pno = #{pdNo} and piorderby = 1 )pi1,
+			       (select pipath
+			       from product_image
+			       where pno = #{pdNo} and piorderby = 2 )pi2,
+			       (select pipath
+			       from product_image
+			       where pno = #{pdNo} and piorderby = 3 )pi3,
+			       (select  LISTAGG(ic.icname, ',') within group(order by ic.icname) as icname
+                    from ingredient i, ingredient_category ic
+                    where (i.icno = ic.icno) and pno = #{pdNo}
+                    group by pno)pingredient,
+                    (select count(*)
+                    from product_inquery pq, product p
+                    where (p.pno = pq.pno) and p.pno = #{pdNo})inquerysum
 			from product p, product_category pc
 			where (p.pcno = pc.pcno) and p.pno = #{pdNo}
-		
 		</select>
 		
+		<!-- 해당 상품 문의사항 총 갯수 가져오기  -->
+		<select id="getProductInqueryList_lee" resultType="_int">
+			
+				select count(*)
+				from product_inquery pq, product p
+				where (pq.pno = p.pno) and p.pno=#{pdNo}
+		
+		</select>
+		<!-- 상품 문의사항 가져오기 -->
+		
+		<select id="selectProductInquery_lee" resultMap="productInqueryResultSet_lee">
+			select *
+			from product_inquery pq, product p
+			where (pq.pno = p.pno) and p.pno=#{pdNo}
+		
+		</select>
 		
 		
 </mapper>
