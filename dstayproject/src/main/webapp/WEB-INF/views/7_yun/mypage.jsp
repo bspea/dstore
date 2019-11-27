@@ -308,8 +308,32 @@
 				  case "review.do":
 					  $myPageTitle.text("구매후기");
 					  $myPageTitleInfo.text("구매하신 상품에 대한 후기를 남길 수 있습니다");
-					  
-					  
+					  var str="<div class='review-list-wrap'>"
+	                    		+"<div class='review-tag-wrap'>"
+                      				+"<div class='review-tag review-tag-active'>작성가능 후기(1)</div>"
+                      				+"<div class='review-tag'>작성완료 후기(2)</div>"
+                  				+"</div>"
+                  	$.each(data,function(i,v){
+                  		str+="<div class='review-wrap'>"
+		                        +"<div class='product-wrap'>"
+			                                +"<a href='#'>"
+			                        +"<div class='product-info'>"
+			                            +"<div class='product-pic'>"
+			                                    +"<img src='1c2e9916f18da0d832b65c2fe7b4f70c.jpg' alt=''>"
+			                            +"</div>"
+			                            +"<div class='product-name'>영양밥도시락</div>"
+			                        +"</div>"
+			                                +"</a>"
+			                        +"<div class='purchase-date'>구매일 : 2019-11-20</div>"
+			                        +"<div class='review-btn'>"
+			                            +"<button class='btn-red'>후기작성</button>"
+			                        +"</div>"
+			                    +"</div>"
+			                +"</div>"
+                  	});
+					  str+="</div>"
+						$myPage_content.html(str);
+				      	paging(url,page);
 					  break;
 				  case "coupon.do":
 					  $myPageTitle.text("쿠폰");
