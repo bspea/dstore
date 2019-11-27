@@ -254,6 +254,7 @@ a{
     display:flex;
     flex-flow:column wrap;
     margin-top:24px;
+    padding-bottom:240px;
 }
 .myProfile{
     border:1px solid lightgray;
