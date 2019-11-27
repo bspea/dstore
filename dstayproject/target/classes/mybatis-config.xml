@@ -13,9 +13,14 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.kh.dstay.product.model.vo.Product" alias="Product"/>
 		<typeAlias type="com.kh.dstay.guestOrder.model.vo.GuestOrder" alias="GuestOrder"/>
 		
-		
-		
 		<typeAlias alias="productCategory" type="com.kh.dstay.lee.products.model.vo.ProductCategory"/>
+		
+		<typeAlias type="com.kh.dstay.member.model.vo.Review" alias="Review"/>
+		<typeAlias type="com.kh.dstay.member.model.vo.ReviewImage" alias="ReviewImage"/>
+		<typeAlias type="com.kh.dstay.member.model.vo.Diet" alias="Diet"/>
+		<typeAlias type="com.kh.dstay.member.model.vo.FoodSearch" alias="FoodSearch"/>
+		<typeAlias type="com.kh.dstay.member.model.vo.WishProduct" alias="WishProduct"/>
+		<typeAlias type="com.kh.dstay.member.model.vo.OrderInfo" alias="OrderInfo"/>
 		
 		
 		<!-- 현지씨 해당 vo가 존재하지 않아 비활성화 처리. 
@@ -45,5 +50,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mappers/6_lee/member-mapper.xml"/>
 		<mapper resource="mappers/6_lee/product-mapper.xml"/>
 		
+		<mapper resource="mappers/7_yun/mypage-mapper.xml"/>
 	</mappers>
 </configuration>

@@ -51,6 +51,7 @@ public class MemberServiceImpl implements MemberService{
 			 }
 		}
 	}
+	
 	@Override
 	public Member ajaxNaverUserprofile(Member mem) {
 		// TODO Auto-generated method stub
