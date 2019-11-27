@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.dstay.customer_center.model.dao.CustomerCenterDao;
+import com.kh.dstay.customer_center.model.vo.Chat;
 import com.kh.dstay.suggestion.model.vo.Suggestion;
 import com.kh.dstay.suggestion.model.vo.SuggestionPageInfo;
 
@@ -31,6 +32,12 @@ public class CustomerCenterServiceImpl implements CustomerCenterService {
 	public Suggestion selectSuggestion(int suggestionNo) {
 		
 		return ccDao.selectSuggestion(suggestionNo);
+	}
+
+	@Override
+	public ArrayList<Chat> selectChatList() {
+		
+		return ccDao.selectChatList();
 	}
 
 }

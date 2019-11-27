@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="chatMapper">
+	
+	<resultMap id="chatResultSet" type="com.kh.dstay.customer_center.model.vo.Chat">
+		<id property="chatNo" column="chatno"/>
+		<result property="chatWriter" column="chatwriter"/>
+		<result property="chatContents" column="chatcontents"/>
+		<result property="chatTime" column="chattime"/>
+		<result property="chatRead" column="chatread"/>
+	</resultMap>
+	
+	
+	<select id="selectChatList" resultMap="chatResultSet">
+		select *
+		from chat
+		where chatread='N'
+	</select>
+	
+</mapper>

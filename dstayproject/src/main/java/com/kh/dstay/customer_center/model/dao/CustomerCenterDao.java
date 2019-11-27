@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.dstay.customer_center.model.vo.Chat;
 import com.kh.dstay.suggestion.model.vo.Suggestion;
 import com.kh.dstay.suggestion.model.vo.SuggestionPageInfo;
 
@@ -38,5 +39,10 @@ public class CustomerCenterDao {
 		// System.out.println("dao에서 suggestion 객체 받아오기 : " + s);
 		
 		return s;
+	}
+
+	public ArrayList<Chat> selectChatList() {
+		
+		return (ArrayList)sqlSession.selectList("chatMapper.selectChatList");
 	}
 }

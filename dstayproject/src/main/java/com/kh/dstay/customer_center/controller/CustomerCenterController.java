@@ -1,8 +1,9 @@
 package com.kh.dstay.customer_center.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.dstay.common.SuggestionPagination;
 import com.kh.dstay.customer_center.model.service.CustomerCenterService;
-import com.kh.dstay.member.model.vo.Member;
+import com.kh.dstay.customer_center.model.vo.Chat;
 import com.kh.dstay.suggestion.model.vo.Suggestion;
 import com.kh.dstay.suggestion.model.vo.SuggestionPageInfo;
 
@@ -72,5 +76,16 @@ public class CustomerCenterController {
 		return "3_han/oneOnOne";
 	}
 	
+	@RequestMapping("chatList.do")
+	public void chatList(HttpServletResponse response) throws JsonIOException, IOException {
+		
+		ArrayList<Chat> list = ccService.selectChatList();
+		
+		response.setContentType("application/json; charset=UTF-8");
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		gson.toJson(list, response.getWriter());
+	}
 	
 }
