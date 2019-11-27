@@ -65,7 +65,6 @@ public class MemberController {
 		case "info.do":
 			Gson gson=new Gson();
 			gson.toJson(m,response.getWriter());
-			
 			break;
 		}
 	}
