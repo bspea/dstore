@@ -110,14 +110,8 @@ public class HomeController {
 	}
 	@RequestMapping(value="ajaxNaverUserprofile.do")@ResponseBody
 	public String ajaxNaverUserprofile(HttpSession session,@RequestParam(value="email",required=false)String email,@RequestParam("nickName")String nickName,@RequestParam("id")String password) {
-		mem.setNickName(nickName);
-		mem.setPassword(password);
-		
-		  if(email != "" || email != null) {
-			  session.setAttribute("mem", mem);
-			  logger.info(mem.toString());
-			  return "";
-		  }else {
+			mem.setNickName(nickName);
+			mem.setPassword(password);
 			mem.setEmail(email);
 			Member loginUser = mService.ajaxNaverUserprofile(mem);
 			if(loginUser !=null) {
@@ -127,26 +121,24 @@ public class HomeController {
 				return "apiLoginFail";
 			}	
 		}
-	}
 	@RequestMapping("kakaoLoginForm.do")
-	public String kakaoLogin() {
-		return "2_bak/kakaoLoginForm";
+	public ModelAndView kakaoLogin(ModelAndView mv,@RequestParam("nickName")String nickName,@RequestParam("password")String password) {
+		mem.setNickName(nickName);
+		mem.setPassword(password);
+		mv.addObject("mem", mem).setViewName("2_bak/kakaoLoginForm");
+		return mv;
 	}
 	@RequestMapping("kakaoLogin.do")
 	public String kakaoLogin(HttpSession session,@RequestParam("email")@Email String email,@RequestParam("nickName")String nickName,@RequestParam("password")String password) {
-		/*mem.setEmail(email);
+		mem.setEmail(email);
 		mem.setNickName(nickName);
 		mem.setPassword(password);
 		int result = mService.insertMember(mem);
 		if(result>0) {
-			session.setAttribute("loginUser", mem);
-			session.removeAttribute("kakaoTemp");
 			return "redirect:home.do";
 		}else {
-			return "home";
-		}*/
-		logger.info(email+"//"+nickName+"//"+password);
-		return "";
+			return "redirect:loginForm.do";
+		}
 	}
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {

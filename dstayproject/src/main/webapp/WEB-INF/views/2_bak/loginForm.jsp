@@ -115,7 +115,7 @@
 <!--구글로 로그인  -->
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <!--네이버로 로그인  -->
-<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="/resources/js/2_bak/naver/naverCustom.js" charset="utf-8"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <!--카카오로 로그인  -->
 <meta charset="utf-8"/>
@@ -303,7 +303,9 @@
 
 <!--include footer-->
 <div class="include-footer"></div>
-
+<form id="kakaoLoginForm" action="kakaoLoginForm.do" method="post">
+	<input type="hidden" name="password"><input type="hidden" name="nickName">
+</form>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -377,7 +379,7 @@
   <script type="text/javascript">
 	  	var naver_id_login = new naver_id_login("${naverClientId}", "http://localhost:9020/dstay/naverLogin.do");
 	  	var state = naver_id_login.getUniqState();
-	  	naver_id_login.setButton("green", 300 ,50);
+	  	naver_id_login.setButton("green", 4 ,50);
 	  	naver_id_login.setDomain("http://localhost:9020");
 	  	naver_id_login.setState(state);
 	  	//naver_id_login.setPopup();
@@ -387,6 +389,7 @@
 <script type='text/javascript'>
   //<![CDATA[
     // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    var id; var nickName; var email;
     Kakao.init('${kakaoJavascriptKey}');
     function loginWithKakao() {
       // 로그인 창을 띄웁니다.
@@ -396,8 +399,10 @@
           Kakao.API.request({
               url: '/v2/user/me',
               success: function(res) {
-            	  console.log(JSON.stringify(res));
-            	  if(res.kakao_account["email"] == "") {
+            	  id = res["id"];
+            	  nickName = res.properties["nickname"];
+            	  email = res.kakao_account["email"];
+            	  if(res.kakao_account["email"] != "") {
 	            	  $.ajax({
 	               		url:"ajaxNaverUserprofile.do",
 	               		method:"post",
@@ -416,7 +421,7 @@
 	               		}
 	               	})
             	  }else {
-						location.href="kakaoLoginForm.do";
+    					kakaoLoginFunction();
             	  }
               },
               fail: function(error) {
@@ -429,6 +434,11 @@
         }
       });
     };
+    	function kakaoLoginFunction() {
+    		$("input[name=nickName]").val(nickName);
+    		$("input[name=password]").val(id);
+    		$("#kakaoLoginForm").submit();
+    	}
   //]]>
 </script>
 <!--구글로 로그인  -->
