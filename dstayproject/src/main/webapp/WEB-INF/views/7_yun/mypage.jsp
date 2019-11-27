@@ -6,6 +6,8 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/7_yun/d-stay_myPage.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<meta charset="UTF-8">
 	<style>
 		a{
@@ -143,7 +145,11 @@
                 <div class="myPageTitleInfo"></div>
             </div>
             <div class="myPage-content">
-                
+                <div class="text-center margin-top-18">
+				  <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+				    <span class="sr-only">Loading...</span>
+				  </div>
+				</div>
             </div>
         </div>
     </div>
@@ -187,14 +193,22 @@
 		  checkTag(event.state);
 	  };
 	  function roadMypageContent(url,page){
+			  var $myPageTitle=$(".myPageTitle");
+			  var $myPageTitleInfo=$(".myPageTitleInfo");
+			  var $myPage_content=$(".myPage-content");
 		  $.ajax({
 			  url:"ajax"+url,
 			  data:{url:url,page:page},
 			  dataType:"json",
+			  beforeSend:function(){
+				var str="<div class='d-flex justify-content-center margin-top-18'>"
+				  			+"<div class='spinner-border' style='width: 3rem; height: 3rem;' role='status'>"
+				    			+"<span class='sr-only'>Loading...</span>"
+				  			+"</div>"
+						+"</div>"
+				$myPage_content.html(str);
+			  },
 			  complete:function(data){
-				  var $myPageTitle=$(".myPageTitle");
-				  var $myPageTitleInfo=$(".myPageTitleInfo");
-				  var $myPage_content=$(".myPage-content");
 				  $myPageTitle.text("");
 				  $myPageTitleInfo.text("");
 				  $myPage_content.html("");
