@@ -88,6 +88,12 @@
 
 .modal {
         text-align: center;
+        
+
+}
+
+#naver_id_login>a {
+  text-decoration: none;
 }
  
 @media screen and (min-width: 768px) { 
@@ -109,19 +115,14 @@
 }
 
 
+#naver_id_login img {
+	display:none;
+}
+
+
     /* 테스트용 CSS */
     </style>
 </head>
-<!--구글로 로그인  -->
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-<!--네이버로 로그인  -->
-<script type="text/javascript" src="/resources/js/2_bak/naver/naverCustom.js" charset="utf-8"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<!--카카오로 로그인  -->
-<meta charset="utf-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 <body>
 <jsp:include page="../1_common/menubar.jsp"/>
@@ -195,12 +196,18 @@
                         </div> 
                                                 <div class="row">
                             <div class="col-md-12" >
-                                              	<div id="naver_id_login" align="center">
-                                <button class="button-connect-naver btn-block"><img src="resources/images/2_bak/naver_icon_img.PNG">네이버로 로그인하기</button>
+                            <div id="naver_id_login" >
+
                             </div>
                             					</div>
+                            					
                         </div> 
-                         <!-- <div id="naver_id_login"></div> -->
+                          <script>
+                            	$(function() {
+                           			$("#naver_id_login>a").append('<button class="button-connect-naver btn-block">');
+                           			$(".button-connect-naver").append('<img src="resources/images/2_bak/naver_icon_img.PNG" style="display:unset">네이버로 로그인하기');
+                            	});			
+                          </script>
                       						<div class="row">
                             <div class="col-md-12">
                                 <button class="button-connect-kakao btn-block" onclick="location.href='javascript:loginWithKakao()';"><img src="resources/images/2_bak/kakaolink_btn_small.png">카카오로 로그인하기</button>
@@ -379,7 +386,7 @@
   <script type="text/javascript">
 	  	var naver_id_login = new naver_id_login("${naverClientId}", "http://localhost:9020/dstay/naverLogin.do");
 	  	var state = naver_id_login.getUniqState();
-	  	naver_id_login.setButton("green", 4 ,50);
+	  	naver_id_login.setButton("white", 3 ,50);
 	  	naver_id_login.setDomain("http://localhost:9020");
 	  	naver_id_login.setState(state);
 	  	//naver_id_login.setPopup();
