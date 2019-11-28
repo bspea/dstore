@@ -3,7 +3,7 @@
 <mapper namespace="bakMapper">
 
 <resultMap id="memberResultSet" type="Member">
-	<id property="no" column="m_no"/>
+	<id property="no" column="mno"/>
 	<result property="email" column="email"/>
 	<result property="phone" column="phone"/>
 	<result property="password" column="password"/>

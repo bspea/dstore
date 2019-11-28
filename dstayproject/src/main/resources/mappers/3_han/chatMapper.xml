@@ -4,6 +4,7 @@
 	
 	<resultMap id="chatResultSet" type="com.kh.dstay.customer_center.model.vo.Chat">
 		<id property="chatNo" column="chatno"/>
+		<result property="nickName" column="nickname"/>
 		<result property="chatWriter" column="chatwriter"/>
 		<result property="chatContents" column="chatcontents"/>
 		<result property="chatTime" column="chattime"/>
@@ -12,9 +13,11 @@
 	
 	
 	<select id="selectChatList" resultMap="chatResultSet">
-		select *
+		select chatno, chatwriter, mno, nickname, chatcontents, to_char(chattime, 'AM HH:MI') as chattime, chatread
 		from chat
+		join member on(chatwriter = mno)
 		where chatread='N'
+		order by chatno
 	</select>
 	
 </mapper>
