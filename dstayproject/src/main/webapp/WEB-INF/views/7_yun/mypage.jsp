@@ -240,11 +240,14 @@
 				                    	+"<div class='date-selector'><span>최근 6개월</span></div>"
 				                   		+"<div class='date-selector'><span>기간선택</span></div>"
 				                 	+"</div>"
-				                 + "<div class='date-menu-wrap' style='display:none'>"
+				                 + "<div class='date-menu-wrap'>"
 				                    +  "<div class='date-menu'>"
-				                      +   "<input type='date'>"
+				                      +   "<input type='date' class='date-set'>"
 				                      +    "<span> ~ </span>"
-				                      +    "<input type='date'>"
+				                      +    "<input type='date' class='date-set'>"
+					                      +"<div class='search-btn margin-left-10'>"
+			                                +"<button class='btn-red'>검색</button>"
+			                            	+"</div>"
 				                    +  "</div>"
 				                +  "</div>"
 				            +  "</div>"
@@ -282,6 +285,7 @@
 			                          +"<div class='order-price'>50000원</div>"
 			                      	+"</div>"
 			                      	+"<div class='order-status'>"
+			                      	// if문으로 걸러줄것
 			                          +"<div class='delivery'>"
 			                              +"<button class='d-menu'>배송조회</button>"
 			                              +"<button class='d-menu'>환불신청</button>"
@@ -338,7 +342,36 @@
 				  case "coupon.do":
 					  $myPageTitle.text("쿠폰");
 					  $myPageTitleInfo.text("가지고계신 쿠폰을 확인하실 수 있습니다");
-					  
+					  var str="<div class='order-list-header'>"
+			                    +"<div class='order-no'>쿠폰번호</div>"
+			                    +"<div class='coupon-info'>쿠폰이름</div>"
+			                    +"<div class='coupon-date'>유효기간</div>"
+			                    +"<div class='order-price'>할인정보</div>"
+			                    +"<div class='order-status'>적용상품</div>"
+			                +"</div>"
+			          $.each(data,function(i,v){
+			        	 str+="<div class='coupon-list'>"
+			                    +"<div class='order-no'>"
+			                        +1
+			                    +"</div>"
+			                    +"<div class='coupon-info'>"
+			                        	+"쿠폰이름1"
+			                    +"</div>"
+			                    +"<div class='coupon-date'>"
+			                        +"~2019-11-11"
+			                    +"</div>"
+			                    +"<div class='order-price-amount'>"
+			                        +"<div class='order-price'>"
+			                    		+"50000원"
+			                    	+"</div>"
+			                    +"</div>"
+			                    +"<div class='coupon-status'>"
+			                        +"<div class='btn-red'>전체</div>"
+			                    +"</div>"
+			                +"</div>"  
+			          });
+		                $myPage_content.html(str);
+				      	paging(url,page);
 					  
 					  break;
 				  case "info.do":

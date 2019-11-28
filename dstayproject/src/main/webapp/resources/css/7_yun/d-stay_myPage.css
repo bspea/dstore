@@ -110,7 +110,7 @@ a{
     justify-content: center;
     align-items: center;
     flex-flow: row wrap;
-    margin:10px auto;
+    padding:10px 0;
     border-bottom:1px solid #777;
 }
 .item-info{
@@ -171,6 +171,7 @@ a{
     display:flex;
     justify-content:center;
     align-items:center;
+    flex-flow:column wrap;
 }
 .reviewBtn button{
     min-width:92px;
@@ -363,10 +364,14 @@ a{
 }
 .date-menu-wrap{
     width:100%;
-    height: 54px;
     display:flex;
     justify-content:center;
     align-items: center;
+}
+.date-menu{
+    display:flex;
+    justify-content: flex-end;
+    flex-flow:row wrap;
 }
 .product-wrap{
     display:flex;
@@ -474,7 +479,34 @@ a{
 .margin-top-18{
 	margin-top:18px;
 }
-
+.coupon-list{
+    display:flex;
+    justify-content: space-around;
+    height:80px;
+    border-bottom:1px solid #777;
+    align-items:center;
+    border-top:0;
+}
+.coupon-status{
+    flex:0 0 50%;
+    text-align: center;
+}
+.coupon-info{
+    flex:0 0 50%;
+    text-align: center;
+}
+.coupon-date{
+    flex:0 0 50%;
+    text-align: center;
+}
+.coupon-rate{
+    flex:0 0 50%;
+    text-align: center;
+}
+.coupon-list{
+    display:flex;
+    flex-flow:row wrap;
+}
 @media screen and (min-width : 1024px) {
     .navWrap1{
         display:none;
@@ -690,4 +722,29 @@ a{
         width:80%;
         margin:auto;
     }
+    .coupon-list{
+        display:flex;
+        justify-content: space-around;
+        height:80px;
+        border-bottom:1px solid #777;
+        align-items:center;
+        border-top:0;
+    }
+    .coupon-status{
+        flex:0 0 20%;
+        text-align: center;
+    }
+    .coupon-info{
+        flex:0 0 20%;
+        text-align: center;
+    }
+    .coupon-date{
+        flex:0 0 26%;
+        text-align: center;
+    }
+    .coupon-rate{
+        flex:0 0 20%;
+        text-align: center;
+    }
+
 }
