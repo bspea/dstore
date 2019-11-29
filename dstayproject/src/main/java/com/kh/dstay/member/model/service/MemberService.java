@@ -18,4 +18,32 @@ public interface MemberService {
 	Member ajaxGoogleLogin(Member mem);
 	//네이버로 로그인 서비스
 	Member ajaxNaverUserprofile(Member mem);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
