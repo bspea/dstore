@@ -21,7 +21,9 @@ public class MemberController {
 	private MemberService mService;
 	
 	@RequestMapping(value= {"mypage/home.do","mypage/diet.do","mypage/order.do","mypage/wishes.do","mypage/review.do","mypage/coupon.do","mypage/info.do"})
-	public String viewMypage() {
+	public String viewMypage(HttpSession session) {
+		
+		
 		
 		return "7_yun/mypage";
 	}
