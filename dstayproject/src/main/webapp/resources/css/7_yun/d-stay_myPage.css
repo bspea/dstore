@@ -661,8 +661,11 @@ a{
     padding:10px 18px;
     border:1px solid black;
 }
-.edit-diet{
-
+.diet-footer{
+    margin-top:16px;
+    padding:8px;
+    display:flex;
+    justify-content: flex-end;
 }
 @media screen and (min-width : 1024px) {
     .navWrap1{

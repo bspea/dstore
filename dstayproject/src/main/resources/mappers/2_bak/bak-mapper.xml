@@ -3,7 +3,7 @@
 <mapper namespace="bakMapper">
 
 <resultMap id="memberResultSet" type="Member">
-	<id property="no" column="m_no"/>
+	<id property="no" column="mno"/>
 	<result property="email" column="email"/>
 	<result property="phone" column="phone"/>
 	<result property="password" column="password"/>
@@ -11,8 +11,8 @@
 	<result property="nickName" column="nickname"/>
 	<result property="gender" column="gender"/>
 	<result property="age" column="age"/>
-	<result property="goalCalorie" column="goal_calorie"/>
-	<result property="date" column="m_date"/>
+	<result property="goalCalorie" column="goalcalorie"/>
+	<result property="date" column="mdate"/>
 	<result property="status" column="status"/>
 </resultMap>
 

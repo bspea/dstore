@@ -180,6 +180,19 @@
 	      	history.pushState(url,name,url);
 	      	roadMypageContent(url,1);
 	      })
+	      $(document).on("click",".setting-diet",function(){
+	    	  editDietaryGoal();
+	      });
+	      $(document).on("click",".set-dietaryGoal",function(){
+	    	 setDietaryGoal();
+	      });
+	      $(document).on("click",".gender-checker",function(){
+	    	  $(".gender-checker").prev().prop("checked",false);
+	    	  $(this).prev().prop("checked",true);
+	    	  $(".gender-checker").removeClass("btn-red").removeClass("btn-white").addClass("btn-white");
+	    	  $(this).addClass("btn-red").removeClass("btn-white");
+	      });
+	      
 	  })
 	  function checkTag(tag){
 		  $(".myMenu").removeClass("menu-active");
@@ -472,6 +485,122 @@
 			  }
 			  
 		  })
+	  }
+	  function editDietaryGoal(){
+		  var $myPageTitle=$(".myPageTitle");
+		  var $myPageTitleInfo=$(".myPageTitleInfo");
+		  var $myPage_content=$(".myPage-content");
+		  $myPageTitle.text("목표설정");
+		  $myPageTitleInfo.text("목표를 설정해서 건강한 식단관리를 시작하세요");
+		  $myPage_content.html("");
+		  var str="<div class='diet-goal-wrap'>"
+
+	          +"<div class='diet-info-wrap'>"
+	
+	              +"<div class='diet-info'>"
+	                  +"<div class='diet-tag'>성별</div>"
+	                  +"<div class='diet-input'>"
+	                      +"<input type='radio' name='gender' value='M' style='display:none;'>"
+	                      +"<button class='btn-white gender-checker'>남성</button>"
+	                      +"<input type='radio' name='gender' value='F' style='display:none;'>"
+	                      +"<button class='btn-white gender-checker margin-left-10'>여성</button>"
+	                  +"</div>"
+	              +"</div>"
+	              +"<div class='diet-info'>"
+	                  +"<div class='diet-tag'>키</div>"
+	                  +"<div class='diet-input'>"
+	                      +"<input type='number' max='300' min='0' name='height'> cm"
+	                  +"</div>"
+	              +"</div>"
+	              +"<div class='diet-info'>"
+	                  +"<div class='diet-tag'>몸무게</div>"
+	                  +"<div class='diet-input'>"
+	                      +"<input type='number' max='300' min='0' name='weight'> kg"
+	                  +"</div>"
+	              +"</div>"
+	              +"<div class='diet-info'>"
+	                  +"<div class='diet-tag'>목표 체중</div>"
+	                  +"<div class='diet-input'>"
+	                      +"<input type='number' max='300' min='0' name='targetWeight'> kg"
+	                  +"</div>"
+	              +"</div>"
+	              +"<div class='diet-info'>"
+	                  +"<div class='diet-tag'>나이</div>"
+	                  +"<div class='diet-input'>"
+	                      +"<input type='number' min='0' max='100' name='age'> 세"
+	                  +"</div>"
+	              +"</div>"
+	              +"<div class='diet-info'>"
+	                  +"<div class='diet-tag'>활동량</div>"
+	                  +"<div class='diet-input'>"
+	                      +"<input type='radio' name='workrate' value='1.2' id='workrate1'><label for='workrate1'>활동량이 없거나 낮다</label><br>"
+	                      +"<input type='radio' name='workrate' value='1.375' id='workrate2'><label for='workrate2'>일주일에 2 회 정도 가벼운 운동</label><br>"
+	                      +"<input type='radio' name='workrate' value='1.55' id='workrate3'><label for='workrate3'>일주일에 4 회 정도 적당한 운동</label><br>"
+	                      +"<input type='radio' name='workrate' value='1.725' id='workrate4'><label for='workrate4'>일주일에 6 회 정도 일반 스포츠</label><br>"
+	                      +"<input type='radio' name='workrate' value='1.9' id='workrate5'><label for='workrate5'>엘리트 운동선수이거나 매일 고강도 훈련</label>"
+	                  +"</div>"
+	              +"</div>"
+	              +"<div class='diet-footer'>"
+	                  +"<button class='btn-red set-dietaryGoal'>설정</button>"
+	              +"</div>"
+	          +"</div>"
+	
+	      +"</div>"
+      $myPage_content.html(str);
+	  }
+	  function setDietaryGoal(){
+		  var gender=$("input[name='gender']:checked").val();
+		  console.log(gender);
+		  var height=$("input[name='height']").val();
+		  console.log(height);
+		  var weight=$("input[name='weight']").val();
+		  console.log(weight);
+		  var targetWeight=$("input[name='targetWeight']").val();
+		  console.log(targetWeight);
+		  var age=$("input[name='age']").val();
+		  console.log(age);
+		  var workrate=$("input[name='workrate']:checked").val();
+		  console.log(workrate);
+		  
+		  if(gender!=undefined){				  
+			  if(height>0 && weight >0 && targetWeight > 0 && age > 0 && workrate!=undefined){
+				  var goalCalories = (6.25 * height)+(10 * weight)-(5 - age);
+				  if(gender=='M'){
+					 goalCalories=(goalCalories + 5)*workrate;
+				  }else if(gender=='F'){
+					 goalCalories=(goalCalories - 161)*workrate;
+				  }
+				  console.log(goalCalories);
+				  if(weight>targetWeight){
+					  goalCalories -= 500;
+				  }else{
+					  goalCalories += 500;
+				  }
+				  goalCalories=Math.floor(goalCalories);
+				  $.ajax({
+					  url:"setDietaryGoal.do",
+					  data:{"gender":gender,"height":height,"weight":weight,"targetWeight":targetWeight,"age":age,"workrate":workrate,"goalCalories":goalCalories},
+					  type:"post",
+					  success:function(result){
+						  if(result>0){
+							  alert("수정 성공");
+						  		roadMypageContent("diet.do",1);							  
+						  }else{
+							  alert("수정실패");
+						  }
+					  },
+					  error:function(){
+						  console.log("setDietaryGoal error");
+					  }
+					  
+				  });
+			  }else{
+				alert("빈칸을 작성해주세요")  
+			  }
+		  }else{
+			  alert("성별을 선택해주세요");
+		  }
+		  
 	  }
 	</script>
 </body>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.kh.dstay.member.model.service.MemberService;
+import com.kh.dstay.member.model.vo.DietaryGoal;
 import com.kh.dstay.member.model.vo.Member;
 
 @Controller
@@ -21,7 +22,7 @@ public class MemberController {
 	private MemberService mService;
 	
 	@RequestMapping(value= {"mypage/home.do","mypage/diet.do","mypage/order.do","mypage/wishes.do","mypage/review.do","mypage/coupon.do","mypage/info.do"})
-	public String viewMypage(HttpSession session) {
+	public String viewMypage() {
 			
 		return "7_yun/mypage";
 	}
@@ -42,13 +43,15 @@ public class MemberController {
 
 		response.setContentType("application/json; charset=utf-8");
 		Member m=(Member)session.getAttribute("loginUser");
+		Gson gson=new Gson();
 		switch(url) {
 		
 		case "home.do":
 			
 			break;
 		case "diet.do":
-			
+			DietaryGoal dg=mService.selectMyDietaryGoal(m);
+			gson.toJson(dg,response.getWriter());
 			break;
 		case "order.do":
 			
@@ -63,10 +66,19 @@ public class MemberController {
 			
 			break;
 		case "info.do":
-			Gson gson=new Gson();
 			gson.toJson(m,response.getWriter());
 			break;
 		}
+	}
+	@RequestMapping("mypage/setDietaryGoal.do")
+	public void setDietaryGoal(DietaryGoal dg,HttpServletResponse response,HttpSession session) throws JsonIOException, IOException {
+		response.setContentType("application/json; charset=utf-8");
+		Member m=(Member)session.getAttribute("loginUser");
+		dg.setMemberNo(m.getNo());
+		System.out.println(dg);
+		int result=mService.updateMyDietaryGoal(dg);
+		Gson gson=new Gson();
+		gson.toJson(result,response.getWriter());
 	}
 	
 

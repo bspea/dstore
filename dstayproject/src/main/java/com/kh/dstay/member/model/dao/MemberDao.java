@@ -67,12 +67,10 @@ public class MemberDao {
 		return 0;
 	}
 	public DietaryGoal selectMyDietaryGoal(Member m) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne("mypageMapper.selectMyDietaryGoal",m);
 	}
 	public int updateMyDietaryGoal(DietaryGoal dg) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("mypageMapper.updateMyDietaryGoal",dg);
 	}
 	public ArrayList<FoodSearch> searchFoodList(String str) {
 		// TODO Auto-generated method stub

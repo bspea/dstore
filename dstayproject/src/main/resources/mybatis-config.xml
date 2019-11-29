@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.kh.dstay.member.model.vo.FoodSearch" alias="FoodSearch"/>
 		<typeAlias type="com.kh.dstay.member.model.vo.WishProduct" alias="WishProduct"/>
 		<typeAlias type="com.kh.dstay.member.model.vo.OrderInfo" alias="OrderInfo"/>
-		
+		<typeAlias type="com.kh.dstay.member.model.vo.DietaryGoal" alias="DietaryGoal"/>
 		
 		<!-- 현지씨 해당 vo가 존재하지 않아 비활성화 처리. 
 		<typeAlias type="com.kh.dstay.product.model.vo.Product" alias="Product"/>
