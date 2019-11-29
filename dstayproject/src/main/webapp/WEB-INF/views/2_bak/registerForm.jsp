@@ -138,14 +138,6 @@
                     <div class="box-bg-white col-md-12 col-xs-12 form-medium-padding">
                         <h3 class="text-center text-gray-1">디스테이 회원가입</h3>
                         <div class="clearfix maya-tiny-padding"></div>
-
-<!--                         <div class="row">
-                            <div class="col-md-12">
-                                <button class="button-connect-google btn-block">Connect with Google <i class="fa fa-google" aria-hidden="true"></i></button>
-                            </div>
-                        </div>
-                        <div class="clearfix maya-small-padding"></div> -->
-
                         <form action="insertMember.do" method="post">
                            <!-- <div class="form-group">
                                 <input type="text" class="form-control" id="fullname" placeholder="이름" required>
@@ -166,39 +158,20 @@
                                 <button type="reset" onclick="resetInput()" class="btn btn-outline-primary" >재입력</button>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="exampleInputPassword1" pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}"
+                                <input type="password" class="form-control" id="exampleInputPassword1" pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}"
                                 title="하나이상의 숫자/대문자/소문자/특수문자 를 전부 포함해 주세요" placeholder="비밀번호" name="password" required >
                             	<span class="helvetica-12 guidePw okPw" >적합한 비밀번호 입니다</span>
-                                <!-- <span class="helvetica-12 guidePw ngNum" >하나이상의 숫자를 입력해 주세요</span>
-                                <span class="helvetica-12 guidePw ngUpper" >하나이상의 대문자를 입력해 주세요</span>
-                                <span class="helvetica-12 guidePw ngLower" >하나이상의 소문자를 입력해 주세요</span>
-                                <span class="helvetica-12 guidePw ngSpe" >하나이상의 특수문자를 입력해 주세요</span> -->
-                                <!-- <input type="hidden" id="hiddenCheck" value="0"><br> -->
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="exampleInputPassword2" placeholder="비밀번호확인">
+                                <input type="password" class="form-control" id="exampleInputPassword2" placeholder="비밀번호확인">
                             </div>
                           <div class="form-group">
                                 <input type="text" class="form-control" id="mobilenumber" placeholder="닉네임" name="nickName" required>
                           </div> 
-
-<!--인증추가  -->
-<!--                              <div class="checkbox" align="center">
-                                <label>
-                                    <input type="radio" name="certification" value="email"> <span class="text-gray-2 helvetica-12">이메일인증</span>
-                                </label>
-                                                                <label>
-                                    <input type="radio" name="certification" value="phone"> <span class="text-gray-2 helvetica-12">휴대폰인증</span>
-                                </label>
-                            </div>  -->
-                            
                             <button type="submit" class="btn btn-block button-green-free btn-lg" id="submitbtn" disabled>가입하기</button>
                         </form>
                         <div class="clearfix maya-tiny-padding"></div>
                         <p class="text-center">회원이신가요 &nbsp; <a href="loginForm.do" class="text-secondary">&nbsp;로그인</a></p>
-                        
-                        <!-- <p class="text-center">비회원으로 주문하셨나요&nbsp;<a href="nonMemOrderViewForm.me" class="text-secondary">&nbsp;비회원주문조회</a></p> -->
-                    </div>
                 </div>
             </div>
         </div>
@@ -227,7 +200,6 @@
 			if(check == "" || !reg.test(check)) {
 				$(".ok").hide();
 				$(".ng").show();
-				//$(".guide").hide();
 				$("#hiddenCheck").val(0);
 			}else if(reg.test(check)){
 			    $(".ng").hide();
@@ -242,13 +214,6 @@
 				})
 	})
 		function duplicateCheck() {
-		//var reg = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$";
-		//$.ajaxPrefilter(function() {
-			//if(reg.test($("#ajaxEmail").val())) {
-					//console.log(reg.test($("ajaxEmail")));	
-					
-				
-				$.ajax({
 				url:"ajaxDuplicateCheck.do",
 				method:"post",
 				data:{checkEmail:$("#ajaxEmail").val()},
@@ -258,34 +223,19 @@
 				success:function(string) {
 					console.log("ongoing");
 					if(string == "available") {
-						/* $(".ok").show();
-						$(".ng").hide(); */
 						$("#hiddenCheck").val(1);
 						$("#validatebtn").attr("disabled",false);
-						
 					}else {
 						$("#hiddenCheck").val(0);
 						$("#validatebtn").attr("disabled",true);
-						/* $(".ok").hide();
-						$(".ng").show(); */
-						
 					}
 				}
 			})
 		}
-			/* function validateEmail() {
-				var reg = new RegExp("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$");
-				var check = $("#ajaxEmail").val();
-				if(check == "" || reg.test(check)) {
-					duplicateCheck();
-				}else {
-					alert("올바른 이메일 형식으로 입력해주세요");
-					}
-				} */
 				var randomKey;
 			function validateEmail() {
 				if($("#hiddenCheck").val() == 1) {
-					//$("#validatebtn").attr("disabled",false);
+					alert("인증번호를 발송하였습니다 잠시만 기다려 주세요");
 					$.ajax({
 						url:"ajaxVerifyEmail.do",
 						method:"post",
@@ -300,12 +250,9 @@
 							console.log(randomKey);
 						}
 						})
-						
 				}else {
-					//$("#validatebtn").attr("disabled",true);
 					alert("올바른 이메일 형식으로 입력해 주세요");
 					$("#ajaxEmail").focus();
-					
 				}
 			}
 			function verifyEmail() {
@@ -321,28 +268,12 @@
 			function resetInput() {
 				$(".guide").hide();$(".hiddenNumber").hide();$("#validatebtn").attr("disabled",true);
 			}
-			//function validatePw() {
 				$("#exampleInputPassword1").change(function() {
 				var reg = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/);
 				var checkPw = $("#exampleInputPassword1").val();
 				if(reg.test(checkPw)) {
-					
 					console.log(reg.test(checkPw));
 					$(".okPw").show();
-				/* }else {
-					if((checkPw.search(/[0-9]/g)) < 1) {
-						$(".ngNum").show();$(".ngLower").hide();$(".ngUpper").hide();$(".ngSpe").hide();
-					}
-					if((checkPw.search(/[a-z]/ig)) < 1) {
-						$(".ngLower").show();$(".ngNum").hide();$(".ngUpper").hide();$(".ngSpe").hide();
-					}
-					if((checkPw.search(/[A-Z]/g)) < 1) {
-						$(".ngUpper").show();$(".ngNum").hide();$(".ngLower").hide();$(".ngSpe").hide();
-					}
-					if((checkPw.search(/[#?!@$%^&*-]/gi)) < 1) {
-						$(".ngSpe").show();$(".ngNum").hide();$(".ngUpper").hide();$(".ngLower").hide();
-					}
-				} */
 				}else {
 					alert("다시 입력해 주세요");
 				}
@@ -352,9 +283,6 @@
 						$("#submitbtn").attr("disabled",false);
 					}
 				})
-			
-			
-				
 </script>
 </body>
 </html>

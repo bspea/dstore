@@ -29,7 +29,6 @@
     <meta property="og:description" content="Kimi is a curated foods and beverages artisans." />
     <meta property='og:image' content="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/apple-touch-icon.png" />
 
-
     <!-- open graph metadata twitter -->
     <meta name="twitter:title" content="Back to Kimi">
     <meta name="twitter:url" content="http://www.backtokimi.com">
@@ -37,16 +36,9 @@
     <meta name="twitter:image" content="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/apple-touch-icon.png">
     <meta name="twitter:site" content="@backtokimi">
 
-
     <link rel="icon" href="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/favicon.ico">
-    <link rel="apple-touch-icon" href="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/apple-touch-icon.png">
-	<!--  -->
 	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous"> 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" crossorigin="anonymous"> -->
-
-    <!--  -->
 
     <!-- Bootstrap core CSS -->
     <link href="resources/css/2_bak/bootstrap.min.css?after" rel="stylesheet">
@@ -72,22 +64,10 @@
     <!-- Custom JavaScript-->
     <script type="text/javascript" src="resources/js/2_bak/mobile-menu.js"></script>
     <script type="text/javascript" src="resources/js/2_bak/mainBanner.js"></script>
-
-	<!-- 휴대폰 인증용 자바스크립트 -->
-<!-- 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script> -->
     <![endif]-->
 </head>
-<!-- <script>
-	var IMP = window.IMP;
-	IMP.init("imp82047249");
-</script> -->
 <body>
 <jsp:include page="../1_common/menubar.jsp"/>
-
-
-
-
 <div class="container">
 
     <div class="kimi-container">
@@ -96,10 +76,7 @@
             <li><a href="home.do">Home</a></li>
             <li class="active">이메일아이디찾기</li>
         </ol>
-
         <div class="clearfix"></div>
-
-
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
                 <div class="row">
@@ -109,15 +86,6 @@
                         <div class="clearfix maya-small-padding"></div>
 
                         <form id="ajaxFindEmailForm" action="" method="post">
-<!--                              <div class="form-group">
-                                <input type="text" class="form-control" id="business_name" placeholder="이름" required name="importName">
-                            </div>
-                           <div class="form-group">
-                                <input type="text" class="form-control" id="tagline" placeholder="생년월일(예:20191115)" required name="importBirth">
-                            </div>  -->
-                            
-<!--                             <div class="form-group">
-                                <input type="email" class="form-control" id="bank_account" placeholder="이메일">
                             </div>  -->
                             <div class="form-group">
                                 <input type="tel" class="form-control" id="account_number" placeholder="휴대폰 번호" required name="phone">
@@ -129,19 +97,15 @@
                                 <input type="text" class="form-control" id="bank_account_name" placeholder="인증번호 6자리 숫자입력" disabled>
                             </div> 
                             <button type="button" onclick="compareSMS()" class="btn btn-block button-green-free btn-lg">확인</button>
-                           <!-- <button type="button" class="btn btn-block button-green-free btn-lg" data-toggle="tooltip" data-placement="top" 
-                            		title="인증번호가 오지 않으면 다시 한 번 눌러주세요"
-                            		onclick="callImport()">
-                            	인증받기
-                            </button> -->
                             <input type="hidden" id="hiddenEmail">
                         </form>
                         <div class="clearfix maya-tiny-padding"></div>
-                        <!-- <p class="text-center"><a href="emailVerify.me" class="text-secondary">이메일로 인증</a></p> -->
                     </div>
                 </div>
             </div>
-            
+<form id="findEmailForm" action="loginForm.do" method="post">
+	<input type="hidden" name="findEmail">
+</form>           
             
         </div>
     </div>
@@ -165,21 +129,6 @@
 <script>
 $(function () {
 	  $('[data-toggle="tooltip"]').tooltip()
-	
-/*   // IMP.certification(param, callback) 호출
-  function callImport() {
-	
-	  IMP.certification({ // param
-	    
-	  }, function (rsp) { // callback
-	    if (rsp.success) {
-	      console.log("success");
-	    } else {
-	      console.log("fail");
-	    }
-	  });
-	} */
-	//$("#ajaxFindEmailForm").on("submit",function() {
 		})
 		var randomSMS;
 		var infoMem;
@@ -206,21 +155,10 @@ $(function () {
 	}
 		function compareSMS() {
 			if($("#bank_account_name").val() == randomSMS) {
-				//console.log(infoMem);
-				/* $.ajax({
-					url:"loginForm.do",
-					method:"post",
-					data:{email:infoMem},
-					error:function() {
-						console.log("disconnected");
-					},
-					success:function() {
-						//console.log("connected");
-					}
-					}) */
-						alert("귀하의 이메일은 " + infoMem + " 입니다");
-						location.href="loginForm.do";
-				}else {
+				alert("귀하의 이메일은 " + infoMem + " 입니다");
+				$("input[name=findEmail]").val(infoMem);
+				$("#findEmailForm").submit();
+			}else {
 				alert("인증번호가 다릅니다");
 			}
 		}

@@ -3,13 +3,10 @@ package com.kh.dstay;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
-
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Email;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +14,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Validator;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.kh.dstay.guestOrder.model.service.GuestOrderService;
@@ -33,7 +27,6 @@ import com.kh.dstay.member.model.service.MemberService;
 import com.kh.dstay.member.model.vo.Member;
 import com.kh.dstay.util.model.service.UtilService;
 import com.kh.dstay.util.model.vo.UtilParameter;
-
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 /**
@@ -68,7 +61,7 @@ public class HomeController {
 		return "4_jong/mainPage";
 	}
 	@RequestMapping("loginForm.do")
-	public ModelAndView loginForm(HttpSession session,ModelAndView mv,@RequestParam(value="email", required=false)String findEmail ) {
+	public ModelAndView loginForm(HttpSession session,ModelAndView mv,@RequestParam(value="findEmail", required=false)String findEmail ) {
 		session.setAttribute("kakaoJavascriptKey", utilParam.getKakaoJavascriptKey());
 		session.setAttribute("googleClientId", utilParam.getGoogleClientId());
 		session.setAttribute("naverClientId", utilParam.getNaverClientId());
@@ -219,19 +212,17 @@ public class HomeController {
 				gson.toJson(infoMap, response.getWriter());
 			}
 		}
-		//return "none";
 	}
-	@RequestMapping("sendAnEmail.do")
-	public ModelAndView sendAnEmail(ModelAndView mv,@RequestParam("email")String email) throws MessagingException {
+	@RequestMapping("ajaxSendAnEmail.do")
+	public String ajaxSendAnEmail(@RequestParam("sendAnEmail")String email) throws MessagingException {
 		String tempPassword = verifyEmail(email,"임시비밀번호");
 		mem.setEmail(email);
 		mem.setPassword(bcryptPasswordEncoder.encode(tempPassword));
 		int result = mService.updateTempMember(mem);
 		if(result>0) {
-			mv.setViewName("loginForm");
+			return "sentAnEmail";
 		}else {
-			mv.addObject("findEmailMsg","해당 이메일이 없습니다");//
+			return "failedToSendAnEmail";
 		}
-		return mv;
 	}
 }
