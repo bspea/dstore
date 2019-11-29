@@ -509,25 +509,25 @@
 	              +"<div class='diet-info'>"
 	                  +"<div class='diet-tag'>키</div>"
 	                  +"<div class='diet-input'>"
-	                      +"<input type='number' max='300' min='0' name='height'> cm"
+	                      +"<input type='number' max='300' min='100' name='height'> cm"
 	                  +"</div>"
 	              +"</div>"
 	              +"<div class='diet-info'>"
 	                  +"<div class='diet-tag'>몸무게</div>"
 	                  +"<div class='diet-input'>"
-	                      +"<input type='number' max='300' min='0' name='weight'> kg"
+	                      +"<input type='number' max='300' min='30' name='weight'> kg"
 	                  +"</div>"
 	              +"</div>"
 	              +"<div class='diet-info'>"
 	                  +"<div class='diet-tag'>목표 체중</div>"
 	                  +"<div class='diet-input'>"
-	                      +"<input type='number' max='300' min='0' name='targetWeight'> kg"
+	                      +"<input type='number' max='300' min='30' name='targetWeight'> kg"
 	                  +"</div>"
 	              +"</div>"
 	              +"<div class='diet-info'>"
 	                  +"<div class='diet-tag'>나이</div>"
 	                  +"<div class='diet-input'>"
-	                      +"<input type='number' min='0' max='100' name='age'> 세"
+	                      +"<input type='number' min='10' max='100' name='age'> 세"
 	                  +"</div>"
 	              +"</div>"
 	              +"<div class='diet-info'>"
@@ -562,8 +562,8 @@
 		  var workrate=$("input[name='workrate']:checked").val();
 		  console.log(workrate);
 		  
-		  if(gender!=undefined){				  
-			  if(height>0 && weight >0 && targetWeight > 0 && age > 0 && workrate!=undefined){
+		  if(gender!=undefined){  
+			  if(height>=100 && weight >=30 && targetWeight >= 30 && age >= 10 && workrate!=undefined){
 				  var goalCalories = (6.25 * height)+(10 * weight)-(5 - age);
 				  if(gender=='M'){
 					 goalCalories=(goalCalories + 5)*workrate;
