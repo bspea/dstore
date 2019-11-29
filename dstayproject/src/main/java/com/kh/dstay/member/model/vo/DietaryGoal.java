@@ -22,6 +22,6 @@ public class DietaryGoal {
 	public int weight;
 	public int targetWeight;
 	public double workrate;
-	public int goal;
+	public int goalCalories;
 	public Date date;
 }
