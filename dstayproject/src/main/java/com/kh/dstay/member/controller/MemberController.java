@@ -88,5 +88,6 @@ public class MemberController {
 		Gson gson=new Gson();
 		gson.toJson(dg,response.getWriter());
 	}
+	
 
 }

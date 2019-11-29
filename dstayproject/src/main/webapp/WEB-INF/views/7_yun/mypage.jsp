@@ -455,16 +455,21 @@
 					  
 					  break;
 				  case "info.do":
+					  var json=JSON.parse(data);
+				  		console.log(json);
+					  var email="data.email";
+				      var nickname="data.nickname";
+				      var phone="data.phone";
 					  $myPageTitle.text("개인정보");
 					  $myPageTitleInfo.text("dstay에서 사용될 회원님의 기본정보입니다");
 					  var str="<div class='myProfile-wrap'>"
 			                    +"<div class='myProfile myProfile-required'>"
 			                        +"<div class='profile-title'>개인정보</div>"                        
 			                        +"<ul class='margin-top-18'>"
-			                            +"<li><span>아이디</span><div class='user-id'>(userid)</div></li>"
+			                            +"<li><span>아이디</span><div class='user-id'>"+data.email+"</div></li>"
 			                            +"<li><span>비밀번호</span><button class='btn-red max-width-180' id='change-pw'>변경하기</button></li>"
-			                            +"<li><span>닉네임</span><div class='user-nickname'>(nickname)<button class='btn-red margin-left-10' id='change-nickname'>변경하기</button></div></li>"
-			                            +"<li><span>휴대폰</span><div class='user-phone'>01011112222<button class='btn-red margin-left-10' id='change-phone'>변경하기</button></div></li>"
+			                            +"<li><span>닉네임</span><div class='user-nickname'>"+data.nickname+"<button class='btn-red margin-left-10' id='change-nickname'>변경하기</button></div></li>"
+			                            +"<li><span>휴대폰</span><div class='user-phone'>"+data.phone+"<button class='btn-red margin-left-10' id='change-phone'>변경하기</button></div></li>"
 			                        +"</ul>"
 			                    +"</div>"
 			                    +"<div class='myProfile myProfile-address'>"
