@@ -487,66 +487,90 @@
 		  })
 	  }
 	  function editDietaryGoal(){
-		  var $myPageTitle=$(".myPageTitle");
-		  var $myPageTitleInfo=$(".myPageTitleInfo");
-		  var $myPage_content=$(".myPage-content");
-		  $myPageTitle.text("목표설정");
-		  $myPageTitleInfo.text("목표를 설정해서 건강한 식단관리를 시작하세요");
-		  $myPage_content.html("");
-		  var str="<div class='diet-goal-wrap'>"
-
-	          +"<div class='diet-info-wrap'>"
-	
-	              +"<div class='diet-info'>"
-	                  +"<div class='diet-tag'>성별</div>"
-	                  +"<div class='diet-input'>"
-	                      +"<input type='radio' name='gender' value='M' style='display:none;'>"
-	                      +"<button class='btn-white gender-checker'>남성</button>"
-	                      +"<input type='radio' name='gender' value='F' style='display:none;'>"
-	                      +"<button class='btn-white gender-checker margin-left-10'>여성</button>"
-	                  +"</div>"
-	              +"</div>"
-	              +"<div class='diet-info'>"
-	                  +"<div class='diet-tag'>키</div>"
-	                  +"<div class='diet-input'>"
-	                      +"<input type='number' max='300' min='100' name='height'> cm"
-	                  +"</div>"
-	              +"</div>"
-	              +"<div class='diet-info'>"
-	                  +"<div class='diet-tag'>몸무게</div>"
-	                  +"<div class='diet-input'>"
-	                      +"<input type='number' max='300' min='30' name='weight'> kg"
-	                  +"</div>"
-	              +"</div>"
-	              +"<div class='diet-info'>"
-	                  +"<div class='diet-tag'>목표 체중</div>"
-	                  +"<div class='diet-input'>"
-	                      +"<input type='number' max='300' min='30' name='targetWeight'> kg"
-	                  +"</div>"
-	              +"</div>"
-	              +"<div class='diet-info'>"
-	                  +"<div class='diet-tag'>나이</div>"
-	                  +"<div class='diet-input'>"
-	                      +"<input type='number' min='10' max='100' name='age'> 세"
-	                  +"</div>"
-	              +"</div>"
-	              +"<div class='diet-info'>"
-	                  +"<div class='diet-tag'>활동량</div>"
-	                  +"<div class='diet-input'>"
-	                      +"<input type='radio' name='workrate' value='1.2' id='workrate1'><label for='workrate1'>활동량이 없거나 낮다</label><br>"
-	                      +"<input type='radio' name='workrate' value='1.375' id='workrate2'><label for='workrate2'>일주일에 2 회 정도 가벼운 운동</label><br>"
-	                      +"<input type='radio' name='workrate' value='1.55' id='workrate3'><label for='workrate3'>일주일에 4 회 정도 적당한 운동</label><br>"
-	                      +"<input type='radio' name='workrate' value='1.725' id='workrate4'><label for='workrate4'>일주일에 6 회 정도 일반 스포츠</label><br>"
-	                      +"<input type='radio' name='workrate' value='1.9' id='workrate5'><label for='workrate5'>엘리트 운동선수이거나 매일 고강도 훈련</label>"
-	                  +"</div>"
-	              +"</div>"
-	              +"<div class='diet-footer'>"
-	                  +"<button class='btn-red set-dietaryGoal'>설정</button>"
-	              +"</div>"
-	          +"</div>"
-	
-	      +"</div>"
-      $myPage_content.html(str);
+		  $.ajax({
+			  url:"selectMyDietaryGoal.do",
+			  dataType:"json",
+			  success:function(data){
+						  
+				  var $myPageTitle=$(".myPageTitle");
+				  var $myPageTitleInfo=$(".myPageTitleInfo");
+				  var $myPage_content=$(".myPage-content");
+				  $myPageTitle.text("목표설정");
+				  $myPageTitleInfo.text("목표를 설정해서 건강한 식단관리를 시작하세요");
+				  $myPage_content.html("");
+				  var str="<div class='diet-goal-wrap'>"
+		
+			          +"<div class='diet-info-wrap'>"
+			
+			              +"<div class='diet-info'>"
+			                  +"<div class='diet-tag'>성별</div>"
+			                  +"<div class='diet-input'>";
+			                  if(data.gender=='M'){
+			                	  str+="<input type='radio' name='gender' value='M' style='display:none;'checked>"
+			                      +"<button class='btn-red gender-checker'>남성</button>"
+			                      +"<input type='radio' name='gender' value='F' style='display:none;'>"
+			                      +"<button class='btn-white gender-checker margin-left-10'>여성</button>";
+			                  }else if(data.gender=='F'){
+			                	  str+="<input type='radio' name='gender' value='M' style='display:none;'>"
+			                      +"<button class='btn-white gender-checker'>남성</button>"
+			                      +"<input type='radio' name='gender' value='F' style='display:none;'checked>"
+			                      +"<button class='btn-red gender-checker margin-left-10'>여성</button>";
+			                  }else{
+			                	  
+			                      str+="<input type='radio' name='gender' value='M' style='display:none;'>"
+			                      +"<button class='btn-white gender-checker'>남성</button>"
+			                      +"<input type='radio' name='gender' value='F' style='display:none;'>"
+			                      +"<button class='btn-white gender-checker margin-left-10'>여성</button>";
+			                  }
+			                  str+="</div>"
+			              +"</div>"
+			              +"<div class='diet-info'>"
+			                  +"<div class='diet-tag'>키</div>"
+			                  +"<div class='diet-input'>"
+			                      +"<input type='number' max='300' min='100' name='height' value="+data.height+"> cm"
+			                  +"</div>"
+			              +"</div>"
+			              +"<div class='diet-info'>"
+			                  +"<div class='diet-tag'>몸무게</div>"
+			                  +"<div class='diet-input'>"
+			                      +"<input type='number' max='300' min='30' name='weight' value="+data.weight+"> kg"
+			                  +"</div>"
+			              +"</div>"
+			              +"<div class='diet-info'>"
+			                  +"<div class='diet-tag'>목표 체중</div>"
+			                  +"<div class='diet-input'>"
+			                      +"<input type='number' max='300' min='30' name='targetWeight' value="+data.targetWeight+"> kg"
+			                  +"</div>"
+			              +"</div>"
+			              +"<div class='diet-info'>"
+			                  +"<div class='diet-tag'>나이</div>"
+			                  +"<div class='diet-input'>"
+			                      +"<input type='number' min='10' max='100' name='age' value="+data.age+"> 세"
+			                  +"</div>"
+			              +"</div>"
+			              +"<div class='diet-info'>"
+			                  +"<div class='diet-tag'>활동량</div>"
+			                  +"<div class='diet-input'>"
+			                      +"<input type='radio' name='workrate' value='1.2' id='workrate1'><label for='workrate1'>활동량이 없거나 낮다</label><br>"
+			                      +"<input type='radio' name='workrate' value='1.375' id='workrate2'><label for='workrate2'>일주일에 2 회 정도 가벼운 운동</label><br>"
+			                      +"<input type='radio' name='workrate' value='1.55' id='workrate3'><label for='workrate3'>일주일에 4 회 정도 적당한 운동</label><br>"
+			                      +"<input type='radio' name='workrate' value='1.725' id='workrate4'><label for='workrate4'>일주일에 6 회 정도 일반 스포츠</label><br>"
+			                      +"<input type='radio' name='workrate' value='1.9' id='workrate5'><label for='workrate5'>엘리트 운동선수이거나 매일 고강도 훈련</label>"
+			                  +"</div>"
+			              +"</div>"
+			              +"<div class='diet-footer'>"
+			                  +"<button class='btn-red set-dietaryGoal'>설정</button>"
+			              +"</div>"
+			          +"</div>"
+			
+			      +"</div>"
+		      $myPage_content.html(str);
+		  },
+		  error:function(){
+			  console.log("selectMyDietaryGoal error");
+		  }
+		  })
+	      
 	  }
 	  function setDietaryGoal(){
 		  var gender=$("input[name='gender']:checked").val();
@@ -581,6 +605,7 @@
 					  url:"setDietaryGoal.do",
 					  data:{"gender":gender,"height":height,"weight":weight,"targetWeight":targetWeight,"age":age,"workrate":workrate,"goalCalories":goalCalories},
 					  type:"post",
+					  dataType:"json",	
 					  success:function(result){
 						  if(result>0){
 							  alert("수정 성공");

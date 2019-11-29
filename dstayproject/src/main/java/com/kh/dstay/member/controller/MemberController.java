@@ -80,6 +80,13 @@ public class MemberController {
 		Gson gson=new Gson();
 		gson.toJson(result,response.getWriter());
 	}
-	
+	@RequestMapping("mypage/selectMyDietaryGoal.do")
+	public void selectMyDietaryGoal(HttpServletResponse response,HttpSession session) throws JsonIOException, IOException {
+		response.setContentType("application/json; charset=utf-8");
+		Member m=(Member)session.getAttribute("loginUser");
+		DietaryGoal dg=mService.selectMyDietaryGoal(m);
+		Gson gson=new Gson();
+		gson.toJson(dg,response.getWriter());
+	}
 
 }
