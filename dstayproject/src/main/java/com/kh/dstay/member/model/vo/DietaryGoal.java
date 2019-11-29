@@ -20,6 +20,7 @@ public class DietaryGoal {
 	public int age;
 	public int height;
 	public int weight;
+	public int targetWeight;
 	public double workrate;
 	public int goal;
 	public Date date;
