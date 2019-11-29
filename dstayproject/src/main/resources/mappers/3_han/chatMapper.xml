@@ -20,4 +20,8 @@
 		order by chatno
 	</select>
 	
+	<insert id="insertChat">
+		insert into chat
+		values(seq_chat_no.nextval, #{chatWriter}, #{chatContents}, sysdate, default)
+	</insert>
 </mapper>

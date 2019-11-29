@@ -11,6 +11,9 @@
  		<result property="suggestionCategory" column="scategory"/>
  		<result property="suggestionDivision" column="sdivision"/>
  		<result property="progress" column="sprogress"/>
+ 		<result property="suggestionWriterName" column="name"/>
+ 		<result property="suggestionWriterNickName" column="nickname"/>
+ 		<result property="suggestionWriterPhone" column="phone"/>
  	</resultMap>
  	
  	<insert id="insertSuggestion">
@@ -25,14 +28,22 @@
  	</select>
  	
  	<select id="selectSuggestionList" resultMap="suggestionResultSet">
- 		select *
- 		from suggestion
- 		where sprogress='N'
+ 		select sno, swriter, name, nickname, phone, stitle, scontents, sdate, scategory, sdivision, sprogress
+		from suggestion
+		join member on(mno=swriter)
+		where sprogress='N'
  	</select>
  	
  	<select id="selectSuggestion" resultMap="suggestionResultSet">
- 		select *
+ 		select sno, swriter, name, nickname, phone, stitle, scontents, sdate, scategory, sdivision, sprogress
 		from suggestion
+		join member on(mno=swriter)
 		where sno=#{suggestionNo}
  	</select>
+ 	
+ 	<update id="suggestionOperation">
+ 		update suggestion
+ 		set sprogress=#{progress}
+ 		where sno=#{suggestionNo}
+ 	</update>
 </mapper>

@@ -15,14 +15,21 @@
 </head>
 <body>
 
-	   <div class="talk-bgHeader">
-        <div class="talk-header">
-            디스테이 1:1문의
+	<div class="talk-bgHeader">
+		<div class="talk-header">
+			디스테이 1:1문의
         </div>
     </div>
+    
     <div class="talk-body">
-        <div class="talk-bodyCenter">상담원과의 대화 내용은 실시간으로 저장되며, 욕설 및 음란성 채팅이나 문제 해결을 위한 문의가 아닌 경우 상담이 중단되거나 제재 될 수 있음을 알려드립니다.</div>
+        <div class="talk-bodyCenter">
+        	상담원과의 대화 내용은 실시간으로 저장되며,<br>
+        	욕설 및 음란성 채팅이나<br>
+        	문제 해결을 위한 문의가 아닌 경우<br>
+        	상담이 중단되거나 제재 될 수 있음을 알려드립니다.
+        </div>
     </div>
+    
     <div class="talk-bottom">
         <div class="talk-chatBox">
             <textarea></textarea>
@@ -42,15 +49,29 @@
 		$(function(){
 			getChatList();
 			
-			/* $("#talk-submit-btn").on("click", function(){
+			$("#talk-submit-btn").on("click", function(){
 				
 				$.ajax({
 					url:"chatInsert.do",
-					data:{},
-					
+					data:{chatWriter:${loginUser.no}, chatContents:$(".talk-chatBox textarea").val()},
+					success:function(data){
+						
+						if(data == "success"){
+							
+							$(".talk-chatBox textarea").val("");
+							getChatList();
+							
+							
+						}else{
+							alert("채팅 작성 실패");
+						}
+					},
+					error:function(){
+						console.log("ajax 통신 실패");
+					}
 				});
 				
-			}); */
+			});
 			
 		});
 		
@@ -65,7 +86,7 @@
 				success:function(data){
 					// console.log(data);
 					
-					console.log(${loginUser.no});
+					// console.log(${loginUser.no});
 					
 					$.each(data, function(index, value){
 						
@@ -76,6 +97,8 @@
 						}
 						
 					});
+					
+					$(".talk-body").scrollTop($(".talk-body")[0].scrollHeight);
 				}
 			});
 		}

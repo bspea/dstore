@@ -88,4 +88,23 @@ public class CustomerCenterController {
 		gson.toJson(list, response.getWriter());
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping("chatInsert.do")
+	public String insertChat(Chat c) {
+		
+		// System.out.println(c);
+		
+		int result = ccService.insertChat(c);
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+		
+		
+	}
+	
+	
 }

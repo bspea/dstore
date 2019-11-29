@@ -44,6 +44,26 @@
     margin-top:5px;
     line-height:19px;
 }
+.p-green{
+    width:60px;
+    background:green;
+    color:white;
+    margin-left:auto;
+    margin-right:auto;
+    font-size:8px;
+    margin-top:5px;
+    line-height:19px;
+}
+.p-blue{
+    width:60px;
+    background:blue;
+    color:white;
+    margin-left:auto;
+    margin-right:auto;
+    font-size:8px;
+    margin-top:5px;
+    line-height:19px;
+}
 .notice-title a{
     color:black;
 }

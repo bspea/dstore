@@ -15,4 +15,6 @@ public interface CustomerCenterService {
 	Suggestion selectSuggestion(int suggestionNo);
 
 	ArrayList<Chat> selectChatList();
+
+	int insertChat(Chat c);
 }

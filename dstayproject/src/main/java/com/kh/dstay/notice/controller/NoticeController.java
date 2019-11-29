@@ -60,7 +60,7 @@ public class NoticeController {
 	@RequestMapping("noticeInsert.do")
 	public String insertNotice(Notice n) {
 		
-		n.setNoticeCategory("πÃ¡§");
+		
 		System.out.println(n);
 		int result = nService.insertNotice(n);
 		

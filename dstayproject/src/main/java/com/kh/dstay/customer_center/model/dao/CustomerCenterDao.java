@@ -45,4 +45,9 @@ public class CustomerCenterDao {
 		
 		return (ArrayList)sqlSession.selectList("chatMapper.selectChatList");
 	}
+
+	public int insertChat(Chat c) {
+		
+		return sqlSession.insert("chatMapper.insertChat", c);
+	}
 }

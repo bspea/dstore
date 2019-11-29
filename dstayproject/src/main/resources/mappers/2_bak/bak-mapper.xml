@@ -14,6 +14,7 @@
 	<result property="goalCalorie" column="goal_calorie"/>
 	<result property="date" column="m_date"/>
 	<result property="status" column="status"/>
+	<result property="memberStatusNo" column="msno"/>
 </resultMap>
 
 <resultMap id="guestOrderResultSet" type="GuestOrder">

@@ -40,4 +40,10 @@ public class CustomerCenterServiceImpl implements CustomerCenterService {
 		return ccDao.selectChatList();
 	}
 
+	@Override
+	public int insertChat(Chat c) {
+		
+		return ccDao.insertChat(c);
+	}
+
 }

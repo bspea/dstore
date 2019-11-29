@@ -2,6 +2,7 @@ body {
     background: rgb(255, 240, 251);
     margin: 0px;
     font-family: '맑은 고딕';
+    overflow:hidden;
 }
 
 .talk-bgHeader {
@@ -19,7 +20,13 @@ body {
     text-align: center;
 }
 
+.talk-body{
+	overflow:scroll;
+	height:400px;
+}
+
 .talk-bodyCenter {
+	width:280px;
     background: rgb(230, 211, 224);
     margin: 2%;
     margin-left: 10%;
@@ -52,7 +59,6 @@ body {
     display:inline-block;
     word-break:break-all;
     max-width: 65%;
-    
     background: white;
     border-radius: 15px;
     padding:7px;
@@ -78,8 +84,8 @@ body {
 
 .talk-bottom {
     box-sizing: border-box;
-    position: absolute;
     bottom: 0px;
+    position:absolute;
     background: white;
     border-top: 1px solid rgb(255, 244, 252);
     width: 100%;

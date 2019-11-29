@@ -6,4 +6,6 @@ public interface SuggestionService {
 
 	int insertSuggestion(Suggestion s);
 
+	int suggestionOperation(Suggestion s);
+
 }
