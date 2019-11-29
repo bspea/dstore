@@ -222,7 +222,74 @@
 				  case "diet.do":
 					  $myPageTitle.text("식단관리");
 					  $myPageTitleInfo.text("오늘의 식사를 입력해주세요");
-					  
+					  var str="<div class='diet-full-wrap'>"
+				                    +"<div class='diet-header-wrap'>"
+			                      +"<div class='setting-diet'>"
+			                          +"<button class='btn-white'>목표설정</button>"
+			                      +"</div>"
+			                      +"<div class='search-diet-date'>"
+			                          +"<input type='date' class='date-set'>"
+			                      +"</div>"
+			                  +"</div>"
+			                  +"<div class='diet-receipt-wrap'>"
+			                      +"<div class='diet-receipt-header'>"
+			                          +"<h1>식사기록</h1>"
+			                          +"<div class='edit-diet'>"
+			                              +"<button class='btn-white' id='recode-edit'>수정</button>"
+			                              +"<button class='btn-red' id='add-form-btn'>기록</button>"
+			                          +"</div>"
+			                      +"</div>"
+			                      +"<div class='diet-receipt-body'>"
+			                          +"<div class='diet-info'>"
+			                              +"<div class='meal'>아침</div>"
+			
+			                              +"<div class='food-info-wrap'>"
+			                                  +"<div class='food-info'>"
+			                                      +"<div class='food-name'>김밥</div>"
+			                                      +"<div class='food-calories'>345 kcal</div>"
+			                                  +"</div>"
+			                                  +"<div class='food-info'>"
+			                                      +"<div class='food-name'>김밥</div>"
+			                                      +"<div class='food-calories'>345 kcal</div>"
+			                                  +"</div>"
+			                              +"</div>"
+			                              
+			
+			                          +"</div>"
+			                          +"<div class='diet-info'>"
+			                              +"<div class='meal'>점심</div>"
+			
+			                              +"<div class='food-info-wrap'>"
+			                                  +"<div class='food-info'>"
+			                                      +"<div class='food-name'>김밥</div>"
+			                                      +"<div class='food-calories'>345 kcal</div>"
+			                                  +"</div>"
+			                                  +"<div class='food-info'>"
+			                                      +"<div class='food-name'>김밥</div>"
+			                                      +"<div class='food-calories'>345 kcal</div>"
+			                                  +"</div>"
+			                              +"</div>"
+			                              
+			
+			                          +"</div>"
+			                      +"</div>"
+			                      +"<div class='diet-receipt-footer'>"
+			                          +"<div class='diet-calories'>"
+			                              +"<h3>목표칼로리</h3>"
+			                              +"<span id='goal'>2400 kcal</span>"
+			                          +"</div>"
+			                          +"<div class='diet-calories'>"
+			                              +"<h3>섭취칼로리</h3>"
+			                              +"<span id='today'>2400 kcal</span>"
+			                          +"</div>"
+			                          +"<div class='diet-calories'>"
+			                              +"<h3>남은 칼로리</h3>"
+			                              +"<span>2400 kcal</span>"
+			                          +"</div>"
+			                      +"</div>"
+			                  +"</div>";
+			                  str+="</div>"
+							  $myPage_content.html(str);
 					  
 					  break;
 				  case "order.do":
