@@ -75,9 +75,8 @@ public class HomeController {
 	@RequestMapping("login.do")
 	public ModelAndView login(ModelAndView mv,@RequestParam("email")@Email String email,@RequestParam("password") String password,HttpSession session) {
 		mem.setEmail(email); 
-		mem.setPassword(bcryptPasswordEncoder.encode(password));
 		Member loginUser = mService.login(mem);
-		if(loginUser != null && bcryptPasswordEncoder.matches(password, mem.getPassword())) {
+		if(loginUser != null && bcryptPasswordEncoder.matches(password, loginUser.getPassword())) {
 			session.setAttribute("loginUser", loginUser);
 			mv.setViewName("redirect:home.do");
 		}else {
