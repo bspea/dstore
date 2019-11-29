@@ -26,5 +26,6 @@ public class OrderInfo {
 	private int post;
 	private String address1;
 	private String address2;
+	private String waybillNo;
 	
 }
