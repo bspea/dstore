@@ -49,6 +49,23 @@
 		$(function(){
 			getChatList();
 			
+			getNewTime();
+			
+			
+			
+			setInterval(function(){
+				getNewTime();
+			}, 2000);
+			
+			
+			
+			/*
+			setInterval(function(){
+				getLastTimeChat(currentTime);
+			}, 2000);
+			*/
+			
+			
 			$("#talk-submit-btn").on("click", function(){
 				
 				$.ajax({
@@ -57,9 +74,14 @@
 					success:function(data){
 						
 						if(data == "success"){
-							
+							// console.log(data);
+							// 입력할 때 seq_chat_no -1 까지는 전부 읽음처리 해야하나?
+							// 아닌데... 채팅 리스트를 불러온 순간 다 읽은 거 아닌가? 그 때 읽음처리 해줘야 하지 않나?
+							// 내가 쓴 채팅은 전부 읽음처리 해야 함 -> 내가 쓴 채팅 위까지. 그러려면 번호를 알아야 함 seq_chat_no - 1
+							// 남이 쓴 채팅도 전부 읽음처리 해야 함
+							// 아 ㅅㅂ
 							$(".talk-chatBox textarea").val("");
-							getChatList();
+							
 							
 							
 						}else{
@@ -79,15 +101,13 @@
 		
 	
 		function getChatList(){
-			
+			// 불러오는 과정
 			$.ajax({
 				url:"chatList.do",
 				dataType:"json",
 				success:function(data){
-					// console.log(data);
 					
-					// console.log(${loginUser.no});
-					
+					// 갖다붙이기
 					$.each(data, function(index, value){
 						
 						if(value.chatWriter == ${loginUser.no}){
@@ -98,16 +118,77 @@
 						
 					});
 					
+					// 스크롤 가장 아래로
 					$(".talk-body").scrollTop($(".talk-body")[0].scrollHeight);
+					
+					
+				}
+			});
+		}
+		
+		function chattingSend() {
+            $('.talk-chatBox>textarea').val("");
+        }
+		
+		
+		
+		function getNewTime(){
+			
+			var d = new Date();
+			
+			var year = (String)(d.getFullYear());
+			var month = (String)(d.getMonth() + 1);
+			var date = (String)(d.getDate());
+			var hour = (String)(d.getHours());
+			var minute = (String)(d.getMinutes());
+			var second = (String)(d.getSeconds());
+			var millisecond = (String)(d.getMilliseconds());
+			
+			if(month < 10){
+				month = "0" + month;
+			}
+			
+			if(date < 10){
+				date = "0" + date;
+			}
+			
+			if(hour < 10){
+				hour = "0" + hour;
+			}
+			if(minute < 10){
+				minute = "0" + minute;
+			}
+			if(second < 10){
+				second = "0" + second;
+			}
+			
+			var currentTime = year + month + date + hour + minute + second + millisecond;
+			
+			console.log(currentTime);
+			
+			getLastTimeChat(currentTime);
+		}
+		
+		
+		
+		function getLastTimeChat(currentTime){
+			
+			$.ajax({
+				method:"POST",
+				url:"getLastChat.do",
+				data:{chatTime:currentTime},
+				chache: false,
+				async: false,
+				success:function(data){
+					
+				},
+				error:function(){
+					console.log("getLastChatTime() 실패");
 				}
 			});
 		}
 	</script>
 	
-	<script>
-        function chattingSend() {
-            $('.talk-chatBox>textarea').val("");
-        }
-    </script>
+	
 </body>
 </html>

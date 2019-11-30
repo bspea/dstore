@@ -17,4 +17,6 @@ public interface CustomerCenterService {
 	ArrayList<Chat> selectChatList();
 
 	int insertChat(Chat c);
+
+	int ensureChat(Chat c);
 }

@@ -24,4 +24,12 @@
 		insert into chat
 		values(seq_chat_no.nextval, #{chatWriter}, #{chatContents}, sysdate, default)
 	</insert>
+	
+	<update id="ensureChat">
+		update chat
+		set chatread='Y'
+		where chatNo <![CDATA[
+<=
+]]> #{chatNo} and chatWriter != #{chatWriter}
+	</update>
 </mapper>

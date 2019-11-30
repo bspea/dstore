@@ -50,4 +50,9 @@ public class CustomerCenterDao {
 		
 		return sqlSession.insert("chatMapper.insertChat", c);
 	}
+
+	public int ensureChat(Chat c) {
+		
+		return sqlSession.update("chatMapper.ensureChat", c);
+	}
 }

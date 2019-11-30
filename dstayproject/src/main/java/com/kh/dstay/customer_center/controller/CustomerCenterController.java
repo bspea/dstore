@@ -95,16 +95,38 @@ public class CustomerCenterController {
 		
 		// System.out.println(c);
 		
-		int result = ccService.insertChat(c);
+		int insertChatResult = ccService.insertChat(c);
 		
-		if(result > 0) {
+		if(insertChatResult > 0) {
 			return "success";
 		}else {
 			return "fail";
 		}
 		
-		
 	}
+	
+	@ResponseBody
+	@RequestMapping("chatEnsure.do")
+	public String ensureChat(Chat c) {
+		
+		System.out.println(c);
+		
+		int ensureChatResult = ccService.ensureChat(c);
+		
+		if(ensureChatResult > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("getLastChat.do")
+	public void getLastChat(String chatTime) {
+		
+		System.out.println(chatTime);
+	}
+	
 	
 	
 }
