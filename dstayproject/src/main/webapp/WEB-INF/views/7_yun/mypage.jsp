@@ -287,7 +287,7 @@
         	}else{
         		recodeOrderedDiet(date);        		
         	}
-        
+        	location.reload()
         });
         $(document).on("click","#recode-selfDiet",function(){
         	var date=$(".date-set").val();
@@ -305,7 +305,7 @@
         		}
         		
         	}
-        	
+        	location.reload()
         });
         $(document).on("click","#withdrawal",function(){
         	if(confirm("정말 탈퇴하시겠습니까?")){

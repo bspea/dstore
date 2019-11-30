@@ -213,7 +213,7 @@
 	</select>
 	
 	<insert id="recodeDiet">
-		insert into foodmanagement values(seq_foodmanagement.nextval,#{memberNo},#{foodName},#{calories},#{meno},#{type},null,default)
+		insert into foodmanagement values(seq_foodmanagement.nextval,#{memberNo},#{foodName},#{calories},#{memo},#{type},null,default)
 	</insert>
 	<insert id="recodeDietToday">
 		insert into foodmanagement values(seq_foodmanagement.nextval,#{memberNo},#{foodName},#{calories},sysdate,#{type},null,default)
