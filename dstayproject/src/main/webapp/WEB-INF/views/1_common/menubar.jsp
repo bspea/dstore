@@ -56,7 +56,7 @@
         </div>
 
         <div class="topMiddle">
-            <input type="text" placeholder="검색어를 입력해주세요.">
+            <input type="search" placeholder="검색어를 입력해주세요.">
         </div>
 
 		<div class="topRight">

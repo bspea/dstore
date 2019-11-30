@@ -218,5 +218,11 @@
 	<insert id="recodeDietToday">
 		insert into foodmanagement values(seq_foodmanagement.nextval,#{memberNo},#{foodName},#{calories},sysdate,#{type},null,default)
 	</insert>
+	
+	<update id="withdrawal">
+		update member
+		set msno=1, infoupdatedate=sysdate
+		where mno=#{no}
+	</update>
 
 </mapper>

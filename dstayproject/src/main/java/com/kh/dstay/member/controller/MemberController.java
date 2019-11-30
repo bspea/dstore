@@ -267,7 +267,17 @@ public class MemberController {
 		gson.toJson(result,response.getWriter());
 	}
 	
-	
+	@RequestMapping("mypage/withdrawal.do")
+	public String widthdrawal(HttpSession session) {
+		Member m=(Member)session.getAttribute("loginUser");
+		int result=mService.withdrawal(m);
+		if(result>0) {
+			session.invalidate();
+			return "redirect:/main.do";
+		}else {
+			return "redirect:/main.do";
+		}
+	}
 	
 	
 	

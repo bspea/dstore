@@ -125,8 +125,7 @@ public class MemberDao {
 		return sqlSession.update("mypageMapper.updateMyNickname",m);
 	}
 	public int withdrawal(Member m) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("mypageMapper.withdrawal",m);
 	}
 	public int getOrderListCount(Member m, int month) {
 		HashMap map=new HashMap();
