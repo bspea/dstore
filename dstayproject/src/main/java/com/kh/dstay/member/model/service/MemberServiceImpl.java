@@ -93,8 +93,8 @@ public class MemberServiceImpl implements MemberService{
 		return mDao.insertDiet(d);
 	}
 	@Override
-	public int deleteDiet(Diet d) {
-		return mDao.deleteDiet(d);
+	public int deleteDiet(int fmno) {
+		return mDao.deleteDiet(fmno);
 	}
 	@Override
 	public DietaryGoal selectMyDietaryGoal(Member m) {
@@ -109,16 +109,16 @@ public class MemberServiceImpl implements MemberService{
 		return mDao.searchFoodList(str);
 	}
 	@Override
-	public ArrayList<OrderInfo> selectOrderList(Member m, PageInfo pi) {
-		return mDao.selectOrderList(m,pi);
+	public ArrayList<OrderInfo> selectOrderList(Member m,int month, PageInfo pi) {
+		return mDao.selectOrderList(m,month,pi);
 	}
 	@Override
 	public ArrayList<OrderInfo> selectOrderList(Member m, String startDate, String endDate, PageInfo pi) {
 		return mDao.selectOrderList(m,startDate,endDate, pi);
 	}
 	@Override
-	public int firmOffer(OrderInfo oi) {
-		return mDao.firmOffer(oi);
+	public int confirmation(int ono) {
+		return mDao.confirmation(ono);
 	}
 	@Override
 	public ArrayList<OrderInfo> selectBeforeReviewList(Member m, PageInfo pi) {
@@ -133,8 +133,8 @@ public class MemberServiceImpl implements MemberService{
 		return mDao.selectMyReviewList(m,pi);
 	}
 	@Override
-	public ArrayList<MyCoupon> selectMyCouponList(Member m, PageInfo pi) {
-		return mDao.selectMyCouponList(m,pi);
+	public ArrayList<MyCoupon> selectMyCouponList(Member m) {
+		return mDao.selectMyCouponList(m);
 	}
 	@Override
 	public int updateMyPassword(Member m) {
@@ -145,11 +145,39 @@ public class MemberServiceImpl implements MemberService{
 		return mDao.updateMyNickname(m);
 	}
 	@Override
-	public int updateMyPhone(Member m) {
-		return mDao.updateMyPhone(m);
-	}
-	@Override
 	public int withdrawal(Member m) {
 		return mDao.withdrawal(m);
+	}
+	@Override
+	public int getOrderListCount(Member m,int month) {
+		return mDao.getOrderListCount(m, month);
+	}
+	@Override
+	public int getOrderListDateCount(Member m, String startDate, String endDate) {
+		return mDao.getOrderListDateCount(m,startDate,endDate);
+	}
+	@Override
+	public OrderInfo selectReviewTarget(int pno) {
+		return mDao.selectReviewTarget(pno);
+	}
+	@Override
+	public int getReviewListCount(Member m) {
+		return mDao.getReviewListCount(m);
+	}
+	@Override
+	public ArrayList<Diet> selectDietListToday(Member m) {
+		return mDao.selectDietListToday(m);
+	}
+	@Override
+	public Diet selectTargetProduct(int pno) {
+		return mDao.selectTargetProduct(pno);
+	}
+	@Override
+	public int recodeDiet(Diet d) {
+		return mDao.recodeDiet(d);
+	}
+	@Override
+	public int recodeDietToday(Diet d) {
+		return mDao.recodeDietToday(d);
 	}
 }

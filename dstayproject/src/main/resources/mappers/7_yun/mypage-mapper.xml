@@ -14,7 +14,60 @@
 		<result property="goalCalories" column="goalcalorie"/>
 		<result property="date" column="goalupdatedate"/>
 	</resultMap>
-
+	
+	<resultMap id="orderListSet" type="OrderInfo">
+		<id property="orderNo" column="ono"/>
+		<result property="productNo" column="pno"/>
+		<result property="memberNo" column="mno"/>
+		<result property="payNo" column="payno"/>
+		<result property="productName" column="pname"/>
+		<result property="amount" column="ocount"/>
+		<result property="price" column="pprice"/>
+		<result property="date" column="odate"/>
+		<result property="request" column="orequest"/>
+		<result property="status" column="ostatus"/>
+		<result property="post" column="mpost"/>
+		<result property="address1" column="maddress"/>
+		<result property="address2" column="maddressdetail"/>
+		<result property="waybillNo" column="owaybillno"/>
+		<result property="piPath" column="pipath"/>
+		<result property="calories" column="calorie"/>
+	</resultMap> 
+	
+	<resultMap id="reviewSet" type="Review">
+		<id property="no" column="prno"/>
+		<result property="memberNo" column="mno"/>
+		<result property="productNo" column="pno"/>
+		<result property="productName" column="pname"/>
+		<result property="content" column="rcontents"/>
+		<result property="point" column="point"/>
+		<result property="date" column="prdate"/>
+		<result property="status" column="prstatus"/>
+		<result property="piPath" column="pipath"/>
+	</resultMap>
+	
+	<resultMap id="myCouponSet" type="MyCoupon">
+		<id property="couponNo" column="cno"/>
+		<result property="memberNo" column="mno"/>
+		<result property="couponInfoNo" column="cino"/>
+		<result property="productNo" column="pno"/>
+		<result property="couponCode" column="cicode"/>
+		<result property="couponName" column="ciname"/>
+		<result property="category" column="cicategory"/>
+		<result property="saleRate" column="cisalerate"/>
+		<result property="endDate" column="cienddate"/>
+		<result property="status" column="status"/>
+	</resultMap>
+	<resultMap id="dietSet" type="Diet">
+		<id property="no" column="fmno"/>
+		<result property="memberNo" column="mno"/>
+		<result property="foodName" column="foodname"/>
+		<result property="calories" column="calorie"/>
+		<result property="date" column="fmdate"/>
+		<result property="type" column="type"/>
+		<result property="status" column="fmstatus"/>
+	</resultMap>
+	
 
 	<update id="updateMyDietaryGoal">
 		update member
@@ -25,5 +78,145 @@
 	<select id="selectMyDietaryGoal" resultMap="dietaryGoalSet">
 		select * from member where mno=#{no}
 	</select>
+	
+	<update id="updateMyPassword">
+		update member
+		set password=#{password}
+		where mno=#{no}
+	</update>
+		
+	<update id="updateMyNickname">
+		update member
+		set nickname=#{nickName}
+		where mno=#{no}
+	</update>
+	
+	<select id="selectOrderListMonth" resultMap="orderListSet">
+		select * 
+		from orders
+		join product using(pno)
+		join product_image using(pno)
+		join payment y on(y.pno=payno)
+		where mno=#{no} and piorderby=1 and odate between add_months(sysdate, -#{month}) and sysdate
+		order by ono desc
+	</select>
+	
+	<select id="getOrderListMonthCount" resultType="_int">
+		select count(*)
+		from orders
+		join product using(pno)
+		join product_image using(pno)
+		join payment y on(y.pno=payno)
+		where mno=#{no} and piorderby=1 and pistatus='Y' and odate between add_months(sysdate, -#{month}) and sysdate 
+		order by ono desc
+	</select>
+	
+	<select id="getOrderListDateCount" resultType="_int">
+		select count(*)
+		from orders
+		join product using(pno)
+		join product_image using(pno)
+		join payment y on(y.pno=payno)
+		where mno=#{no} and piorderby=1 and pistatus='Y' and odate between #{startDate} and #{endDate}
+		order by ono desc
+	</select>
+	
+	<select id="selectOrderListDate" resultMap="orderListSet">
+		select * 
+		from orders
+		join product using(pno)
+		join product_image using(pno)
+		join payment y on(y.pno=payno)
+		where mno=#{no} and piorderby=1 and pistatus='Y' and odate between #{startDate} and #{endDate}
+		order by ono desc
+	</select>
+	
+	<update id="confirmation">
+		update orders
+		set ostatus='구매확정'
+		where ono=#{ono}
+	</update>
+	
+	<select id="selectReviewTarget" resultMap="orderListSet">
+		select pno,pname,pipath
+		from product
+		join product_image using(pno)
+		where pno=#{pno}
+	</select>
+	
+	<insert id="insertMyReview">
+		insert into product_review values(seq_product_review.nextval,#{memberNo},#{productNo},#{content},#{point},sysdate,default)
+	</insert>
+	
+	<select id="selectBeforeReviewList" resultMap="orderListSet">
+		select *
+		from orders
+		join product using(pno)
+		join product_image using(pno)
+		join payment y on(y.pno=payno)
+		where mno=#{no} and piorderby=1 and pistatus='Y' and ostatus='구매확정' and odate between add_months(sysdate, -1) and sysdate
+		order by ono desc
+	</select>
+	
+	<select id="getReviewListCount" resultType="_int">
+		select count(*)
+		from product_review
+		join product using(pno)
+		join product_image using(pno)
+		where mno=#{no} and prstatus='Y' and piorderby=1 and pistatus='Y'
+		order by prno desc
+	
+	</select>
+	
+	<select id="selectMyReviewList" resultMap="reviewSet">
+		select * 
+		from product_review
+		join product using(pno)
+		join product_image using(pno)
+		where mno=#{no} and prstatus='Y' and piorderby=1 and pistatus='Y'
+		order by prno desc
+			
+	</select>
+	
+	<select id="selectMyCouponList" resultMap="myCouponSet">
+		<![CDATA[
+			select *
+			from coupon
+			join coupon_information using(cino)
+			where mno=#{no} and status='Y' and cienddate > sysdate
+			order by cienddate
+		]]>
+	</select>
+	
+	<select id="selectDietListToday" resultMap="dietSet">
+		select * 
+		from foodmanagement
+		where mno=#{no} and to_char(fmdate,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd') and fmstatus='Y'
+	</select>
+	
+	<select id="selectDietList" resultMap="dietSet">
+		select * 
+		from foodmanagement
+		where mno=#{no} and to_char(fmdate,'yyyy-mm-dd')=#{date} and fmstatus='Y'
+	</select>
+	
+	<update id="deleteDiet">
+		update foodmanagement
+		set fmstatus='N'
+		where fmno=#{fmno}
+	</update>
+	
+	<select id="selectTargetProduct" resultMap="dietSet">
+		select pname as foodname, calorie
+		from product
+		where pno=#{pno}
+	</select>
+	
+	<insert id="recodeDiet">
+		insert into foodmanagement values(seq_foodmanagement.nextval,#{memberNo},#{foodName},#{calories},#{meno},#{type},null,default)
+	</insert>
+	<insert id="recodeDietToday">
+		insert into foodmanagement values(seq_foodmanagement.nextval,#{memberNo},#{foodName},#{calories},sysdate,#{type},null,default)
+	</insert>
 
 </mapper>

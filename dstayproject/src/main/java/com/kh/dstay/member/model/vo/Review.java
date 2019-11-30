@@ -18,9 +18,11 @@ public class Review {
 	private int no;
 	private int memberNo;
 	private int productNo;
+	private String productName;
 	private String content;
 	private int point;
 	private Date date;
 	private String status;
+	private String piPath;
 	
 }

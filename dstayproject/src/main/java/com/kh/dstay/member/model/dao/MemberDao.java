@@ -1,8 +1,11 @@
 package com.kh.dstay.member.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.validation.constraints.Email;
+
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -56,15 +59,17 @@ public class MemberDao {
 	
 	// 마이페이지 dao
 	public ArrayList<Diet> selectDietList(Member m, String date) {
-		return null;
+		HashMap map=new HashMap();
+		map.put("no",m.getNo());
+		map.put("date",date);
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectDietList",map);
 	}
 	public int insertDiet(Diet d) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	public int deleteDiet(Diet d) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteDiet(int fmno) {
+		return sqlSession.update("mypageMapper.deleteDiet",fmno);
 	}
 	public DietaryGoal selectMyDietaryGoal(Member m) {
 		return sqlSession.selectOne("mypageMapper.selectMyDietaryGoal",m);
@@ -76,49 +81,83 @@ public class MemberDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public ArrayList<OrderInfo> selectOrderList(Member m, PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<OrderInfo> selectOrderList(Member m,int month, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		HashMap map=new HashMap();
+		map.put("no",m.getNo());
+		map.put("month",month);
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectOrderListMonth",map,rowBounds);
 	}
 	public ArrayList<OrderInfo> selectOrderList(Member m, String startDate, String endDate,PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+		HashMap map=new HashMap();
+		map.put("no",m.getNo());
+		map.put("startDate",startDate);
+		map.put("endDate",endDate);
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectOrderListDate",map,rowBounds);
 	}
-	public int firmOffer(OrderInfo oi) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int confirmation(int ono) {
+		return sqlSession.update("mypageMapper.confirmation",ono);
 	}
 	public ArrayList<OrderInfo> selectBeforeReviewList(Member m, PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectBeforeReviewList",m,rowBounds);
 	}
 	public int insertMyReview(Review r) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert("mypageMapper.insertMyReview",r);
 	}
 	public ArrayList<Review> selectMyReviewList(Member m, PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectMyReviewList",m,rowBounds);
 	}
-	public ArrayList<MyCoupon> selectMyCouponList(Member m, PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<MyCoupon> selectMyCouponList(Member m) {
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectMyCouponList",m);
 	}
 	public int updateMyPassword(Member m) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("mypageMapper.updateMyPassword",m);
 	}
 	public int updateMyNickname(Member m) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	public int updateMyPhone(Member m) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("mypageMapper.updateMyNickname",m);
 	}
 	public int withdrawal(Member m) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	public int getOrderListCount(Member m, int month) {
+		HashMap map=new HashMap();
+		map.put("no",m.getNo());
+		map.put("month",month);
+		return sqlSession.selectOne("mypageMapper.getOrderListMonthCount",map);
+	}
+	public int getOrderListDateCount(Member m, String startDate, String endDate) {
+		HashMap map=new HashMap();
+		map.put("no",m.getNo());
+		map.put("startDate",startDate);
+		map.put("endDate",endDate);
+		return sqlSession.selectOne("mypageMapper.getOrderListDateCount",map);
+	}
+	public OrderInfo selectReviewTarget(int pno) {
+		return sqlSession.selectOne("mypageMapper.selectReviewTarget",pno);
+	}
+	public int getReviewListCount(Member m) {
+		return sqlSession.selectOne("mypageMapper.getReviewListCount",m);
+	}
+	public ArrayList<Diet> selectDietListToday(Member m) {
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectDietListToday",m);
+	}
+	public Diet selectTargetProduct(int pno) {
+		return sqlSession.selectOne("mypageMapper.selectTargetProduct",pno);
+	}
+	public int recodeDiet(Diet d) {
+		return sqlSession.insert("mypageMapper.recodeDiet",d);
+	}
+	public int recodeDietToday(Diet d) {
+		return sqlSession.insert("mypageMapper.recodeDietToday",d);
 	}
 	
 	

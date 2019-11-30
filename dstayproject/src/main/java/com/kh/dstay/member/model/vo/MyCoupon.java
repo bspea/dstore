@@ -19,8 +19,9 @@ public class MyCoupon {
 	private int memberNo;
 	private int couponInfoNo;
 	private int productNo;
-	private int couponCode;
+	private String couponCode;
 	private String couponName;
+	private String category;
 	private double saleRate;
 	private Date startDate;
 	private Date endDate;

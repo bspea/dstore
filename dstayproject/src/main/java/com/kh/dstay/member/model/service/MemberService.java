@@ -37,12 +37,14 @@ public interface MemberService {
 	
 	// 등록한 식단 불러오기
 	ArrayList<Diet> selectDietList(Member m,String date);
+	ArrayList<Diet> selectDietListToday(Member m);
+	
 	
 	// 식단 등록
 	int insertDiet(Diet d);
 	
 	// 식단 삭제
-	int deleteDiet(Diet d);
+	int deleteDiet(int fmno);
 	
 	// 식단관리 목표 조회
 	DietaryGoal selectMyDietaryGoal(Member m);
@@ -54,13 +56,13 @@ public interface MemberService {
 	ArrayList<FoodSearch> searchFoodList(String str);
 	
 	// 주문내역 조회
-	ArrayList<OrderInfo> selectOrderList(Member m, PageInfo pi);
+	ArrayList<OrderInfo> selectOrderList(Member m, int month,PageInfo pi);
 	
 	// 주문내역 기간 조회
 	ArrayList<OrderInfo> selectOrderList(Member m, String startDate, String endDate, PageInfo pi);
 	
 	// 주문확정
-	int firmOffer(OrderInfo oi);
+	int confirmation(int ono);
 	
 	// 환불요청 추가
 	
@@ -74,7 +76,7 @@ public interface MemberService {
 	ArrayList<Review> selectMyReviewList(Member m,PageInfo pi);
 	
 	// 쿠폰 조회
-	ArrayList<MyCoupon> selectMyCouponList(Member m,PageInfo pi);
+	ArrayList<MyCoupon> selectMyCouponList(Member m);
 	
 	// 개인정보 수정
 	// 비밀번호 수정
@@ -83,16 +85,22 @@ public interface MemberService {
 	// 닉네임 수정
 	int updateMyNickname(Member m);
 	
-	// 휴대폰 수정
-	int updateMyPhone(Member m);
-	
 	// 회원탈퇴
 	int withdrawal(Member m);
 	
+	// 주문내역 개수 조회
+	int getOrderListCount(Member m,int month);
+	int getOrderListDateCount(Member m, String startDate, String endDate);
 	
+	// 후기 타겟 조회
+	OrderInfo selectReviewTarget(int pno);
+	// 후기개수 조회
+	int getReviewListCount(Member m);
 	
+	Diet selectTargetProduct(int pno);
 	
-	
+	int recodeDiet(Diet d);
+	int recodeDietToday(Diet d);
 	
 	
 	
