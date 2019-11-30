@@ -228,10 +228,8 @@
 							$(".hiddenNumber").show();
 							randomKey = random;
 							$("#exampleInputPassword").focus();
-							console.log(randomKey);
 						}
 						})
-						
 				}else {
 					alert("올바른 이메일 형식으로 입력해 주세요");
 					$("#ajaxEmail").focus();

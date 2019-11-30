@@ -12,9 +12,9 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private MemberDao mDao;
 	@Override
-	public Member login(Member mem) {
+	public Member login(String email) {
 		// TODO Auto-generated method stub
-		return mDao.login(mem);
+		return mDao.login(email);
 	}
 	@Override
 	public int ajaxDuplicateCheck(@Email String email) {

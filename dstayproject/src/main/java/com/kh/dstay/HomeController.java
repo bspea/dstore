@@ -3,6 +3,9 @@ package com.kh.dstay;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -74,15 +77,27 @@ public class HomeController {
 	}
 	@RequestMapping("login.do")
 	public ModelAndView login(ModelAndView mv,@RequestParam("email")@Email String email,@RequestParam("password") String password,HttpSession session) {
-		mem.setEmail(email); 
-		Member loginUser = mService.login(mem);
-		if(loginUser != null && bcryptPasswordEncoder.matches(password, loginUser.getPassword())) {
-			session.setAttribute("loginUser", loginUser);
-			mv.setViewName("redirect:home.do");
+		if(validatePassword(password)) {
+			Member loginUser = mService.login(email);
+			if(loginUser != null && bcryptPasswordEncoder.matches(password, loginUser.getPassword())) {
+				session.setAttribute("loginUser", loginUser);
+				mv.setViewName("redirect:home.do");
+			}else {
+				mv.addObject("loginMsg","존재하지 않는 아이디거나 비밀번호가 다릅니다").setViewName("2_bak/loginForm");
+			}
 		}else {
-			mv.addObject("loginMsg","존재하지 않는 아이디거나 비밀번호가 다릅니다").setViewName("2_bak/loginForm");
+			mv.addObject("email",email).setViewName("2_bak/resetPasswordForm");
 		}
 		return mv;
+	}
+	private boolean validatePassword(String password) {
+		// TODO Auto-generated method stub
+		Pattern pattern = Pattern.compile("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/");
+		Matcher matcher = pattern.matcher(password);
+		if(matcher.matches()) {
+			return true;
+		}
+		return false;
 	}
 	@RequestMapping("ajaxGoogleLogin.do")@ResponseBody
 	public String ajaxGoogleLogin(HttpSession session,@RequestParam("googleEmail")String googleEmail,@RequestParam("idToken")String idToken) {
@@ -144,10 +159,6 @@ public class HomeController {
 	@RequestMapping("findEmailForm.do")
 	public String findEmail() {
 		return "2_bak/findEmailForm";
-	}
-	@RequestMapping("resetPasswordForm")
-	public String resetPasswordForm() {
-		return "2_bak/resetPasswordForm";
 	}
 	@RequestMapping("ajaxDuplicateCheck.do")@ResponseBody
 	public String ajaxDuplicateCheck(@RequestParam("checkEmail")@Email String email) {
@@ -212,7 +223,7 @@ public class HomeController {
 			}
 		}
 	}
-	@RequestMapping("ajaxSendAnEmail.do")
+	@RequestMapping("ajaxSendAnEmail.do")@ResponseBody
 	public String ajaxSendAnEmail(@RequestParam("sendAnEmail")String email) throws MessagingException {
 		String tempPassword = verifyEmail(email,"임시비밀번호");
 		mem.setEmail(email);
@@ -222,6 +233,24 @@ public class HomeController {
 			return "sentAnEmail";
 		}else {
 			return "failedToSendAnEmail";
+		}
+	}
+	@RequestMapping("resetPasswordForm.do")
+	public ModelAndView resetPasswordForm(ModelAndView mv,@RequestParam("findEmail")String findEmail) {
+		logger.info(findEmail);
+		mv.addObject("findEmail",findEmail).setViewName("2_bak/resetPasswordForm");
+		return mv;
+	}
+	@RequestMapping("resetPassword.do")
+	public String resetPassword(HttpSession session,@RequestParam("email")@Email String email,@RequestParam("password")String password) {
+		mem.setEmail(email);
+		mem.setPassword(bcryptPasswordEncoder.encode(password));
+		int result = mService.updateTempMember(mem);
+		if(result>0) {
+			session.setAttribute("loginUser",mem);
+			return "redirect:home.do";
+		}else {
+			return "redirect:2_bak/loginForm.do";
 		}
 	}
 }

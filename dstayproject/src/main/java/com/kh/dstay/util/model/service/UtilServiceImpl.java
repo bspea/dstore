@@ -43,7 +43,7 @@ public class UtilServiceImpl implements UtilService{
 		    params.put("to", phone);
 		    params.put("from", "01045521941");
 		    params.put("type", "SMS");
-		    params.put("text", "인증번호 : " + phoneSMS);
+		    params.put("text", "dstay인증번호 : " + phoneSMS);
 		   // params.put("app_version", "test app 1.2"); // application name and version
 		    HashMap<String,String> checkMap = coolsms.send(params);
 		    return !checkMap.isEmpty();

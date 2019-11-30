@@ -86,7 +86,6 @@
                         <div class="clearfix maya-small-padding"></div>
 
                         <form id="ajaxFindEmailForm" action="" method="post">
-                            </div>  -->
                             <div class="form-group">
                                 <input type="tel" class="form-control" id="account_number" placeholder="휴대폰 번호" required name="phone">
                             </div> 
@@ -143,9 +142,9 @@ $(function () {
 			},
 			success:function(infoMap) {
 				if( infoMap != null) {
+					alert("인증번호가 발송되었습니다");
 					randomSMS = infoMap.SMS;
 					infoMem = infoMap.mem;
-					console.log(randomSMS);
 					$("#bank_account_name").attr("disabled", false);
 				}else {
 					alert("휴대폰 번호를 잘 입력해 주세요");
@@ -162,7 +161,6 @@ $(function () {
 				alert("인증번호가 다릅니다");
 			}
 		}
-
 </script>
 </body>
 </html>

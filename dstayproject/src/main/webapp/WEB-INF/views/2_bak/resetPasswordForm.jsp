@@ -76,6 +76,11 @@
 
     <![endif]-->
 </head>
+<style>
+	.guide{display:none;}.ok{color:green;}.ng{color:red;}.guidePw{display:none;}.okPw{color:green;}
+	.ngNum{color:red;}.ngSpe{color:red;}.ngLower{color:red;}.ngUpper{color:red;}
+	.hiddenNumber{display:none;}
+</style>
 
 <body>
 <jsp:include page="../1_common/menubar.jsp"/>
@@ -104,29 +109,27 @@
                         <div class="clearfix maya-small-padding"></div>
 						
                         	<div class="form-group">
-					            <label for="recipient-name" class="col-form-label" style="float:left">이메일 : </label>
+					            <label for="recipient-name" class="col-form-label" style="float:left">이메일 : ${email }</label>
 					          </div>
-                        <form>
-					            <input type="hidden" class="form-control" id="recipient-name">
-                             <div class="form-group">
-                                <input type="text" class="form-control" id="business_name" placeholder="새 비밀번호" required >
+                        <form action="resetPassword.do" method="post" id="resetPasswordForm">
+					            <input type="hidden" class="form-control" id="recipient-name" name="email" value="${email }">
+                                 <div class="form-group">
+                                <input type="password" class="form-control" id="exampleInputPassword1" pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}"
+                                title="하나이상의 숫자/대문자/소문자/특수문자 를 전부 포함해 주세요" placeholder="비밀번호" name="password" required >
+                            	<span class="helvetica-12 guidePw okPw" >적합한 비밀번호 입니다</span>
                             </div>
-                           <div class="form-group">
-                                <input type="text" class="form-control" id="tagline" placeholder="새 비밀번호 확인" required>
-                            </div> 
-							
-                            <button type="submit" class="btn btn-block button-green-free btn-lg">
-                            	확인
-                            </button>
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="exampleInputPassword2" placeholder="비밀번호확인" required>
+                            </div>
+                            <button type="submit" onclick="return checkResetPw()" class="btn btn-block button-green-free btn-lg" id="submitbtn" disabled>확인</button>
                             
                         </form>
                         <div class="clearfix maya-tiny-padding"></div>
-                        <!-- <p class="text-center"><a href="emailVerify.me" class="text-secondary">이메일로 인증</a></p> -->
                     </div>
                 </div>
             </div>
             
-            
+            <input type="hidden" id="checkHiddenInput">
         </div>
     </div>
 
@@ -150,6 +153,35 @@
 $(function () {
 	  $('[data-toggle="tooltip"]').tooltip()
 	})
+	
+	$("#exampleInputPassword1").change(function() {
+				var reg = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/);
+				var checkPw = $("#exampleInputPassword1").val();
+				if(reg.test(checkPw)) {
+					$(".okPw").show();
+					$("#submitbtn").attr("disabled",false);
+				}else {
+					alert("하나이상의 대문자/숫자/소문자/특수문자를 각각 포함시켜주세요(8자리이상)");
+					$(".okPw").hide();
+					$("#exampleInputPassword1").focus().val("");
+				}
+			})
+				$("#exampleInputPassword2").on("keyup", function() {
+					if(($("#exampleInputPassword2").val()) != "" && ($("#exampleInputPassword2").val() == $("#exampleInputPassword1").val())) {
+						$("#checkHiddenInput").val(1);
+					}else {
+						$("#checkHiddenInput").val(0);
+					}
+				})
+			function checkResetPw() {
+				if($("#checkHiddenInput").val() == 1) {
+					return true;
+				}else {
+					alert("비밀번호가 일치하지 않습니다");
+					$("#exampleInputPassword2").focus().val("");
+					return false;
+				}
+			}
 </script>
 </body>
 </html>

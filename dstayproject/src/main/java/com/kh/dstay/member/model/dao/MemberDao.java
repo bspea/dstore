@@ -10,9 +10,9 @@ import com.kh.dstay.member.model.vo.Member;
 public class MemberDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	public Member login(Member mem) {
+	public Member login(String email) {
 		
-		return sqlSession.selectOne("bakMapper.login",mem);
+		return sqlSession.selectOne("bakMapper.login",email);
 	}
 	public int ajaxDuplicateCheck(@Email String email) {
 		// TODO Auto-generated method stub

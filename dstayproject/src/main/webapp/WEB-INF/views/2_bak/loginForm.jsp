@@ -42,9 +42,6 @@
 	
 	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous"> 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" crossorigin="anonymous"> -->
-
 
     <!-- Bootstrap core CSS -->
     <link href="resources/css/2_bak/bootstrap.min.css?after" rel="stylesheet">
@@ -71,6 +68,8 @@
     <script type="text/javascript" src="resources/js/2_bak/mobile-menu.js"></script>
     <script type="text/javascript" src="resources/js/2_bak/mainBanner.js"></script>
 
+	<!--Cookies  -->
+	<script src="resources/js/2_bak/package/src/js.cookie.js"></script>
     <style>
     html, body {
         height: 100%;
@@ -123,7 +122,31 @@
     /* 테스트용 CSS */
     </style>
 </head>
-
+<script>
+/*아이디 기억하기  */
+	$(document).ready(function() {
+		var dstaymember = Cookies.get("dstayMember");
+		if(dstaymember != "" && dstaymember != "undefined") {
+			$("#exampleInputEmail1").val(dstaymember);
+		}
+		if($("#exampleInputEmail1").val() != "") {
+			$("#rememberIdCheck").attr("checked",true);
+		}
+		if($("#rememberIdCheck").is(":checked")) {
+			if($("#exampleInputEmail1").val() != "") {
+				Cookies.set("dstayMember",$("#exampleInputEmail1").val(),{ expires: 7 });
+				$("#rememberIdCheck").attr("checked",true);
+			}
+		}
+		$("#rememberIdCheck").change(function() {
+			if($("#rememberIdCheck").is(":checked") && ($("#exampleInputEmail1").val() != "")) {
+				Cookies.set("dstayMember",$("#exampleInputEmail1").val(),{ expires: 7 });
+			}else {
+				Cookies.remove("dstayMember");
+			}
+		})
+	})
+</script>
 <body>
 <jsp:include page="../1_common/menubar.jsp"/>
 
@@ -155,9 +178,9 @@
                                 <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호" required>
                             </div>
                              <div class="checkbox" style="float:left;">
-                               <!--  <label>
-                                    <input type="checkbox"> <span class="text-gray-2 helvetica-12">아이디 기억하기</span>
-                                </label>  -->
+                                <label>
+                                    <input type="checkbox" id="rememberIdCheck"> <span class="text-gray-2 helvetica-12">아이디 기억하기</span>
+                                </label>
                             </div> 
                             <!--비밀번호찾기  -->
                                                         <div class="checkbox" align="right" style="float:right">
@@ -279,8 +302,10 @@
 <script src="resources/js/2_bak/kimi.js"></script>
 
 <script>
+var varSendAnEmail;
 	$(document).ready(function() {
 		$("#modalSendAnEmailForm").on("submit",function() {
+			varSendAnEmail = $("input[name=sendAnEmail]").val();
 			$.ajax({
 				url:"ajaxSendAnEmail.do",
 				method:"post",
@@ -290,16 +315,16 @@
 				},
 				success:function(msg) {
 					if(msg=="sentAnEmail") {
-						alert(msg);
-							var varSendAnEmail = $("input[name=sendAnEmail]").val();
-							$("input[name=findEmail]").val(varSendAnEmail);
-							$("#sendAnEmailForm").submit();
-							alert(varSendAnEmail);
+						resetPassword();
 					}
 				}
 			})
 		})
 	})
+		function resetPassword() {
+			$("input[name=findEmail]").val(varSendAnEmail);
+			$("#sendAnEmailForm").submit();
+	}
 		/* 구글로 로그인 */
 		function init() {
 		  console.log('call init ');

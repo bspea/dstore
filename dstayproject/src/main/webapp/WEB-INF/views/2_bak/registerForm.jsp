@@ -155,7 +155,7 @@
                                 <input type="text" class="form-control" id="exampleInputPassword" placeholder="인증번호를 입력해주세요">
                                 <div class="clearfix maya-tiny-padding"></div>
                                 <button type="button" onclick="verifyEmail()" class="btn btn-outline-primary" >확인</button>
-                                <button type="reset" onclick="resetInput()" class="btn btn-outline-primary" >재입력</button>
+                                <!-- <button type="reset" onclick="resetInput()" class="btn btn-outline-primary" >재입력</button> -->
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" id="exampleInputPassword1" pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}"
@@ -168,15 +168,17 @@
                           <div class="form-group">
                                 <input type="text" class="form-control" id="mobilenumber" placeholder="닉네임" name="nickName" required>
                           </div> 
-                            <button type="submit" class="btn btn-block button-green-free btn-lg" id="submitbtn" disabled>가입하기</button>
+                            <button type="submit" onclick="return checkResetPw()" class="btn btn-block button-green-free btn-lg" id="submitbtn" disabled>가입하기</button>
                         </form>
                         <div class="clearfix maya-tiny-padding"></div>
-                        <p class="text-center">회원이신가요 &nbsp; <a href="loginForm.do" class="text-secondary">&nbsp;로그인</a></p>
+                       <!--  <p class="text-center">회원이신가요 &nbsp; <a href="loginForm.do" class="text-secondary">&nbsp;로그인</a></p> -->
+                       
                 </div>
             </div>
         </div>
     </div>
-
+<input type="hidden" id="checkHiddenInput">
+<input type="hidden" id="checkHiddenEmail">
 </div><!-- /.container -->
 
 <!--include footer-->
@@ -214,6 +216,7 @@
 				})
 	})
 		function duplicateCheck() {
+			$.ajax({
 				url:"ajaxDuplicateCheck.do",
 				method:"post",
 				data:{checkEmail:$("#ajaxEmail").val()},
@@ -247,7 +250,6 @@
 							$(".hiddenNumber").show();
 							randomKey = random;
 							$("#exampleInputPassword").focus();
-							console.log(randomKey);
 						}
 						})
 				}else {
@@ -257,10 +259,12 @@
 			}
 			function verifyEmail() {
 				if($("#exampleInputPassword").val() == randomKey) {
+					$("#checkHiddenEmail").val(1);
 					alert("인증이 완료되었습니다");
 					$("#ajaxEmail").attr("readonly",true);
 					$("#exampleInputPassword1").focus();
 				}else {
+					$("#checkHiddenEmail").val(0);
 					alert("인증번호가 일치하지 않습니다");
 					$("#exampleInputPassword").focus();
 				}
@@ -272,17 +276,33 @@
 				var reg = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/);
 				var checkPw = $("#exampleInputPassword1").val();
 				if(reg.test(checkPw)) {
-					console.log(reg.test(checkPw));
 					$(".okPw").show();
+					$("#submitbtn").attr("disabled",false);
 				}else {
-					alert("다시 입력해 주세요");
+					alert("하나이상의 대문자/숫자/소문자/특수문자를 각각 포함시켜주세요(8자리이상)");
+					$(".okPw").hide();
+					$("#exampleInputPassword1").focus().val("");
 				}
 			})
-				$("#exampleInputPassword2").on("change", function() {
+				$("#exampleInputPassword2").on("keyup", function() {
 					if(($("#exampleInputPassword2").val()) != "" && ($("#exampleInputPassword2").val() == $("#exampleInputPassword1").val())) {
-						$("#submitbtn").attr("disabled",false);
+						$("#checkHiddenInput").val(1);
+					}else {
+						$("#checkHiddenInput").val(0);
 					}
 				})
+			function checkResetPw() {
+				if($("#checkHiddenEmail").val() == 0) {
+					alert("이메일 인증을 완료해 주세요");
+					return false;
+				}else if($("#checkHiddenEmail").val() == 1 && $("#checkHiddenInput").val() == 0) {
+					alert("비밀번호가 일치하지 않습니다");
+					$("#exampleInputPassword2").focus().val("");
+					return false;
+				}else if($("#checkHiddenInput").val() == 1 && $("#checkHiddenEmail").val() == 1) {
+					return true;
+				}
+			}
 </script>
 </body>
 </html>
