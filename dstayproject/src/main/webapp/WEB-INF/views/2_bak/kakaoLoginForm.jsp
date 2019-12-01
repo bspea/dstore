@@ -36,20 +36,11 @@
     <meta name="twitter:description" content="Kimi is a curated foods and beverages artisans.">
     <meta name="twitter:image" content="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/apple-touch-icon.png">
     <meta name="twitter:site" content="@backtokimi">
-
-	<!-- 플러그인  -->
-	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script> -->
     <link rel="icon" href="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/favicon.ico">
     <link rel="apple-touch-icon" href="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/apple-touch-icon.png">
 	<!--  -->
 	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous"> 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" crossorigin="anonymous"> -->
-
-    <!--  -->
 
     <!-- Bootstrap core CSS -->
     <link href="resources/css/2_bak/bootstrap.min.css?after" rel="stylesheet">
@@ -189,7 +180,6 @@
 			if(check == "" || !reg.test(check)) {
 				$(".ok").hide();
 				$(".ng").show();
-				//$(".guide").hide();
 				$("#hiddenCheck").val(0);
 			}else if(reg.test(check)){
 			    $(".ng").hide();
@@ -214,17 +204,12 @@
 				success:function(string) {
 					console.log("ongoing");
 					if(string == "available") {
-						/* $(".ok").show();
-						$(".ng").hide(); */
 						$("#hiddenCheck").val(1);
 						$("#validatebtn").attr("disabled",false);
 						
 					}else {
 						$("#hiddenCheck").val(0);
 						$("#validatebtn").attr("disabled",true);
-						/* $(".ok").hide();
-						$(".ng").show(); */
-						
 					}
 				}
 			})
@@ -232,7 +217,6 @@
 				var randomKey;
 			function validateEmail() {
 				if($("#hiddenCheck").val() == 1) {
-					//$("#validatebtn").attr("disabled",false);
 					$.ajax({
 						url:"ajaxVerifyEmail.do",
 						method:"post",
@@ -244,15 +228,11 @@
 							$(".hiddenNumber").show();
 							randomKey = random;
 							$("#exampleInputPassword").focus();
-							console.log(randomKey);
 						}
 						})
-						
 				}else {
-					//$("#validatebtn").attr("disabled",true);
 					alert("올바른 이메일 형식으로 입력해 주세요");
 					$("#ajaxEmail").focus();
-					
 				}
 			}
 			function verifyEmail() {

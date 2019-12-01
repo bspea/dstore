@@ -3,13 +3,13 @@ package com.kh.dstay;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Email;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +17,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Validator;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.kh.dstay.guestOrder.model.service.GuestOrderService;
@@ -33,7 +30,6 @@ import com.kh.dstay.member.model.service.MemberService;
 import com.kh.dstay.member.model.vo.Member;
 import com.kh.dstay.util.model.service.UtilService;
 import com.kh.dstay.util.model.vo.UtilParameter;
-
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 /**
@@ -68,7 +64,7 @@ public class HomeController {
 		return "4_jong/mainPage";
 	}
 	@RequestMapping("loginForm.do")
-	public ModelAndView loginForm(HttpSession session,ModelAndView mv,@RequestParam(value="email", required=false)String findEmail ) {
+	public ModelAndView loginForm(HttpSession session,ModelAndView mv,@RequestParam(value="findEmail", required=false)String findEmail ) {
 		session.setAttribute("kakaoJavascriptKey", utilParam.getKakaoJavascriptKey());
 		session.setAttribute("googleClientId", utilParam.getGoogleClientId());
 		session.setAttribute("naverClientId", utilParam.getNaverClientId());
@@ -81,16 +77,27 @@ public class HomeController {
 	}
 	@RequestMapping("login.do")
 	public ModelAndView login(ModelAndView mv,@RequestParam("email")@Email String email,@RequestParam("password") String password,HttpSession session) {
-		mem.setEmail(email); 
-		mem.setPassword(bcryptPasswordEncoder.encode(password));
-		Member loginUser = mService.login(mem);
-		if(loginUser != null && bcryptPasswordEncoder.matches(password, mem.getPassword())) {
-			session.setAttribute("loginUser", loginUser);
-			mv.setViewName("redirect:home.do");
+		if(validatePassword(password)) {
+			Member loginUser = mService.login(email);
+			if(loginUser != null && bcryptPasswordEncoder.matches(password, loginUser.getPassword())) {
+				session.setAttribute("loginUser", loginUser);
+				mv.setViewName("redirect:home.do");
+			}else {
+				mv.addObject("loginMsg","존재하지 않는 아이디거나 비밀번호가 다릅니다").setViewName("2_bak/loginForm");
+			}
 		}else {
-			mv.addObject("loginMsg","존재하지 않는 아이디거나 비밀번호가 다릅니다").setViewName("2_bak/loginForm");
+			mv.addObject("email",email).setViewName("2_bak/resetPasswordForm");
 		}
 		return mv;
+	}
+	private boolean validatePassword(String password) {
+		// TODO Auto-generated method stub
+		Pattern pattern = Pattern.compile("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/");
+		Matcher matcher = pattern.matcher(password);
+		if(matcher.matches()) {
+			return true;
+		}
+		return false;
 	}
 	@RequestMapping("ajaxGoogleLogin.do")@ResponseBody
 	public String ajaxGoogleLogin(HttpSession session,@RequestParam("googleEmail")String googleEmail,@RequestParam("idToken")String idToken) {
@@ -110,14 +117,8 @@ public class HomeController {
 	}
 	@RequestMapping(value="ajaxNaverUserprofile.do")@ResponseBody
 	public String ajaxNaverUserprofile(HttpSession session,@RequestParam(value="email",required=false)String email,@RequestParam("nickName")String nickName,@RequestParam("id")String password) {
-		mem.setNickName(nickName);
-		mem.setPassword(password);
-		
-		  if(email != "" || email != null) {
-			  session.setAttribute("mem", mem);
-			  logger.info(mem.toString());
-			  return "";
-		  }else {
+			mem.setNickName(nickName);
+			mem.setPassword(password);
 			mem.setEmail(email);
 			Member loginUser = mService.ajaxNaverUserprofile(mem);
 			if(loginUser !=null) {
@@ -127,26 +128,24 @@ public class HomeController {
 				return "apiLoginFail";
 			}	
 		}
-	}
 	@RequestMapping("kakaoLoginForm.do")
-	public String kakaoLogin() {
-		return "2_bak/kakaoLoginForm";
+	public ModelAndView kakaoLogin(ModelAndView mv,@RequestParam("nickName")String nickName,@RequestParam("password")String password) {
+		mem.setNickName(nickName);
+		mem.setPassword(password);
+		mv.addObject("mem", mem).setViewName("2_bak/kakaoLoginForm");
+		return mv;
 	}
 	@RequestMapping("kakaoLogin.do")
 	public String kakaoLogin(HttpSession session,@RequestParam("email")@Email String email,@RequestParam("nickName")String nickName,@RequestParam("password")String password) {
-		/*mem.setEmail(email);
+		mem.setEmail(email);
 		mem.setNickName(nickName);
 		mem.setPassword(password);
 		int result = mService.insertMember(mem);
 		if(result>0) {
-			session.setAttribute("loginUser", mem);
-			session.removeAttribute("kakaoTemp");
 			return "redirect:home.do";
 		}else {
-			return "home";
-		}*/
-		logger.info(email+"//"+nickName+"//"+password);
-		return "";
+			return "redirect:loginForm.do";
+		}
 	}
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {
@@ -160,10 +159,6 @@ public class HomeController {
 	@RequestMapping("findEmailForm.do")
 	public String findEmail() {
 		return "2_bak/findEmailForm";
-	}
-	@RequestMapping("resetPasswordForm")
-	public String resetPasswordForm() {
-		return "2_bak/resetPasswordForm";
 	}
 	@RequestMapping("ajaxDuplicateCheck.do")@ResponseBody
 	public String ajaxDuplicateCheck(@RequestParam("checkEmail")@Email String email) {
@@ -227,19 +222,35 @@ public class HomeController {
 				gson.toJson(infoMap, response.getWriter());
 			}
 		}
-		//return "none";
 	}
-	@RequestMapping("sendAnEmail.do")
-	public ModelAndView sendAnEmail(ModelAndView mv,@RequestParam("email")String email) throws MessagingException {
+	@RequestMapping("ajaxSendAnEmail.do")@ResponseBody
+	public String ajaxSendAnEmail(@RequestParam("sendAnEmail")String email) throws MessagingException {
 		String tempPassword = verifyEmail(email,"임시비밀번호");
 		mem.setEmail(email);
 		mem.setPassword(bcryptPasswordEncoder.encode(tempPassword));
 		int result = mService.updateTempMember(mem);
 		if(result>0) {
-			mv.setViewName("loginForm");
+			return "sentAnEmail";
 		}else {
-			mv.addObject("findEmailMsg","해당 이메일이 없습니다");//
+			return "failedToSendAnEmail";
 		}
+	}
+	@RequestMapping("resetPasswordForm.do")
+	public ModelAndView resetPasswordForm(ModelAndView mv,@RequestParam("findEmail")String findEmail) {
+		logger.info(findEmail);
+		mv.addObject("findEmail",findEmail).setViewName("2_bak/resetPasswordForm");
 		return mv;
+	}
+	@RequestMapping("resetPassword.do")
+	public String resetPassword(HttpSession session,@RequestParam("email")@Email String email,@RequestParam("password")String password) {
+		mem.setEmail(email);
+		mem.setPassword(bcryptPasswordEncoder.encode(password));
+		int result = mService.updateTempMember(mem);
+		if(result>0) {
+			session.setAttribute("loginUser",mem);
+			return "redirect:home.do";
+		}else {
+			return "redirect:2_bak/loginForm.do";
+		}
 	}
 }

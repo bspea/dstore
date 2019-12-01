@@ -28,8 +28,6 @@
     	success:function(msg) {
     		if(msg == "apiLoginSuccess") {
 	    		location.href="home.do";
-    		}else {
-    			console.log("go next");
     		}
     	}
     })
