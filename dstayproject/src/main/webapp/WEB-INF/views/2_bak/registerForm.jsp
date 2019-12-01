@@ -112,10 +112,30 @@
         vertical-align: middle;
 }
 .p-3 {padding: 5px;}
-.guide{display:none;}.ok{color:green;}.ng{color:red;}.guidePw{display:none;}.okPw{color:green;}
+.guide{display:none;}.ok{color:green;}.ng{color:red;}.guidePw{display:none;}.okPw{color:green;}.duplicate{color:red;}
 .ngNum{color:red;}.ngSpe{color:red;}.ngLower{color:red;}.ngUpper{color:red;}
 .hiddenNumber{display:none;}
 
+#loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #ddd;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  display:none;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
     /* 테스트용 CSS */
     </style>
 </head>
@@ -146,6 +166,7 @@
                                 <input type="email" class="form-control" id="ajaxEmail" placeholder="이메일(예:user01@dstay.com)" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" name = "email" required >
                                 <span class="helvetica-12 guide ok" >사용가능한 이메일 입니다</span>
                                 <span class="helvetica-12 guide ng" >이메일 형식에 맞춰 입력해 주세요</span>
+                                <span class="helvetica-12 guide duplicate" >이메일이 중복 됩니다</span>
                                 <input type="hidden" id="hiddenCheck" value="0"><br>
                                 <span class="text-gray-2 helvetica-12" align="center">이메일 내용을 확인한 후 인증하셔야 회원가입이 완료됩니다</span>
                                 <div class="clearfix maya-tiny-padding"></div>
@@ -180,7 +201,7 @@
 <input type="hidden" id="checkHiddenInput">
 <input type="hidden" id="checkHiddenEmail">
 </div><!-- /.container -->
-
+<div id="loader"></div>
 <!--include footer-->
 <div class="include-footer"></div>
 
@@ -201,12 +222,13 @@
 			var check = $(this).val();
 			if(check == "" || !reg.test(check)) {
 				$(".ok").hide();
+				$(".duplicate").hide();
 				$(".ng").show();
 				$("#hiddenCheck").val(0);
 			}else if(reg.test(check)){
-			    $(".ng").hide();
-				$(".ok").show(); 
 				duplicateCheck();
+			    //$(".ng").hide();
+				//$(".ok").show(); 
 			}
 		})
 		$("#exampleInputPassword2").on("keyup", function() {
@@ -227,9 +249,15 @@
 					console.log("ongoing");
 					if(string == "available") {
 						$("#hiddenCheck").val(1);
+						$(".ng").hide();
+						$(".duplicate").hide();
+						$(".ok").show();
 						$("#validatebtn").attr("disabled",false);
 					}else {
 						$("#hiddenCheck").val(0);
+						$(".ok").hide();
+						$(".ng").hide();
+						$(".duplicate").show();
 						$("#validatebtn").attr("disabled",true);
 					}
 				}
@@ -239,6 +267,7 @@
 			function validateEmail() {
 				if($("#hiddenCheck").val() == 1) {
 					alert("인증번호를 발송하였습니다 잠시만 기다려 주세요");
+					$("#loader").show();
 					$.ajax({
 						url:"ajaxVerifyEmail.do",
 						method:"post",
@@ -247,6 +276,7 @@
 							console.log("disconnected")
 						},
 						success:function(random) {
+							$("#loader").hide();
 							$(".hiddenNumber").show();
 							randomKey = random;
 							$("#exampleInputPassword").focus();
