@@ -190,7 +190,7 @@
 			select *
 			from coupon
 			join coupon_information using(cino)
-			where mno=#{no} and status='Y' and cienddate > sysdate
+			where mno=#{no} and status='Y' and (cienddate > sysdate or cienddate is null)
 			order by cienddate
 		]]>
 	</select>

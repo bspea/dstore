@@ -592,7 +592,7 @@
                       				+"<div class='review-tag review-tag-active' onclick='loadMypageContent("+"'review.do'"+",1)'>작성가능 후기</div>"
                       				+"<div class='review-tag' onclick='selectMyReview()'>작성완료 후기</div>"
                   				+"</div>"
-                	if(data.length>0){
+                	if(data.list.length>0){
                 		
                 	
                   	$.each(data.list,function(i,v){
@@ -641,8 +641,13 @@
 			                        	+v.couponName
 			                    +"</div>"
 			                    +"<div class='coupon-date'>"
-			                        +v.endDate
-			                    +"</div>"
+			                    if(v.endDate==undefined){
+			                    	str+="제한없음"
+			                    }else{
+			                        str+=v.endDate
+			                    }
+			                    
+			                    str+="</div>"
 			                    +"<div class='order-price-amount'>"
 			                        +"<div class='order-price'>"
 			                    		if(v.saleRate<1){
@@ -890,7 +895,7 @@
 						 success:function(result){
 							 if(result>0){
 								 alert("수정 성공");
-								 loadMypageContent("info.do",1);
+								 location.reload();
 							 }else{
 								 alert("수정 실패");
 							 }
@@ -1006,6 +1011,11 @@
 			                              +"<button class='btn-red' onclick='reviewWriteForm("+v.productNo+")'>후기작성</button>"
 			                          +"</div>"
 			                      		
+			                      	}else if(v.status=="환불대기"){
+			                      		str+="<div class='reviewBtn'>"
+				                              +"<button class='btn-red'>환불대기</button>"
+				                          +"</div>"
+			                      	
 			                      	}else{
 			                      		
 			                      		str+="<div class='delivery'>"
@@ -1081,6 +1091,11 @@
 		                              +"<button class='btn-red' onclick='reviewWriteForm("+v.productNo+")'>후기작성</button>"
 		                          +"</div>"
 		                      		
+		                      	}else if(v.status=="환불대기"){
+		                      		str+="<div class='reviewBtn'>"
+			                              +"<button class='btn-red'>환불대기</button>"
+			                          +"</div>"
+		                      	
 		                      	}else{
 		                      		
 		                          str+="<div class='delivery'>"
@@ -1162,7 +1177,7 @@
 			                  +"<div class='review review-header'>"
 			                  +"<div class='product-info'>"
 			                      +"<div class='product-pic'>"
-			                          +"<a href='/dstay/productDetail.do?pdno="+v.productNo+"'>"
+			                          +"<a href='/dstay/productDetail.do?pdno="+data.productNo+"'>"
 			                              +"<img src='"+data.piPath+"' alt=''>"
 			                          +"</a>"
 			                      +"</div>"
