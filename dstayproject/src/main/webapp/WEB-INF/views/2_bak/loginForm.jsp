@@ -314,14 +314,16 @@ var varSendAnEmail;
 					console.log("disconnected");
 				},
 				success:function(msg) {
-					if(msg=="sentAnEmail") {
-						resetPassword();
+					if(msg =="sentAnEmail") {
+						$("#exampleInputEmail1").val("");
+						$("#exampleInputEmail1").val(varSendAnEmail);
+						findPassword();
 					}
 				}
 			})
 		})
 	})
-		function resetPassword() {
+		function findPassword() {
 			$("input[name=findEmail]").val(varSendAnEmail);
 			$("#sendAnEmailForm").submit();
 	}

@@ -138,7 +138,7 @@ $(function () {
 			data:{phone:$("#account_number").val()},
 			dataType:"json",
 			error:function() {
-				console.log("disconnected");
+				alert("등록되지 않은 휴대폰번호입니다");
 			},
 			success:function(infoMap) {
 				if( infoMap != null) {
@@ -157,6 +157,8 @@ $(function () {
 				alert("귀하의 이메일은 " + infoMem + " 입니다");
 				$("input[name=findEmail]").val(infoMem);
 				$("#findEmailForm").submit();
+			}else if($("#bank_account_name").val() == ""){
+				alert("휴대폰 번호를 입력해 주세요");
 			}else {
 				alert("인증번호가 다릅니다");
 			}

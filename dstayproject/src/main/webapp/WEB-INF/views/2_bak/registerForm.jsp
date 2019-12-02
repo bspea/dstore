@@ -227,8 +227,6 @@
 				$("#hiddenCheck").val(0);
 			}else if(reg.test(check)){
 				duplicateCheck();
-			    //$(".ng").hide();
-				//$(".ok").show(); 
 			}
 		})
 		$("#exampleInputPassword2").on("keyup", function() {
