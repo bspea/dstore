@@ -146,7 +146,7 @@
 	  $(function(){
 		  var pathname=location.pathname;
 		  var url=pathname.replace("/dstay/mypage/","");
-		  roadMypageContent(url,1);
+		  loadMypageContent(url,1);
 		  checkTag(url);
 	      $(".navLi1").click(function(){
 	          var tag=$(this).find(".myMenu").attr("href");
@@ -164,14 +164,14 @@
 	      	var name=$(this).children().text();
 	      	var url=$(this).attr("href");
 	      	history.pushState(url,name,url);
-	      	roadMypageContent(url,1);
+	      	loadMypageContent(url,1);
 	      })
 	      $(document).on("click",".myMenu2",function(e){
 	      	e.preventDefault();
 	      	var name=$(this).children().text();
 	      	var url=$(this).attr("href");
 	      	history.pushState(url,name,url);
-	      	roadMypageContent(url,1);
+	      	loadMypageContent(url,1);
 	      })
 	      $(document).on("click",".setting-diet",function(){
 	    	  editDietaryGoal();
@@ -189,7 +189,7 @@
 	    	  pwChangeForm();
 	      })
 	      $(document).on("click","#to-info",function(){
-	    	  roadMypageContent("info.do",1);
+	    	  loadMypageContent("info.do",1);
 	      })
 	      $(document).on("click","#change-nickname",function(){
 	    	  nicknameChangeForm();
@@ -244,7 +244,7 @@
             reviewPoint=5;
         });
         $(document).on("click","#to-review",function(){
-        	roadMypageContent("review.do",1);
+        	loadMypageContent("review.do",1);
         });
         $(document).on("click","#recode-edit",function(){
         	var list=$("input[name='dietNo']:checked");
@@ -312,6 +312,12 @@
         	if(confirm("정말 탈퇴하시겠습니까?")){
         		location.href="withdrawal.do";
         	}
+        })
+        $(document).on("click",".current a",function(){
+        	console.log()
+        	var url=$(this).attr("class");
+        	var page=$(this).text();
+        	loadMypageContent(url,page);
         })
         
 	  })
@@ -389,10 +395,10 @@
 	  }
 	  window.onpopstate = function(event) {
 		  console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
-		  roadMypageContent(event.state,1);
+		  loadMypageContent(event.state,1);
 		  checkTag(event.state);
 	  };
-	  function roadMypageContent(url,page){
+	  function loadMypageContent(url,page){
 			  var $myPageTitle=$(".myPageTitle");
 			  var $myPageTitleInfo=$(".myPageTitleInfo");
 			  var $myPage_content=$(".myPage-content");
@@ -648,7 +654,7 @@
 					  $myPageTitleInfo.text("구매하신 상품에 대한 후기를 남길 수 있습니다");
 					  var str="<div class='review-list-wrap'>"
 	                    		+"<div class='review-tag-wrap'>"
-                      				+"<div class='review-tag review-tag-active' onclick='roadMypageContent("+"'review.do'"+",1)'>작성가능 후기</div>"
+                      				+"<div class='review-tag review-tag-active' onclick='loadMypageContent("+"'review.do'"+",1)'>작성가능 후기</div>"
                       				+"<div class='review-tag' onclick='selectMyReview()'>작성완료 후기</div>"
                   				+"</div>"
                 	if(data.length>0){
@@ -677,7 +683,7 @@
     			    }
 					  str+="</div>"
 						$myPage_content.html(str);
-				      	paging(url,page);
+				      	paging(url,data.pi);
 					  break;
 				  case "coupon.do":
 					  $myPageTitle.text("쿠폰");
@@ -720,7 +726,7 @@
 			                	str+="<div class='order-list'>사용가능한 쿠폰이 없습니다</div>"
 			                }
 		                $myPage_content.html(str);
-				      	paging(url,page);
+				      	paging(url,data.pi);
 					  
 					  break;
 				  case "info.do":
@@ -873,7 +879,7 @@
 					  success:function(result){
 						  if(result>0){
 							  alert("수정 성공");
-						  		roadMypageContent("diet.do",1);			
+						  		loadMypageContent("diet.do",1);			
 						  		location.reload();
 						  }else{
 							  alert("수정실패");
@@ -893,7 +899,23 @@
 		  
 	  }
 	  function paging(url,page){
-		  
+		  if(page.maxPage>1){
+			  var str="<div class='col-md-12 hidden-xs text-center'>"
+					        +"<nav aria-label='Page navigation'>"
+				            +"<ul class='pagination'>"
+				                +"<li class='current'>"
+			  for(var i=1;i<=page.maxPage;i++){
+				  
+				  if(i==page.currentPage){
+					  str+="<a style='background-color:coral'>"+i+"</a>"
+				  }else{
+					  str+="<a class='"+url+"'>"+i+"</a>"
+				  }
+				  
+			  }
+				   str+="</li></ul></nav></div>"
+				   $(".myPage-content").append(str);
+		  }
 	  }
 	  function pwChangeForm(){
 		  var $myPageTitle=$(".myPageTitle");
@@ -934,7 +956,7 @@
 						 success:function(result){
 							 if(result>0){
 								 alert("수정 성공");
-								 roadMypageContent("info.do",1);
+								 loadMypageContent("info.do",1);
 							 }else{
 								 alert("수정 실패");
 							 }
@@ -984,7 +1006,7 @@
 				  success:function(result){
 					  if(result>0){
 						  alert("수정 성공");
-						  roadMypageContent("info.do",1);
+						  loadMypageContent("info.do",1);
 					  }else{
 						  alert("사용할 수 없는 닉네임입니다");
 					  }
@@ -1155,7 +1177,7 @@
 				 success:function(result){
 					 if(result>0){
 						 alert("구매확정");
-						 roadMypageContent("order.do",1);
+						 loadMypageContent("order.do",1);
 					 }else{
 						 alert("구매확정실패");
 					 }
@@ -1241,7 +1263,7 @@
 				 success:function(result){
 					 if(result>0){
 						 alert("후기 등록 성공");
-						 roadMypageContent("review.do",1);
+						 loadMypageContent("review.do",1);
 						 history.pushState("review.do","후기","review.do");
 						 checkTag("review.do");
 					 }else{
@@ -1465,7 +1487,7 @@
 			 data:{fmno:fmno},
 			 success:function(result){
 				 if(date==""){
-		        		roadMypageContent("diet.do",1);
+		        		loadMypageContent("diet.do",1);
 		        	}else{
 		        		selectMyDietList();
 		        	}
