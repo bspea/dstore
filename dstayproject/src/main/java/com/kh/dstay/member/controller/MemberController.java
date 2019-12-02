@@ -22,6 +22,7 @@ import com.kh.dstay.member.model.vo.Member;
 import com.kh.dstay.member.model.vo.MyCoupon;
 import com.kh.dstay.member.model.vo.OrderInfo;
 import com.kh.dstay.member.model.vo.Review;
+import com.kh.dstay.member.model.vo.WishProduct;
 import com.kh.dstay.notice.model.vo.PageInfo;
 
 @Controller
@@ -61,6 +62,7 @@ public class MemberController {
 		HashMap map;
 		ArrayList<MyCoupon> cList;
 		ArrayList<OrderInfo> oList;
+		ArrayList<WishProduct> wList;
 		switch(url) {
 		
 		case "diet.do":
@@ -77,7 +79,13 @@ public class MemberController {
 			gson.toJson(map,response.getWriter());
 			break;
 		case "wishes.do":
-			
+			listCount=mService.getMyWishesCount(m);
+			pi=Pagination.getWishesPageInfo(page,listCount);
+			wList=mService.selectMyWishes(m, pi);
+			map=new HashMap();
+			map.put("list", wList);
+			map.put("pi", pi);
+			gson.toJson(map,response.getWriter());
 			break;
 		case "review.do":
 			listCount=mService.getOrderListCount(m,1);
@@ -277,6 +285,17 @@ public class MemberController {
 		}else {
 			return "redirect:/main.do";
 		}
+	}
+	@RequestMapping("mypage/refund.do")
+	public void refund(HttpSession session,OrderInfo oi,HttpServletResponse response) throws JsonIOException, IOException {
+		Member m=(Member)session.getAttribute("loginUser");
+		oi.setMemberNo(m.getNo());
+		int result=mService.refund(oi);
+		if(result>0) {
+			result=mService.updateOrder(oi);
+		}
+		Gson gson=new Gson();
+		gson.toJson(result,response.getWriter());
 	}
 	
 	

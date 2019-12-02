@@ -68,6 +68,13 @@
 		<result property="status" column="fmstatus"/>
 	</resultMap>
 	
+	<resultMap id="WishSet" type="WishProduct">
+		<id property="productNo" column="pno"/>
+		<result property="memberNo" column="mno"/>
+		<result property="productName" column="pname"/>
+		<result property="imgPath" column="pipath"/>
+		<result property="price" column="price"/>
+	</resultMap>
 
 	<update id="updateMyDietaryGoal">
 		update member
@@ -224,5 +231,26 @@
 		set msno=1, infoupdatedate=sysdate
 		where mno=#{no}
 	</update>
-
+	
+	<select id="getMyWishesCount" resultType="_int">
+		select count(*) from bookmark where mno=#{no}
+	</select>
+	
+	<select id="selectMyWishes" resultMap="WishSet">
+		select * from bookmark
+		join product using(pno)
+		join product_image using(pno)
+		where mno=#{no} and piorderby=1
+		order by bdate desc
+	</select>
+	
+	<insert id="refund">
+		insert into refund values(seq_refund.nextval,#{memberNo},#{orderNo},default,#{request},default,'확인중',#{price},null)
+	</insert>
+	<update id="updateOrder">
+		update orders
+		set ostatus='환불대기'
+		where ono=#{orderNo}
+	</update>
+	
 </mapper>

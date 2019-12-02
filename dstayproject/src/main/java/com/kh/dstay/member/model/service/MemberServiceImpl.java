@@ -15,6 +15,7 @@ import com.kh.dstay.member.model.vo.Member;
 import com.kh.dstay.member.model.vo.MyCoupon;
 import com.kh.dstay.member.model.vo.OrderInfo;
 import com.kh.dstay.member.model.vo.Review;
+import com.kh.dstay.member.model.vo.WishProduct;
 import com.kh.dstay.notice.model.vo.PageInfo;
 import com.kh.dstay.member.model.service.MemberService;
 
@@ -179,5 +180,21 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int recodeDietToday(Diet d) {
 		return mDao.recodeDietToday(d);
+	}
+	@Override
+	public int getMyWishesCount(Member m) {
+		return mDao.getMyWishesCount(m);
+	}
+	@Override
+	public ArrayList<WishProduct> selectMyWishes(Member m, PageInfo pi) {
+		return mDao.selectMyWishes(m,pi);
+	}
+	@Override
+	public int refund(OrderInfo oi) {
+		return mDao.refund(oi);
+	}
+	@Override
+	public int updateOrder(OrderInfo oi) {
+		return mDao.updateOrder(oi);
 	}
 }

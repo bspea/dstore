@@ -17,6 +17,7 @@ import com.kh.dstay.member.model.vo.Member;
 import com.kh.dstay.member.model.vo.MyCoupon;
 import com.kh.dstay.member.model.vo.OrderInfo;
 import com.kh.dstay.member.model.vo.Review;
+import com.kh.dstay.member.model.vo.WishProduct;
 import com.kh.dstay.notice.model.vo.PageInfo;
 
 @Repository
@@ -157,6 +158,21 @@ public class MemberDao {
 	}
 	public int recodeDietToday(Diet d) {
 		return sqlSession.insert("mypageMapper.recodeDietToday",d);
+	}
+	public int getMyWishesCount(Member m) {
+		return sqlSession.selectOne("mypageMapper.getMyWishesCount",m);
+	}
+	public ArrayList<WishProduct> selectMyWishes(Member m, PageInfo pi) {
+
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectMyWishes",m,rowBounds);
+	}
+	public int refund(OrderInfo oi) {
+		return sqlSession.insert("mypageMapper.refund",oi);
+	}
+	public int updateOrder(OrderInfo oi) {
+		return sqlSession.update("mypageMapper.updateOrder",oi);
 	}
 	
 	

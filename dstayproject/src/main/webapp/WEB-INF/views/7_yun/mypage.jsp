@@ -6,6 +6,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/7_yun/d-stay_myPage.css">
+    <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/1_common/kimi.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<meta charset="UTF-8">
@@ -316,6 +317,64 @@
 	  })
 	  
 	  
+<%--
+       <div class="row">
+           <div class="col-sm-6 col-md-4" data-behavior="sample_code">
+           	<a href="productDetail.do?pdno=${pd.pno}" class="thumbnail_item thumbnail less-padding less-margin">
+                   <img src="${pd.pi1}" alt="risotto lemon">
+               </a>
+                  <div class="bookmarked" >
+                  	<img id="bookMark" src="resources/images/6_lee/bookmarked.png" width="86" > 
+               	</div>
+             
+               <div class="caption box">
+                   <h3 style="height: 52px;">${pd.pname}</h3>
+                   <div class="row">
+                       <div class="col-sm-8 col-xs-6">
+                           <p class="default-userProductList-CardList-price">￦${pd.price}</p>
+                       </div>
+​
+                       <div class="col-sm-4 col-xs-6">
+                           <button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
+                       </div>
+                   </div>
+               </div>
+           </div>
+             
+​
+              <!-- 페이징 바 start  -->
+           <div class="col-md-12 hidden-xs text-center">
+               
+               <nav aria-label="Page navigation">
+                   <ul class="pagination">
+                       <li class="current">
+                   
+                    <c:forEach begin="${pp.startPage}" end="${pp.endPage}" var="p">
+                       <c:if test="${p eq pp.currentPage}">
+                          <a style="background-color:coral">${p}</a>
+                       </c:if>
+       
+                       <c:if test="${p ne pp.currentPage}">
+                          <c:url value="product.do" var="page">
+                             
+                             <c:param name="currentPage" value="${p}"/>
+                          </c:url>
+                          <a href="${page}">${p}</a>
+                       </c:if>
+       
+                    </c:forEach>
+                   
+                       </li>
+                       
+                   </ul>
+               </nav>
+​
+           </div>--%>
+       
+                         
+                        
+                 
+                    
 	  
 	  
 	  
@@ -497,12 +556,12 @@
 			                      	+"</div>"
 			                      	+"<div class='item-info'>"
 			                          	+"<div class='item-pic'>"
-			                              	+"<a href='#'>"
-			                                  	+"<img src='"+v.piPath+"' alt=''>"
+			                              	+"<a href='/dstay/productDetail.do?pdno="+v.productNo+"'>"
+			                                  	+"<img src='"+v.piPath+"' alt='"+v.productName+"'>"
 			                              	+"</a>"
 			                          	+"</div>"
 			                          	+"<div class='order-title'>"
-			                              	+"<a href='#'>"
+			                              	+"<a href='/dstay/productDetail.do?pdno="+v.productNo+"'>"
 			                                  +"<div class='item-title'>"
 			                                      	+v.productName
 			                                  +"</div>"
@@ -521,11 +580,16 @@
 			                          str+="<div class='reviewBtn'>"
 			                              +"<button class='btn-red' onclick='reviewWriteForm("+v.productNo+")'>후기작성</button>"
 			                          +"</div>"
-			                      		
+			                      	
+			                      	}else if(v.status=="환불대기"){
+			                      		str+="<div class='reviewBtn'>"
+				                              +"<button class='btn-red'>환불대기</button>"
+				                          +"</div>"
+			                      	
 			                      	}else{
 			                      		
 			                      		str+="<div class='delivery'>"
-				                              +"<button class='d-menu' onclick='refund("+v.orderNo+");'>환불신청</button>"
+				                              +"<button class='d-menu' onclick='refund("+v.orderNo+","+v.price+");'>환불신청</button>"
 				                              +"<button class='d-menu' onclick='confirmation("+v.orderNo+");'>구매확정</button>"
 				                          +"</div>"
 			                      	}
@@ -543,7 +607,40 @@
 				  case "wishes.do":
 					  $myPageTitle.text("찜");
 					  $myPageTitleInfo.text("찜하신 상품을 모아놓았습니다");
-					  
+					  if(data.list.length>0){
+						  var str="<div class='container'>"
+									    +"<div>"
+							            +"<div class='clearfix'></div><div class='row'>"
+						$.each(data.list,function(i,v){
+							
+						  
+							           str+="<div class='col-sm-6 col-md-4' data-behavior='sample_code'>"
+							           	+"<a href='/dstay/productDetail.do?pdno="+v.productNo+"' class='thumbnail_item thumbnail less-padding less-margin'>"
+							                   +"<img src='"+v.imgPath+"' alt=''>"
+							               +"</a>"
+							                  +"<div class='bookmarked'>"
+							                  	+"<img id='bookMark' src='/dstay/resources/images/6_lee/bookmarked.png' width='86' >" 
+							               	+"</div>"
+							               +"<div class='caption box'>"
+							                   +"<h3 style='height: 52px;'>"+v.productName+"</h3>"
+							                   +"<div class='row'>"
+							                       +"<div class='col-sm-8 col-xs-6'>"
+							                           +"<p class='default-userProductList-CardList-price'>￦"+v.price+"</p>"
+							                       +"</div>"
+							                       +"<div class='col-sm-4 col-xs-6'>"
+							                           +"<button onclick='location.href=shoppingCart.html' class='btn default-userProductList-CardList-button pull-right' role='button'>Add to Cart</button>"
+							                       +"</div>"
+							                   +"</div>"
+							               +"</div>"
+							           +"</div>"
+							           
+						})
+					  str+="</div></div>"
+					  }else{
+						  var str="<div class='order-list'>찜한 상품이 없습니다</div>"
+					  }
+					  $myPage_content.html(str);
+				      paging(url,data.pi);
 					  
 					  break;
 				  case "review.do":
@@ -560,14 +657,14 @@
                   	$.each(data,function(i,v){
                   		str+="<div class='review-wrap'>"
 		                        +"<div class='product-wrap'>"
-			                                +"<a href='#'>"
+			                                +"<a href='/dstay/productDetail.do?pdno="+v.productNo+"'>"
 			                        +"<div class='product-info'>"
 			                            +"<div class='product-pic'>"
-			                                    +"<img src='"+v.piPath+"' alt=''>"
+			                                    +"<img src='"+v.piPath+"' alt='"+v.productName+"'>"
 			                            +"</div>"
 			                            +"<div class='product-name'>"+v.productName+"</div>"
 			                        +"</div>"
-			                                +"</a>"
+			                           +"</a>"
 			                        +"<div class='purchase-date'>구매일 : "+v.date+"</div>"
 			                        +"<div class='review-btn'>"
 			                            +"<button class='btn-red' onclick='reviewWriteForm("+v.productNo+")'>후기작성</button>"
@@ -747,17 +844,11 @@
 	  }
 	  function setDietaryGoal(){
 		  var gender=$("input[name='gender']:checked").val();
-		  console.log(gender);
 		  var height=$("input[name='height']").val();
-		  console.log(height);
 		  var weight=$("input[name='weight']").val();
-		  console.log(weight);
 		  var targetWeight=$("input[name='targetWeight']").val();
-		  console.log(targetWeight);
 		  var age=$("input[name='age']").val();
-		  console.log(age);
 		  var workrate=$("input[name='workrate']:checked").val();
-		  console.log(workrate);
 		  
 		  if(gender!=undefined){  
 			  if(height>=100 && weight >=30 && targetWeight >= 30 && age >= 10 && workrate!=undefined){
@@ -802,7 +893,7 @@
 		  
 	  }
 	  function paging(url,page){
-		  console.log(page);
+		  
 	  }
 	  function pwChangeForm(){
 		  var $myPageTitle=$(".myPageTitle");
@@ -831,9 +922,6 @@
 		  var currentPw=$("input[name='currentPw']").val();
 		  var newPw=$("input[name='newPw']").val();
 		  var newPw2=$("input[name='newPw2']").val();
-		  console.log(currentPw);
-		  console.log(newPw);
-		  console.log(newPw2);
 		  if(currentPw.trim()!=""&&newPw.trim()!=""&&newPw2.trim()!=""){
 			  if(currentPw=="${loginUser.password}"){
 				  
@@ -913,8 +1001,6 @@
 	  function searchOrder(startDate,endDate,page){
 		  
 		  if(startDate!="" && endDate!="" && startDate<endDate){
-			  console.log(startDate)
-			  console.log(endDate)
 			  $.ajax({
 				 url:"searchOrder.do",
 				 data:{startDate:startDate,endDate:endDate,page:page},
@@ -939,12 +1025,12 @@
 			                      	+"</div>"
 			                      	+"<div class='item-info'>"
 			                          	+"<div class='item-pic'>"
-			                              	+"<a href='#'>"
-			                                  	+"<img src='"+v.piPath+"' alt=''>"
+			                              	+"<a href='/dstay/productDetail.do?pdno="+v.productNo+"'>"
+			                                  	+"<img src='"+v.piPath+"' alt='"+v.productName+"'>"
 			                              	+"</a>"
 			                          	+"</div>"
 			                          	+"<div class='order-title'>"
-			                              	+"<a href='#'>"
+			                              	+"<a href='/dstay/productDetail.do?pdno="+v.productNo+"'>"
 			                                  +"<div class='item-title'>"
 			                                      	+v.productName
 			                                  +"</div>"
@@ -967,7 +1053,7 @@
 			                      	}else{
 			                      		
 			                      		str+="<div class='delivery'>"
-				                              +"<button class='d-menu' onclick='refund("+v.orderNo+");'>환불신청</button>"
+				                              +"<button class='d-menu' onclick='refund("+v.orderNo+","+v.price+");'>환불신청</button>"
 				                              +"<button class='d-menu' onclick='confirmation("+v.orderNo+");'>구매확정</button>"
 				                          +"</div>"
 			                      	}
@@ -1015,12 +1101,12 @@
 		                      	+"</div>"
 		                      	+"<div class='item-info'>"
 		                          	+"<div class='item-pic'>"
-		                              	+"<a href='#'>"
-		                                  	+"<img src='"+v.piPath+"' alt=''>"
+		                              	+"<a href='/dstay/productDetail.do?pdno="+v.productNo+"'>"
+		                                  	+"<img src='"+v.piPath+"' alt='"+v.productName+"'>"
 		                              	+"</a>"
 		                          	+"</div>"
 		                          	+"<div class='order-title'>"
-		                              	+"<a href='#'>"
+		                              	+"<a href='/dstay/productDetail.do?pdno="+v.productNo+"'>"
 		                                  +"<div class='item-title'>"
 		                                      	+v.productName
 		                                  +"</div>"
@@ -1042,7 +1128,7 @@
 		                      	}else{
 		                      		
 		                          str+="<div class='delivery'>"
-		                              +"<button class='d-menu' onclick='refund("+v.orderNo+");'>환불신청</button>"
+		                              +"<button class='d-menu' onclick='refund("+v.orderNo+","+v.price+");'>환불신청</button>"
 		                              +"<button class='d-menu' onclick='confirmation("+v.orderNo+");'>구매확정</button>"
 		                          +"</div>"
 		                      	}
@@ -1080,6 +1166,29 @@
 			  });
 		  }
 	  }
+	  function refund(ono,price){
+		  if(confirm("환불하시겠습니까?")){
+			  var request=prompt("환불사유를 입력해주세요");
+		  		$.ajax({
+		  			url:"refund.do",
+		  			data:{orderNo:ono,price:price,request:request},
+		  			type:"post",
+		  			success:function(result){
+		  				if(result>0){
+		  					alert("신청 성공");
+		  					location.reload();
+		  				}else{
+		  					alert("환불신청 실패");
+		  				}
+		  				
+		  			},
+		  			error:function(){
+		  				console.log("refund error");
+		  			}
+		  			
+		  		});
+		  }
+	  }
 	  function reviewWriteForm(pno){
 		  reviewPoint=5;
 		  $.ajax({
@@ -1097,7 +1206,7 @@
 			                  +"<div class='review review-header'>"
 			                  +"<div class='product-info'>"
 			                      +"<div class='product-pic'>"
-			                          +"<a href='#'>"
+			                          +"<a href='/dstay/productDetail.do?pdno="+v.productNo+"'>"
 			                              +"<img src='"+data.piPath+"' alt=''>"
 			                          +"</a>"
 			                      +"</div>"
@@ -1167,7 +1276,7 @@
 			                        +"<div class='review review-header'>"
 			                            +"<div class='product-info'>"
 			                                +"<div class='product-pic'>"
-			                                    +"<a href='#'>"
+			                                    +"<a href='/dstay/productDetail.do?pdno='"+v.productNo+">"
 			                                        +"<img src='"+v.piPath+"' alt=''>"
 			                                    +"</a>"
 			                                +"</div>"

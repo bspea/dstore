@@ -11,6 +11,7 @@ import com.kh.dstay.member.model.vo.Member;
 import com.kh.dstay.member.model.vo.MyCoupon;
 import com.kh.dstay.member.model.vo.OrderInfo;
 import com.kh.dstay.member.model.vo.Review;
+import com.kh.dstay.member.model.vo.WishProduct;
 import com.kh.dstay.notice.model.vo.PageInfo;
 
 public interface MemberService {
@@ -102,8 +103,13 @@ public interface MemberService {
 	int recodeDiet(Diet d);
 	int recodeDietToday(Diet d);
 	
+	int getMyWishesCount(Member m);
+	ArrayList<WishProduct> selectMyWishes(Member m, PageInfo pi);
 	
 	
+	int refund(OrderInfo oi);
+	
+	int updateOrder(OrderInfo oi);
 	
 	
 	
