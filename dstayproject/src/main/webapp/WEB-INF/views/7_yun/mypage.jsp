@@ -322,71 +322,6 @@
         
 	  })
 	  
-	  
-<%--
-       <div class="row">
-           <div class="col-sm-6 col-md-4" data-behavior="sample_code">
-           	<a href="productDetail.do?pdno=${pd.pno}" class="thumbnail_item thumbnail less-padding less-margin">
-                   <img src="${pd.pi1}" alt="risotto lemon">
-               </a>
-                  <div class="bookmarked" >
-                  	<img id="bookMark" src="resources/images/6_lee/bookmarked.png" width="86" > 
-               	</div>
-             
-               <div class="caption box">
-                   <h3 style="height: 52px;">${pd.pname}</h3>
-                   <div class="row">
-                       <div class="col-sm-8 col-xs-6">
-                           <p class="default-userProductList-CardList-price">￦${pd.price}</p>
-                       </div>
-​
-                       <div class="col-sm-4 col-xs-6">
-                           <button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
-                       </div>
-                   </div>
-               </div>
-           </div>
-             
-​
-              <!-- 페이징 바 start  -->
-           <div class="col-md-12 hidden-xs text-center">
-               
-               <nav aria-label="Page navigation">
-                   <ul class="pagination">
-                       <li class="current">
-                   
-                    <c:forEach begin="${pp.startPage}" end="${pp.endPage}" var="p">
-                       <c:if test="${p eq pp.currentPage}">
-                          <a style="background-color:coral">${p}</a>
-                       </c:if>
-       
-                       <c:if test="${p ne pp.currentPage}">
-                          <c:url value="product.do" var="page">
-                             
-                             <c:param name="currentPage" value="${p}"/>
-                          </c:url>
-                          <a href="${page}">${p}</a>
-                       </c:if>
-       
-                    </c:forEach>
-                   
-                       </li>
-                       
-                   </ul>
-               </nav>
-​
-           </div>--%>
-       
-                         
-                        
-                 
-                    
-	  
-	  
-	  
-	  
-	  
-	  
 	  function checkTag(tag){
 		  $(".myMenu").removeClass("menu-active");
           $(".myMenu2").removeClass("menu-active");
@@ -660,7 +595,7 @@
                 	if(data.length>0){
                 		
                 	
-                  	$.each(data,function(i,v){
+                  	$.each(data.list,function(i,v){
                   		str+="<div class='review-wrap'>"
 		                        +"<div class='product-wrap'>"
 			                                +"<a href='/dstay/productDetail.do?pdno="+v.productNo+"'>"
@@ -726,7 +661,6 @@
 			                	str+="<div class='order-list'>사용가능한 쿠폰이 없습니다</div>"
 			                }
 		                $myPage_content.html(str);
-				      	paging(url,data.pi);
 					  
 					  break;
 				  case "info.do":
@@ -904,9 +838,9 @@
 					        +"<nav aria-label='Page navigation'>"
 				            +"<ul class='pagination'>"
 				                +"<li class='current'>"
-			  for(var i=1;i<=page.maxPage;i++){
+			  for(var i=1;i<=page.endPage;i++){
 				  
-				  if(i==page.currentPage){
+				  if(i==page.startPage){
 					  str+="<a style='background-color:coral'>"+i+"</a>"
 				  }else{
 					  str+="<a class='"+url+"'>"+i+"</a>"

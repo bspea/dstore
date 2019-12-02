@@ -28,5 +28,10 @@
 			<mapping path="/customerCenter.do"/>
 			<beans:bean id="CustomerCenterInterceptor" class="com.kh.dstay.common.interceptor.CustomerCenterInterceptor"/>
 		</interceptor>
+		<interceptor>
+			<mapping path="/mypage/**"/>
+			<beans:bean id="mypageInterceptor" class="com.kh.dstay.common.interceptor.MypageInterceptor"/>
+		</interceptor>
+		
 	</interceptors>
 </beans:beans>

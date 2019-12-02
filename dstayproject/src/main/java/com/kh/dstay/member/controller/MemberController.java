@@ -90,7 +90,10 @@ public class MemberController {
 			listCount=mService.getOrderListCount(m,1);
 			pi=Pagination.getOrderInfoPageInfo(page, listCount);
 			oList=mService.selectBeforeReviewList(m,pi);
-			gson.toJson(oList,response.getWriter());
+			map=new HashMap();
+			map.put("list", oList);
+			map.put("pi", pi);
+			gson.toJson(map,response.getWriter());
 			break;
 		case "coupon.do":
 			cList=mService.selectMyCouponList(m);
