@@ -55,7 +55,6 @@ public class MemberController {
 
 		response.setContentType("application/json; charset=utf-8");
 		Member m=(Member)session.getAttribute("loginUser");
-		System.out.println(m);
 		Gson gson=new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		int listCount;
 		PageInfo pi;
