@@ -14,7 +14,7 @@
 </style>
 </head>
 <body>
-
+	
 	<div class="talk-bgHeader">
 		<div class="talk-header">
 			디스테이 1:1문의
@@ -47,33 +47,37 @@
 		
 	<script>
 		$(function(){
+			
 			getChatList();
 			
-			getNewTime();
+			//getNewTime();
 			
 			
 			
 			setInterval(function(){
-				getNewTime();
-			}, 2000);
+
+				getChatList();
+				
+				//getChatNotRead();
+				// getNewTime();
+			}, 1000);
 			
 			
 			
-			/*
-			setInterval(function(){
-				getLastTimeChat(currentTime);
-			}, 2000);
-			*/
+			
+			
+			
+			
 			
 			
 			$("#talk-submit-btn").on("click", function(){
 				
 				$.ajax({
 					url:"chatInsert.do",
-					data:{chatWriter:${loginUser.no}, chatContents:$(".talk-chatBox textarea").val()},
+					data:{chatContents:$(".talk-chatBox textarea").val()},
 					success:function(data){
 						
-						if(data == "success"){
+						if(data == 1){
 							// console.log(data);
 							// 입력할 때 seq_chat_no -1 까지는 전부 읽음처리 해야하나?
 							// 아닌데... 채팅 리스트를 불러온 순간 다 읽은 거 아닌가? 그 때 읽음처리 해줘야 하지 않나?
@@ -81,9 +85,7 @@
 							// 남이 쓴 채팅도 전부 읽음처리 해야 함
 							// 아 ㅅㅂ
 							$(".talk-chatBox textarea").val("");
-							
-							
-							
+							getChatList();
 						}else{
 							alert("채팅 작성 실패");
 						}
@@ -106,11 +108,11 @@
 				url:"chatList.do",
 				dataType:"json",
 				success:function(data){
-					
+					$(".talk-body").html("");
 					// 갖다붙이기
 					$.each(data, function(index, value){
 						
-						if(value.chatWriter == ${loginUser.no}){
+						if(value.chatSend == ${loginUser.no}){
 							addChatMe(value.nickName, value.chatContents, value.chatTime);
 						}else{
 							addChatAnother(value.nickName, value.chatContents, value.chatTime);
@@ -121,10 +123,11 @@
 					// 스크롤 가장 아래로
 					$(".talk-body").scrollTop($(".talk-body")[0].scrollHeight);
 					
-					
 				}
 			});
 		}
+		
+		
 		
 		function chattingSend() {
             $('.talk-chatBox>textarea').val("");
@@ -164,9 +167,38 @@
 			
 			var currentTime = year + month + date + hour + minute + second + millisecond;
 			
-			console.log(currentTime);
+			// console.log("현재시간 : " + currentTime);
+			
+			
+			
+			
+			$.ajax({
+				url:"compareLastChatWithCurrentTime.do",
+				data:{chatTime:currentTime},
+				chache:false,
+				async:false,
+				success:function(data){
+					// console.log("변경 전 currentTime : " + currentTime);
+					// console.log("변경 전 lastChatTime : " + data);
+					if(currentTime > data){
+						
+						location.reload(true);
+						getLastTimeChat(currentTime);
+						// currentTime = data;
+						
+					}else{
+						
+						// currentTime = data;
+						
+					}
+					// console.log("변경 후 currentTime : " + currentTime);
+					// console.log("변경 후 lastChatTime : " + data);
+				}
+			});
 			
 			getLastTimeChat(currentTime);
+			
+			
 		}
 		
 		
@@ -181,9 +213,63 @@
 				async: false,
 				success:function(data){
 					
+					
+					
+					
+					$.each(data, function(index, value){
+						
+						if(value.chatWriter == ${loginUser.no}){
+							addChatMe(value.nickName, value.chatContents, value.chatTime);
+						}else{
+							addChatAnother(value.nickName, value.chatContents, value.chatTime);
+						}
+						
+					});
+					
+					
+					
+					confirmChat();
+					
+					
+					
+					
+					
 				},
 				error:function(){
 					console.log("getLastChatTime() 실패");
+				}
+			});
+		}
+		
+		function confirmChat(){
+			
+			$.ajax({
+				url:"confirmChat.do",
+				success:function(data){
+					
+					
+				}
+			});
+		}
+		
+		function getChatNotRead(){
+			
+			$.ajax({
+				url:"selectChatNotRead.do?mno=4",
+				dataType:"json",
+				success:function(data){
+					
+					$.each(data, function(index, value){
+						
+						if(value.chatSend == ${loginUser.no}){
+							addChatMe(value.nickName, value.chatContents, value.chatTime);
+						}else{
+							addChatAnother(value.nickName, value.chatContents, value.chatTime);
+						}
+						
+					});
+					
+					$(".talk-body").scrollTop($(".talk-body")[0].scrollHeight);
 				}
 			});
 		}

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.dstay.customer_center.model.vo.Chat;
+import com.kh.dstay.member.model.vo.Member;
 import com.kh.dstay.suggestion.model.vo.Suggestion;
 import com.kh.dstay.suggestion.model.vo.SuggestionPageInfo;
 
@@ -54,5 +55,28 @@ public class CustomerCenterDao {
 	public int ensureChat(Chat c) {
 		
 		return sqlSession.update("chatMapper.ensureChat", c);
+	}
+
+	public ArrayList<Chat> selectLastChat(String chatTime) {
+		
+		return (ArrayList)sqlSession.selectList("chatMapper.selectLastChat", chatTime);
+	}
+
+	
+
+	public long compareLastChatWithCurrentTime(String currentTime) {
+		
+		return sqlSession.selectOne("chatMapper.compareLastChatWithCurrentTime", currentTime);
+	}
+
+	public ArrayList<Chat> selectChatNotRead() {
+		
+		return (ArrayList)sqlSession.selectList("chatMapper.selectChatNotRead");
+	}
+
+	public int confirmChat(Member mem) {
+		
+		return sqlSession.update("chatMapper.confirmChat", mem);
+		
 	}
 }

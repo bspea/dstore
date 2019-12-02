@@ -4,6 +4,17 @@
 	
 	<resultMap id="chatResultSet" type="com.kh.dstay.customer_center.model.vo.Chat">
 		<id property="chatNo" column="chatno"/>
+		<result property="chatSend" column="chatsend"/>
+		<result property="chatRecv" column="chatrecv"/>
+		<result property="email" column="email"/>
+		<result property="nickName" column="nickname"/>
+		<result property="chatContents" column="chatcontents"/>
+		<result property="chatTime" column="chattime"/>
+		<result property="chatRead" column="chatread"/>
+	</resultMap>
+	
+	<resultMap id="lastChatResultSet" type="com.kh.dstay.customer_center.model.vo.Chat">
+		<id property="chatNo" column="chatno"/>
 		<result property="nickName" column="nickname"/>
 		<result property="chatWriter" column="chatwriter"/>
 		<result property="chatContents" column="chatcontents"/>
@@ -13,16 +24,24 @@
 	
 	
 	<select id="selectChatList" resultMap="chatResultSet">
-		select chatno, chatwriter, mno, nickname, chatcontents, to_char(chattime, 'AM HH:MI') as chattime, chatread
-		from chat
-		join member on(chatwriter = mno)
-		where chatread='N'
-		order by chatno
+		SELECT CHATNO, CHATSEND, CHATRECV, EMAIL, NICKNAME, CHATCONTENTS, TO_CHAR(CHATTIME, 'AM HH:MI') AS CHATTIME, CHATREAD
+		FROM CHAT
+		JOIN MEMBER ON(MNO=CHATSEND)
+		ORDER BY CHATNO
 	</select>
+	
+	<select id="selectChatNotRead" resultMap="chatResultSet">
+		SELECT CHATNO, CHATSEND, CHATRECV, NICKNAME, CHATCONTENTS, TO_CHAR(CHATTIME, 'AM HH:MI') AS CHATTIME, CHATREAD
+		FROM CHAT
+		JOIN MEMBER ON(MNO=CHATSEND)
+		WHERE CHATREAD='N'
+		ORDER BY CHATNO
+	</select>
+	
 	
 	<insert id="insertChat">
 		insert into chat
-		values(seq_chat_no.nextval, #{chatWriter}, #{chatContents}, sysdate, default)
+		values(seq_chat_no.nextval, #{chatSend}, #{chatRecv}, #{chatContents}, sysdate, default)
 	</insert>
 	
 	<update id="ensureChat">
@@ -32,4 +51,25 @@
 <=
 ]]> #{chatNo} and chatWriter != #{chatWriter}
 	</update>
+	
+	<select id="selectLastChat" resultMap="lastChatResultSet">
+		select chatno, chatwriter, mno, nickname, chatcontents, to_char(chattime, 'YYYYMMDDHH24MISSFF2') as chattime, chatread
+		from chat
+		join member on(chatwriter = mno)
+		where to_number(to_char(chattime, 'YYYYMMDDHH24MISSFF2')) <![CDATA[
+<
+]]> #{chatTime} and chatread='N'
+		order by chatno
+	</select>
+	
+	<update id="confirmChat">
+		UPDATE CHAT
+		SET CHATREAD='Y'
+		WHERE CHATREAD='N' AND CHATSEND=#{memberStatusNo} AND CHATRECV=#{no}
+	</update>
+	
+	<select id="compareLastChatWithCurrentTime" resultType="_long">
+		select Max(to_number(to_char(chattime, 'YYYYMMDDHH24MISSFF3')))
+		from chat
+	</select>
 </mapper>

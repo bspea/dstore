@@ -3,7 +3,9 @@ package com.kh.dstay.customer_center.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import com.google.gson.JsonIOException;
 import com.kh.dstay.common.SuggestionPagination;
 import com.kh.dstay.customer_center.model.service.CustomerCenterService;
 import com.kh.dstay.customer_center.model.vo.Chat;
+import com.kh.dstay.member.model.vo.Member;
 import com.kh.dstay.suggestion.model.vo.Suggestion;
 import com.kh.dstay.suggestion.model.vo.SuggestionPageInfo;
 
@@ -72,7 +75,8 @@ public class CustomerCenterController {
 	}
 	
 	@RequestMapping("oneOnOne.do")
-	public String oneOnOne() {
+	public String oneOnOne(HttpServletRequest request) {
+		
 		return "3_han/oneOnOne";
 	}
 	
@@ -91,17 +95,38 @@ public class CustomerCenterController {
 	
 	@ResponseBody
 	@RequestMapping("chatInsert.do")
-	public String insertChat(Chat c) {
+	public void insertChat(Chat c, HttpSession session, HttpServletResponse response) throws JsonIOException, IOException {
 		
-		// System.out.println(c);
+		Member instance = (Member)session.getAttribute("loginUser");
 		
-		int insertChatResult = ccService.insertChat(c);
 		
-		if(insertChatResult > 0) {
-			return "success";
+		
+		int insertChatResult = 0;
+
+		
+		
+		if(instance.getMemberStatusNo() == 2) {
+			
+			instance.setMemberStatusNo(2);
+			c.setChatSend(instance.getMemberStatusNo());
+			c.setChatRecv(4);
+			insertChatResult = ccService.insertChat(c);
+			
 		}else {
-			return "fail";
+			
+			c.setChatSend(instance.getNo());
+			c.setChatRecv(2);
+			insertChatResult = ccService.insertChat(c);
+			
 		}
+		
+		response.setContentType("application/json; charset=UTF-8");
+		
+		Gson gson = new Gson();
+		
+		gson.toJson(insertChatResult, response.getWriter());
+		
+		
 		
 	}
 	
@@ -122,9 +147,83 @@ public class CustomerCenterController {
 	
 	@ResponseBody
 	@RequestMapping("getLastChat.do")
-	public void getLastChat(String chatTime) {
+	public void getLastChat(HttpServletResponse response, String chatTime) throws JsonIOException, IOException {
 		
-		System.out.println(chatTime);
+		// System.out.println(chatTime);
+		
+		ArrayList<Chat> list = ccService.selectLastChat(chatTime);
+		
+		// System.out.println(list);
+		
+		response.setContentType("application/json; charset=UTF-8");
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		gson.toJson(list, response.getWriter());
+	}
+	
+	/*
+	@ResponseBody
+	@RequestMapping("confirmChat.do")
+	public String confirmChat() {
+		
+		int result = ccService.confirmChat();
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			return "failed";
+		}
+	}
+	*/
+	
+	@ResponseBody
+	@RequestMapping("compareLastChatWithCurrentTime.do")
+	public long compareLastChatWithCurrentTime(String currentTime) {
+		
+		long result = ccService.compareLastChatWithCurrentTime(currentTime);
+		
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping("selectChatNotRead.do")
+	public void selectChatNotRead(HttpServletResponse response, HttpSession session, HttpServletRequest request) throws JsonIOException, IOException {
+		
+		
+		
+		ArrayList<Chat> list = ccService.selectChatNotRead();
+		
+		if(list.size() == 0) {
+			return;
+		}
+		
+		Member instance = (Member)session.getAttribute("loginUser");
+		
+//		int recvNo = instance.getNo();
+//		int sendNo = instance.getMemberStatusNo();
+		
+		// 회원의 read 처리
+		if(instance.getMemberStatusNo() == 2) {
+			instance.setMemberStatusNo(2);
+			ccService.confirmChat(instance);
+			
+		}else {
+			// 상담사의 read 처리
+			System.out.println("" + request.getParameter("mno"));
+			instance.setMemberStatusNo(Integer.parseInt("" + request.getParameter("mno")));
+			ccService.confirmChat(instance);
+			
+		}
+		
+		
+		
+		
+		response.setContentType("application/json; charset=UTF-8");
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		gson.toJson(list, response.getWriter());
 	}
 	
 	

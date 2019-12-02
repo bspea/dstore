@@ -16,7 +16,9 @@ import lombok.ToString;
 public class Chat {
 	
 	private int chatNo;
-	private int chatWriter;
+	private int chatSend;
+	private int chatRecv;
+	private String email;
 	private String nickName;
 	private String chatContents;
 	private String chatTime;

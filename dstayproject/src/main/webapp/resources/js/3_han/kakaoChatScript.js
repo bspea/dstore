@@ -5,6 +5,7 @@
                 if (event.keyCode == 13) {
                     $(".talk-chatBox button").trigger("click");
                     event.preventDefault();
+                    
                 }
             });
         });
