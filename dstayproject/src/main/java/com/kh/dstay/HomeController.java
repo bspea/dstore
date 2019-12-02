@@ -58,16 +58,14 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "home.do", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		
-		
-		return "4_jong/mainPage";
-	}
-	@RequestMapping("loginForm.do")
-	public ModelAndView loginForm(HttpSession session,ModelAndView mv,@RequestParam(value="findEmail", required=false)String findEmail ) {
+	public String home(Locale locale, Model model,HttpSession session) {
 		session.setAttribute("kakaoJavascriptKey", utilParam.getKakaoJavascriptKey());
 		session.setAttribute("googleClientId", utilParam.getGoogleClientId());
 		session.setAttribute("naverClientId", utilParam.getNaverClientId());
+		return "4_jong/mainPage";
+	}
+	@RequestMapping("loginForm.do")
+	public ModelAndView loginForm(ModelAndView mv,@RequestParam(value="findEmail", required=false)String findEmail ) {
 		if(findEmail != null) {
 			mv.addObject("findEmail",findEmail).setViewName("2_bak/loginForm");
 		}else {
@@ -224,20 +222,23 @@ public class HomeController {
 		}
 	}
 	@RequestMapping("ajaxSendAnEmail.do")@ResponseBody
-	public String ajaxSendAnEmail(@RequestParam("sendAnEmail")String email) throws MessagingException {
-		String tempPassword = verifyEmail(email,"임시비밀번호");
-		mem.setEmail(email);
-		mem.setPassword(bcryptPasswordEncoder.encode(tempPassword));
-		int result = mService.updateTempMember(mem);
-		if(result>0) {
-			return "sentAnEmail";
+	public String ajaxSendAnEmail(@RequestParam(value="sendAnEmail")String email) throws MessagingException {
+		if(email != "") {
+			String tempPassword = verifyEmail(email,"임시비밀번호");
+			mem.setEmail(email);
+			mem.setPassword(bcryptPasswordEncoder.encode(tempPassword));
+			int result = mService.updateTempMember(mem);
+			if(result>0) {
+				return "sentAnEmail";
+			}else {
+				return "failedToSendAnEmail";
+			}
 		}else {
 			return "failedToSendAnEmail";
 		}
 	}
 	@RequestMapping("resetPasswordForm.do")
 	public ModelAndView resetPasswordForm(ModelAndView mv,@RequestParam("findEmail")String findEmail) {
-		logger.info(findEmail);
 		mv.addObject("findEmail",findEmail).setViewName("2_bak/resetPasswordForm");
 		return mv;
 	}
