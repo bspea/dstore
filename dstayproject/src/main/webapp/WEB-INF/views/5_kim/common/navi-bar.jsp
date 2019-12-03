@@ -33,7 +33,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="adminMain.do">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admin.do">
         <img src="resources/images/5_kim/dosirak.png" style="width:50px; height:50px;">
         <div class="sidebar-brand-text mx-3">Admin</div>
       </a>
@@ -43,7 +43,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item dashboardLi">
-        <a class="nav-link" href="adminMain.do">
+        <a class="nav-link" href="admin.do">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>대쉬보드</span></a>
       </li>
@@ -68,7 +68,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Member:</h6>
               <a class="collapse-item" href="adminMemberList.do">회원신고관리</a>
-              <a class="collapse-item" href="adminCouponList.do">쿠폰관리</a>
+              <%-- <a class="collapse-item" href="adminCouponList.do">쿠폰관리</a>--%>
             </div>
           </div>
         </li>

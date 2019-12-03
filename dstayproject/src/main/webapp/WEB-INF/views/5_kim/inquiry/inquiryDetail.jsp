@@ -65,16 +65,16 @@
                   </tr>
                   <tr>
                     <th width="80">제목</th>
-                    <td colspan="3">석가는 무엇을 위하여 설산에서 고행을 하였으며 예수는 무엇을 위하여 광야에서 방황하였으며 공자는 무엇을 위하여 천하를 철환하였는가? </td>
+                    <td colspan="3">${inq.title } </td>
                   </tr>
                   <tr>
                     <th>아이디</th>
-                    <td>hyeonj@naver.com</td>
+                    <td>${inq.memberNo }</td>
                     <th>문의일자</th>
-                    <td>2019-11-11 (오후)07:53</td>
+                    <td>${inq.date }</td>
                   </tr>
                   <tr>
-                      <td colspan="4"><textarea rows="auto" style="width:100%; height:100%; resize:none;" readonly></textarea></td>
+                      <td colspan="4">${inq.content }</td>
                   </tr>
                 </table>
                 <br>
@@ -88,7 +88,7 @@
                   </tr>
                 </table>
                 <div align="center">
-                  <button class="btn btn-primary">답변하기</button>
+                  <button type="button" onclick="location.href='adminInquiryList.do'" class="btn btn-primary">답변하기</button>
                 </div>
               </form>  
             </div>

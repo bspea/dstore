@@ -169,4 +169,8 @@
 		INSERT INTO PRODUCT_SALE
 		VALUES(SEQ_PRODUCT_SALE.NEXTVAL, #{productNo}, #{salePercent}, #{limitedAmount}, #{cellCount}, #{startDate}, #{endDate}, #{earlyEndDate})
 	</insert>
+	
+	<select id="selectProductsDiscount" resultMap="productSaleResultSetAdmin">
+		SELECT * FROM PRODUCT_SALE WHERE PNO=#{pNo}
+	</select>
 </mapper>

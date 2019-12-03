@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -27,7 +28,48 @@
         margin-right:20px;
       }
       
-
+	
+	.table-repsonsive{
+		width:100%;
+	}
+	
+	#dataTable_wrapper,#dataTableSale_wrapper {
+	width:90%;}
+	
+	#dataTableSale_wrapper div, #dataTable_wrapper div{
+		margin-bottom:7px;
+	}
+  	
+	.table-responsive>div{
+		display:inline-block;
+	}
+	.page-link:hover{
+		cursor:pointer;
+	}
+	
+	.pagination > li > a, .pagination > li > span{
+		margin:0px; 
+		padding:10px; 
+		background-color:white; 
+		color:rgb(119,119,119);
+		border:1px solid rgb(221, 221, 221);
+	}
+	.pagination > li.active > a, .pagination > li.active > span{
+		background-color:rgb(51, 122, 183); 
+		color:white;
+	}
+	
+	#dataTable thead th,#dataTableSale thead th{
+			cursor:pointer;
+	}
+	
+	#dataTable thead th:hover, #dataTableSale thead th:hover{
+		text-decoration:underline;
+	}
+	
+	.col-lg-6{
+		display:inline-block;
+	}
     </style>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -38,6 +80,17 @@
         $('#collapseTwo').children().children().eq(1).addClass('active');
       });
 </script>
+
+<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+    <script>
+        jQuery(function($){
+            $("#dataTable").DataTable();
+            $("#dataTableSale").DataTable();
+            
+        });
+    </script>
+
+
 </head>
 
 <body id="page-top">
@@ -75,17 +128,17 @@
                             	<div style="width:100; margin:0 auto; display:inline-block;">
                             	<c:forEach var="imgs" items="${imgs }" varStatus="imgStatus">
                             		<c:choose>
-                            			<c:when test="${0 eq imgs.orderBy }">
-                            				<img style="height:50%; width:50%; float:left;" src="${pageContext.request.contextPath}${imgs.path }">
-                            			</c:when>
                             			<c:when test="${1 eq imgs.orderBy }">
-                            				<img style="height:50%; width:50%; float:right;" src="${pageContext.request.contextPath}${imgs.path }"><br><br>
+                            				<img style="height:50%; width:50%; float:left;" src="${imgs.path }">
                             			</c:when>
                             			<c:when test="${2 eq imgs.orderBy }">
-                            				<img style="height:50%; width:50%; float:left;" src="${pageContext.request.contextPath}${imgs.path }">
+                            				<img style="height:50%; width:50%; float:right;" src="${imgs.path }"><br><br>
                             			</c:when>
                             			<c:when test="${3 eq imgs.orderBy }">
-                            				<img style="height:50%; width:50%; float:right;" src="${pageContext.request.contextPath}${imgs.path }">
+                            				<img style="height:50%; width:50%; float:left;" src="${imgs.path }">
+                            			</c:when>
+                            			<c:when test="${4 eq imgs.orderBy }">
+                            				<img style="height:50%; width:50%; float:right;" src="${imgs.path }">
                             			</c:when>
                             		</c:choose>
                             		
@@ -120,14 +173,15 @@
                       </div>
                     </div>     
                 </div>
-
+<div class="row">
                 <!--두번째 카드-->
+                <div class="col-lg-6">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <span class="h6 m-0 font-weight-bold text-primary">입출고내역</span>
                     </div>
                     <div class="card-body">
-                    	<div class="table-responsive">
+                    	<div class="table-responsive"  align="center">
 	                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                          <thead>
 	                            <tr>
@@ -157,22 +211,48 @@
 	                        </table>
 	                      </div>
 
-                        
-                  <!-- 페이징 -->
-                  <div class="row" style="margin-right:auto; margin-left: auto; width:300px;">
-                      <button class="page-link">&lt;</button>
-                      <a href="" class="page-link">1 </a>
-                      <a href="" class="page-link">2 </a>
-                      <a href="" class="page-link">3 </a>
-                      <a href="" class="page-link">4 </a>
-                      <a href="" class="page-link">5 </a>
-                      <button class="page-link">&gt;</button>
-                      </div>
-                    </div>
-                    </div>
-                    <!-- end of 페이징-->
                     </div>     
                 </div>
+                </div>
+                
+                
+                 <!--두번째 카드-->
+                 <div class="col-lg-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <span class="h6 m-0 font-weight-bold text-primary">세일내역</span>
+                    </div>
+                    <div class="card-body">
+                    	<div class="table-responsive" align="center">
+	                        <table class="table table-bordered" id="dataTableSale" width="100%" cellspacing="0">
+	                          <thead>
+	                            <tr>
+	                              <th>세일번호</th>
+	                              <th>할인율</th>
+	                              <th>한정수량</th>
+	                              <th>세일날짜</th>
+	                              <th>조기종료일</th>
+	                            </tr>
+	                          </thead>
+	                          <tbody>
+	                          <c:forEach var="sale" items="${salelist }" varStatus="strgStatus">
+	                            <tr>
+	                              <td>${sale.no }</td>
+	                              <td><fmt:formatNumber value="${sale.salePercent }" type="percent" /></td>
+	                              <td>${sale.limitedAmount }</td>
+	                              <td>${sale.startDate } ~ ${sale.endDate }</td>
+	                              <td>${sale.earlyEndDate }</td>
+	                              
+	                            </tr>
+							  </c:forEach>
+	                          </tbody>
+	                        </table>
+	                      </div>
+
+                    </div>     
+                </div>
+              </div>  
+              </div>
               </div> <!--end of 첫번째 카드-->
         </div>
 

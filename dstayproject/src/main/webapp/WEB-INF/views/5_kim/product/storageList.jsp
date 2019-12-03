@@ -72,8 +72,7 @@
         $('#collapseTwo').children().children().eq(2).addClass('active');
         
         $('.clickableTr').click(function(){
-        	confirm($(this).children().eq(3).text() + " 입출고페이지로 넘어감");
-        	console.log($(this).children().eq(2).text());
+        	location.href="adminProductDetail.do?pNo="+$(this).children().eq(2).text();
         });
         
       });

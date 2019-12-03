@@ -31,9 +31,12 @@
 		color:red;
 	}
 	
-	.table-repsonsive, #dataTable_wrapper{
+	.table-repsonsive{
 		width:100%;
 	}
+	
+	#dataTable_wrapper {
+	width:90%;}
 	
 	#dataTable_wrapper div{
 		margin-bottom:7px;
@@ -108,7 +111,7 @@
 					<div class="btnDiv" style="float: right;">
 						<a class="btn btn-secondary" href="adminAddingProductForm.do">물품종류
 							추가</a>
-					
+					</div>
 					<br> <br>
 					
 					<div class="card shadow mb-4">
@@ -137,13 +140,15 @@
 								    	<c:forEach var='product' items='${pList}' varStatus='status'>   
 											 <tr class='clickableTr'>  
 												 <td class="clickable">${product.no }</td>  
-												 <td class="clickable"><c:forEach var='pic' items="${piList }" varStatus='picStatus'>   
+												 <td class="clickable">
+												 	<c:forEach var='pic' items="${piList }" varStatus='picStatus'>   
 													 	 <c:if test="${product.no eq pic.productNo }">   
-															 <c:if test="${0 eq pic.orderBy }">   
-																 <img src="${pageContext.request.contextPath}${pic.path }" style='width: 75px; height: 75px; border: 1px solid gray;'>  
+															 <c:if test="${1 eq pic.orderBy }">
+																 <img src="${pic.path }" style='width: 75px; height: 75px; border: 1px solid gray;'>  
 															 </c:if>  
 														 </c:if>  
 													 </c:forEach>  
+													
 												 </td>  
 												 <td class="clickable">${product.name }</td>  
 												 <td class="clickable">*</td>  
@@ -206,13 +211,6 @@
 
 	<script>
 		$(function() {
-			$('.clickable').click(function(){
-				var pNo = $(this).parent().children().eq(0).text();
-				location.href="adminProductDetail.do?pNo="+pNo;
-			
-			});
-			
-			
 			
 			$('.manageAmount').click(function(){
 				var pNo = $(this).parent().parent().children().eq(0).text();
@@ -224,6 +222,11 @@
 				var pNo = $(this).parent().parent().children().eq(0).text();
 				location.href='adminAddingDiscountForm.do?pNo='+pNo;
 			});
+			
+			 $('#dataTable tbody').on( 'click', 'tr .clickable', function () {
+			        var pNo =$(this).parent().children().eq(0).text();
+			        location.href="adminProductDetail.do?pNo="+pNo;
+			 });
 		});
 		
 		

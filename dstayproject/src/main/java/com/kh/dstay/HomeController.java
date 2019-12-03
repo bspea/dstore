@@ -63,6 +63,7 @@ public class HomeController {
 		session.setAttribute("googleClientId", utilParam.getGoogleClientId());
 		session.setAttribute("naverClientId", utilParam.getNaverClientId());
 		return "4_jong/mainPage";
+		
 	}
 	@RequestMapping("loginForm.do")
 	public ModelAndView loginForm(ModelAndView mv,@RequestParam(value="findEmail", required=false)String findEmail ) {

@@ -83,7 +83,7 @@ public class AdminProductController {
 				ArrayList<ProductImage> list = new ArrayList();
 				int i=1;
 				for(MultipartFile file : thumbImgs) {
-					String renamePathes = "/dstay" + saveFile(file, request);
+					String renamePathes = saveFile(file, request);
 					list.add(new ProductImage(0, pNo, renamePathes, null, i++ ,null));
 					
 				}
@@ -93,7 +93,7 @@ public class AdminProductController {
 				if(result2 > 0 && !contentImg.getOriginalFilename().equals("")) {	// 단일이미지 저장 성공 & 다중이미지에 파일이있을때
 					// 3-2. 본문이미지(한장) 저장
 					String renamePath = saveFile(contentImg, request);
-					result3 = adminPService.insertProductImage(new ProductImage(0, p.getNo(), renamePath, null, 4, null));
+					result3 = adminPService.insertProductImage(new ProductImage(0, p.getNo(), renamePath, null, 5, null));
 				}
 			}
 			
@@ -142,9 +142,7 @@ public class AdminProductController {
 			e.printStackTrace();
 		}
 
-		
-//		System.out.println(renamePath);
-		return "/resources/images/productImages/" + renameFileName;
+		return "/dstay/resources/images/productImages/" + renameFileName;
 
 	}
 
@@ -165,10 +163,12 @@ public class AdminProductController {
 			// 입고내역(모든 입출고내역)
 			ArrayList<ProductStorage> slist = adminPService.selectStorage(pNo);
 
+			ArrayList<ProductSale> salelist= adminPService.selectProductsDiscount(pNo);
 			model.addAttribute("p", p);
 			model.addAttribute("imgs", imgs);
 			model.addAttribute("iclist", iclist);
 			model.addAttribute("slist",slist);
+			model.addAttribute("salelist", salelist);
 			
 			return "5_kim/product/productDetail";
 		}else {
@@ -240,7 +240,7 @@ public class AdminProductController {
 	}
 	
 	// 수정된정보 -> DB
-	@RequestMapping(value="/adminuUpdateProductInfo.do", method=RequestMethod.POST)
+	@RequestMapping(value="/adminUpdateProductInfo.do", method=RequestMethod.POST)
 	public String updateProductInfo(Product p, Model model, HttpServletRequest request,
 			@RequestParam(value = "thumbs", required = false) MultipartFile[] thumbImgs,
 			@RequestParam(value = "contentImg", required = false) MultipartFile contentImg,
@@ -250,7 +250,7 @@ public class AdminProductController {
 		
 		int result = adminPService.updateProduct(p);
 		
-
+		
 		if (result > 0) { // Product 수정성공시
 
 			int result1 = 0;
@@ -275,46 +275,55 @@ public class AdminProductController {
 				deleteFiles(p.getNo(), request);
 				//  DB에서 해당product의 모든파일 status='N'으로 변경 
 				int fileResult = adminPService.deleteProductImageList(p.getNo());
-				
+
 					if(fileResult>0){
 					// 새로 넘어온 파일 다시 생성
 						
 						ArrayList<ProductImage> newlist = new ArrayList();
-						int i=0;
+
+						int i=1;
+						
 						for(MultipartFile file : thumbImgs) {
 							String renamePathes = saveFile(file, request);
 							newlist.add(new ProductImage(0, p.getNo(), renamePathes, null, i++ ,null));
 						}
+						
 						
 						result2 = adminPService.insertProductImageList(newlist);
 						
 						if(result2 > 0 && !contentImg.getOriginalFilename().equals("")) {	// 단일이미지 저장 성공 & 다중이미지에 파일이있을때
 							// 3-2. 본문이미지(한장) 저장
 							String renamePath = saveFile(contentImg, request);
-							result3 = adminPService.insertProductImage(new ProductImage(0, p.getNo(), renamePath, null, 4, null));
+							result3 = adminPService.insertProductImage(new ProductImage(0, p.getNo(), renamePath, null, 5, null));
+							
+							return "5_kim/common/dashboard";
+						}else if(contentImg.getOriginalFilename().equals("")){
+							return "5_kim/common/dashboard";
+						}else {
+							model.addAttribute("msg","기존파일 삭제에 실패했습니다!");
+							return "5_kim/common/error";
 						}
 					}else {
 						model.addAttribute("msg","기존파일 삭제에 실패했습니다!");
-						view="5_kim/common/error";
+						return "5_kim/common/error";
 					}
-			}else if(result1>0){
-				view="5_kim/common/dashboard";
-				return view;
+			}else if(result1 > 0){
+				return "5_kim/common/dashboard";
 			}
 			
 			if(result1 > 0 && result2 > 0 && result3 > 0) {
-				view="5_kim/common/dashboard";
+				return "5_kim/common/dashboard";
+
 			}else {
 				model.addAttribute("msg","물품 성분 & 이미지 수정실패!");
-				view="5_kim/common/error";
+				return "5_kim/common/error";
 			}
-		
 		}else {
 			model.addAttribute("msg","물품 수정실패!");
-			view="5_kim/common/error";
+			return "5_kim/common/error";
 		}
 			
-		return view;
+		
 	}
 
 
@@ -426,6 +435,6 @@ public class AdminProductController {
 		return view;
 		
 	}
-		
+	
 	
 }

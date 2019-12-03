@@ -21,22 +21,71 @@
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
+
+<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+    <script>
+        jQuery(function($){
+            $("#dataTable").DataTable();
+        });
+    </script>
+    
+    
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script>
       $(function(){
         $('#reported1by1').addClass('active');
         
-        $(".clickableTr").click(function(){
-        	alert($(this).children().eq(0).text() + "상세페이지로 넘어감");
-        });
+	   	
       });
 	</script>
 
 	<style>
-		.clickableTr:hover{
+		
+		
+	.clickableTr:hover{
+		cursor:pointer;
+		color:red;
+	}
+	
+	.table-repsonsive{
+		width:100%;
+	}
+	
+	#dataTable_wrapper {
+	width:90%;}
+	
+	#dataTable_wrapper div{
+		margin-bottom:7px;
+	}
+  	
+	.table-responsive>div{
+		display:inline-block;
+	}
+	.page-link:hover{
+		cursor:pointer;
+	}
+	
+	.pagination > li > a, .pagination > li > span{
+		margin:0px; 
+		padding:10px; 
+		background-color:white; 
+		color:rgb(119,119,119);
+		border:1px solid rgb(221, 221, 221);
+	}
+	.pagination > li.active > a, .pagination > li.active > span{
+		background-color:rgb(51, 122, 183); 
+		color:white;
+	}
+	
+	#dataTable thead th{
 			cursor:pointer;
-			color:navy;
-		}
+	}
+	
+	#dataTable thead th:hover{
+		text-decoration:underline;
+	}
+	
 	
 	</style>
 
@@ -64,33 +113,10 @@
             <!--첫번째 카드-->
                 <div class="card shadow mb-4">
                 
-                <!-- 검색 -->
-                <div class="card-header py-3">
-                    <form action="" method="POST">
-                      <div class="row">
-                          <br>
-                        <select style="margin-left:20%; margin-right:1%; width:80px; height:35px;">
-                          <option value="id">아이디</option>
-                          <option value="name">이름</option>
-                        </select>
-                        <input type="search" class="form-control form-control-sm" style="width:40%; height:35px;">
-                        <button type="submit" class="btn btn-primary btn-icon-split btn-lg" style="margin-left:1%; margin-right:15%; width:80px; height:35px;">
-                          <span>검색</span>
-                        </button>
-                        <br>
-                      </div>
-                    </form>
-                    
-                  </div>
-    
-    
-    
                     <!-- 모든 테이블 영역 -->
                     <div class="card-body">
-                      <div class="table-responsive">
+                      <div class="table-responsive" align="center">
                         
-                          <a href="adminInquiryDetail.do">바로가기</a>
-
                         <!-- 테이블-->
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                           <thead>
@@ -103,39 +129,30 @@
                             </tr>
                           </thead>
                           <tbody>
-                            
+                            <c:forEach var="inq" items="${ilist }" varStatus="inqStatus">
                             <tr class="clickableTr">
-                              <td>33223341</td>
-                              <td>유통기한 지난 상품이 나왔습..</td>
-                              <td>hyeonj@naver.com</td>
-                              <td>2019-09-30</td>
-                              <td>Y</td>
+                              <td>${inq.no }</td>
+                              <td>${inq.title }</td>
+                              <td>${inq.memberNo }</td>
+                              <td>${inq.date }</td>
+                              <c:if test="${inq.answer eq '' }">
+                              	<td>미답변</td>
+                              </c:if>
+                              <c:if test="${inq.answer ne ''}">
+                              	<td>답변완료</td>
+                              </c:if>
                             </tr>
-                            
+                            </c:forEach>
                           </tbody>
                         </table>
                         <!-- end of 테이블-->
                         
     
-                    <!-- 페이징 -->
-                    <div class="row" style="margin-right:auto; margin-left: auto; width:300px;">
-                        <button class="page-link">&lt;</button>
-                        <a href="" class="page-link">1 </a>
-                        <a href="" class="page-link">2 </a>
-                        <a href="" class="page-link">3 </a>
-                        <a href="" class="page-link">4 </a>
-                        <a href="" class="page-link">5 </a>
-                        <button class="page-link">&gt;</button>
-                        </div>
-                      </div>
-                      </div>
-                      <!-- end of 페이징-->
                     </div>
                     <!-- End of 메인 내용 -->
     
                         
-                      </div>
-                    </div>
+                      
                     <!-- end of 모든 테이블 영역-->
                   </div>
                    <!--end of 첫번째 카드-->
@@ -187,6 +204,16 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
+
+	<script>
+		$(function(){
+			 $('#dataTable tbody').on( 'click', 'tr', function () {
+			        var iNo =$(this).children().eq(0).text();
+			        location.href="adminInquiryDetail.do?iNo="+iNo;
+			 });
+			
+		});
+	</script>
 
 </body>
 

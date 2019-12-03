@@ -80,17 +80,17 @@
 									<div style="width:100; margin:0 auto; display:inline-block;">
                             	<c:forEach var="imgs" items="${imgs }" varStatus="imgStatus">
                             		<c:choose>
-                            			<c:when test="${0 eq imgs.orderBy }">
-                            				<img style="height:50%; width:50%; float:left;" src="${pageContext.request.contextPath}${imgs.path }">
-                            			</c:when>
                             			<c:when test="${1 eq imgs.orderBy }">
-                            				<img style="height:50%; width:50%; float:right;" src="${pageContext.request.contextPath}${imgs.path }"><br><br>
+                            				<img style="height:50%; width:50%; float:left;" src="${imgs.path }">
                             			</c:when>
                             			<c:when test="${2 eq imgs.orderBy }">
-                            				<img style="height:50%; width:50%; float:left;" src="${pageContext.request.contextPath}${imgs.path }">
+                            				<img style="height:50%; width:50%; float:right;" src="${imgs.path }"><br><br>
                             			</c:when>
                             			<c:when test="${3 eq imgs.orderBy }">
-                            				<img style="height:50%; width:50%; float:right;" src="${pageContext.request.contextPath}${imgs.path }">
+                            				<img style="height:50%; width:50%; float:left;" src="${imgs.path }">
+                            			</c:when>
+                            			<c:when test="${4 eq imgs.orderBy }">
+                            				<img style="height:50%; width:50%; float:right;" src="${imgs.path }">
                             			</c:when>
                             		</c:choose>
                             		

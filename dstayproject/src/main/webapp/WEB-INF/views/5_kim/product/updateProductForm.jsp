@@ -77,17 +77,17 @@
                           	<div style="width:100; margin:0 auto; display:inline-block;">
                             	<c:forEach var="imgs" items="${imgs }" varStatus="imgStatus">
                             		<c:choose>
-                            			<c:when test="${0 eq imgs.orderBy }">
-                            				<img style="height:200px; float:left;" src="${pageContext.request.contextPath}${imgs.path }">
-                            			</c:when>
                             			<c:when test="${1 eq imgs.orderBy }">
-                            				<img style="height:200px; float:right;" src="${pageContext.request.contextPath}${imgs.path }"><br><br>
+                            				<img style="height:200px; float:left;" src="${imgs.path }">
                             			</c:when>
                             			<c:when test="${2 eq imgs.orderBy }">
-                            				<img style="height:200px; float:left;" src="${pageContext.request.contextPath}${imgs.path }">
+                            				<img style="height:200px; float:right;" src="${imgs.path }"><br><br>
                             			</c:when>
                             			<c:when test="${3 eq imgs.orderBy }">
-                            				<img style="height:200px; float:right;" src="${pageContext.request.contextPath}${imgs.path }">
+                            				<img style="height:200px; float:left;" src="${imgs.path }">
+                            			</c:when>
+                            			<c:when test="${4 eq imgs.orderBy }">
+                            				<img style="height:200px; float:right;" src="${imgs.path }">
                             			</c:when>
                             		</c:choose>
                             		
@@ -217,7 +217,7 @@
 				$.ajax({ 
 					type: "POST", 
 					enctype: 'multipart/form-data', // 필수 
-					url: 'adminuUpdateProductInfo.do', 
+					url: 'adminUpdateProductInfo.do', 
 					data: formData, // 필수 
 					processData: false, // 필수 
 					contentType: false, // 필수 

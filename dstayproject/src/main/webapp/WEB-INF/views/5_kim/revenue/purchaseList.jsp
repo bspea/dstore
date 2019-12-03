@@ -25,7 +25,58 @@
         color:navy;
         cursor:pointer;
       }
+
+	.table-repsonsive{
+		width:100%;
+	}
+	
+	#dataTable_wrapper {
+	width:90%;}
+	
+	#dataTable_wrapper div{
+		margin-bottom:7px;
+	}
+  	
+	.table-responsive>div{
+		display:inline-block;
+	}
+	.page-link:hover{
+		cursor:pointer;
+	}
+	
+	.pagination > li > a, .pagination > li > span{
+		margin:0px; 
+		padding:10px; 
+		background-color:white; 
+		color:rgb(119,119,119);
+		border:1px solid rgb(221, 221, 221);
+	}
+	.pagination > li.active > a, .pagination > li.active > span{
+		background-color:rgb(51, 122, 183); 
+		color:white;
+	}
+	
+	#dataTable thead th{
+			cursor:pointer;
+	}
+	
+	#dataTable thead th:hover{
+		text-decoration:underline;
+	}
+	
+
+
     </style>
+    
+    
+    
+<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+    <script>
+        jQuery(function($){
+            $("#dataTable").DataTable();
+        });
+    </script>
+    
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script>
@@ -57,84 +108,45 @@
                 <!--첫번째 카드-->
                
                 <div class="card shadow mb-4">
-                    <!-- 검색 -->
-                    <div class="card-header py-3">
-                      <form action="" method="POST">
-                        <div class="row">
-                            <br>
-                          <select style="margin-left:20%; margin-right:1%; width:10%; height:35px;">
-                            <option value="id">아이디</option>
-                            <option value="name">이름</option>
-                          </select>
-                          <input type="search" class="form-control form-control-sm" style="width:40%; height:35px;">
-                          <button type="submit" class="btn btn-primary btn-icon-split btn-lg" style="margin-left:1%; margin-right:15%; width:10%; height:35px;">
-                            <span>검색</span>
-                          </button>
-                          <br>
-                        </div>
-                      </form>
-                      
-                    </div>
-                    <!-- end of 검색-->
+                    
                     <!-- 모든 테이블 영역 -->
                     <div class="card-body">
-                      <div class="table-responsive">
-                        <!-- 정렬 -->
-                        <div style="float:right;">
-                          <form action="" method="GET">
-                          <select class="form-control-sm" name="sorting">
-                            <option value="recentNotice">최근 신고받은순</option>
-                            <option value="mostNotice">많이 신고받은순</option>
-                            <option value="recentCreate">최근 가입날짜순</option>
-                          </select>
-                          <button class="btn btn-primary btn-icon-split btn-lg" type="submit">
-                            <img src="resources/images/5_kim/refresh.png" style="width:30px; height:30px;">
-                          </button>
-                        </form>
-                        </div>
-                        <a href="adminPurchaseDetailForm.do">바로가기</a>
-                        <br><br>
-                        <!-- 테이블-->
+                      <div class="table-responsive" align="center">
+                      
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                           <thead>
                             <tr>
                                 <th>구매번호</th>
-                                <th>구매상품명</th>
-                                <th>결제수단</th>
-                                <th>결제확인날짜</th>
+                                <th>상품번호</th>
+                                <th>구매수량</th>
+                                <th>주문날짜</th>
+                                <th>회원/비회원</th>
+                                <th>결제타입</th>
+                                <th>결제날짜</th>
                                 <th>결제금액</th>
-                                <th>송장번호</th>
-                                <th>환불요청여부</th>
-                                <th>환불처리완료날짜</th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr class="clickableTr">
-                              <td>10001</td>
-                              <td>a도시락</td>
-                              <td>카드</td>
-                              <td>2019-10-20</td>
-                              <td>29,000원</td>
-                              <td></td>
-                              <td>N</td>
-                              <td></td>
-                            </tr>
+                          	<c:forEach var="order" items="${olist }" varStatus="orderStatus">
+	                            <tr class="clickableTr">
+	                              <td>${order.no }</td>
+	                              <td>${order.productNo }</td>
+	                              <td>${order.memberNo }</td>
+	                              <c:forEach var="payment" items="${plist }" varStatus="payStatus">
+	                              	<c:if test="${ payment.no eq order.payNo }">
+	                              		<td>${payment.type }</td>
+	                              		<td>${payment.payedDate }</td>
+	                              		<td>${payment.totalPrice }</td>
+	                              	</c:if>
+	                              </c:forEach>
+	                              <td>${order.count }</td>
+	                              <td>${order.enrollDate }</td>
+	                            </tr>
+                            </c:forEach>
                           </tbody>
                         </table>
                         <!-- end of 테이블-->
-                        <!-- 페이징 -->
-                        <div class="row" style="margin-right:auto; margin-left: auto; width:300px;">
-                          <button class="page-link">&lt;</button>
-                          <a href="" class="page-link">1 </a>
-                          <a href="" class="page-link">2 </a>
-                          <a href="" class="page-link">3 </a>
-                          <a href="" class="page-link">4 </a>
-                          <a href="" class="page-link">5 </a>
-                          <button class="page-link">&gt;</button>
-                          </div>
-                        </div>
-                        </div>
-                        <!-- end of 페이징-->
+                      
                       </div>
                     </div>
                     <!-- end of 모든 테이블 영역-->
@@ -186,6 +198,18 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
+
+
+  <script>
+	
+		$(function(){
+			 $('#dataTable tbody').on( 'click', 'tr', function () {
+				 	var pNo = $(this).children().eq(0).text();
+					location.href="adminPurchaseDetail.do?pNo="+pNo;
+			 });
+		});
+	</script>
+  
 
 </body>
 

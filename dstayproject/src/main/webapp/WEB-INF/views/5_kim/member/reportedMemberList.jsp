@@ -20,6 +20,46 @@
       color:navy;
       cursor:pointer;
     }
+    
+    
+    	.table-repsonsive{
+		width:100%;
+	}
+	
+	#dataTable_wrapper {
+	width:90%;}
+	
+	#dataTable_wrapper div{
+		margin-bottom:7px;
+	}
+  	
+	.table-responsive>div{
+		display:inline-block;
+	}
+	.page-link:hover{
+		cursor:pointer;
+	}
+	
+	.pagination > li > a, .pagination > li > span{
+		margin:0px; 
+		padding:10px; 
+		background-color:white; 
+		color:rgb(119,119,119);
+		border:1px solid rgb(221, 221, 221);
+	}
+	.pagination > li.active > a, .pagination > li.active > span{
+		background-color:rgb(51, 122, 183); 
+		color:white;
+	}
+	
+	#dataTable thead th{
+			cursor:pointer;
+	}
+	
+	#dataTable thead th:hover{
+		text-decoration:underline;
+	}
+	
   </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -30,6 +70,14 @@
       $('#collapsePages').children().children().eq(1).addClass('active');
     });
 </script>
+
+
+<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+    <script>
+        jQuery(function($){
+            $("#dataTable").DataTable();
+        });
+    </script>
 </head>
 
 <body id="page-top">
@@ -51,43 +99,12 @@
                        <!--첫번째 카드-->
               <div class="card shadow mb-4">
                   
-              <!-- 검색 -->
-              <div class="card-header py-3">
-                  <form action="" method="POST">
-                    <div class="row">
-                        <br>
-                      <select style="margin-left:20%; margin-right:1%; width:80px; height:35px;">
-                        <option value="id">아이디</option>
-                        <option value="name">이름</option>
-                      </select>
-                      <input type="search" class="form-control form-control-sm" style="width:40%; height:35px;">
-                      <button type="submit" class="btn btn-primary btn-icon-split btn-lg" style="margin-left:1%; margin-right:15%; width:80px; height:35px;">
-                        <span>검색</span>
-                      </button>
-                      <br>
-                    </div>
-                  </form>
-                </div>
   
                 
   
                   <!-- 모든 테이블 영역 -->
                   <div class="card-body">
-                    <div class="table-responsive">
-                      <a href="adminMemberDetail.do">상세보기</a>
-                  <!-- 정렬 -->
-                    <div style="float:right;">
-                        <form action="" method="GET">
-                        <select class="form-control-sm" name="sorting">
-                          <option value="recentNotice">최근 신고받은순</option>
-                          <option value="mostNotice">많이 신고받은순</option>
-                          <option value="recentCreate">최근 가입날짜순</option>
-                        </select>
-                        <button class="btn btn-primary btn-icon-split btn-lg" type="submit">
-                          <img src="resources/images/5_kim/refresh.png" style="width:30px; height:30px;">
-                        </button>
-                      </form>
-                      </div><br><br>
+                    <div class="table-responsive" align="center">
                       <!-- 테이블-->
                       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
@@ -96,40 +113,21 @@
                             <th>아이디</th>
                             <th>닉네임</th>
                             <th>가입날짜</th>
-                            <th>신고받은 횟수</th>
-                            <th>블라인드 횟수</th>
-                            <th>블라인드 여부</th>
                           </tr>
                         </thead>
                         <tbody>
+                        <c:forEach var="member" items="${list }" varStatus="memberStatus">
                           <tr class="clickableTr">
-                                <td>10001</td>
-                                <td>hyeonj</td>
-                                <td>김현지</td>
-                                <td>2019-10-20</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>N</td>
+                                <td>${member.no }</td>
+                                <td>${member.email } (${member.name })</td>
+                                <td>${member.nickName }</td>
+                                <td>${member.enrollDate }</td>
                             </tr>
-                            
+                            </c:forEach>
                         </tbody>
                       </table>
                       <!-- end of 테이블-->
                       
-  
-                  <!-- 페이징 -->
-                  <div class="row" style="margin-right:auto; margin-left: auto; width:300px;">
-                      <button class="page-link">&lt;</button>
-                      <a href="" class="page-link">1 </a>
-                      <a href="" class="page-link">2 </a>
-                      <a href="" class="page-link">3 </a>
-                      <a href="" class="page-link">4 </a>
-                      <a href="" class="page-link">5 </a>
-                      <button class="page-link">&gt;</button>
-                      </div>
-                    </div>
-                    </div>
-                    <!-- end of 페이징-->
                   </div>
                   <!-- End of 메인 내용 -->
   
@@ -197,6 +195,16 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
+
+	<script>
+		
+
+	 $('#dataTable tbody').on( 'click', 'tr', function () {
+	        var mNo =$(this).children().eq(0).text();
+	        location.href="adminMemberDetail.do?mNo="+mNo;
+	 });
+	</script>
+
 
 </body>
 

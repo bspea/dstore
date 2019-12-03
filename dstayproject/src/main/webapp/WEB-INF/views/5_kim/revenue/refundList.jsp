@@ -116,28 +116,23 @@
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                           <thead>
                             <tr>
-                                <th>구매번호</th>
-                                <th>구매상품명</th>
-                                <th>결제수단</th>
-                                <th>결제확인날짜</th>
-                                <th>결제금액</th>
-                                <th>송장번호</th>
-                                <th>환불요청여부</th>
-                                <th>환불처리완료날짜</th>
+                                <th>번호</th>
+                                <th>주문번호</th>
+                                <th>내용</th>
+                                <th>환불요청일</th>
+                                <th>결과</th>
                             </tr>
                           </thead>
                           <tbody>
-                          
+                          	<c:forEach var="refund" items="${rlist }" varStatus="refundStatus">
                             <tr class="clickableTr">
-                              <td>10001</td>
-                              <td>a도시락</td>
-                              <td>카드</td>
-                              <td>2019-10-20</td>
-                              <td>29,000원</td>
-                              <td></td>
-                              <td>N</td>
-                              <td></td>
+                              <td>${refund.no }</td>
+                              <td>${refund.orderNo }</td>
+                              <td>${refund.content }</td>
+                              <td>${refund.date }</td>
+                              <td>${refund.result }</td>
                             </tr>
+                            </c:forEach>
                           </tbody>
                         </table>
                         <!-- end of 테이블-->
@@ -193,6 +188,17 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
+
+	<script>
+	
+		$(function(){
+			 $('#dataTable tbody').on( 'click', 'tr', function () {
+				 	var rNo = $(this).children().eq(0).text();
+				 	
+					location.href="adminRefundDetail.do?rNo="+rNo;
+			 });
+		});
+	</script>
 
 </body>
 

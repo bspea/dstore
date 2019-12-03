@@ -53,51 +53,74 @@
               <br>
               <h3 class="h3 mb-1 text-gray-900">&nbsp; 구매내역 </h3><br>
                 
-            
+                 
+	
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
                   <span class="m-0 font-weight-bold text-primary">구매번호 : 33223341</span>
                   <div style="float:right">
-                  <button class="btn btn-secondary">환불처리</button></div>
+                  <button class="btn btn-secondary" type="button" onclick="setRefund();">환불처리</button></div>
                 </div>
                 <div class="card-body">
                 <div class="table-responsive">
                 <table class="table table-bordered">
-                  <tr>
-                    <th colspan="4" style="text-align:center;">구매 회원 정보</th>
-                  </tr>
-                  <tr>
-                    <th>이메일</th>
-                    <td>hyeonj@naver.com</td>
-                    <th>이름</th>
-                    <td>김현지</td>
-                  </tr>
-                  <tr>
-                      <th>구매일자</th>
-                      <td>2019-11-11 (오후)07:53</td>
-                      <th>연락처</th>
-                      <td>010-6548-8799</td>
-                  </tr>
-                  <tr>
-                      <th>주소</th>
-                      <td colspan="3">서울특별시 영등포구</td>
-                  </tr>
-                  <tr>
-                      <th colspan="4" style="text-align:center;">상세 구매정보</th>
-                    </tr>
-                  
-                  <tr>
-                    <th>결제금액</th>
-                    <td>29,000원</td>
-                    <th>환불여부</th>
-                    <td>N</td>
-                    
-                    
-                  </tr>
-                  <tr>
-                    <th>운송장번호</th>
-                    <td colspan="3">2155502874</td>
-                  </tr>
+                  <c:if test="${order ne ''}">
+	                  
+	                  <tr>
+	                    <th colspan="4" style="text-align:center;">구매정보</th>
+	                  </tr>
+	                  <tr>
+	                    <th>주문번호</th>
+	                    <td>${order.no}</td>
+	                    <th>상태</th>
+	                  	<td>${order.status }</td>
+	                    
+	                  </tr>
+	                  <tr>
+	                  	<th>주문상품</th>
+	                    <td>${order.productNo}</td>
+	                  	<th>구매수량</th>
+	                  	<td>${order.count }</td>
+	                  </tr>
+	                  <tr>
+	                  	<th>구매일자</th>
+	                  	<td>${p.payedDate }</td>
+	                  	<th>결제수단</th>
+	                  	<td>${p.type }</td>
+	                  </tr>
+	                  <tr>
+	                  	<th>실제 결제금액</th>
+	                  	<td>${p.totalPrice }</td>
+	                  	<c:if test="${p.number ne '' }">
+	                  		<th>결제통장</th>
+	                  		<td>${p.number }</td>
+	                  	</c:if>
+	                  	<c:if test="${p.number eq '' }">
+	                  		<th>할인전 결제금액</th>
+	                  		<td>${p.price }</td>
+	                  	</c:if>
+	                  </tr>
+	             
+	                  <tr>
+	                    <th colspan="4" style="text-align:center;">회원정보</th>
+	                  </tr>
+	                  <tr>
+	                  	<th>이메일</th>
+	                  	<td>${member.email }</td>
+	                  	<th>이름</th>
+	                  	<td>${member.name }</td>
+	                  </tr>
+	                  <tr>
+	                  	<th>전화번호</th>
+	                  	<td>${member.phone }</td>
+	                  	<th>요청사항</th>
+                	  	<td>${order.request}</td>
+                	  </tr>
+	                  <tr>
+	                      <th>주소</th>
+	                      <td colspan="3">(${order.postNo }) ${order.address } ${order.addressDetail }</td>
+                	  </tr>
+                  </c:if>
                   
                 </table>
                 
@@ -107,8 +130,8 @@
                 <div align="center">
                   <form action="" method="">
                   	<label>운송장 번호 : </label> &nbsp;
-                    <input type="text" style="height:38px;"> &nbsp; &nbsp; &nbsp; 
-                    <button class="btn btn-primary">확인</button>
+                    <input type="text" style="height:38px;" id="waybillInput"> &nbsp; &nbsp; &nbsp; 
+                    <button type="button" onclick="setWaybillNo();" class="btn btn-primary">확인</button>
                   </form>
                   
                 </div>
@@ -165,6 +188,35 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
+
+	<script>
+		function setRefund(){
+			if(confirm("환불처리 하시겠습니까?")){
+				location.href="adminPurchaseList.do";
+			}
+		}
+		
+	
+		
+		function setWaybillNo(){
+			var value = $("#waybillInput");
+			
+			var regexp = /^[0-9]*$/
+				
+			if(!regexp.test(value.val()) ) {
+					alert("숫자만 입력하세요");
+					value.val("").focus();
+			}else{
+			
+				if(confirm("운송장번호 " + value.val() + "로 발급할까요?")){
+					location.href='adminPurchaseList.do';
+				}
+			}
+			
+		}
+		
+		
+	</script>
 
 </body>
 

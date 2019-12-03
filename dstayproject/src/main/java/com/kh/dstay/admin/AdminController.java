@@ -1,7 +1,10 @@
 package com.kh.dstay.admin;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.kh.dstay.admin.revenue.model.service.RevenueServiceImpl;
 
 /**
  * @author 김현지
@@ -9,42 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class AdminController {
-
 	
-
-	@RequestMapping("adminPurchaseList.do")
-	public String purchaseList() {
-
-		return "5_kim/revenue/purchaseList";
-	}
 	
-	@RequestMapping("adminPurchaseDetailForm.do")
-	public String purchaseDetail() {
-		return "5_kim/revenue/purchaseDetail";
-	}
-	
-	@RequestMapping("adminRefundList.do")
-	public String refundList() {
-		return "5_kim/revenue/refundList";
-		
-	}
-	
-	@RequestMapping("adminMain.do")
-	public String adminMain() {
+	@RequestMapping("admin.do")
+	public String goToAdmin() {
 		return "5_kim/common/dashboard";
-	}
-
-	
-	
-	
-	@RequestMapping("adminInquiryList.do")
-	public String inquiryList() {
-		return "5_kim/inquiry/inquiryList";
-	}
-	
-	@RequestMapping("adminInquiryDetail.do")
-	public String inquiryDetail() {
-		return "5_kim/inquiry/inquiryDetail";
 	}
 	
 }

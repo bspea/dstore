@@ -129,6 +129,11 @@ public class ProductServiceImpl {
 		return adminPDao.addingNewDiscount(sale);
 	}
 
+	public ArrayList<ProductSale> selectProductsDiscount(int pNo) {
+		// TODO Auto-generated method stub
+		return adminPDao.selectProductsDiscount(pNo);
+	}
+
 	// ----------------------- END of ADMIN -------------------------
 
 

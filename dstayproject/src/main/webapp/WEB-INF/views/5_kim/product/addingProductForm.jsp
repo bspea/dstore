@@ -126,7 +126,11 @@
                             		<input type="file" name="contentImg">
                             	</td>
                             </tr>
-                            
+                            <tr>
+                                <td colspan="4" style="padding:0px;">
+                                    <textarea name="recipe" style="resize: none; height:100%; width:100%;" placeholder="조리법"></textarea>
+                                </td>
+                            </tr>
                             <tr>
                                 <td colspan="4" style="padding:0px;">
                                     <textarea name="content" style="resize: none; height:100%; width:100%;" placeholder="상품간단설명"></textarea>

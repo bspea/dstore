@@ -150,6 +150,11 @@ public class ProductDao {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("adminProductMapper.addingNewDiscount", sale);
 	}
+
+	public ArrayList<ProductSale> selectProductsDiscount(int pNo) {
+		// TODO Auto-generated method stub
+		return (ArrayList) sqlSession.selectList("adminProductMapper.selectProductsDiscount", pNo);
+	}
 	
 	// ----------------------- END of ADMIN -------------------------
 
