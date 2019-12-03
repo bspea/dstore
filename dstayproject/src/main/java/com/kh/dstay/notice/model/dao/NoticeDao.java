@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.dstay.notice.model.vo.Notice;
+import com.kh.dstay.notice.model.vo.NoticeReply;
 import com.kh.dstay.notice.model.vo.PageInfo;
 
 @Repository("nDao")
@@ -49,5 +50,17 @@ public class NoticeDao {
 	public Notice selectNextNotice(int noticeNo) {
 
 		return sqlSession.selectOne("noticeMapper.selectNextNotice", noticeNo);
+	}
+
+	public ArrayList<NoticeReply> selectReplyList(int refNoticeId) {
+		
+		ArrayList<NoticeReply> list = (ArrayList)sqlSession.selectList("noticeMapper.selectReplyList", refNoticeId);
+		
+		return list;
+	}
+
+	public int insertReply(NoticeReply r) {
+		
+		return sqlSession.insert("noticeMapper.insertReply", r);
 	}
 }

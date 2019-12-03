@@ -35,7 +35,7 @@
     <!-- 한도빈 Custom js -->
     <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/3_han/frequncy-question.js"></script>
         
-
+	
 </head>
 <body>
 	<%@ include file="../1_common/menubar.jsp" %>
@@ -93,14 +93,14 @@
                 <!--frequency-question-menu end 자주 묻는 nav 질문 끝-->
 
                 <section class="edit-channel-form">
-                    <h2 class="title less-margin">자주 묻는 질문 - 회원서비스</h2>
+                    <h2 class="title less-margin">자주 묻는 질문 - 전체</h2>
 
                     <!--table-->
                     <div class="row">
                         <div class="col-xs-12 less-padding">
                             <div class="box">
                                 <div class="box-header">
-                                    <p class="text-roboto-light">자주 묻는 질문 관련 회원/서비스 부문 ${list.size()}개가 검색되었습니다.</p>
+                                    <p class="text-roboto-light">${ searchTerm }에 대한 검색 결과 ${ list.size() }건이 검색되었습니다.</p>
 
                                     <!--<div class="box-tools">-->
                                     <!--<div class="input-group input-group-sm" style="width: 150px;">-->

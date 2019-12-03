@@ -115,7 +115,28 @@
 							<div class="col-sm-11">
 							    ${ n.noticeContents }
 							</div>
-							
+							<br><br>
+							<hr><br>
+							<div class="row"></div>
+							<table id="notice-reply-write-table">
+								<tr>
+									<td>
+										<textarea cols="50" rows="3" id="replyContents" style="resize:none;"></textarea>
+									</td>
+									<td>
+										<button class="btn btn-default" id="replyBtn">등록하기</button>
+									</td>
+								</tr>
+							</table>
+							<div class="row"></div>
+							<table id="notice-reply-table">
+								<thead>
+									<td><b id="replyCount"></b></td>
+								</thead>
+								<tbody>
+								
+								</tbody>
+							</table>
 							<div class="row"></div>
 							<br>
 							<br>
@@ -177,7 +198,59 @@
         </div>
     </div>
     
-    
+    <script>
+    	$(function(){
+    		getReplyList();
+    		
+    		$("#replyBtn").on("click", function(){
+    			
+    			$.ajax({
+    				url:"replyInsert.do",
+    				data:{replyContents:$("#replyContents").val(), refNoticeId:${n.noticeNo}, replyWriter:${loginUser.no}},
+    				success:function(data){
+    					if(data == "success"){
+    						getReplyList();
+    						$("#replyContents").val("");
+    					}else{
+    						alert("댓글 등록 실패");
+    					}
+    				}
+    			});
+    		});
+    	});
+    	
+    	
+    	
+    	function getReplyList(){
+    		
+    		$.ajax({
+    			url:"getReplyList.do",
+    			data:{refNoticeId:${n.noticeNo}},
+    			success:function(data){
+    				console.log(data);
+    				$tbody = $("#notice-reply-table tbody");
+    				$tbody.html("");
+    				
+    				$("#replyCount").text("댓글(" + data.length + ")");
+    				
+    				$.each(data, function(index, value){
+    					$tr = $("<tr></tr>");
+    					$writerTd = $("<td width='100'></td>").text(value.replyWriterNickName);
+    					$dateTd = $("<td width='100'></td>").text(value.replyModifyDate);
+    					$contentTd = $("<td width='300'></td>").text(value.replyContents);
+    					
+    					
+    					$tr.append($writerTd);
+    					$tr.append($dateTd);
+    					$tr.append($contentTd);
+    					
+    					
+    					$tbody.append($tr);
+    				});
+    			}
+    		});
+    	}
+    </script>
     
 
 </body>

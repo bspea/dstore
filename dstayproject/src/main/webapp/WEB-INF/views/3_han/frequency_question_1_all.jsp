@@ -35,21 +35,7 @@
     <!-- 한도빈 Custom js -->
     <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/3_han/frequncy-question.js"></script>
         
-	<style>
-		#fqaSearch{
-			border: 5px solid lightgray;
-			margin-bottom:5px;
-		}
-		#search-form{
-			padding:20px;
-		}
-		#search-label{
-			padding-right:10px;
-			font-size:20px;
-			margin-bottom:0;
-			vertical-align:middle;
-		}
-	</style>
+	
 </head>
 <body>
 	<%@ include file="../1_common/menubar.jsp" %>
@@ -80,7 +66,7 @@
             
             	<div class="container-fluid text-center">
             			
-      				<form id="fqaSearch" class="form-inline" method="get" action="">
+      				<form id="fqaSearch" class="form-inline" method="get" action="fqaSearch.do">
       					<div class="form-group" id="search-form">
       						<label for="searchTxt" id="search-label">질문 검색</label>
       						<input id="searchTxt" class="form-control" type="text" name="searchTxt" placeholder="검색어를 입력하세요" maxlength="30">
@@ -95,13 +81,14 @@
                 <!--frequency-question-menu 자주 묻는 질문 nav 시작-->
                 <div class="container-fluid frequency-question-menu hidden-xs">
                     <ul class="nav navbar-nav">
-                        <li><a href="fqaList-all.do">전체</a></li>
-                        <li><a href="fqaList-delivery.do">배송문의</a> </li>
-                        <li><a href="fqaList-refund.do">반품/교환/환불</a></li>
-                        <li><a href="fqaList-order.do">주문/결제</a></li>
-                        <li><a href="fqaList-member.do">회원서비스</a></li>
-                        <li><a href="fqaList-reward.do">보상제도</a></li>
-                        <li><a href="fqaList-other.do">기타</a></li>
+                        <li><a>검색 가능한 카테고리 : &lt; 배송문의, 반품/교환/환불, 주문/결제, 회원서비스, 보상제도, 기타 &gt; 입니다. 필요한 키워드로 검색하세요 ^^</a></li>
+                        <!-- <li><a>&lt; 배송문의,</a></li>
+                        <li><a>반품/교환/환불,</a></li>
+                        <li><a>주문/결제,</a></li>
+                        <li><a>회원서비스,</a></li>
+                        <li><a>보상제도,</a></li>
+                        <li><a>기타 &gt;</a></li>
+                        <li><a>키워드로 검색하세요 ^^</a></li> -->
                     </ul>
                 </div>
                 <!--frequency-question-menu end 자주 묻는 nav 질문 끝-->
@@ -114,7 +101,7 @@
                         <div class="col-xs-12 less-padding">
                             <div class="box">
                                 <div class="box-header">
-                                    <p class="text-roboto-light">여기서 미리 보고 쓸 데 없는 질문은 하지 마라~~~ 이 말이야!</p>
+                                    <p class="text-roboto-light"></p>
 
                                     <!--<div class="box-tools">-->
                                     <!--<div class="input-group input-group-sm" style="width: 150px;">-->
@@ -128,20 +115,26 @@
                                 <!-- /.box-header -->
                                 <div class="box-body table-responsive no-padding">
                                     <table id="frequency-question-table" class="table table-hover table-header-gray">
-                                        <tr>
-                                            <th width="5%" class="text-center">구분</th>
-                                            <th width="15%" class="text-center">대분류</th>
-                                            <th width="15%" class="text-center">중소분류</th>
-                                            <th colspan="5">질문 내용</th>
-                                        </tr>
-                                        <c:forEach items="${ list }" var="fqaList">
-                                        <tr>
-                                            <td class="text-center">Q</td>
-                                            <td class="text-center">${ fqaList.category }</td>
-                                            <td class="text-center">${ fqaList.division }</td>
-                                            <td class="frequency-question" colspan="5" data-toggle="modal" data-target="#fq${ fqaList.fqaNo }">${ fqaList.QTitle }</td>
-                                        </tr>
-                                        </c:forEach>
+                                    	<thead>
+	                                        <tr>
+	                                            <th width="5%" class="text-center">구분</th>
+	                                            <th width="15%" class="text-center">대분류</th>
+	                                            <th width="15%" class="text-center">중소분류</th>
+	                                            <th colspan="5">질문 내용</th>
+	                                        </tr>
+										</thead>
+										<tbody>
+											<!-- 
+	                                        <c:forEach items="${ list }" var="fqaList">
+	                                        <tr>
+	                                            <td class="text-center">Q</td>
+	                                            <td class="text-center">${ fqaList.category }</td>
+	                                            <td class="text-center">${ fqaList.division }</td>
+	                                            <td class="frequency-question" colspan="5" data-toggle="modal" data-target="#fq${ fqaList.fqaNo }">${ fqaList.QTitle }</td>
+	                                        </tr>
+	                                        </c:forEach>
+	                                         -->
+										</tbody>
                                     </table>
                                     <div class="btn btn-wrap col-xs-12" id="show-more-btn">더보기</div>
 
@@ -204,6 +197,8 @@
         </div>
     </div>	
 	
-	
+	<script>
+		
+	</script>
 </body>
 </html>

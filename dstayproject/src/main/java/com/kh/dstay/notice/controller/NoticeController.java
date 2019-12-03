@@ -18,18 +18,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.kh.dstay.common.Pagination;
 import com.kh.dstay.notice.model.service.NoticeService;
 import com.kh.dstay.notice.model.vo.Notice;
 import com.kh.dstay.notice.model.vo.NoticeFiles;
+import com.kh.dstay.notice.model.vo.NoticeReply;
 import com.kh.dstay.notice.model.vo.PageInfo;
-
-import oracle.net.aso.n;
 
 @Controller
 public class NoticeController {
@@ -160,5 +163,31 @@ public class NoticeController {
 		}
 		
 		return mv;
+	}
+	
+	@RequestMapping("getReplyList.do")
+	public void getReplyList(int refNoticeId, HttpServletResponse response) throws JsonIOException, IOException {
+		
+		ArrayList<NoticeReply> list = nService.selectReplyList(refNoticeId);
+		
+		response.setContentType("application/json; charset=UTF-8");
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		gson.toJson(list, response.getWriter());
+		
+		// System.out.println(list);
+	}
+	
+	@ResponseBody
+	@RequestMapping("replyInsert.do")
+	public String replyInsert(NoticeReply r) {
+		int result = nService.insertReply(r);
+		
+		if(result>0) {
+			return "success";
+		}else {
+			return "failed";
+		}
 	}
 }

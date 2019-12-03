@@ -49,5 +49,10 @@ public class FrequencyQuestionAnswerServiceImpl implements FrequencyQuestionAnsw
 		return fqaDao.selectFQAListOther();
 	}
 
+	@Override
+	public ArrayList<FrequencyQuestionAnswer> selectFQAListSearchTerm(String searchTerm) {
+		return fqaDao.selectFQAListSearchTerm(searchTerm);
+	}
+
 
 }

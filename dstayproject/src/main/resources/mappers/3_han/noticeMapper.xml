@@ -9,7 +9,18 @@
  		<result property="writeDate" column="ndate"/>
  		<result property="noticeCategory" column="ncategory"/>
  		<result property="status" column="nstatus"/>
- 		
+ 	</resultMap>
+ 	
+ 	<resultMap id="replyResultSet" type="com.kh.dstay.notice.model.vo.NoticeReply">
+ 		<id property="replyNo" column="replyno"/>
+ 		<result property="replyDepth" column="replydepth"/>
+ 		<result property="refNoticeId" column="replynoticeid"/>
+ 		<result property="replyWriter" column="replywriter"/>
+ 		<result property="replyWriterNickName" column="nickname"/>
+ 		<result property="replyContents" column="replycontents"/>
+ 		<result property="replyCreateDate" column="replycreatedate"/>
+ 		<result property="replyModifyDate" column="replymodifydate"/>
+ 		<result property="replyStatus" column="replystatus"/>
  	</resultMap>
  	
 	<select id="getNoticeListCount" resultType="_int">
@@ -47,4 +58,18 @@
 		FROM (SELECT ROWNUM AS PeckingOrder, NOTICE.* FROM NOTICE)
 		WHERE PeckingOrder=(SELECT SelectedOrder FROM (SELECT ROWNUM AS SelectedOrder, NOTICE.* FROM NOTICE) WHERE NNO=#{noticeNo})+1
 	</select>
+	
+	<select id="selectReplyList" resultMap="replyResultSet">
+		SELECT REPLYNO, REPLYDEPTH, REPLYNOTICEID, REPLYWRITER, NICKNAME, REPLYCONTENTS, REPLYCREATEDATE, REPLYMODIFYDATE, REPLYSTATUS
+		FROM NOTICE_REPLY
+		JOIN NOTICE ON (NNO=#{refNoticeId})
+		JOIN MEMBER ON (REPLYWRITER=MNO)
+		WHERE REPLYSTATUS='Y'
+		ORDER BY REPLYNO DESC
+	</select>
+	
+	<insert id="insertReply">
+		INSERT INTO NOTICE_REPLY
+		VALUES(SEQ_NOTICE_REPLY.NEXTVAL, 1, #{refNoticeId}, #{replyWriter}, #{replyContents}, SYSDATE, SYSDATE, DEFAULT)
+	</insert>
 </mapper>

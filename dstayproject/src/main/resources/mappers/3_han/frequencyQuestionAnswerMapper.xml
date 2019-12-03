@@ -60,4 +60,15 @@
 		from FQA
 		where status='Y' and category='기타'
 	</select>
+	
+	<!-- 검색어 입력해서 리스트 조회 -->
+	<select id="selectFQAListSearchTerm" resultMap="FQAResultSet">
+		select *
+		from fqa
+		where status='Y' and (category like '%' || #{searchTerm} || '%'
+						   or division like '%' || #{searchTerm} || '%'
+						   or qtitle like '%' || #{searchTerm} || '%'
+						   or atitle like '%' || #{searchTerm} || '%'
+						   or acontents like '%' || #{searchTerm} || '%')
+	</select>
 </mapper>
