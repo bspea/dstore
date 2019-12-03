@@ -568,9 +568,7 @@
 							                       +"<div class='col-sm-8 col-xs-6'>"
 							                           +"<p class='default-userProductList-CardList-price'>￦"+v.price+"</p>"
 							                       +"</div>"
-							                       +"<div class='col-sm-4 col-xs-6'>"
-							                           +"<button onclick='location.href=shoppingCart.html' class='btn default-userProductList-CardList-button pull-right' role='button'>Add to Cart</button>"
-							                       +"</div>"
+							                       
 							                   +"</div>"
 							               +"</div>"
 							           +"</div>"
