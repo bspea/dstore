@@ -128,7 +128,7 @@ public class HomeController {
 			}	
 		}
 	@RequestMapping("kakaoLoginForm.do")
-	public ModelAndView kakaoLogin(ModelAndView mv,@RequestParam("nickName")String nickName,@RequestParam("password")String password) {
+	public ModelAndView kakaoLoginForm(ModelAndView mv,@RequestParam("nickName")String nickName,@RequestParam("password")String password) {
 		mem.setNickName(nickName);
 		mem.setPassword(password);
 		mv.addObject("mem", mem).setViewName("2_bak/kakaoLoginForm");
@@ -141,6 +141,7 @@ public class HomeController {
 		mem.setPassword(password);
 		int result = mService.insertMember(mem);
 		if(result>0) {
+			session.setAttribute("loginUser", mem);
 			return "redirect:home.do";
 		}else {
 			return "redirect:loginForm.do";
