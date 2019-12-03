@@ -35,7 +35,21 @@
     <!-- 한도빈 Custom js -->
     <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/3_han/frequncy-question.js"></script>
         
-
+	<style>
+		#fqaSearch{
+			border: 5px solid lightgray;
+			margin-bottom:5px;
+		}
+		#search-form{
+			padding:20px;
+		}
+		#search-label{
+			padding-right:10px;
+			font-size:20px;
+			margin-bottom:0;
+			vertical-align:middle;
+		}
+	</style>
 </head>
 <body>
 	<%@ include file="../1_common/menubar.jsp" %>
@@ -63,6 +77,21 @@
             </div>
 
             <div class="col-md-10">
+            
+            	<div class="container-fluid text-center">
+            			
+      				<form id="fqaSearch" class="form-inline" method="get" action="">
+      					<div class="form-group" id="search-form">
+      						<label for="searchTxt" id="search-label">질문 검색</label>
+      						<input id="searchTxt" class="form-control" type="text" name="searchTxt" placeholder="검색어를 입력하세요" maxlength="30">
+      					</div>
+      					<button type="submit" class="btn btn-default">검색</button>
+      				</form>
+            		
+            	</div>
+            	
+            	<div class="row"></div>
+            	
                 <!--frequency-question-menu 자주 묻는 질문 nav 시작-->
                 <div class="container-fluid frequency-question-menu hidden-xs">
                     <ul class="nav navbar-nav">

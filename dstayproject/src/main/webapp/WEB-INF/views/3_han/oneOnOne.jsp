@@ -56,9 +56,9 @@
 			
 			setInterval(function(){
 
-				getChatList();
+				// getChatList();
 				
-				//getChatNotRead();
+				getChatNotRead();
 				// getNewTime();
 			}, 1000);
 			

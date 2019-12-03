@@ -226,6 +226,11 @@ public class CustomerCenterController {
 		gson.toJson(list, response.getWriter());
 	}
 	
+	@RequestMapping("goChatRoom.do")
+	public String goChatRoom() {
+		return "3_han/chatRoom";
+	}
+	
 	
 	
 }
