@@ -101,6 +101,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Revenue:</h6>
             <a class="collapse-item" href="adminPurchaseList.do">구매내역</a>
+            <a class="collapse-item" href="adminRefundList.do">환불요청</a>
           </div>
         </div>
       </li>

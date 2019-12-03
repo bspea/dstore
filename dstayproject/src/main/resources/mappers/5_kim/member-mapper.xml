@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminMemberMapper">
+
+	<resultMap id="MemberResultSetAdmin" type="MemberAdmin">
+		<id property="no" column="MNO"/>
+		<result property="memberStatus" column="MSNO"/>
+		<result property="email" column="EMAIL"/>
+		<result property="phone" column="PHONE"/>
+		<result property="name" column="NAME"/>
+		<result property="nickName" column="NICKNAME"/>
+		<result property="gender" column="GENDER"/>
+		<result property="age" column="AGE"/>
+		<result property="goalCalorie" column="GOALCALORIE"/>
+		<result property="enrollDate" column="MDATE"/>
+	</resultMap>
+	
+	<resultMap id="ReportResultSetAdmin" type="ReportAdmin">
+		<id property="no" column="RNO"/>
+		<result property="sendNo" column="SENDNO"/>
+		<result property="recvNo" column="RECVNO"/>
+		<result property="reportedDate" column="RDATE"/>
+		<result property="content" column="RCONTENT"/>
+		<result property="incidientNo" column="RJNO"/>
+		<result property="incidientResult" column="RJRESULT"/>
+		<result property="incidientedDate" column="RJDATE"/>
+	</resultMap>
+	
+	<resultMap id="AddressResultSetAdmin" type="AddressAdmin">
+		<id property="no" column="ANO"/>
+		<result property="memberNo" column="MNO"/>
+		<result property="postNo" column="AADDRESSNO"/>
+		<result property="address1" column="AADDRESS1"/>
+		<result property="address2" column="AADDRESS2"/>
+		<result property="name" column="ANAME"/>
+	</resultMap>
+	
+	<resultMap id="CouponInfoResultSetAdmin" type="CouponInfoAdmin">
+		<id property="no" column="CINO"/>
+		<result property="productNo" column="PNO"/>
+		<result property="code" column="CICODE"/>
+		<result property="name" column="CINAME"/>
+		<result property="category" column="CICATEGORY"/>
+		<result property="rate" column="CISALERATE"/>
+		<result property="startDate" column="CISTARTDATE"/>
+		<result property="endDate" column="CIENDDATE"/>
+	</resultMap>
+	
+	<select id="selectMemberList" resultMap="MemberResultSetAdmin">
+		SELECT * FROM MEMBER
+	</select>
+	
+	<select id="selectMember" resultMap="MemberResultSetAdmin">
+		SELECT * FROM MEMBER WHERE MNO=#{mNo}
+	</select>
+	
+	<select id="selectMemberReport" resultMap="ReportResultSetAdmin">
+		SELECT * FROM REPORT
+		JOIN REPORT_INCIDENT USING(RJNO)
+		WHERE RECVNO=#{mNo}
+		
+	</select>
+	
+	<select id="selectAddress" resultMap="AddressResultSetAdmin">
+		SELECT * FROM ADDRESS
+		WHERE MNO=#{mNo}
+	
+	</select>
+	
+	<select id="selectCouponList" resultMap="CouponInfoResultSetAdmin">
+		SELECT * FROM COUPON_INFORMATION
+	</select>
+	
+</mapper>

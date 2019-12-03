@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminProductMapper">
+	
+	<resultMap id="productResultSetAdmin" type="ProductAdmin">
+		<id property="no" column="PNO"/>
+		<result property="categoryNo" column="PCNO"/>
+		<result property="name" column="PNAME"/>
+		<result property="price" column="PRICE"/>
+		<result property="content" column="PCONTENTS"/>
+		<result property="recipe" column="PRECIPE"/>
+		<result property="enrollDate" column="PENROLLDATE"/>
+		<result property="calorie" column="CALORIE"/>
+		<result property="status" column="PSTATUS"/>
+	</resultMap>
+	
+	
+	<resultMap id="productImageResultSetAdmin" type="ProductImageAdmin">
+		<id property="no" column="PINO"/>
+		<result property="productNo" column="PNO"/>
+		<result property="path" column="PIPATH"/>
+		<result property="createDate" column="PIDATE"/>
+		<result property="orderBy" column="PIORDERBY"/>
+		<result property="status" column="PISTATUS"/>
+	</resultMap>
+	
+	<resultMap id="productStorageResultSetAdmin" type="ProductStorageAdmin">
+		<id property="no" column="PSNO"/>
+		<result property="productNo" column="PNO"/>
+		<result property="productName" column="PNAME"/>
+		<result property="count" column="PSCOUNT"/>
+		<result property="createDate" column="PSDATE"/>
+		<result property="type" column="PSTYPE"/>
+	</resultMap>
+	
+	<resultMap id="ingredientCategoryResultSetAdmin" type="IngredientCategoryAdmin">
+		<id property="no" column="ICNO"/>
+		<result property="name" column="ICNAME"/>
+		<result property="productNo" column="PNO"/>
+		<result property="status" column="ICSTATUS"/>
+	</resultMap>
+	
+	<resultMap id="productCategoryResultSetAdmin" type="ProductCategoryAdmin">
+		<id property="no" column="PCNO"/>
+		<result property="name" column="PCNAME"/>
+	</resultMap>
+	
+	<resultMap id="productSaleResultSetAdmin" type="ProductSaleAdmin">
+		<id property="no" column="PSNO"/>
+		<result property="productNo" column="PNO"/>
+		<result property="productName" column="PNAME"/>
+		<result property="salePercent" column="SALERATE"/>
+		<result property="limitedAmount" column="LIMITEDCOUNT"/>
+		<result property="cellCount" column="CELLCOUNT"/>
+		<result property="startDate" column="STARTDATE"/>
+		<result property="endDate" column="ENDDATE"/>
+		<result property="earlyEndDate" column="EARLYENDDATE"/>
+	
+	
+	</resultMap>
+	
+	<select id="selectProductList" resultMap="productResultSetAdmin">
+		SELECT * 
+		FROM PRODUCT
+	</select>
+	
+	<select id="selectProductImageList" resultMap="productImageResultSetAdmin">
+		SELECT * 
+		FROM PRODUCT_IMAGE
+		WHERE PISTATUS='Y'
+	</select>
+	
+	<insert id="insertProduct" parameterType="ProductAdmin">
+		INSERT INTO PRODUCT
+		VALUES(SEQ_PRODUCT.NEXTVAL, #{categoryNo}, #{name}, #{price}, #{content}, #{recipe}, DEFAULT, #{calorie}, 0, null , DEFAULT)
+	</insert>
+	
+	<select id="getProductCurrVal" resultType="_int">
+		SELECT SEQ_PRODUCT.CURRVAL
+		FROM DUAL
+	</select>
+	
+	<insert id="insertIngredient" parameterType="IngredientAdmin">
+		INSERT INTO INGREDIENT
+		VALUES(SEQ_INGREDIENT.NEXTVAL, #{productNo}, #{ingCategoryNo})
+	</insert>
+	
+	<insert id="insertProductImage" parameterType="ProductImageAdmin">
+		INSERT INTO PRODUCT_IMAGE
+		VALUES(SEQ_PRODUCT_IMAGE.NEXTVAL, #{productNo}, #{path}, DEFAULT, #{orderBy}, DEFAULT)
+	</insert>
+	
+	<select id="selectProduct" resultMap="productResultSetAdmin">
+		SELECT * 
+		FROM PRODUCT 
+		WHERE PNO=#{pNo}
+	</select>
+	
+	<select id="selectStorage" resultMap="productStorageResultSetAdmin">
+		SELECT * 
+		FROM PRODUCT_SOTRAGE 
+		WHERE PNO=#{pNo}
+	</select>
+	
+	<select id="selectProductAllImages" resultMap="productImageResultSetAdmin">
+		SELECT * 
+		FROM PRODUCT_IMAGE 
+		WHERE PNO=#{pNo} AND PISTATUS='Y'
+	</select>
+	
+	<select id="selectProductAllIngredients" resultMap="ingredientCategoryResultSetAdmin">
+		SELECT ICNO, PNO, ICSTATUS, ICNAME
+		FROM INGREDIENT 
+		JOIN INGREDIENT_CATEGORY USING(ICNO)
+		WHERE ICSTATUS='Y' AND PNO=#{pNo}
+		ORDER BY ICNO
+	</select>
+	
+	<select id="selectAllIngredients" resultMap="ingredientCategoryResultSetAdmin">
+		select * 
+		from ingredient_category 
+		where ICSTATUS='Y'
+	</select>
+	
+	<select id="selectAllPCategories" resultMap="productCategoryResultSetAdmin">
+		select * 
+		from product_category
+	</select>
+	
+	<update id="updateProduct" parameterType="ProductAdmin">
+		UPDATE PRODUCT
+		SET PCNO=#{categoryNo}, PNAME=#{name}, PRICE=#{price}, PCONTENTS=#{content}, CALORIE=#{calorie}
+		WHERE PNO=#{no}
+	</update>
+	
+	
+	<delete id="deleteProductIngredient">
+		DELETE FROM INGREDIENT
+		WHERE PNO=#{pNo}
+	</delete>
+	
+	<update id="deleteProductImages">
+		UPDATE PRODUCT_IMAGE
+		SET PISTATUS='N'
+		WHERE PNO=#{no}
+	</update>
+	
+
+	<select id="selectAllStorage" resultMap="productStorageResultSetAdmin">
+		SELECT PSNO, PNO, PNAME, PSCOUNT, PSDATE, PSTYPE
+		FROM PRODUCT_SOTRAGE
+		JOIN PRODUCT USING(PNO)
+	</select>
+	
+	<insert id="insertStorage" parameterType="ProductStorageAdmin">
+		INSERT INTO PRODUCT_SOTRAGE
+		VALUES(SEQ_PRODUCT_STORAGE.NEXTVAL, #{productNo}, #{count}, SYSDATE, #{type})
+	</insert>
+
+	<select id="selectAllDiscounts" resultMap="productSaleResultSetAdmin">
+		SELECT PSNO, PNO, PNAME, SALERATE, LIMITEDCOUNT, CELLCOUNT, STARTDATE, ENDDATE, EARLYENDDATE
+		FROM PRODUCT_SALE
+		JOIN PRODUCT USING(PNO)
+	</select>
+	
+	<insert id="addingNewDiscount">
+		INSERT INTO PRODUCT_SALE
+		VALUES(SEQ_PRODUCT_SALE.NEXTVAL, #{productNo}, #{salePercent}, #{limitedAmount}, #{cellCount}, #{startDate}, #{endDate}, #{earlyEndDate})
+	</insert>
+</mapper>

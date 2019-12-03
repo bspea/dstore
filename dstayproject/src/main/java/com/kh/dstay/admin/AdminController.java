@@ -10,36 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class AdminController {
 
-	@RequestMapping("adminMain.do")
-	public String adminMain() {
-		return "5_kim/common/dashboard";
-	}
 	
-	@RequestMapping("adminMemberList.do")
-	public String reportedMemberList() {
-		return "5_kim/member/reportedMemberList";
-	}
 
-	@RequestMapping("adminMemberDetail.do")
-	public String reportedMemberDetail() {
-		return "5_kim/member/reportedMemberDetail";
-	}
-	
-	@RequestMapping("adminCouponList.do")
-	public String couponList() {
-		return "5_kim/coupon/couponList";
-	}
-	
-	@RequestMapping("adminAddingCouponForm.do")
-	public String addingCouponForm() {
-		return "5_kim/coupon/addingCouponForm";
-	}
-	
-	
-	
-	
 	@RequestMapping("adminPurchaseList.do")
 	public String purchaseList() {
+
 		return "5_kim/revenue/purchaseList";
 	}
 	
@@ -47,6 +22,20 @@ public class AdminController {
 	public String purchaseDetail() {
 		return "5_kim/revenue/purchaseDetail";
 	}
+	
+	@RequestMapping("adminRefundList.do")
+	public String refundList() {
+		return "5_kim/revenue/refundList";
+		
+	}
+	
+	@RequestMapping("adminMain.do")
+	public String adminMain() {
+		return "5_kim/common/dashboard";
+	}
+
+	
+	
 	
 	@RequestMapping("adminInquiryList.do")
 	public String inquiryList() {

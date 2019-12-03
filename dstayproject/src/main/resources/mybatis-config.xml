@@ -23,15 +23,20 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.kh.dstay.member.model.vo.OrderInfo" alias="OrderInfo"/>
 		
 		
-		<!-- 현지씨 해당 vo가 존재하지 않아 비활성화 처리. 
-		<typeAlias type="com.kh.dstay.product.model.vo.Product" alias="Product"/>
-		<typeAlias type="com.kh.dstay.product.model.vo.Ingredient" alias="Ingredient"/>
-		<typeAlias type="com.kh.dstay.product.model.vo.ProductImage" alias="ProductImage"/>
-		<typeAlias type="com.kh.dstay.product.model.vo.ProductStorage" alias="ProductStorage"/>
-		<typeAlias type="com.kh.dstay.product.model.vo.IngredientCategory" alias="IngredientCategory"/>
-		<typeAlias type="com.kh.dstay.product.model.vo.ProductCategory" alias="ProductCategory"/>
-		<typeAlias type="com.kh.dstay.product.model.vo.ProductSale" alias="ProductSale"/>
-		-->
+		<typeAlias type="com.kh.dstay.admin.product.model.vo.Product" alias="ProductAdmin"/>
+		<typeAlias type="com.kh.dstay.admin.product.model.vo.Ingredient" alias="IngredientAdmin"/>
+		<typeAlias type="com.kh.dstay.admin.product.model.vo.ProductImage" alias="ProductImageAdmin"/>
+		<typeAlias type="com.kh.dstay.admin.product.model.vo.ProductStorage" alias="ProductStorageAdmin"/>
+		<typeAlias type="com.kh.dstay.admin.product.model.vo.IngredientCategory" alias="IngredientCategoryAdmin"/>
+		<typeAlias type="com.kh.dstay.admin.product.model.vo.ProductCategory" alias="ProductCategoryAdmin"/>
+		<typeAlias type="com.kh.dstay.admin.product.model.vo.ProductSale" alias="ProductSaleAdmin"/>
+		
+		<typeAlias type="com.kh.dstay.admin.member.model.vo.Member" alias="MemberAdmin"/>
+		<typeAlias type="com.kh.dstay.admin.member.model.vo.Report" alias="ReportAdmin"/>
+		<typeAlias type="com.kh.dstay.admin.member.model.vo.Address" alias="AddressAdmin"/>
+		<typeAlias type="com.kh.dstay.admin.member.model.vo.CouponInformation" alias="CouponInfoAdmin"/>
+		
+		
 		
 		<typeAlias type="com.kh.dstay.lee.login.model.vo.Member" alias="Member_Lee"/>
 		<typeAlias type="com.kh.dstay.lee.products.model.vo.Product" alias="product_Lee"/>
