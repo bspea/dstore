@@ -680,10 +680,7 @@
 			                            +"<li><span>휴대폰</span><div class='user-phone'>"+data.phone+"</div></li>"
 			                        +"</ul>"
 			                    +"</div>"
-			                    +"<div class='myProfile myProfile-address'>"
-			                        +"<div class='profile-title'>주소지 관리</div>"
-			                        +"<button class='btn-red margin-top-18' id='address'>주소지 관리</button>"
-			                    +"</div>"
+			                    
 			                    +"<div class='myProfile myProfile-address'>"
 			                        +"<div class='profile-title'>회원탈퇴</div>"
 			                        +"<button class='btn-black margin-top-18' id='withdrawal'>탈퇴하기</button>"
