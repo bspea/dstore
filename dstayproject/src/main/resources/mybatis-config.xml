@@ -36,12 +36,12 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.kh.dstay.admin.member.model.vo.Address" alias="AddressAdmin"/>
 		<typeAlias type="com.kh.dstay.admin.member.model.vo.CouponInformation" alias="CouponInfoAdmin"/>
 		
-		<typeAlias type="com.kh.dstay.admin.revenue.model.vo.GuestOrder" alias="GuestOrderAdmin"/>
-		<typeAlias type="com.kh.dstay.admin.revenue.model.vo.Order" alias="OrderAdmin"/>
-		<typeAlias type="com.kh.dstay.admin.revenue.model.vo.Payment" alias="PaymentAdmin"/>
-		<typeAlias type="com.kh.dstay.admin.revenue.model.vo.Refund" alias="RefundAdmin"/>
+		<!-- <typeAlias type="com.kh.dstay.admin.revenue.model.vo.GuestOrder" alias="GuestOrderAdmin"/> -->
+		<!-- <typeAlias type="com.kh.dstay.admin.revenue.model.vo.Order" alias="OrderAdmin"/> -->
+		<!-- <typeAlias type="com.kh.dstay.admin.revenue.model.vo.Payment" alias="PaymentAdmin"/> -->
+		<!-- <typeAlias type="com.kh.dstay.admin.revenue.model.vo.Refund" alias="RefundAdmin"/> -->
 		
-		<typeAlias type="com.kh.dstay.admin.inquiry.model.vo.Inquiry" alias="InquiryAdmin"/>
+		<!-- <typeAlias type="com.kh.dstay.admin.inquiry.model.vo.Inquiry" alias="InquiryAdmin"/> -->
 		
 		<typeAlias type="com.kh.dstay.lee.login.model.vo.Member" alias="Member_Lee"/>
 		<typeAlias type="com.kh.dstay.lee.products.model.vo.Product" alias="product_Lee"/>
@@ -66,8 +66,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		
 		<mapper resource="mappers/5_kim/member-mapper.xml"/>
 		<mapper resource="mappers/5_kim/product-mapper.xml"/>
-		<mapper resource="mappers/5_kim/revenue-mapper.xml"/>
-		<mapper resource="mappers/5_kim/inquiry-mapper.xml"/>
+		<!-- <mapper resource="mappers/5_kim/revenue-mapper.xml"/> -->
+		<!-- <mapper resource="mappers/5_kim/inquiry-mapper.xml"/> -->
 		
 	</mappers>
 </configuration>
