@@ -17,4 +17,9 @@ public class SuggestionDao {
 		return sqlSession.insert("suggestionMapper.insertSuggestion", s);
 	}
 
+	public int suggestionOperation(Suggestion s) {
+		
+		return sqlSession.update("suggestionMapper.suggestionOperation", s);
+	}
+
 }

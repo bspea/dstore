@@ -79,13 +79,31 @@
                                 <c:forEach items="${ list }" var="sList">
                                 <tr class="notice-line">
                                     <td class="suggestion-no">${ sList.suggestionNo }</td>
-                                    <td class="suggestion-category">${ sList.suggestionCategory }</td>
-                                    <td class="suggestion-division">${ sList.suggestionDivision }</td>
+                                    
+                                    <td class="suggestion-category">
+                                    	<c:choose>
+                                    		<c:when test="${ sList.suggestionCategory eq 'suggestion'}">제안</c:when>
+                                    		<c:when test="${ sList.suggestionCategory eq 'error'}">장애/오류</c:when>
+                                    	</c:choose>
+                                    </td>
+                                    
+                                    <td class="suggestion-division">
+                                    	<c:choose>
+                                    		<c:when test="${ sList.suggestionDivision eq 'sales'}">상품 판매 제안</c:when>
+                                    		<c:when test="${ sList.suggestionDivision eq 'event'}">이벤트/혜택 제안</c:when>
+                                    		<c:when test="${ sList.suggestionDivision eq 'service'}">서비스 제안</c:when>
+                                    		<c:when test="${ sList.suggestionDivision eq 'systeam'}">시스템 제안</c:when>
+                                    		<c:when test="${ sList.suggestionDivision eq 'compliment'}">서비스 칭찬</c:when>
+                                    		<c:when test="${ sList.suggestionDivision eq 'other'}">기타 제안</c:when>
+                                    		<c:when test="${ sList.suggestionDivision eq 'error'}">시스템장애(PC/Mobile)</c:when>
+                                    		<c:when test="${ sList.suggestionDivision eq 'mark'}">표기 오류</c:when>
+                                    	</c:choose>
+									</td>
+                                    
                                     <td class="suggestion-title"><a href="suggestionDetail.do?suggestionNo=${ sList.suggestionNo }"
                                     								onclick="window.open(this.href, '_blanck', 'width=600, height=400, left=100, top=100'); return false">${ sList.suggestionTitle }</a></td>
-                                    <%-- <td class="suggestion-title">${ sList.suggestionTitle }</td> --%>
                                     <td class="suggestion-date">${ sList.writeDate }</td>
-                                    <td class="suggestion-writer">${ sList.suggestionWriter }</td>
+                                    <td class="suggestion-writer">${ sList.suggestionWriterName }</td>
                                     <td class="suggestion-progress">${ sList.progress }</td>
                                 </tr>
                                 </c:forEach>

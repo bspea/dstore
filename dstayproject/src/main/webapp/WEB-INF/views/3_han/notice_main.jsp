@@ -76,7 +76,29 @@
                                 <c:forEach items="${ list }" var="nList">
                                 <tr class="notice-line">
                                     <td class="notice-no">${ nList.noticeNo }</td>
-                                    <td class="notice-class"><p class="p-purple">${ nList.noticeCategory }</p></td>
+                                    
+                                    
+                                    
+                                    <td class="notice-class">
+                                    
+                                    <c:if test="${ nList.noticeCategory eq 'general' }">
+                                    	<p class="p-purple">일반</p>
+                                    </c:if>
+                                    
+                                    <c:if test="${ nList.noticeCategory eq 'service' }">
+                                    	<p class="p-green">서비스</p>
+                                    </c:if>
+                                    
+                                    <c:if test="${ nList.noticeCategory eq 'winning' }">
+                                    	<p class="p-blue">당첨자발표</p>
+                                    </c:if>
+                                    
+                                    </td>
+                                    
+                                    
+                                    
+                                    
+                                    
                                     <td class="notice-title"><a href="noticeDetail.do?noticeNo=${ nList.noticeNo }">${ nList.noticeTitle }</a></td>
                                     <td class="notice-date">${ nList.writeDate }</td>
                                 </tr>
@@ -139,7 +161,10 @@
                             	</nav>
                             </div>
                         </div>
-                        <button class="btn btn-default" onclick="location.href='noticeInsertForm.do';">공지사항 작성</button>
+                        
+                        <c:if test="${ loginUsert.memberStatusNo eq 4 }">
+                        	<button class="btn btn-default" onclick="location.href='noticeInsertForm.do';">공지사항 작성</button>
+                        </c:if>
                 
 
                     </div>
@@ -152,5 +177,7 @@
 
         </div>
     </div>
+    
+
 </body>
 </html>

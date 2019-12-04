@@ -152,3 +152,25 @@ ul {
     width: 600px;
     margin: 150px auto 0 auto !important;
 }
+
+
+#fqaSearch{
+	margin-left:auto;
+	margin-right:auto;
+	border: 5px solid lightgray;
+	margin-bottom:5px;
+	width:60%;
+}
+#search-form{
+	padding:20px;
+	
+}
+#search-label{
+	padding-right:10px;
+	font-size:20px;
+	margin-bottom:0;
+	vertical-align:middle;
+}
+#searchTxt{
+	width:300px;
+}

@@ -3,6 +3,7 @@ package com.kh.dstay.notice.model.service;
 import java.util.ArrayList;
 
 import com.kh.dstay.notice.model.vo.Notice;
+import com.kh.dstay.notice.model.vo.NoticeReply;
 import com.kh.dstay.notice.model.vo.PageInfo;
 
 public interface NoticeService {
@@ -20,4 +21,8 @@ public interface NoticeService {
 	Notice selectPrevNotice(int noticeNo);
 
 	Notice selectNextNotice(int noticeNo);
+
+	ArrayList<NoticeReply> selectReplyList(int refNoticeId);
+
+	int insertReply(NoticeReply r);
 }

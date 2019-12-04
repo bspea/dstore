@@ -20,6 +20,8 @@ public interface FrequencyQuestionAnswerService {
 	ArrayList<FrequencyQuestionAnswer> selectFQAListReward();
 
 	ArrayList<FrequencyQuestionAnswer> selectFQAListOther();
+
+	ArrayList<FrequencyQuestionAnswer> selectFQAListSearchTerm(String searchTerm);
 	
 	
 }

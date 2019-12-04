@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.dstay.notice.model.dao.NoticeDao;
 import com.kh.dstay.notice.model.vo.Notice;
+import com.kh.dstay.notice.model.vo.NoticeReply;
 import com.kh.dstay.notice.model.vo.PageInfo;
 
 @Service("nService")
@@ -49,6 +50,18 @@ public class NoticeServiceImpl implements NoticeService{
 	public Notice selectNextNotice(int noticeNo) {
 		
 		return nDao.selectNextNotice(noticeNo);
+	}
+
+	@Override
+	public ArrayList<NoticeReply> selectReplyList(int refNoticeId) {
+		
+		return nDao.selectReplyList(refNoticeId);
+	}
+
+	@Override
+	public int insertReply(NoticeReply r) {
+		
+		return nDao.insertReply(r);
 	}
 	
 	

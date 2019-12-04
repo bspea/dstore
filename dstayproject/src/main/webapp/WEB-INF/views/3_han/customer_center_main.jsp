@@ -51,10 +51,15 @@
                     <li role="presentation"><a href="fqaList-all.do">자주 묻는 질문</a></li>
                     <li role="presentation"><a href="suggestion.do">제안하기</a></li>
                     <li role="presentation"><a href="inquireMyInfo.do">나의 정보 조회</a></li>
-                    <li role="presentation"><a href="oneOnOne.do"
-                    						   onclick="window.open(this.href, '_blanck', 'width=328, height=517, left=100'); return false">1:1 채팅문의</a></li>
-                    <li role="presentation"><a href="csRepresentative.do">상담사 전용</a></li>
-                    <!--<li role="presentation"><a href="#">Frequently Asked Questions</a></li>-->
+                    <li role="presentation"><a href="goChatRoom.do"
+                    						   onclick="window.open(this.href, '_blanck', 'width=380, height=500, left=100, toolbars=no, menubar=no'); return false">1:1 채팅방 입장</a></li>
+                    <li role="presentation"><a href="oneOnOne.do?mno=4"
+                    						   onclick="window.open(this.href, '_blanck', 'width=380, height=500, left=100, toolbars=no, menubar=no'); return false">1:1 채팅문의</a></li>
+					<c:if test="${ loginUser.memberStatusNo eq 3 }">
+	                    <li role="presentation"><a href="csRepresentative.do">상담사 전용</a></li>
+					</c:if>
+	                    
+                    
                 </ul>
 
                 <div style="border: 1px solid #E7EAEA; margin-top: 30px; padding: 15px;"
@@ -136,36 +141,7 @@
                     </div>
                 </div>
                 <br><br>
-                <div class="row">
-                    <div class="col-md-10 notice-go">
-                        <h4 style="padding-bottom:10px;">최신 공지사항</h4>
-                        <table class="table text-center">
-                            <tr>
-                                <td width="15%">번호</td>
-                                <td width="15%">분류</td>
-                                <td width="70%">제목</td>
-                            </tr>
-                            <tr>
-                                <td class="notice-no">003</td>
-                                <td class="notice-class"><p class="p-purple">일반</p></td>
-                                <td class="notice-title"><a href="notice-detail.html">[공지] 개인정보처리방침 개정 안내</a></td>
-                                
-                            </tr>
-                            <tr>
-                                <td class="notice-no">002</td>
-                                <td class="notice-class"><p class="p-purple">당첨자 발표</p></td>
-                                <td class="notice-title"><a href="notice-detail.html">[공지|당첨자발표] 2019년 11월 적립금 당첨자 발표</a></td>
-                                
-                            </tr>
-                            <tr>
-                                <td class="notice-no">001</td>
-                                <td class="notice-class"><p class="p-purple">지식재산권</p></td>
-                                <td class="notice-title"><a href="notice-detail.html">[공지] 지식재산권 보호 센터(IPS) 개편 안내</a></td>
-                                
-                            </tr>
-                        </table>
-                    </div>
-                </div>
+                
                 
 
 

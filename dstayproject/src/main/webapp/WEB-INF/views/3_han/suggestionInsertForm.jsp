@@ -22,7 +22,28 @@
     <link href="${ pageContext.request.contextPath }/resources/css/3_han/suggestion-theme.css" rel="stylesheet">
     
     <style>
+    	#suggest_confirm_layer{
+    		background:white;
+    		display:float;
+    		z-index:1000;
+    		position:absolute;
+    		width:400px;
+    		padding:10px;
+    		top:300px;
+    		left:300px;
+    		border:1px solid lightgray;
+    	}
     	
+    	#outBtn{
+    		color:orange;
+    		border-color:orange;
+    	}
+    	
+    	#okBtn{
+    		color:white;
+    		background-color:orange;
+    		border-color:orange;
+    	}
         
     </style>
 </head>
@@ -65,7 +86,7 @@
                                 	<label class="col-sm-1" style="text-align:right;">유형</label>
                                 	<div class="col-sm-2">
                                 		<select class="form-control" name="suggestionCategory" onChange="showSub(this.options[this.selectedIndex].value)">
-                                			<option value="no" selected>대분류 선택</option>
+                                			<option value="no" hidden>대분류 선택</option>
                                 			<option value="suggestion">제안</option>
                                 			<option value="error">장애/오류</option>
                                 		</select>
@@ -73,7 +94,7 @@
                                 	
                                 	<div class="col-sm-3" id="suggestionDivision1">
                                 		<select class="form-control" name="suggestionDivision1" style="display:none;">
-                                			<option value="no" selected>소분류 선택</option>
+                                			<option value="no" hidden>소분류 선택</option>
                                 			<option value="sales">상품 판매 제안</option>
                                 			<option value="event">이벤트/혜택 제안</option>
                                 			<option value="service">서비스 제안</option>
@@ -85,7 +106,7 @@
                                 	
                                 	<div class="col-sm-3" id="suggestionDivision2">
                                 		<select class="form-control" name="suggestionDivision2" style="display:none;">
-                                			<option value="no" selected>소분류 선택</option>
+                                			<option value="no" hidden>소분류 선택</option>
                                 			<option value="error">시스템 장애(PC/Mobile)</option>
                                 			<option value="mark">표기 오류</option>
                                 		</select>
@@ -110,6 +131,7 @@
                                         <script>
 											var ckeditor_config = {
 											  resize_enaleb : false,
+											  height:450,
 											  enterMode : CKEDITOR.ENTER_BR,
 											  shiftEnterMode : CKEDITOR.ENTER_P,
 											  filebrowserUploadUrl : "suggestionFilesUpload.do"
@@ -117,6 +139,18 @@
 											
 											CKEDITOR.replace("suggestionContents", ckeditor_config);
 										</script>
+                                    </div>
+                                    
+                                    <div id="suggest_confirm_layer" align="center">
+                                    	<div>
+                                    		<p style="font-size:10px; margin-bottom:0px; color:orange;">배송/환불/교환 접수는</p>
+                                    		<p style="font-size:10px; color:orange;">마이페이지에서 가능하며</p>
+                                    		<p style="font-size:12px;">상세 문의는 1:1 상담톡을 이용하시기 바랍니다.</p>
+                                    	</div>
+                                    	<div>
+                                    		<button class="btn btn-default" id="outBtn" type="button" onclick="location.replace('customerCenter.do');">나가기</button>
+                                    		<button class="btn btn-default" id="okBtn" type="button">확인</button>
+                                    	</div>
                                     </div>
 
                                     <div class="row"></div>
@@ -127,15 +161,16 @@
                                 <br>
                                 <p id="btn-group" style="width:300px;margin-left:auto; margin-right:auto;">
                                     <button type="submit" class="btn btn-default">등록하기</button>
+                                    <button type="button" class="btn btn-default" onclick="location.replace('customerCenter.do');">나가기</button>
                                 </p>
 
                             </form>
 
-                   
-
                         </div>
 
                     </div>
+                    
+                    
 
                 </div>
 
@@ -154,14 +189,17 @@
 	
 	
 	<script>
+	
 		$(function(){
-			popupSuggestion();
+			$('#okBtn').on("click", function(){
+				$('#suggest_confirm_layer').hide();
+			});
 		});
 		
-		function popupSuggestion(){
+		/* function popupSuggestion(){
 			
 			window.open("popupSuggestion.do", "a", "width=220, height=320, left=300, top=200");
-		}
+		} */
 		
 		function showSub(obj) {
 			f = document.forms.suggestionForm
@@ -184,7 +222,8 @@
 			}
 		}
 		
-		function validate(){
+		
+		/* function validate(){
 			
 			console.log(document.forms.suggestionForm.suggestionCategory.value);
 			console.log(document.forms.suggestionForm.suggestionDivision1.value);
@@ -206,11 +245,8 @@
 			}else{
 				return true;
 			}
-					
 				
-			
-			
-		}
+		} */
 	</script>
 </body>
 </html>

@@ -69,6 +69,20 @@
                             <form action="noticeInsert.do" method="post" name="uploadForm" id="uploadForm" enctype="multipart/form-data">
 
                                 <div class="form-group">
+                                	
+                                	<label class="col-sm-1" style="text-align:right;">유형</label>
+                                	<div class="col-sm-2">
+                                		<select class="form-control" name="noticeCategory" id="noticeCategory">
+                                			<option value="no" hidden>분류 선택</option>
+                                			<option value="general">일반</option>
+                                			<option value="service">서비스</option>
+                                			<option value="winning">당첨자 발표</option>
+                                		</select>
+                                	</div>
+                                	
+                                	<div class="row"></div>
+                                    <br>
+                                
                                     <label for="notice-title" class="col-sm-1" style="text-align:right;">제목</label>
                                     
                                     <div class="col-sm-10">
@@ -131,8 +145,7 @@
         </div>
     </div>
     
-    
-    
+ 
 
 </body>
 </html>

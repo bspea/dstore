@@ -17,4 +17,10 @@ public class SuggstionServiceImpl implements SuggestionService{
 		
 		return sDao.insertSuggestion(s);
 	}
+
+	@Override
+	public int suggestionOperation(Suggestion s) {
+		
+		return sDao.suggestionOperation(s);
+	}
 }

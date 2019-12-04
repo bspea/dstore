@@ -62,4 +62,11 @@ public class FrequencyQuestionAnswerDao {
 		
 		return list;
 	}
+
+	public ArrayList<FrequencyQuestionAnswer> selectFQAListSearchTerm(String searchTerm) {
+		
+		ArrayList<FrequencyQuestionAnswer> list = (ArrayList)sqlSession.selectList("frequencyQuestionAnswerMapper.selectFQAListSearchTerm", searchTerm);
+		
+		return list;
+	}
 }

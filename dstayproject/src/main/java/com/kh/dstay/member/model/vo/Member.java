@@ -21,4 +21,5 @@ public class Member {
 	private int goalCalorie;
 	private Date date;
 	private String status;
+	private int memberStatusNo;
 }

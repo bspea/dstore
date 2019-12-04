@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -145,6 +146,21 @@ public class SuggestionController {
 		}
 		
 		
+	}
+	
+	@ResponseBody
+	@RequestMapping("suggestionOperation.do")
+	public String suggestionOperation(Suggestion s) {
+		
+		System.out.println(s);
+		
+		int result = sService.suggestionOperation(s);
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			return "failed";
+		}
 	}
 
 }

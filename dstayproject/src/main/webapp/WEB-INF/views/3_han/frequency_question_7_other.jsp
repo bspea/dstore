@@ -63,6 +63,21 @@
             </div>
 
             <div class="col-md-10">
+            
+            	<div class="container-fluid text-center">
+            			
+      				<form id="fqaSearch" class="form-inline" method="get" action="fqaSearch.do">
+      					<div class="form-group" id="search-form">
+      						<label for="searchTxt" id="search-label">질문 검색</label>
+      						<input id="searchTxt" class="form-control" type="text" name="searchTxt" placeholder="검색어를 입력하세요" maxlength="30">
+      					</div>
+      					<button type="submit" class="btn btn-default">검색</button>
+      				</form>
+            		
+            	</div>
+            	
+            	<div class="row"></div>
+            	
                 <!--frequency-question-menu 자주 묻는 질문 nav 시작-->
                 <div class="container-fluid frequency-question-menu hidden-xs">
                     <ul class="nav navbar-nav">
@@ -85,7 +100,7 @@
                         <div class="col-xs-12 less-padding">
                             <div class="box">
                                 <div class="box-header">
-                                    <p class="text-roboto-light">여기서 미리 보고 쓸 데 없는 질문은 하지 마라~~~ 이 말이야!</p>
+                                    <p class="text-roboto-light">자주 묻는 질문 관련 기타 부문 ${list.size()}개가 검색되었습니다.</p>
 
                                     <!--<div class="box-tools">-->
                                     <!--<div class="input-group input-group-sm" style="width: 150px;">-->
