@@ -25,14 +25,17 @@
 
 
 
-  <style>.clickableTr:hover{
+  <style>
+  .clickableTr:hover{
 		cursor:pointer;
 		color:red;
 	}
-	
-	.table-repsonsive, #dataTable_wrapper{
+	.table-repsonsive{
 		width:100%;
 	}
+	
+	#dataTable_wrapper {
+	width:90%;}
 	
 	#dataTable_wrapper div{
 		margin-bottom:7px;
@@ -64,7 +67,6 @@
 	#dataTable thead th:hover{
 		text-decoration:underline;
 	}
-	
 	
   </style>
 
@@ -104,7 +106,7 @@
                 <div class="card shadow mb-4">
   
                     <div class="card-body">
-                      <div class="table-responsive">
+                      <div class="table-responsive" align="center">
                         <!-- 테이블-->
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                           <thead>

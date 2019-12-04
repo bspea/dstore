@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminInquiryMapper">
+
+	<resultMap id="inquiryResultSetAdmin" type="InquiryAdmin">
+		<id property="no" column="PINO"/>
+		<result property="memberNo" column="MNO"/>
+		<result property="productNo" column="PNO"/>
+		<result property="title" column="PITITLE"/>
+		<result property="content" column="PICONTENTS"/>
+		<result property="date" column="PIDATE"/>
+		<result property="status" column="PISTATUS"/>
+		<result property="answer" column="PIANSWER"/>
+		<result property="answerDate" column="PIANSWERDATE"/>
+	</resultMap>
+
+	<select id="selectInquiries" resultMap="inquiryResultSetAdmin">
+		SELECT * FROM PRODUCT_INQUERY
+	</select>
+	
+	<select id="selectInquiry" resultMap="inquiryResultSetAdmin">
+		SELECT * FROM PRODUCT_INQUERY WHERE PINO=#{iNo}
+	</select>
+</mapper>

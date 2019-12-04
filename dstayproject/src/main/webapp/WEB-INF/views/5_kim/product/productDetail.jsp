@@ -173,46 +173,39 @@
                       </div>
                     </div>     
                 </div>
-<div class="row">
+                
+				<div class="row">
                 <!--두번째 카드-->
-                <div class="col-lg-6">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <span class="h6 m-0 font-weight-bold text-primary">입출고내역</span>
-                    </div>
-                    <div class="card-body">
-                    	<div class="table-responsive"  align="center">
-	                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-	                          <thead>
-	                            <tr>
-	                              <th>입출고번호</th>
-	                              <th>입출고날짜</th>
-	                              <th>수량</th>
-	                            </tr>
-	                          </thead>
-	                          <tbody>
-	                          <c:forEach var="storage" items="${slist }" varStatus="strgStatus">
-	                            <tr>
-	                              <td>${storage.no }</td>
-	                              <td>${storage.createDate }</td>
-	                              <td>
-	                              	 <c:choose>
-		                              	 <c:when test="${'입고' eq storage.type }">
-		                              	 	+
-		                              	 </c:when>
-		                              	 <c:otherwise>
-		                              	 	-
-		                              	 </c:otherwise>
-	                              	 </c:choose>
-	                             ${storage.count }</td>
-	                            </tr>
-							  </c:forEach>
-	                          </tbody>
-	                        </table>
-	                      </div>
-
-                    </div>     
-                </div>
+	                <div class="col-lg-6">
+	                <div class="card shadow mb-4">
+	                    <div class="card-header py-3">
+	                        <span class="h6 m-0 font-weight-bold text-primary">입출고내역</span>
+	                    </div>
+	                    <div class="card-body">
+	                    	<div class="table-responsive"  align="center">
+		                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+		                          <thead>
+		                            <tr>
+		                              <th>입출고번호</th>
+		                              <th>입출고날짜</th>
+		                              <th>수량</th>
+		                            </tr>
+		                          </thead>
+		                          <tbody>
+		                          <c:forEach var="storage" items="${slist }" varStatus="strgStatus">
+		                            <tr>
+		                              <td>${storage.no }</td>
+		                              <td>${storage.createDate }</td>
+		                              <td>
+		                              	(${storage.type}) ${storage.count }</td>
+		                            </tr>
+								  </c:forEach>
+		                          </tbody>
+		                        </table>
+		                      </div>
+	
+	                    </div>     
+	                </div>
                 </div>
                 
                 

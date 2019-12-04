@@ -29,5 +29,6 @@ public interface CustomerCenterService {
 	
 	ArrayList<Chat> selectChatNotRead();
 	
+	ArrayList<Chat> getChatRoomList();
 	
 }

@@ -73,7 +73,7 @@
 			$("#talk-submit-btn").on("click", function(){
 				
 				$.ajax({
-					url:"chatInsert.do",
+					url:"chatInsert.do?mno=",
 					data:{chatContents:$(".talk-chatBox textarea").val()},
 					success:function(data){
 						
@@ -260,7 +260,6 @@
 				success:function(data){
 					
 					$.each(data, function(index, value){
-						
 						if(value.chatSend == ${loginUser.no}){
 							addChatMe(value.nickName, value.chatContents, value.chatTime);
 						}else{

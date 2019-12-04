@@ -77,6 +77,9 @@ public class CustomerCenterDao {
 	public int confirmChat(Member mem) {
 		
 		return sqlSession.update("chatMapper.confirmChat", mem);
-		
+	}
+	
+	public ArrayList<Chat> getChatRoomList() {
+		return (ArrayList)sqlSession.selectList("chatMapper.chatRoomList");
 	}
 }

@@ -77,4 +77,11 @@ public class CustomerCenterServiceImpl implements CustomerCenterService {
 		return ccDao.selectChatNotRead();
 	}
 
+	@Override
+	public ArrayList<Chat> getChatRoomList() {
+		// TODO Auto-generated method stub
+		return ccDao.getChatRoomList();
+	}
+	
+	
 }

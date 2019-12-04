@@ -69,6 +69,7 @@
 	.pagination > li > a, .pagination > li > span{
 		margin:0px; 
 		padding:10px; 
+		
 		background-color:white; 
 		color:rgb(119,119,119);
 		border:1px solid rgb(221, 221, 221);

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminRevenueMapper">
+
+	<resultMap id="guestOrderResultSetAdmin" type="GuestOrderAdmin">
+		<id property="no" column="GONO"/>
+		<result property="payNo" column="PAYNO"/>
+		<result property="productNo" column="PNO"/>
+		<result property="name" column="GNAME"/>
+		<result property="phone" column="GPHONE"/>
+		<result property="email" column="GEMAIL"/>
+		<result property="postNo" column="GPOST"/>
+		<result property="address" column="GADDRESS"/>
+		<result property="addressDetila" column="ADETAILADDRESS"/>
+		<result property="request" column="GOREQUEST"/>
+		<result property="date" column="GODATE"/>
+		<result property="status" column="GOSTATUS"/>
+		<result property="waybillNo" column="GOWAYBILLNO"/>
+	</resultMap>
+	
+	<resultMap id="orderResultSetAdmin" type="OrderAdmin">
+		<id property="no" column="ONO"/>
+		<result property="productNo" column="PNO"/>
+		<result property="memberNo" column="MNO"/>
+		<result property="payNo" column="PAYNO"/>
+		<result property="count" column="OCOUNT"/>
+		<result property="request" column="OREQUEST"/>
+		<result property="postNo" column="MPOST"/>
+		<result property="address" column="MADDRESS"/>
+		<result property="addressDetail" column="MADDRESSDETAIL"/>
+		<result property="enrollDate" column="ODATE"/>
+		<result property="status" column="OSTATUS"/>
+		<result property="waybillNo" column="OWAYBILLNO"/>
+	</resultMap>
+	
+	<resultMap id="paymentResultSetAdmin" type="PaymentAdmin">
+		<id property="no" column="PNO"/>
+		<result property="type" column="PTYPE"/>
+		<result property="payedDate" column="PDATE"/>
+		<result property="price" column="PPRICE"/>
+		<result property="totalPrice" column="PTOTALPRICE"/>
+		<result property="number" column="PNUMBER"/>
+	</resultMap>
+
+	<resultMap id="refundResultSetAdmin" type="RefundAdmin">
+		<id property="no" column="RNO"/>
+		<result property="memberNo" column="MNO"/>
+		<result property="orderNo" column="ORDERNUMBER"/>
+		<result property="isLogin" column="ISLOGIN"/>
+		<result property="content" column="RCONTENTS"/>
+		<result property="date" column="RDATE"/>
+		<result property="result" column="RRESULT"/>
+		<result property="price" column="RPRICE"/>
+		<result property="resultDate" column="RRESULTDATE"/>
+	</resultMap>
+
+
+
+	<select id="selectAllOrders" resultMap="orderResultSetAdmin">
+		SELECT * FROM ORDERS
+	</select>
+	
+	<select id="selectAllPayments" resultMap="paymentResultSetAdmin">
+		SELECT * FROM PAYMENT
+	</select>
+	
+	<select id="selectAllGuestOrders" resultMap="guestOrderResultSetAdmin">
+		SELECT * FROM GUEST_ORDERS
+	</select>
+	
+	<select id="selectPayment" resultMap="paymentResultSetAdmin">
+		SELECT * FROM PAYMENT WHERE PNO=#{pNo}
+	</select>
+	
+	
+	<select id="selectAllRefunds" resultMap="refundResultSetAdmin">
+		SELECT * FROM REFUND
+	</select>
+	
+	<select id="selectRefund" resultMap="refundResultSetAdmin">
+		SELECT * FROM REFUND WHERE RNO=#{rNo}
+	</select>
+</mapper>
+

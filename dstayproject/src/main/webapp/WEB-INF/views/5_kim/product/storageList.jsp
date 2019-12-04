@@ -27,9 +27,12 @@
 		color:red;
 	}
 	
-	.table-repsonsive, #dataTable_wrapper{
+	.table-repsonsive{
 		width:100%;
 	}
+	
+	#dataTable_wrapper {
+	width:90%;}
 	
 	#dataTable_wrapper div{
 		margin-bottom:7px;
@@ -61,7 +64,6 @@
 	#dataTable thead th:hover{
 		text-decoration:underline;
 	}
-	
   </style>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -97,7 +99,7 @@
           <br>
           <span class="h3 mb-1 text-gray-900">&nbsp; 재고관리 </span>
           <div class="btnDiv" style="float: right;">
-            	<a class="btn btn-success" style="color:white;">엑셀로 출력</a>
+            	<button type="button" onclick="ruSure();" class="btn btn-success" style="color:white;">엑셀로 출력</button>
 		  </div>	<!-- end of btnDiv -->
         
           <br> <br>
@@ -175,6 +177,11 @@
     </div>
   </div>
 
+<script>
+	function ruSure(){
+		confirm("재고관리 내역을 엑셀로 출력할까요?");
+	}
+</script>
 </body>
 
 </html>

@@ -157,6 +157,7 @@
 				select count(*)
 				from product_inquery pq, product p
 				where (pq.pno = p.pno) and p.pno=#{pdNo}
+				ORDER BY p.pno desc
 		
 		</select>
 		<!-- 상품 문의사항 가져오기 -->

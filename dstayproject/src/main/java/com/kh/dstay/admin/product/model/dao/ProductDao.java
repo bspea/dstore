@@ -50,6 +50,7 @@ public class ProductDao {
 	}
 
 	public int insertProductImage(ProductImage contentImg) {
+		System.out.println("i 번쨰 : " + contentImg);
 		return sqlSession.insert("adminProductMapper.insertProductImage",contentImg);
 	}
 
@@ -58,6 +59,7 @@ public class ProductDao {
 		
 		for(int i = 0; i< list.size(); i++){
 			ProductImage pic = list.get(i);
+			System.out.println("i 번쨰 : " + list.get(i));
 			result += sqlSession.insert("adminProductMapper.insertProductImage", pic);
 					
 		}

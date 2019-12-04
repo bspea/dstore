@@ -101,7 +101,7 @@
                         </div>
                        <br>
                         <div style="float:left;">
-                            <button class="btn btn-secondary">이전페이지로</button>
+                            <button type="button" onclick="location.href='adminProductList.do'" class="btn btn-secondary">이전페이지로</button>
                         </div>
                         <br>
                     </div>

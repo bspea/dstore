@@ -256,7 +256,7 @@
           <div class="card shadow mb-4">
                 <div class="card-header py-3">
                   <span class="m-0 font-weight-bold text-primary">물품 상태</span>
-                  <a style="float:right;"  href="revenueManage_purchase.html">모든 물품조회 →</a>
+                  <a style="float:right;"  href="adminProductList.do">모든 물품조회 →</a>
                   
                 </div>
                 <div class="card-body">
@@ -281,7 +281,7 @@
           <div class="card shadow mb-4">
               <div class="card-header py-3">
                   <span class="m-0 font-weight-bold text-primary">구매내역</span>
-                  <a style="float:right;"  href="revenueManage_purchase.html">최근 구매내역 →</a>
+                  <a style="float:right;"  href="adminPurchaseList.do">최근 구매내역 →</a>
               </div>
               
               <div class="card-body">

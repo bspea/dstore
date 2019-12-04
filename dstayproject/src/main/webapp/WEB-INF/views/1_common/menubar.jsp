@@ -51,7 +51,7 @@
     <div class="topFixedDiv">
     <div class="logo-top">
         <div class="topLeft">
-                <a href="${ pageContext.request.contextPath }/main.do"><img src="${ pageContext.request.contextPath }/resources/images/4_jong/logo.png" width=100px></a>
+                <a href="${ pageContext.request.contextPath }/main.do"><img src="${ pageContext.request.contextPath }/resources/images/4_jong/logo2.png" width=35px></a>
         </div>
 
         <div class="topMiddle">
@@ -66,14 +66,12 @@
                 <a href="${ pageContext.request.contextPath }/registerForm.do">회원가입</a>
             </c:if>
             <c:if test="${!empty loginUser && loginUser.email eq 'admin@dstay.com' }">
-	            <a href="">관리자</a>
 	            <a href="${ pageContext.request.contextPath }/logout.do">로그아웃</a>
             </c:if>
             <c:if test="${!empty loginUser && loginUser.email ne 'admin@dstay.com'}">
-                <a href="javascript:logout()">로그아웃</a>
+                <a href="${ pageContext.request.contextPath }/logout.do">로그아웃</a>
                 <a href="${ pageContext.request.contextPath }/mypage/info.do">마이페이지</a>
             </c:if>
-            
                 <a href="${ pageContext.request.contextPath }/selectShoppingCart.do">장바구니</a>
                 <a href="${ pageContext.request.contextPath }/customerCenter.do">고객센터</a>
             </div>
@@ -86,9 +84,15 @@
                 <div class="icon-menuList">
                 
                 <c:choose>
-                	<c:when test="empty ${loginUser} ">
+                    <c:when test="${!empty loginUser && loginUser.email eq 'admin@dstay.com' }">
+                		<div class="menuList-title" onclick="location.href='admin.do';">관리자 페이지</div>
+                	</c:when>
+                	
+                	<c:when test="${!empty loginUser }">
                 		<div class="menuList-title">${loginUser.nickName }님</div>
                 	</c:when>
+                	
+
                 	
                 	<c:otherwise>
                 		<div class="menuList-title">로그인을 해주세요</div>

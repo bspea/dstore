@@ -158,9 +158,9 @@
 												 <td class="clickable"><c:if test="${'Y' eq product.status }">판매중</c:if>  
 													 <c:if test="${ 'N' eq product.status }">미판매</c:if></td>  
 												 <td class="buttonTd" style="padding:0; padding-top:5px; padding-bottom:5px;">
-												 	<button type="button" class="manageAmount btn btn-sm btn-warning" style="width:100%;">재고관리</button>  
-													 <button type="button" class="manageSale btn btn-sm btn-info" style="width:100%;">세일관리</button>   
-												 </td>   
+												 	<button type="button" onclick="storageThis('${product.no}');" class="manageAmount btn btn-sm btn-warning" style="width:100%;">재고관리</button>  
+													 <button type="button" onclick="saleThis('${product.no}');" class="manageSale btn btn-sm btn-info" style="width:100%;">세일관리</button>   
+												 </td>  
 										 	</tr>   
 									 </c:forEach> 
 				
@@ -210,20 +210,18 @@
 
 
 	<script>
+		 function storageThis(pNo){
+			 location.href='adminQuantityReceiving.do?pNo='+pNo;
+		 }
+		 
+		 function saleThis(pNo){
+			 location.href='adminAddingDiscountForm.do?pNo='+pNo;
+		
+		 }
+		 
+		 
 		$(function() {
-			
-			$('.manageAmount').click(function(){
-				var pNo = $(this).parent().parent().children().eq(0).text();
-				location.href='adminQuantityReceiving.do?pNo='+pNo;
-				
-			});
-			
-			$('.manageSale').click(function(){
-				var pNo = $(this).parent().parent().children().eq(0).text();
-				location.href='adminAddingDiscountForm.do?pNo='+pNo;
-			});
-			
-			 $('#dataTable tbody').on( 'click', 'tr .clickable', function () {
+			 $('#dataTable tbody').on('click', 'tr .clickable', function () {
 			        var pNo =$(this).parent().children().eq(0).text();
 			        location.href="adminProductDetail.do?pNo="+pNo;
 			 });

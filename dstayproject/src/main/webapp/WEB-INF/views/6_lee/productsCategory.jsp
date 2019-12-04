@@ -91,7 +91,7 @@
 		  <c:forEach items="${pd}" var="pd">
             <div class="col-sm-6 col-md-4" data-behavior="sample_code">
                 <a href="productDetail.do?pdno=${pd.pno}" class="thumbnail_item thumbnail less-padding less-margin">
-                    <img src="${pd.pi1}" alt="risotto lemon">
+                    <img src="${pd.pi1}" alt="risotto lemon"  style="height:354px;">
                 </a>
                  
                  <c:if test="${!empty loginUser.no }">

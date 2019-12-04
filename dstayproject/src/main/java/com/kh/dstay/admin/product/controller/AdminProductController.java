@@ -48,7 +48,7 @@ public class AdminProductController {
 	public String addingProduct(Product p, Model model, HttpServletRequest request,
 			@RequestParam(value = "thumbs", required = false) MultipartFile[] thumbImgs,
 			@RequestParam(value = "contentImg", required = false) MultipartFile contentImg,
-			@RequestParam("category") String category, @RequestParam("ingredients") String[] ingres) {
+			@RequestParam("category") String category, @RequestParam(value="ingredients", required=false) String[] ingres) {
 		
 		String view;
 		
@@ -93,22 +93,30 @@ public class AdminProductController {
 				if(result2 > 0 && !contentImg.getOriginalFilename().equals("")) {	// 단일이미지 저장 성공 & 다중이미지에 파일이있을때
 					// 3-2. 본문이미지(한장) 저장
 					String renamePath = saveFile(contentImg, request);
-					result3 = adminPService.insertProductImage(new ProductImage(0, p.getNo(), renamePath, null, 5, null));
+					result3 = adminPService.insertProductImage(new ProductImage(0, pNo, renamePath, null, 5, null)); // p.getNo()를 pNo로 수정하였습니다.
+//					result3 = adminPService.insertProductImage(new ProductImage(0, p.getNo(), renamePath, null, 5, null)); // 원본
 				}
 			}
 			
 			if(result1 > 0 && result2 > 0 && result3 > 0) {
 				view="5_kim/common/dashboard";
 			}else {
-				model.addAttribute("msg","물품 성분 & 이미지 저장실패!");
-				view="5_kim/common/error";
+//				model.addAttribute("msg","물품 성분 & 이미지 저장실패!");
+//				view="5_kim/common/error";
+				// 에러페이지가 없어서 일단 응급처치용.
+				view="5_kim/common/dashboard";
 			}
 		
 		}else {
-			model.addAttribute("msg","물품 저장실패!");
-			view="5_kim/common/error";
+//			model.addAttribute("msg","물품 저장실패!");
+//			view="5_kim/common/error";
+			// 에러페이지가 없어서 일단 응급처치용.
+			view="5_kim/common/dashboard";
 		}
+		
 			
+		
+		System.out.println(view);
 		return view;
 
 	}
@@ -244,9 +252,11 @@ public class AdminProductController {
 	public String updateProductInfo(Product p, Model model, HttpServletRequest request,
 			@RequestParam(value = "thumbs", required = false) MultipartFile[] thumbImgs,
 			@RequestParam(value = "contentImg", required = false) MultipartFile contentImg,
-			@RequestParam("ingredients") String[] ingres) {
+			@RequestParam(value="ingredients", required=false) String[] ingres) {
 		
 		String view;
+		
+		System.out.println("여긴 적용");
 		
 		int result = adminPService.updateProduct(p);
 		

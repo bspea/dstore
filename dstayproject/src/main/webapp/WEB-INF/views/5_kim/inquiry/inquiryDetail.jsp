@@ -84,16 +84,16 @@
                     <th colspan="4" style="text-align:center;" class="text-primary">문의답변</th>
                   </tr>
                   <tr>
-                    <td colspan="4"><textarea rows="10" style="width:100%; height:100%; resize:none;"></textarea></td>
+                    <td colspan="4"><textarea name="answer" rows="10" style="width:100%; height:100%; resize:none;"></textarea></td>
                   </tr>
                 </table>
                 <div align="center">
-                  <button type="button" onclick="location.href='adminInquiryList.do'" class="btn btn-primary">답변하기</button>
+                  <button type="button" onclick="ruSure();" class="btn btn-primary">답변하기</button>
                 </div>
               </form>  
             </div>
             <br><br>
-            <a href="#" class="btn btn-secondary">이전페이지로</a>
+            <a href="adminInquiryList.do" class="btn btn-secondary">이전페이지로</a>
 
           </div>
         </div>
@@ -142,6 +142,22 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
+
+<script>
+
+	function ruSure(){
+		var text =$("textarea[name=answer]");
+		
+		if(text.val() != ''){
+			if(confirm("답변하겠습니까?")){
+				location.href='adminInquiryList.do';}
+		}else{
+			alert("답변내용은 비어있을수 없습니다!");
+			
+		}
+		
+	}
+</script>
 
 </body>
 

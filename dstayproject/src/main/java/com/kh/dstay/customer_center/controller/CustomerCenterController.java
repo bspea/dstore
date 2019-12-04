@@ -95,7 +95,7 @@ public class CustomerCenterController {
 	
 	@ResponseBody
 	@RequestMapping("chatInsert.do")
-	public void insertChat(Chat c, HttpSession session, HttpServletResponse response) throws JsonIOException, IOException {
+	public void insertChat(Chat c, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws JsonIOException, IOException {
 		
 		Member instance = (Member)session.getAttribute("loginUser");
 		
@@ -107,15 +107,13 @@ public class CustomerCenterController {
 		
 		if(instance.getMemberStatusNo() == 2) {
 			
-			instance.setMemberStatusNo(2);
-			c.setChatSend(instance.getMemberStatusNo());
-			c.setChatRecv(4);
+			c.setChatSend(instance.getNo());
+			c.setChatRecv(2);
 			insertChatResult = ccService.insertChat(c);
 			
 		}else {
-			
 			c.setChatSend(instance.getNo());
-			c.setChatRecv(2);
+			c.setChatRecv(Integer.parseInt(((String)request.getAttribute("mno"))));
 			insertChatResult = ccService.insertChat(c);
 			
 		}
@@ -231,6 +229,16 @@ public class CustomerCenterController {
 		return "3_han/chatRoom";
 	}
 	
+	
+	@RequestMapping("chatRoomSelectList.do")
+	public void selectChatRoomList(HttpServletResponse response) throws JsonIOException, IOException {
+		
+		ArrayList<Chat> list = ccService.getChatRoomList();
+		
+		response.setContentType("application/json; charset=UTF-8");
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(list, response.getWriter());
+	}
 	
 	
 }
