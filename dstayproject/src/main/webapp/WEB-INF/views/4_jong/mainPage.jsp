@@ -127,53 +127,6 @@
 
             </div>
 
-    <!-- BootStrap Template END-->
-    <!-- 베스트 메뉴 칸 -->
-    <div class="container specialMenu">
-        <!-- 왼쪽칸 -->
-        <div class="col-xs-12 col-md-4 spLeft">
-            <!-- 제목부분 -->
-            <p class="spTitle">오늘의 도시락</p>
-            <!-- 판매량 급상승 부분 (랭크버튼) -->
-            <div class="spLeftSelectRankDiv">
-                <p class="spRankTitle">판매량 급상승</p>
-            </div>
-            <!-- 이미지 부분 -->
-            <div class="spLeftImageDiv">
-            </div>
-            <!-- 이미지의 제목부분 -->
-            <div class="spLeftImageTitleDiv mobileText">
-            </div>
-            <!-- 가격 부분 -->
-            <div class="spLeftPriceDiv mobileText" style="text-align:center">
-            </div>
-            <!-- 이후 설명 -->
-            <div class="spLeftEtcDiv mobileText">
-            </div>
-    </div>
-
-    <div class="col-xs-12 spMobile" style="border-top: 1px solid rgb(200, 200, 200);">
-    </div>
-
-    <!-- 오른쪽칸 -->
-    <div class="col-xs-12 col-md-8 spRight">
-        <div class="spRightNotice spPc">일주일 간의 데이터를 바탕으로 선정된 제품입니다.</div>
-        <div class="spRightNotice spMobile">추천 상품</div>
-        <!-- 정렬 메뉴 부분 -->
-        <div class="spRightSortMenu">
-            <div class="spRightSortText">가격대별 베스트</div>
-            <div class="spRightSortButton spRightSortButtonClick" onclick="specialProductSortButtonClick(0);">등록일</div>
-            <div class="spRightSortButton" onclick="specialProductSortButtonClick(1);">가격</div>
-            <div class="spRightSortButton" onclick="specialProductSortButtonClick(2);">판매량</div>
-        </div>
-        <!-- 상품 부분 -->
-        <div class="spRightMain">
-            
-        </div>
-    </div>
-
-
-
 
 
 

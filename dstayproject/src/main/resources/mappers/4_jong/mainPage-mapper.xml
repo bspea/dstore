@@ -45,17 +45,17 @@
 	</select>
 	
 	<select id="selectSortMenuPrice" resultMap="productResultSet">
-        SELECT * FROM PRODUCT
+        SELECT * FROM (SELECT PRODUCT.PNO, PCNO, PNAME, PRICE, PCONTENTS, PRECIPE, PENROLLDATE, PIPATH, RANK() OVER (PARTITION BY PCNO ORDER BY PIPATH DESC ) ranking FROM PRODUCT
         INNER JOIN PRODUCT_IMAGE on (Product.pNo=PRODUCT_IMAGE.pNo)
-        WHERE PENROLLDATE >= SYSDATE-7
+        WHERE PENROLLDATE >= SYSDATE-7) WHERE RANKING = 1
         ORDER BY PRICE
 	</select>
 	
 	<select id="selectSortMenuNew" resultMap="productResultSet">
-        SELECT * FROM PRODUCT
+        SELECT * FROM (SELECT PRODUCT.PNO, PCNO, PNAME, PRICE, PCONTENTS, PRECIPE, PENROLLDATE, PIPATH, RANK() OVER (PARTITION BY PCNO ORDER BY PIPATH DESC ) ranking FROM PRODUCT
         INNER JOIN PRODUCT_IMAGE on (Product.pNo=PRODUCT_IMAGE.pNo)
-        WHERE PENROLLDATE >= SYSDATE-7
-        ORDER BY PRODUCT.pNo DESC
+        WHERE PENROLLDATE >= SYSDATE-7) WHERE RANKING = 1
+        ORDER BY PENROLLDATE
 	</select>
 	
 	<select id="selectSortMenuCell" resultMap="productResultSet">
