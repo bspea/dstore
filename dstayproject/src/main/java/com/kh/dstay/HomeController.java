@@ -76,17 +76,15 @@ public class HomeController {
 	}
 	@RequestMapping("login.do")
 	public ModelAndView login(ModelAndView mv,@RequestParam("email")@Email String email,@RequestParam("password") String password,HttpSession session) {
-		if(validatePassword(password)) {
-			Member loginUser = mService.login(email);
-			if(loginUser != null && bcryptPasswordEncoder.matches(password, loginUser.getPassword())) {
-				session.setAttribute("loginUser", loginUser);
-				mv.setViewName("redirect:home.do");
-			}else {
-				mv.addObject("loginMsg","존재하지 않는 아이디거나 비밀번호가 다릅니다").setViewName("2_bak/loginForm");
-			}
-		}else {
+		Member loginUser = mService.login(email);
+		if(loginUser != null && bcryptPasswordEncoder.matches(password, loginUser.getPassword())) {
+			mem = loginUser;
+			session.setAttribute("loginUser", loginUser);
 			mv.addObject("email",email).setViewName("2_bak/resetPasswordForm");
+		} else {
+			mv.addObject("loginMsg","존재하지 않는 아이디거나 비밀번호가 다릅니다").setViewName("2_bak/loginForm");
 		}
+
 		return mv;
 	}
 	private boolean validatePassword(String password) {

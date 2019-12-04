@@ -21,7 +21,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.kh.dstay.member.model.vo.FoodSearch" alias="FoodSearch"/>
 		<typeAlias type="com.kh.dstay.member.model.vo.WishProduct" alias="WishProduct"/>
 		<typeAlias type="com.kh.dstay.member.model.vo.OrderInfo" alias="OrderInfo"/>
-		
+		<typeAlias type="com.kh.dstay.member.model.vo.DietaryGoal" alias="DietaryGoal"/>
+		<typeAlias type="com.kh.dstay.member.model.vo.MyCoupon" alias="MyCoupon"/>
 		
 		<typeAlias type="com.kh.dstay.admin.product.model.vo.Product" alias="ProductAdmin"/>
 		<typeAlias type="com.kh.dstay.admin.product.model.vo.Ingredient" alias="IngredientAdmin"/>

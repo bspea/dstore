@@ -110,7 +110,7 @@ a{
     justify-content: center;
     align-items: center;
     flex-flow: row wrap;
-    margin:10px auto;
+    padding:10px 0;
     border-bottom:1px solid #777;
 }
 .item-info{
@@ -127,7 +127,7 @@ a{
     flex:0 0 50%;
     text-align: center;
 }
-.order-list>.item-info>.item-pic{
+.item-pic{
     width:96px;
     height:96px;
 }
@@ -140,7 +140,6 @@ a{
     height:100%;
 }
 .item-info .item-title{
-    font-size:24px;
     font-weight: bold;
     color:black;
 }
@@ -171,6 +170,7 @@ a{
     display:flex;
     justify-content:center;
     align-items:center;
+    flex-flow:column wrap;
 }
 .reviewBtn button{
     min-width:92px;
@@ -185,7 +185,8 @@ a{
     color:#8b0000
 }
 .review-info{
-    position: relative;
+    display:flex;
+    justify-content: flex-end;
 }
 .review-sort{
     cursor:pointer;
@@ -207,8 +208,7 @@ a{
     cursor: pointer;
 }
 .review-content-open{
-    overflow:auto;
-    height:auto;
+	padding:24px;
 }
 .review-img{
     display:flex;
@@ -244,6 +244,7 @@ a{
     border:1px solid lightgray;
     border-bottom:1px solid #8b0000;
     border-radius:5px 5px 0 0;
+    cursor:pointer;
 }
 .review-tag-wrap>.review-tag-active{
     border:1px solid #8b0000;
@@ -254,6 +255,7 @@ a{
     display:flex;
     flex-flow:column wrap;
     margin-top:24px;
+    padding-bottom:240px;
 }
 .myProfile{
     border:1px solid lightgray;
@@ -302,7 +304,7 @@ a{
     border:0;
     padding:10px 18px;
     flex:0 0 calc(50% - 4px);
-    border-radius:2px;
+    border-radius:5px;
     background:#8b0000;
     color:white;
     cursor:pointer;
@@ -361,10 +363,14 @@ a{
 }
 .date-menu-wrap{
     width:100%;
-    height: 54px;
     display:flex;
     justify-content:center;
     align-items: center;
+}
+.date-menu{
+    display:flex;
+    justify-content: flex-end;
+    flex-flow:row wrap;
 }
 .product-wrap{
     display:flex;
@@ -388,6 +394,10 @@ a{
     height:100%;
 }
 .product-pic a img{
+    width:100%;
+    height:100%;
+}
+.product-pic img{
     width:100%;
     height:100%;
 }
@@ -460,7 +470,8 @@ a{
     padding:10px 18px;
     flex:0 0 calc(50% - 4px);
     border-radius:5px;
-    background:white;
+    background:white!important;
+    color:black!important;
     cursor:pointer;
 }
 .max-width-180{
@@ -472,7 +483,210 @@ a{
 .margin-top-18{
 	margin-top:18px;
 }
-
+.coupon-list{
+    display:flex;
+    justify-content: space-around;
+    height:80px;
+    border-bottom:1px solid #777;
+    align-items:center;
+    border-top:0;
+}
+.coupon-status{
+    flex:0 0 50%;
+    text-align: center;
+}
+.coupon-info{
+    flex:0 0 50%;
+    text-align: center;
+}
+.coupon-date{
+    flex:0 0 50%;
+    text-align: center;
+}
+.coupon-rate{
+    flex:0 0 50%;
+    text-align: center;
+}
+.coupon-list{
+    display:flex;
+    flex-flow:row wrap;
+}
+.diet-full-wrap{
+    width:100%;
+}
+.diet-header-wrap{
+    display:flex;
+    flex:0 0 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.date-set,.meal-set{
+    border:1px solid lightgray;
+    padding:8px 8px;
+    border-radius:5px;
+    background:white;
+    cursor:pointer;
+}
+.diet-receipt-wrap{
+    margin-top:24px;
+    padding:10px 18px;
+    border:1px solid black;
+}
+.diet-receipt-header{
+    border-bottom:1px solid black;
+    padding:18px 0;
+    display:flex;
+    flex-flow:column wrap;
+    justify-content: space-between;
+}
+.diet-receipt-body{
+    display:flex;
+    min-height:240px;
+    flex-flow: column wrap;
+    justify-content:flex-end;
+}
+.diet-receipt-body .diet-info{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding:5px 8px;
+    border:0;
+}
+.food-info{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.meal{
+    font-weight: bold;
+}
+.food-calories{
+    margin-left:18px;
+    color:gray;
+}
+.diet-receipt-footer{
+    margin-top:18px;
+    border-top:1px solid black;
+}
+.diet-calories{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:9px 0;
+}
+.diet-write-wrap{
+    margin-top:24px;
+    padding:10px 18px;
+    border:1px solid lightgray;
+    border-radius:5px;
+    box-shadow: 2px 2px 5px 0 #8b0000;
+}
+.diet-write-header{
+    padding:18px 0;
+    display:flex;
+    justify-content: space-between;
+}
+.btn-wtag{
+    border:1px solid lightgray;
+    padding:10px 18px;
+    border-radius:5px;
+    background:white;
+    cursor:pointer;
+}
+.btn-wactive{
+    border:1px solid #8b0000;
+    padding:10px 18px;
+    border-radius:5px;
+    background:#8b0000;
+    color:white;
+    cursor:pointer;
+}
+.write-header{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom:18px;
+    border-bottom:1px solid black;
+}
+.diet-write-footer{
+    margin:18px 0;
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.write-wrap{
+    min-height:340px;
+}
+.list-wrap{
+    max-height:500px;
+    overflow:auto;
+}
+.list-wrap .item-info{
+    border-bottom:1px solid lightgray;
+}
+.search-bar{
+    height:24px;
+    margin-top:18px;
+}
+.food-search{
+    width:100%;
+    height:100%;
+}
+.food-wrap{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:9px;
+    border-bottom:1px solid lightgray;
+}
+.note-wrap{
+    border:1px solid #8b0000;
+    min-height:180px;
+    border-radius: 3px;
+    margin-top:18px;
+}
+.note-header{
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding:9px;
+}
+.note-body{
+    padding:9px;
+}
+.note-body .food-info{
+    padding:9px;
+    justify-content: space-between;
+    border-bottom:1px solid lightgray;
+}
+.diet-edit-wrap{
+    margin-top:24px;
+    padding:10px 18px;
+    border:1px solid black;
+}
+.diet-footer{
+    margin-top:16px;
+    padding:8px;
+    display:flex;
+    justify-content: flex-end;
+}
+.review-point img{
+    width:36px;
+    height:36px;
+}
+.reviewStar{
+	cursor:pointer;
+}
+.self-list{
+    display:flex;
+    margin-bottom:12px;
+}
+.self-list input{
+    width:45%;
+    border-radius: 5px;
+    border:1px solid lightgray;
+    margin-right:12px;
+}
 @media screen and (min-width : 1024px) {
     .navWrap1{
         display:none;
@@ -519,6 +733,7 @@ a{
     	margin:auto;
         max-width:1120px;
         padding:0 24px;
+        padding-bottom:240px;
     }
     .nav2 h1{
         text-align: center;
@@ -687,5 +902,44 @@ a{
     .review-write-form{
         width:80%;
         margin:auto;
+    }
+    .coupon-list{
+        display:flex;
+        justify-content: space-around;
+        height:80px;
+        border-bottom:1px solid #777;
+        align-items:center;
+        border-top:0;
+    }
+    .coupon-status{
+        flex:0 0 20%;
+        text-align: center;
+    }
+    .coupon-info{
+        flex:0 0 20%;
+        text-align: center;
+    }
+    .coupon-date{
+        flex:0 0 26%;
+        text-align: center;
+    }
+    .coupon-rate{
+        flex:0 0 20%;
+        text-align: center;
+    }
+    .diet-full-wrap{
+        display:flex;
+        flex-flow: row wrap;
+        justify-content: space-around;
+    }
+    .diet-receipt-wrap,.diet-write-wrap,.diet-edit-wrap{
+        flex:0 0 60%;
+    }
+    .diet-receipt-header{
+        border-bottom:1px solid black;
+        padding:18px 0;
+        display:flex;
+        flex-flow:row wrap;
+        justify-content: space-between;
     }
 }

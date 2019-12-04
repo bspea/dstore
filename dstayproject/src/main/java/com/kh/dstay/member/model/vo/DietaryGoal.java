@@ -13,16 +13,15 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Review {
-	
-	private int no;
-	private int memberNo;
-	private int productNo;
-	private String productName;
-	private String content;
-	private int point;
-	private Date date;
-	private String status;
-	private String piPath;
-	
+public class DietaryGoal {
+
+	public int memberNo;
+	public String gender;
+	public int age;
+	public int height;
+	public int weight;
+	public int targetWeight;
+	public double workrate;
+	public int goalCalories;
+	public Date date;
 }

@@ -49,7 +49,7 @@ public class ProductController {
 		
 		int cateListCount = pService.getCateListCount(caNo); // 해당 카테고리의 상품 총 갯수
 		
-		PdPageInfo pp = ProductPagination.getProductPageInfo(currentPage, cateListCount); // 상품 목록 페이징 처리
+		PdPageInfo pp = ProductPagination.getPageInfo(currentPage, cateListCount); // 상품 목록 페이징 처리
 		
 		ArrayList<Product> pd = pService.selectCategory(pp,caNo); // 해당 번호 카테고리의 상품 가져오기(페이징처리 포함) 
 		

@@ -51,19 +51,19 @@
     <div class="topFixedDiv">
     <div class="logo-top">
         <div class="topLeft">
-                <a href=""><img src="${ pageContext.request.contextPath }/resources/images/4_jong/logo.png" width=100px></a>
+                <a href="${ pageContext.request.contextPath }/main.do"><img src="${ pageContext.request.contextPath }/resources/images/4_jong/logo.png" width=100px></a>
         </div>
 
         <div class="topMiddle">
-            <input type="text" placeholder="검색어를 입력해주세요.">
+            <input type="search" placeholder="검색어를 입력해주세요.">
         </div>
 
 		<div class="topRight">
              <!-- pc버전 -->
             <div class="size-pc">
             <c:if test="${empty loginUser }">
-            	<a href="loginForm.do">로그인</a>
-                <a href="registerForm.do">회원가입</a>
+            	<a href="${ pageContext.request.contextPath }/loginForm.do">로그인</a>
+                <a href="${ pageContext.request.contextPath }/registerForm.do">회원가입</a>
             </c:if>
             <c:if test="${!empty loginUser && loginUser.email eq 'admin@dstay.com' }">
 	            <a href="">관리자</a>
@@ -71,7 +71,7 @@
             </c:if>
             <c:if test="${!empty loginUser && loginUser.email ne 'admin@dstay.com'}">
                 <a href="javascript:logout()">로그아웃</a>
-                <a href="">마이페이지</a>
+                <a href="${ pageContext.request.contextPath }/mypage/info.do">마이페이지</a>
             </c:if>
             
                 <a href="">장바구니</a>
