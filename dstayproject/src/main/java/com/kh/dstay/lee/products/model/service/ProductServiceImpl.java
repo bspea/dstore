@@ -9,6 +9,7 @@ import com.kh.dstay.lee.products.model.dao.ProductDao;
 import com.kh.dstay.lee.products.model.vo.PdPageInfo;
 import com.kh.dstay.lee.products.model.vo.Product;
 import com.kh.dstay.lee.products.model.vo.ProductCategory;
+import com.kh.dstay.lee.products.model.vo.ProductInquery;
 
 @Service("pService")
 public class ProductServiceImpl implements ProductService{
