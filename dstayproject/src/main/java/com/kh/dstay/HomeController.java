@@ -196,7 +196,8 @@ public class HomeController {
 	@RequestMapping("reviewNonMemberOrder.do")
 	public ModelAndView reviewNonMemberOrder(ModelAndView mv,@RequestParam("goNo")int goNo,@RequestParam("phone")String phone) {
 		GuestOrder requestGo = new GuestOrder();
-		requestGo.setGoNo(goNo);requestGo.setPhone(phone);
+		requestGo.setGoNo(goNo);
+		requestGo.setPhone(phone);
 		GuestOrder reviewOrder = gService.reviewNonMemberOrder(requestGo);
 		if(reviewOrder != null) {
 			mv.addObject("reviewOrder",reviewOrder).setViewName("home");//비회원 주문 내역 조회 페이지로 변경해야 합니다

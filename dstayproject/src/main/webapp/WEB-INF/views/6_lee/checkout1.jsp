@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,7 +56,9 @@
     <link rel="stylesheet" href="./bootstrapt/css/bootstrap.min.css" />
 	<script src="./bootstrapt/js/bootstrap.min.js"></script>
     
-
+    <!-- 아임포트 api -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 
 <body>
@@ -156,25 +159,21 @@
                     <div class="row">
    
 						 <a id="markSpBtn" class="btn pull-right button-green-top-nav" style="width:50%;" >지정배송지(3)</a>
-						 <span><a id="recentlySpBtn" class="btn pull-right button-green-top-nav" style="width:50%;">최근배송지(3)</a></span>
+						 <span><a id="recentlySpBtn" class="btn pull-right button-green-top-nav" style="width:50%;" onclick="">최근배송지(0)</a></span>
+						<c:if test="${empty loginUser}">
+							<div id="recentlySp" style="display:''; color:#8b0000">
+									<h4 style="text-align: center;  margin-top: 85%; color:#8b0000;">로그인이 필요한 기능 입니다.</h4>
+									<br><br><br><br>
+							</div>
+						</c:if>
 						 <br><br><br><br>
 						
+						
+						
 						  	<div id="recentlySp" style="display:'';">
-						 	 	
-						 	    	주소 : 경기도 성남시 분당구 분당동 <br>
-						 	    	상세주소 : 분당동 12-2
-						 	  	  <hr>
-						 	  	 
-						 	  	
-						 	    	주소 : 경기도 성남시 분당구 분당동 <br>
-						 	    	상세주소 : 분당동 12-2
-						 	  	  <hr>
-						 	  	  
-						 	  	  
-						 	    	주소 : 경기도 성남시 분당구 분당동 <br>
-						 	    	상세주소 : 분당동 12-2
+						 	 		
 						 		  
-						 	</div>	 
+						 	</div>	  
 	
 						    <div id="markSp" style="display:none;">
 						    	
@@ -182,19 +181,7 @@
 						    	
 						    	<hr>
 						   
-						   		배송지명:우리집<br>
-						    	주소: 경기도 성남시 분당구<br>
-						    	상세주소:분당동<br>
-						    	<div style="display: inline-block; height: 0px; position: relative; left: 198px;">
-						    	<p id="addAddress" style="text-align:center; cursor:pointer; color:#8b0000; display: inline-block; margin-bottom:0px;">수정</p>
-						    	<p id="addAddress" style="text-align:center; cursor:pointer; color:#8b0000; display: inline-block;  margin-bottom:0px;">삭제</p>
-						    	</div>
-						    	<hr>
-						    	
-						    	배송지명:우리집<br>
-						    	주소: 경기도 성남시 분당구<br>
-						    	상세주소:분당동
-						    	<hr>
+						   		
 						    </div>
 						       
 						       
@@ -222,17 +209,17 @@
 				</div>
 				<div class="modal-body">
 					
-					<form action="" method="post" id="addAd">
+				
 						  		
-						   <div class="form-group"> 
+						   <div id="" class="form-group"> 
                                       
                                     <input type="text" class="form-control" id="deliveryName" name="deliveryName" placeholder="배송지명*" style="width: 50%; display: inline-block;" oninput="addressValidate();">
      
-                                    <input type="text" id="sample3_postcode" name="sample3_postcode" class="form-control"  placeholder="우편번호*" style="width: 49%; display: inline-block;" oninput="addressValidate();">
+                                    <input type="text" id="sample3_postcode" name="" class="form-control"  placeholder="우편번호*" style="width: 49%; display: inline-block;" oninput="addressValidate();">
             						<br><br>
-									<input type="text" id="sample3_address" name="sample3_address" class="form-control"  placeholder="주소*" style="width: 65%; display: inline-block;" oninput="addressValidate();">
+									<input type="text" id="sample3_address" name="" class="form-control"  placeholder="주소*" style="width: 65%; display: inline-block;" oninput="addressValidate();">
                      
-                                    <input type="text" class="form-control" id="sample3_detailAddress" name="sample3_detailAddress" placeholder="상세주소*" style="width: 34%; display: inline-block;" oninput="addressValidate();">
+                                    <input type="text" class="form-control" name="" id="sample3_detailAddress" placeholder="상세주소*" style="width: 34%; display: inline-block;" oninput="addressValidate();">
                                     
                                     <input type="hidden" id="sample3_extraAddress" placeholder="참고항목">
                                     
@@ -246,13 +233,10 @@
 								<!-- <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> -->
    
 						<div class="modal-footer">
-							<button class="btn" type="submit" data-dismiss="modal" id="saveBtn" style="margin-top: 16px; position: relative; top: 10px;"  disabled onclick="return addressValidate();">저장</button>
+							<button class="btn" type="submit" data-dismiss="modal" id="saveBtn" style="margin-top: 16px; position: relative; top: 10px;"  onclick="addAddress()" disabled>저장</button>
 							<button class="btn" type="button" data-dismiss="modal" style="margin-top: 16px; position: relative; top: 10px;">취소</button>
 						</div>
 				
-					</form>
-					
-					
 								<div class="col-sm-4 col-xs-6" style="position: relative; left: 390px; bottom: 80px; ">
                             		<button onclick="sample3_execDaumPostcode();" class="btn default-userProductList-CardList-button pull-right" role="button" style="width: 194px;">주소검색</button>
                         		</div>
@@ -270,8 +254,8 @@
 
 	<span>
 
+      <form action="" method="post">
         <div class="row" style="position: display: inline-block;">
-        
         
             <div class="col-md-8" style="width: 745px;">
                 <div class="box-bg-white" style="width: 100%;">
@@ -279,31 +263,31 @@
 
                     <div class="row">
                         <div class="col-md-9" style="margin-left: 11%;">
-                            <form>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="" placeholder="주문자 성함*" required>
+                        
+								<div class="form-group">
+                                    <input type="text" class="form-control" value="${mem.nickName }" id="nickname" placeholder="주문자 성함*" required>
                                 </div>
                                     <div class="form-group">
-                                    <input type="text" class="form-control" id="" placeholder="전화번호*(-없이)" pattern="[0-9]{0,10}" title="숫자만 입력해 주세요" required>
+                                    <input type="phone" class="form-control" value="${mem.phone }" id="phone" placeholder="전화번호*(-없이)" pattern="">
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control" id="" placeholder="이메일" required>
+                                    <input type="email" class="form-control" value="${mem.email }" id="email" placeholder="이메일" required>
                                 </div>
                                
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="" placeholder="우편번호*" required>
+                                    <input type="text" class="form-control" id="sample3_postcode2" name=""  placeholder="우편번호*"  required>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-sm-8">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="" placeholder="주소*" required>
+                                            <input type="text" id="sample3_address2" name="" class="form-control" placeholder="주소*" required>
                                         </div>
                                     </div>
 
                                     <div class="col-sm-4">
                                         <div class="form-group" style="margin-bottom: 0px;">
-                                            <input type="text" class="form-control" id="" placeholder="상세주소*">
+                                            <input type="text" class="form-control" id="sample3_detailAddress2" name="" placeholder="상세주소*">
                                         </div>
                                    			
                                    			<div id="wrap2" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative; right: 347px;">
@@ -316,19 +300,14 @@
                                 </div>
                                
                                 
-
                                 <div class="form-group" style="margin-top: 22px;">
-                                    <input type="text" class="form-control" id="" placeholder="기타 문의사항">
+                                    <input type="text" class="form-control" id="orequest" placeholder="기타 문의사항">
                                 </div>
-
-                               
-
-
 
                                 <div class="checkbox">
                                    
                                 </div>
-                            </form>
+                           
                        			<div class="col-sm-4 col-xs-6" style="position: relative; left: 349px; bottom: 85px;">
                             		<button onclick="sample3_execDaumPostcode2();" class="btn default-userProductList-CardList-button pull-right" role="button" style="width: 147px;">주소검색</button>
                         		</div>
@@ -346,44 +325,9 @@
 
             <div class="col-md-4" style="width: 299px;">
                 <div class="box-bg-white hidden-xs" style="margin-bottom: 0px;">
-                    <div class="row">
-                        <div class="col-md-2 col-xs-6 less-padding-right">
-                            <img src="resources/images/6_lee/brownies.jpg" width="100%">
-                        </div>
-                        <div class="col-md-6 col-xs-12">
-                            <span>Brownie Chocolate</span><br/>
-                            <span class="text-gray-2 text-thin">Sucicakes</span>
-                        </div>
-                        <div class="col-md-4 col-xs-5">
-                            <p class="text-right">IDR 50.000</p>
-                        </div>
-                        <div class="clearfix maya-small-padding"></div>
-                    </div>
+                    
 
-                    <div class="row">
-                        <div class="col-md-2 col-xs-6 less-padding-right">
-                            <img src="resources/images/6_lee/lapisSurabaya.jpg" width="100%">
-                        </div>
-                        <div class="col-md-6 col-xs-12">
-                            <span>Brownie Chocolate</span><br/>
-                            <span class="text-gray-2 text-thin">Sucicakes</span>
-                        </div>
-                        <div class="col-md-4 col-xs-5">
-                            <p class="text-right">IDR 50.000</p>
-                        </div>
-                        <div class="clearfix maya-small-padding"></div>
-                    </div>
-
-                    <hr>
-						  <div class="row">
-                     		 <div class="col-sm-8">상품가격</div>
-                       		 <div class="col-sm-4 text-right">￦10.000</div>
-                   		 </div>
-
-	                    <div class="row">
-	                        <div class="col-sm-8 less">배송비</div>
-	                        <div class="col-sm-4 text-right">￦2.500</div>
-	                    </div>
+					
 						
                     
                     <!-- 쿠폰 모달창 start -->
@@ -424,7 +368,7 @@
                     
                     <hr/>
 
-                   <form class="form-inline">
+<!--                    <form class="form-inline"> -->
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-8"><input type="text" class="form-control" id="" placeholder="할인금액" readonly></div>
@@ -432,13 +376,13 @@
                             </div>
                         </div>
 
-                    </form>
+                   <!--  </form> -->
 
 
                     <hr/>
                     <div class="row">
                         <div class="col-sm-4 less">총액</div>
-                        <div class="col-sm-8 text-right"><h3 class="less-margin"><small>￦</small> 12.500</h3></div>
+                        <div class="col-sm-8 text-right"><h3 class="less-margin"><small>￦</small> ${totalPrice }</h3></div>
                     </div>
                     
                     <br>
@@ -449,13 +393,13 @@
                     
                     
                 </div>
-                <a href="" class="btn btn-default pull-right button-black hidden-xs" style="width: 270px; color: #ffffff; background-color: #000;">결제하기</a>
+                <button class="btn btn-default pull-right button-black hidden-xs" style="width: 270px; color: #ffffff; background-color: #000;" onclick="pay()">결제하기</button>
                 <div class="clearfix"></div>
-
 
 
             </div>
         </div>
+	</form>
         </span>
     </div>
 
@@ -467,6 +411,110 @@
 <script src="resources/js/6_lee/jquery.min.js"></script>
 	<script>
 		
+	/* 결제 api start */
+			 function pay(){
+		         
+				 var IMP = window.IMP; // 생략가능
+		         IMP.init('imp36456590'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+		         var msg;
+		         
+		         IMP.request_pay({
+		             pg : 'inicis',
+		             pay_method : 'phone',
+		             merchant_uid : 'merchant_' + new Date().getTime(),
+		             name : 'KH Books 도서 결제',
+		             amount : 10,
+		             buyer_email : 'bspea@naver.com',
+		             buyer_name : '안녕?',
+		             buyer_tel : '010-1234-5678',
+		             buyer_addr : '서울특별시 강남구 삼성동',
+		             buyer_postcode : '123-456',
+		             //m_redirect_url : 'http://www.naver.com'
+		         }, function(rsp) {
+		             if ( rsp.success ) {
+		                 //[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
+		                 jQuery.ajax({
+		                     url: "", //cross-domain error가 발생하지 않도록 주의해주세요
+		                     type: 'POST',
+		                     dataType: 'json',
+		                     data: {
+		                         imp_uid : rsp.imp_uid
+		                         //기타 필요한 데이터가 있으면 추가 전달
+		                     }
+		                 }).done(function(data) {
+		                     //[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
+		                     if ( data == "ok" ) {
+		                    	 console.log("들어오는지")
+		                         msg = '결제가 완료되었습니다.';
+		                         msg += '\n고유ID : ' + rsp.imp_uid;
+		                         msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+		                         msg += '\결제 금액 : ' + rsp.paid_amount;
+		                         msg += '카드 승인번호 : ' + rsp.apply_num;
+		                         
+		                         alert(msg);
+		                     } else {
+		                         //[3] 아직 제대로 결제가 되지 않았습니다.
+		                         //[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
+		                     }
+		                 });
+		                 //성공시 이동할 페이지
+		                 
+		             	var ptype = "통신사결제";
+		                var pprice = ${totalPrice};
+		                var ptotalprice = ${totalPrice};
+		               
+		                if("${loginUser}" != ""){
+		                	
+		                	var mno = parseInt("${loginUser.no}");		                	
+		                	var mpost = $("#sample3_postcode2").val()
+			                var maddress = $("#sample3_address2").val()
+			                var maddressdetail =$("#sample3_detailAddress2").val() 
+			                var orequest = $("#orequest").val()
+		                }else{
+			            
+		                	var gname = $("#nickname").val()
+			                var gphone = $("#phone").val()
+		                	var gemail = $("#email").val()
+		                	var gpost = $("#sample3_postcode2").val()
+			                var gaddress = $("#sample3_address2").val()
+			                var gdetailaddress =$("#sample3_detailAddress2").val() 
+			                var gorequest = $("#orequest").val()
+		                }
+		         
+		                
+		                 
+		                	 $.ajax({
+		             			
+		         				url: "pay.do",
+		         				data:{ptype:ptype,pprice:pprice,ptotalprice:ptotalprice,ptype:ptype, pprice:pprice ,ptotalprice:ptotalprice ,mno:mno ,mpost:mpost ,maddress:maddress,
+		         					maddressdetail:maddressdetail ,orequest:orequest,
+		         					gname:gname, gphone:gphone, gemail:gemail, gpost:gpost, gaddress:gaddress, gdetailaddress:gdetailaddress, gorequest:gorequest},
+		         				success:function(result){
+		         				
+		         					alert("정상적으로 결제가 완료 되었습니다")
+
+		         					
+		         					location.href="home.do";
+		         					
+		         				},error:function(){
+		         					
+		         				}
+		         				
+		         			})
+		             
+		             
+		             } else {
+		               	var totalPrice = ${totalPrice};
+		            	 alert("주문을 취소 하셨습니다");
+		               	location.href="selectCheckout.do?totalPrice="+totalPrice
+		             }
+		         });
+		         
+		     };
+			 /* 결제 api end */
+	
+	
+	
 	$("#recentlySpBtn").on('click', function(){
 		$("#recentlySp").css("display","");
 		$("#markSp").css("display","none");
@@ -479,11 +527,67 @@
 	});
 	
 	//배송지 저장 클릭 시 모달창 연동 	
-	$('#addAddress').click(function(e){
+	//$('#addAddress').click(function(e){
+	$("#markSp").on("click", "#addAddress", function(e){
 		$('#testModal').modal({backdrop: 'static'});
 		e.preventDefault();
 		$('#testModal').modal("show");
 	});
+	
+	// 지정배송지 눌렀을 시 주소 추가
+	$("#markSp").on("click", "#chooseAddress", function(e){
+	
+		var post = $(this).children().eq(1).children().html(); 
+		var address = $(this).children().eq(2).children().html(); 
+		var address2 = $(this).children().eq(3).children().html(); 
+		
+             
+             $("#sample3_postcode2").attr("value", post);
+             $("#sample3_address2").attr("value", address);
+             $("#sample3_detailAddress2").attr("value",address2);
+             
+	});
+	
+
+	// 최근 배송지 눌렀을 시 주소 추가 
+	$("#recentlySp").on("click", "#recentAdd", function(e){
+		
+		var post = $(this).children().eq(0).children().html(); 
+		var address = $(this).children().eq(1).children().html(); 
+		var address2 = $(this).children().eq(2).children().html(); 
+		
+             
+             $("#sample3_postcode2").attr("value", post);
+             $("#sample3_address2").attr("value", address);
+             $("#sample3_detailAddress2").attr("value",address2);
+             
+	});
+
+	// 배송지 삭제
+	$("#markSp").on("click", "#deleteAddress", function(e){
+		
+		var ano = $(this).parent().parent().children().eq(2).text();
+		
+		console.log(ano)
+		
+		$.ajax({
+			url : "deleteAddress.do",
+			data : {ano:ano},
+			success:function(data){
+				
+				if(data == "ok"){
+					
+				getAddressList();
+				}
+				
+			},error:function(){
+				
+			}
+		});
+		
+		
+	});
+	
 	
 	// 쿠폰 클릭 시 모달창 연동
 	$('#coupon').click(function(e){
@@ -619,10 +723,10 @@
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            	document.getElementById('sample3_postcode').value = data.zonecode;
-             	 document.getElementById("sample3_address").value = addr;
+            	document.getElementById('sample3_postcode2').value = data.zonecode;
+             	 document.getElementById("sample3_address2").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("sample3_detailAddress").focus();
+                document.getElementById("sample3_detailAddress2").focus();
 
                 // iframe을 넣은 element를 안보이게 한다.
                 // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
@@ -678,8 +782,163 @@
 		
 		}
 		
-        
+		$(function(){
+			getAddressList();
+			/* getAddAddressList(); */
+			getRecentList();
+		})
 	
+	
+		// 모달창 주소지 저장시 실행되는 함수
+		function addAddress(){
+			
+			
+			var ahaddressno = $("#sample3_postcode").val();
+			var deliveryname = $("#deliveryName").val();
+			var ahaddress1 = $("#sample3_address").val();
+			var ahaddress2 = $("#sample3_detailAddress").val();
+					
+			
+			
+			$.ajax({
+			
+				url: "addAddress.do",
+				data:{ deliveryname:deliveryname, ahaddressno:ahaddressno, ahaddress1:ahaddress1, ahaddress2:ahaddress2 },
+				success:function(result){
+				
+					getAddressList();
+					
+					     $("#sample3_postcode").val("");
+						 $("#deliveryName").val("");
+					     $("#sample3_address").val("");
+						 $("#sample3_detailAddress").val("");
+					
+					
+					
+				},error:function(){
+					
+				}
+				
+			})
+			
+		}
+		
+		function getAddressList(){
+			
+			var mno = parseInt("${loginUser.no}");
+			
+			$.ajax({
+				url:"getAddressList.do",
+				data:{mno:mno},
+				dataType:"json",
+				success:function(data){
+			
+				
+				 $hr2 = $("<hr>");
+				$div = $("#markSp");
+				$div.html('<p id="addAddress" style="text-align:center; cursor:pointer; color:#8b0000;">배송지 추가하기</p>').append($hr2);
+				
+				$.each(data, function(index, value){
+					
+						$hr = $("<hr>");
+						$ano = $("<p id='ano' style='display:none'></p>").append(value.ano);
+						$a = $("<a id='chooseAddress' style='color:#8b0000'></a>");
+						$p1 = $("<p style='margin-bottom:0px'></p>").text("배송지명 : ").append($("<span>").append(value.aname));
+						$p2 = $("<p style='margin-bottom:0px'></p>").text("우편번호 : ").append($("<span>").append(value.aaddressno));			
+						$p3 = $("<p style='margin-bottom:0px'></p>").text("주소지 : ").append($("<span>").append(value.aaddress1));
+						$p4 = $("<p style='margin-bottom:0px'></p>").text("상세주소 : ").append($("<span>").append(value.aaddress2));
+						
+						$pp2 = $("<p id='deleteAddress' style='text-align:center; cursor:pointer; color:#8b0000; display: inline-block; margin-bottom:0px;' '></p>").text("삭제");
+						$div2 = $("<div style='display: inline-block; height: 0px; position: relative; left: 198px;'></div>").append($pp2).append($hr);
+					if(2 > index){
+		
+							$a.append($p1).append($p2).append($p3).append($p4);
+							$div.append($ano);
+							$div.append($a);
+							$div.append($div2);
+					}else if(3> index){
+						$("#addAddress").attr("style", "display:none");
+						$a.append($p1).append($p2).append($p3).append($p4);
+						$div.append($ano);
+						$div.append($a);
+						$div.append($div2);
+						
+					}
+					
+					
+				})	
+				
+					
+					
+				},error:function(){
+					
+				}
+			})
+			
+			
+			
+			
+		}
+        
+		
+		
+		 	  	  
+		 	function getRecentList(){
+				
+				var mno = parseInt("${loginUser.no}");
+				
+				$.ajax({
+					url:"getRecentList.do",
+					data:{mno:mno},
+					dataType:"json",
+					success:function(data){
+				
+						console.log(data);
+						
+					 $hr2 = $("<hr>");
+					$div = $("#recentlySp");
+					
+					
+					$.each(data, function(index, value){
+						
+						if(3 > index){
+							
+
+							
+							
+							
+							
+							$hr = $("<hr>");
+							$ono = $("<p id='ono' style='display:none'></p>").append(value.ono);
+							$a = $("<a id='recentAdd' style='color:#8b0000'></a>");
+							$p2 = $("<p style='margin-bottom:0px'></p>").text("우편번호 : ").append($("<span>").append(value.mpost));			
+							$p3 = $("<p style='margin-bottom:0px'></p>").text("주소지 : ").append($("<span>").append(value.maddress));
+							$p4 = $("<p style='margin-bottom:0px'></p>").text("상세주소 : ").append($("<span>").append(value.maddressdetail));
+							
+						
+							$a.append($p2).append($p3).append($p4);
+							$div.append($ono);
+							$div.append($a).append($hr);		
+						}						
+						
+						
+					})	
+					
+						
+						
+					},error:function(){
+						
+					}
+				})
+				
+				
+				
+				
+			}
+		 	
+		 	
+	
+		
 	
 	
 	</script>

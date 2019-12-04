@@ -241,7 +241,6 @@
 		join product using(pno)
 		join product_image using(pno)
 		where mno=#{no} and piorderby=1
-		order by bdate desc
 	</select>
 	
 	<insert id="refund">

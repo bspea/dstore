@@ -70,6 +70,13 @@
 
 	<!--Cookies  -->
 	<script src="resources/js/2_bak/package/src/js.cookie.js"></script>
+	
+	
+	<!--  급하게 합치기 용도 google API -->
+	<meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="895700547732-2ecml9j5ias6sdi4iqg6sub5adjgkm42.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    
     <style>
     html, body {
         height: 100%;
@@ -334,7 +341,7 @@ var varSendAnEmail;
 		    /* Ready. Make a call to gapi.auth2.init or some other API */
 		    console.log("loaded auth2 ");
 		    var googleAuth = gapi.auth2.init({
-		    	  client_id: "${googleClientId}"
+		    	  client_id: "772225320155-psolb8vekpte4t7h2bl88b0tt3p3sfn6.apps.googleusercontent.com"
 		    })
 		    googleAuth.signIn().then(function() {
 		    	console.log("googleAuth initialized");
@@ -371,7 +378,7 @@ var varSendAnEmail;
 </script>
 <!--네이버로 로그인  -->
   <script type="text/javascript">
-	  	var naver_id_login = new naver_id_login("${naverClientId}", "http://localhost:9020/dstay/naverLogin.do");
+	  	var naver_id_login = new naver_id_login("s6CPRgwP1X7_hKKChRiV", "http://localhost:9020/dstay/naverLogin.do");
 	  	var state = naver_id_login.getUniqState();
 	  	naver_id_login.setButton("white", 3 ,50);
 	  	naver_id_login.setDomain("http://localhost:9020");
@@ -384,7 +391,7 @@ var varSendAnEmail;
   //<![CDATA[
     // 사용할 앱의 JavaScript 키를 설정해 주세요.
     var id; var nickName; var email;
-    Kakao.init('${kakaoJavascriptKey}');
+    Kakao.init('b6ca5845154feff6cc055835f1f75513');
     function loginWithKakao() {
       // 로그인 창을 띄웁니다.
       Kakao.Auth.login({

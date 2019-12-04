@@ -52,6 +52,16 @@
     <!-- owl carousel -->
     <link rel="stylesheet" href="resources/css/6_lee/owl_carousel/owl.carousel.css">
     <link rel="stylesheet" href="resources/css/6_lee/owl_carousel/owl.theme.default.css">
+<style>
+ 	
+ 	#bookmarkButton{
+	  display: inline-block !important;
+	 }
+
+
+</style>
+
+
 
 </head>
 
@@ -156,241 +166,118 @@
                     <!--</div>-->
                 <!--</div>-->
             <!--</div>-->
-
+			 <c:forEach  var="pd" items="${pd}" varStatus="status">
             <div class="col-sm-6 col-md-4" data-behavior="sample_code">
-                <a href="productDetail.do" class="thumbnail_item thumbnail less-padding less-margin">
-                  	<div class="bookmarked" style="z-index:2;"><img src="resources/images/6_lee/bookmarked.png" width="86"></div>
-                    <img src="resources/images/6_lee/risotto_square.jpg" alt="risotto lemon">
+
+                
+                <a href="productDetail.do?pdno=${pd.pno}" class="thumbnail_item thumbnail less-padding less-margin">
+                    <img src="${pd.pi1}" alt="risotto lemon">
                 </a>
+               
+          <c:if test="${!empty loginUser.no }">
+               
+	                <div class="bookmarked" >
+						<!--  <img id="bookMark" src="resources/images/6_lee/bookmarked.png" width="86" >  --> 
+	                
+	              		 <c:forEach var="bm" items="${bm}" varStatus="status1">
+		              		 
+		              		 <c:if test="${bm.pno == pd.pno }">
+		              		 	
+							        <img id="bookMark" src="resources/images/6_lee/bookmarked.png" width="86" >
+		              		 </c:if>
+
+	              		 </c:forEach>
+	      						
+	              		 
+		        	</div>
+               </c:if>
+               
+
+               
                 <div class="caption box">
-                    <h3>Lemon Risotto</h3>
+                    <h3 style="height: 52px;">${pd.pname}</h3>
                     <div class="row">
                         <div class="col-sm-8 col-xs-6">
-                            <p class="default-userProductList-CardList-price">Rp 45.000 / pcs</p>
-                            <span class="min-order">10 pcs min order</span>
+                            <p class="default-userProductList-CardList-price">￦${pd.price}</p>
                         </div>
 
                         <div class="col-sm-4 col-xs-6">
-                            <button onclick="location.href='shoppingCart.do'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
+                            <button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
                         </div>
                     </div>
                 </div>
             </div>
+		  </c:forEach>
+					<!-- 페이징 바 start  -->
+            <div class="col-md-12 hidden-xs text-center">
+                
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li class="current">
+                        	
+                        	<c:if test="${pp.currentPage eq 1 }">
+								<a href="${before}" style="font-size: 40px; background-color: rosybrown; pointer-events: none; cursor: default;">&lt</a>
+							</c:if>
+						
+							<c:if test="${pp.currentPage ne 1 }">
+								<c:url value="product.do" var="before">
+									
+									<c:param name="currentPage" value="${pp.currentPage-1}"/>
+								</c:url>
+								<a href="${before}" style="font-size: 40px">&lt</a>
+							</c:if>
+							
+							<c:forEach begin="${pp.startPage}" end="${pp.endPage}" var="p">
+								<c:if test="${p eq pp.currentPage}">
+									<a style="background-color:coral">${p}</a>
+								</c:if>
+			
+								<c:if test="${p ne pp.currentPage}">
+									<c:url value="product.do" var="page">
+										
+										<c:param name="currentPage" value="${p}"/>
+									</c:url>
+									<a href="${page}">${p}</a>
+								</c:if> 
+			
+							</c:forEach>
+			
+							<c:if test="${pp.currentPage eq pp.maxPage}">
+								<a href="${after}" style="font-size: 40px; background-color: rosybrown; pointer-events: none; cursor: default;">&gt</a>
+							</c:if>
+			
+							<c:if test="${pp.currentPage ne pp.maxPage }">
+								<c:url value="product.do" var="after">
+									
+									<c:param name="currentPage" value="${pp.currentPage+1 }"/>
+								</c:url>
+								<a href="${after}" style="font-size: 40px">&gt</a>
+							</c:if>
+                        </li>
+                        
+                    </ul>
+                </nav>
 
-            <!--<div class="col-sm-6 col-md-4" data-behavior="sample_code">-->
-                <!--<a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">-->
-                    <!--<img src="https://res.cloudinary.com/kimithemes/image/upload/c_thumb,h_480,w_480/v1506329233/seafood_2_vcuolq.jpg" alt="Seafood">-->
-                <!--</a>-->
-                <!--<div class="caption box">-->
-                    <!--<h3>Seafood</h3>-->
-                    <!--<div class="row">-->
-                        <!--<div class="col-sm-8 col-xs-6">-->
-                            <!--<p class="default-userProductList-CardList-price">Rp 45.000 / pcs</p>-->
-                            <!--<span class="min-order">5 pcs min order</span>-->
-                        <!--</div>-->
-
-                        <!--<div class="col-sm-4 col-xs-6">-->
-                            <!--<button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-
-            <div class="col-sm-6 col-md-4">
-                <a href="productDetail.do" class="thumbnail_item thumbnail less-padding less-margin">
-                    <img src="resources/images/6_lee/oats.jpg" alt="Oats Cake">
-                </a>
-                <div class="caption box">
-                    <h3>Oats Cake</h3>
-                    <div class="row">
-                        <div class="col-sm-8 col-xs-6">
-                            <p class="default-userProductList-CardList-price">Rp 4.500 / pcs</p>
-                            <span class="min-order">10 pcs min order</span>
-                        </div>
-
-                        <div class="col-sm-4 col-xs-6">
-                            <button onclick="location.href='shoppingCart.do'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
             </div>
-
-            <div class="col-sm-6 col-md-4">
-                <a href="productDetail.do" class="thumbnail_item thumbnail less-padding less-margin">
-                    <img src="resources/images/6_lee/mango.jpg" alt="Mango Cake">
-                </a>
-                <div class="caption box">
-                    <h3>Mango Cake</h3>
-                    <div class="row">
-                        <div class="col-sm-8 col-xs-6">
-                            <p class="default-userProductList-CardList-price">Rp 23.000 / pcs</p>
-                            <span class="min-order">5 pcs min order</span>
-                        </div>
-
-                        <div class="col-sm-4 col-xs-6">
-                            <button onclick="location.href='shoppingCart.do'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4">
-                <a href="productDetail.do" class="thumbnail_item thumbnail less-padding less-margin">
-                    <img src="resources/images/6_lee/cake_square.jpg" alt="Cake">
-                </a>
-                <div class="caption box">
-                    <h3>Cake</h3>
-                    <div class="row">
-                        <div class="col-sm-8 col-xs-6">
-                            <p class="default-userProductList-CardList-price">Rp 23.000 / pcs</p>
-                            <span class="min-order">5 pcs min order</span>
-                        </div>
-
-                        <div class="col-sm-4 col-xs-6">
-                            <button onclick="location.href='shoppingCart.do'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4" data-behavior="sample_code">
-                <a href="productDetail.do" class="thumbnail_item thumbnail less-padding less-margin">
-                    <img src="resources/images/6_lee/seafood_square.jpg" alt="cake">
-                </a>
-                <div class="caption box">
-                    <h3>Party Cake</h3>
-                    <div class="row">
-                        <div class="col-sm-8 col-xs-6">
-                            <p class="default-userProductList-CardList-price">Rp 45.000 / pcs</p>
-                            <span class="min-order">10 pcs min order</span>
-                        </div>
-
-                        <div class="col-sm-4 col-xs-6">
-                            <button onclick="location.href='shoppingCart.do'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4" data-behavior="sample_code">
-                <a href="productDetail.do" class="thumbnail_item thumbnail less-padding less-margin">
-                    <img src="resources/images/6_lee/moesli.jpg" alt="Moesli">
-                </a>
-                <div class="caption box">
-                    <h3>Moesli</h3>
-                    <div class="row">
-                        <div class="col-sm-8 col-xs-6">
-                            <p class="default-userProductList-CardList-price">Rp 45.000 / pcs</p>
-                            <span class="min-order">10 pcs min order</span>
-                        </div>
-
-                        <div class="col-sm-4 col-xs-6">
-                            <button onclick="location.href='shoppingCart.do'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+                <!--페이징바 ends-->
+         
 
         </div>
     </div>
 
-	 <div class="row">
-        <div class="product-detail-tag-container col-md-12 text-center">
-            <button class="btn outline-white-button text-center">Load More</button>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-2 col-md-offset-1">
-            <p class="text-center">
-                <img src="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/svg/pilih_menu.svg" width="120" />
-                <h5 class="text-roboto text-center">Pilih Menu yang Anda Inginkan</h5>
-            </p>
-        </div>
-        <div class="col-md-2">
-            <p class="text-center">
-                <img src="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/svg/atur_jadwal.svg" width="120" />
-                <h5 class="text-roboto text-center">Atur Jadwal dan Alamat Pengantaran</h5>
-            </p>
-        </div>
-        <div class="col-md-2">
-            <p class="text-center">
-                <img src="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/svg/approval.svg" width="120" />
-                <h5 class="text-roboto text-center">Dapatkan Approval dari Chef</h5>  
-            </p>
-        </div>
-        <div class="col-md-2">
-            <p class="text-center">
-                <img src="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/svg/pay.svg" width="120" />
-                <h5 class="text-roboto text-center">Lakukan Pembayaran</h5>
-            </p>
-        </div>
-        <div class="col-md-2">
-            <p class="text-center">
-                <img src="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/svg/nikmati.svg" width="120" />
-                <h5 class="text-roboto text-center">Nikmati Order Anda Sesuai Jalan</h5>    
-            </p>
-        </div>
-    </div>
 
 </div><!-- /.container -->
-
-<div class="clearfix maya-tiny-padding"></div>
-<div class="container mobile-full-width-slider">
-    <h2 class="default-userProductList-InfoBar-title text-center"><i class="fa fa-heart-o" aria-hidden="true"></i> Featured Merchant</h2>
-    <div class="featured-merchant-slider owl-carousel owl-theme">
-        <div class="item">
-            <!--<div class="scrim"></div>-->
-            <!--<p>Sucicakes</p>-->
-            <img src="resources/images/6_lee/sucicakes_logo.png" class="img-rounded" width="100%">
-        </div>
-
-        <div class="item">
-            <!--<div class="scrim"></div>-->
-            <!--<p>Nasi Bakar 58</p>-->
-            <img src="resources/images/6_lee/nasi_bakar_logo.jpg" class="img-rounded" width="100%">
-        </div>
-
-        <div class="item">
-            <!--<div class="scrim"></div>-->
-            <!--<p>LL Ball</p>-->
-            <img src="resources/images/6_lee/llball_logo.JPG" class="img-rounded" width="100%">
-        </div>
-
-        <div class="item">
-            <!--<div class="scrim"></div>-->
-            <!--<p>LL Ball</p>-->
-            <img src="resources/images/6_lee/deliciozo_logo.jpg" class="img-rounded" width="100%">
-        </div>
-
-        <div class="item">
-            <!--<div class="scrim"></div>-->
-            <!--<p>LL Ball</p>-->
-            <img src="resources/images/6_lee/bakmi_48_logo.jpg" class="img-rounded" width="100%">
-        </div>
-
-        <div class="item">
-            <!--<div class="scrim"></div>-->
-            <!--<p>LL Ball</p>-->
-            <img src="resources/images/6_lee/llball_logo.JPG" class="img-rounded" width="100%">
-        </div>
-
-        <div class="item">
-            <!--<div class="scrim"></div>-->
-            <!--<p>LL Ball</p>-->
-            <img src="resources/images/6_lee/fans_logo.png" class="img-rounded" width="100%">
-        </div>
-
-    </div>
-</div>
-<div class="clearfix maya-small-padding"></div>
-
 
 
 
 <!--include footer-->
 <jsp:include page="footer.jsp"/>
+
+
+
+
+
 
 
 <script src="resources/js/6_lee/jquery.min.js"></script>

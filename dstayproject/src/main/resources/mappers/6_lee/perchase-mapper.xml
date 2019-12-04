@@ -2,19 +2,181 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="perchaseMapper">
   
+  <!-- resultMap Start -->
+  <!-- 쇼핑카트 메퍼 -->
+	<resultMap	id = "ShoppingCart_lee" type="ShoppingCart_lee">
+		
+		<id property="cno" column="cno"/>
+		<result property="pno" column="pno"/>
+		<result property="mno" column="mno"/>
+		<result property="ccount" column="ccount"/>
+		<result property="cpricesum" column="cpricesum"/>
+		<result property="cimpath" column ="cimpath"/>
+		<result property="pname" column="pname"/>
+		<result property="pcname" column="pcname"/>
+		<result property="pdprice" column="pdprice"/>
+		<result property="cdate" column="cdate"/>
+		<result property="cstatus" column="cstatus"/>
+	
+	</resultMap>
+	
+	<!-- 주소 매퍼 -->
+	<resultMap id="addAddress_lee" type="addAddress_lee">
+		
+		<id property="ano" column="ano"/>
+		<result property="mno" column="mno"/>
+		<result property="aaddressno" column="aaddressno"/>
+		<result property="aaddress1" column="aaddress1"/>
+		<result property="aaddress2" column="aaddress2"/>
+		<result property="aname" column="aname"/>
+		
+	</resultMap>
+
+	<!-- 페이 매퍼 -->
+	
+	<resultMap id="pay_lee" type="pay_lee">
+		
+		<id property="pno" column="pno"/>
+		<result property="ptype" column="ptype"/>
+		<result property="pdate" column="pdate"/>
+		<result property="pprice" column="pprice"/>
+		<result property="ptotalprice" column="ptotalprice"/>
+		<result property="pnumber" column="pnumber"/>
+	
+	
+	</resultMap>
+
+	<!-- 비회원  -->
+	
+	<resultMap type="guest_lee" id="guest_lee">
+	
+	<id property="gono" column="gono"/>
+	<result property="pno" column="pno"/>
+	<result property="payno" column="payno"/>
+	<result property="gocount" column="gocount"/>
+	<result property="gname" column="gname"/>
+	<result property="gphone" column="gphone"/>
+	<result property="gemail" column="gemail"/>
+	<result property="gpost" column="gpost"/>
+	<result property="gaddress" column="gaddress"/>
+	<result property="gdetailaddress" column="gdetailaddress"/>
+	<result property="gorequest" column="gorequest"/>
+	<result property="godate" column="godate"/>
+	<result property="gostatus" column="gostatus"/>
+	<result property="gowaybillno" column="gowaybillno"/>
+	
+	</resultMap>
+
+	<!-- 최근 주솢; -->
+	
+	<resultMap type="recentAddress_lee" id="recentAddress_lee">
+	
+	<id property="ono" column="ono"/>
+	<result property="mpost" column="mpost"/>
+	<result property="maddress" column="maddress"/>
+	<result property="maddressdetail" column="maddressdetail"/>
+	
+	
+	</resultMap>
+
+	<!-- resultMap End  -->
+	
+	
+	
+	<!-- 카트에 물건 등록  -->
+	<insert id="insertShoppingCart_lee">
+	
+		insert into cart
+		values(seq_cart.nextval, #{pno}, #{mno}, #{ccount},#{cpricesum},#{cimpath}, sysdate, default)
+		
+	
+	</insert>
+	
+	<select id="selectShoppingCart_lee" resultType="ShoppingCart_lee">
+		select c.*, p.pname , pc.pcname , p.price as pdprice
+		from cart c, product p, product_category pc
+		where (c.pno = p.pno and p.pcno = pc.pcno) and mno = #{mNo}
+				
+	</select>
 
 
+	<delete id="deleteShoppingCart_lee">
+		delete 
+		from cart
+		where cno = #{cno}
+		
+	</delete>
+
+	<insert id="insertAddress_lee" >
+	
+		insert into address
+		values(seq_address.nextval,#{mno},#{aaddressno},#{aaddress1},#{aaddress2},#{aname})
+	</insert>
+
+	<select id="getAddressList_lee" resultType="addAddress_lee">
+		
+		select *
+		from address
+		where mno=#{mno}
+		order by ano desc
+	</select>
+
+	<select id="getRecentList_lee" resultType="recentAddress_lee">
+		
+		select distinct(ono), mpost , maddress, maddressdetail
+		from orders 
+		where  mno = #{mno}
+		order by ono desc
+		
+	</select>
 
 
+	<insert id="insertPay_lee">
+		insert into payment values(seq_payment.nextval,#{ptype},sysdate,#{pprice},#{ptotalprice},'')
+	
+	</insert>
+	
+	<select id="checkShoppingCart_lee" resultType="_int">
+		select count(*)
+		from cart
+		where pno=#{pno} and mno=#{mno}
+	
+	</select>
 
+	<select id="checkListShoppingCart_lee" resultType="ShoppingCart_lee">
+		select*
+		from cart
+		where mno = #{mno}
+		
+	
+	</select>
+	
+	<!-- 회원 -->
+	<!--주문의 첫 상품 인설트 -->
+	
+	<insert id="insertOrder_lee">
+		insert into orders values(SEQ_ORDERS.nextval,#{pno},#{mno},SEQ_PAYMENT.currval,#{ocount},#{orequest},#{mpost},#{maddress},#{maddressdetail},sysdate,'N','')		
+	</insert>
+	<!-- 그 후 나머지 인설트 -->
+	<insert id="insertOrder_lee2">
+		insert into orders values(SEQ_ORDERS.currval,#{pno},#{mno},SEQ_PAYMENT.currval,#{ocount},#{orequest},#{mpost},#{maddress},#{maddressdetail},sysdate,'N','')		
+	</insert>
+	
+	<!--비회원  -->
+	
+	<insert id="insertGuest_lee">
+		insert into guest_orders values(SEQ_guest_orders.nextval,SEQ_PAYMENT.currval,#{pno},#{gname},#{gphone},#{gemail},#{gpost},#{gaddress},#{gdetailaddress},#{gorequest},sysdate,#{gocount},'N','')		
+	</insert>
+	<!-- 그 후 나머지 인설트 -->
+	<insert id="insertGuest_lee2">
+		insert into guest_orders values(SEQ_guest_orders.currval,SEQ_PAYMENT.currval,#{pno},#{gname},#{gphone},#{gemail},#{gpost},#{gaddress},#{gdetailaddress},#{gorequest},sysdate,#{gocount},'N','')		
+	</insert>
 
-
-
-
-
-
-
-
+	<delete id="deleteAddress_lee">
+	
+		delete from address 
+		where ano = #{ano}
+	</delete>
 
 
 </mapper>

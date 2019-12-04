@@ -15,13 +15,57 @@
 		<result property="calorie" column="calorie"/>
 		<result property="status" column="pStatus"/>
 		<result property="path" column="piPath"/>
+		<result property="categorytName" column="pcName"/>
+		<result property="cellCount" column="cellCount"/>
+		<result property="bookmarkCount" column="maxBookMark"/>
+		<result property="reviewCount" column="reviewMax"/>
+		<result property="inQueryCount" column="inQuerywMax"/>
 	</resultMap>
 	
 	
 	<select id="selectProduct" resultMap="productResultSet">
-		select Product.*, piPath
+		select Product.*, piPath, pcName
 		from Product
 		INNER JOIN PRODUCT_IMAGE on (Product.pNo=PRODUCT_IMAGE.pNo)
+		INNER JOIN PRODUCT_CATEGORY ON (Product.pcNo=PRODUCT_CATEGORY.pcNo)
+	</select>
+	
+	<select id="selectBestProduct" resultMap="productResultSet">
+		SELECT * FROM (SELECT * FROM (SELECT pNO, COUNT(*) cellCount FROM ORDERS WHERE ODATE >= SYSDATE-7 GROUP BY PNO 
+        UNION
+        SELECT pNO, COUNT(*) cellCount FROM GUEST_ORDERS WHERE GODATE >= SYSDATE-7 GROUP BY PNO)
+        GROUP BY PNO, CELLCOUNT) gp
+        INNER JOIN PRODUCT ON (PRODUCT.PNO=gp.PNO)
+        INNER JOIN PRODUCT_IMAGE on (Product.pNo=PRODUCT_IMAGE.pNo)
+		INNER JOIN PRODUCT_CATEGORY ON (Product.pcNo=PRODUCT_CATEGORY.pcNo)
+        LEFT JOIN (SELECT PNO, COUNT(*) maxBookMark FROM BOOKMARK GROUP BY PNO) mbm ON (mbm.PNO=gp.PNO)
+        LEFT JOIN (SELECT PNO, COUNT(*) reviewMax FROM PRODUCT_REVIEW GROUP BY PNO) rm ON (rm.PNO=gp.PNO)
+        LEFT JOIN (SELECT PNO, COUNT(*) inQuerywMax FROM PRODUCT_INQUERY GROUP BY PNO) im ON (im.PNO=gp.PNO)
+        ORDER BY CELLCOUNT DESC
+	</select>
+	
+	<select id="selectSortMenuPrice" resultMap="productResultSet">
+        SELECT * FROM PRODUCT
+        INNER JOIN PRODUCT_IMAGE on (Product.pNo=PRODUCT_IMAGE.pNo)
+        WHERE PENROLLDATE >= SYSDATE-7
+        ORDER BY PRICE
+	</select>
+	
+	<select id="selectSortMenuNew" resultMap="productResultSet">
+        SELECT * FROM PRODUCT
+        INNER JOIN PRODUCT_IMAGE on (Product.pNo=PRODUCT_IMAGE.pNo)
+        WHERE PENROLLDATE >= SYSDATE-7
+        ORDER BY PRODUCT.pNo DESC
+	</select>
+	
+	<select id="selectSortMenuCell" resultMap="productResultSet">
+		SELECT * FROM (SELECT * FROM (SELECT pNO, COUNT(*) cellCount FROM ORDERS WHERE ODATE >= SYSDATE-7 GROUP BY PNO 
+        UNION
+        SELECT pNO, COUNT(*) cellCount FROM GUEST_ORDERS WHERE GODATE >= SYSDATE-7 GROUP BY PNO)
+        GROUP BY PNO, CELLCOUNT) gp
+        INNER JOIN PRODUCT ON (PRODUCT.PNO=gp.PNO)
+        INNER JOIN PRODUCT_IMAGE on (Product.pNo=PRODUCT_IMAGE.pNo)
+        ORDER BY CELLCOUNT DESC
 	</select>
 	
 </mapper>

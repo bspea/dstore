@@ -34,6 +34,7 @@
 .banner-btn-click2 {
     background: rgb(245, 245, 245);
     border-bottom: 1px solid rgb(211, 53, 53);
+    padding:0px;
 }
 
 .banner-btn:hover, .banner-btn-click {

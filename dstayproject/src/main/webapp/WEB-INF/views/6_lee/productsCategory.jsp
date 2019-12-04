@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,6 +54,16 @@
     <link rel="stylesheet" href="resources/css/6_lee/owl_carousel/owl.carousel.css">
     <link rel="stylesheet" href="resources/css/6_lee/owl_carousel/owl.theme.default.css">
 
+<style>
+ 	
+ 	#bookmarkButton{
+	  display: inline-block !important;
+	 }
+
+
+</style>
+
+
 </head>
 
 <body>
@@ -82,6 +93,29 @@
                 <a href="productDetail.do?pdno=${pd.pno}" class="thumbnail_item thumbnail less-padding less-margin">
                     <img src="${pd.pi1}" alt="risotto lemon">
                 </a>
+                 
+                 <c:if test="${!empty loginUser.no }">
+               
+	                <div class="bookmarked" >
+						
+	                
+	              		 <c:forEach var="bm" items="${bm}" varStatus="status1">
+		              		 
+		              		 <c:if test="${bm.pno == pd.pno }">
+		              		 	
+							        <img id="bookMark" src="resources/images/6_lee/bookmarked.png" width="86" >
+		              		 </c:if>
+
+	              		 </c:forEach>
+	      						
+	              		 
+		        	</div>
+               </c:if>
+                
+                
+                
+                
+                
                 <div class="caption box">
                     <h3 style="height: 52px;">${pd.pname}</h3>
                     <div class="row">
@@ -148,8 +182,8 @@
                     </ul>
                 </nav>
 
-                <!--페이징바 ends-->
             </div>
+                <!--페이징바 ends-->
         </div>
     </div>
   </div>
@@ -172,6 +206,7 @@
 <script src="resources/js/6_lee/kimi.js"></script>
 
 <script>
+    
     $('.small-slider').owlCarousel({
         loop:true,
         margin:10,

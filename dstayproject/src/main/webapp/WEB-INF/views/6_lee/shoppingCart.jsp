@@ -69,60 +69,46 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="box-bg-white col-md-12">
-                    <h3 class="section-title">장바구니</h3>
+                    <h3 class="section-title"></h3>
+                      
+                 <c:forEach items="${sc}" var="sc" varStatus="status">
                     <div class="row">
+                    		
+                    		<input id="pdpricetotal${ status.index + 1}" type="hidden" value="${sc.pdprice }">
+                        	<input id="cnototal${ status.index + 1}" type="hidden" value="${sc.cno}">
+                        	
+                        	
                         <div class="col-md-2 col-xs-6 less-padding-right">
-                            <img src="resources/images/6_lee/brownies.jpg" width="100%">
+                            <img src="${sc.cimpath}" width="100%">
                         </div>
                         <div class="col-md-5 col-xs-12">
-                            <span>상품명</span><br/>
-                            <p class="text-gray-3 text-thin">카테고리명</p>
-                            <button class="btn btn-default outline-default-button outline-small-default-button">삭제</button>
+                            <span>${sc.pname }</span><br/>
+                            <p class="text-gray-3 text-thin">${sc.pcname }</p>
+                            <button class="btn btn-default outline-default-button outline-small-default-button" id="total${status.index+1 }" onclick="deleteProduct(this.id)">삭제</button>
                         </div>
 
                         <div class="col-md-3 col-xs-7">
                             <p>수량</p>
-                            <form class="form-inline">
-                                <div class="form-group pull-left"><button class="btn btn-default">-</button></div>
+                            
+                                <div class="form-group pull-left"><button  id="total${ status.index + 1}"  class="btn btn-default" onclick="minusTotal(this.id)">-</button></div>
                                 <div class="form-group pull-left">
-                                    <input type="number" class="form-control number-input" id="" placeholder="1" style="width: 60px;">
+                                    <input type="text" class="form-control number-input" id="totalAmounttotal${ status.index + 1}" value="${sc.ccount}" style="width: 60px;" readonly>
                                 </div>
-                                <div class="form-group"><button class="btn btn-default">+</button></div>
-                            </form>
+                                <div class="form-group"><button id="total${ status.index + 1}" class="btn btn-default" onclick="addTotal(this.id)">+</button></div>
+                            
                         </div>
+                        
                         <div class="col-md-2 col-xs-5">
+                           
                             <p class="text-right">상품금액</p>
-                            <p class="text-right section-title">￦ 10.000</p>
+                            <p class="text-right section-title" style="display:inline-block; margin-left:10px;" >￦</p> <p class="text-right section-title" style="display:inline-block" id="totalPricetotal${ status.index + 1}"> ${sc.cpricesum}</p>
                         </div>
+                       
                     </div>
+					
+                        </c:forEach>
                     <hr>
-                    <div class="row">
-                        <div class="col-md-2 col-xs-6 less-padding-right">
-                            <img src="resources/images/6_lee/lapisSurabaya.jpg" width="100%">
-                        </div>
-                        <div class="col-md-5 col-xs-12">
-                            <span>Lapis Surabaya</span><br/>
-                            <p class="text-gray-3 text-thin">Sucicakes</p>
-                            <p class="section-title">IDR 175.000</p>
-                            <button class="btn btn-default outline-default-button outline-small-default-button">Remove</button>
-                        </div>
-
-                        <div class="col-md-3 col-xs-7">
-                            <p>Quantity</p>
-                            <form class="form-inline">
-                                <div class="form-group pull-left"><button class="btn btn-default">-</button></div>
-                                <div class="form-group pull-left">
-                                    <input type="number" class="form-control number-input" id="" placeholder="1" style="width: 50px">
-                                </div>
-                                <div class="form-group"><button class="btn btn-default">+</button></div>
-                            </form>
-                        </div>
-                        <div class="col-md-2 col-xs-5">
-                            <p class="text-right">Subtotal</p>
-                            <p class="text-right section-title">IDR 50.000</p>
-                        </div>
-                    </div>
-
+                    
 
                 </div>
 
@@ -143,15 +129,135 @@
                             <p class="text-right">02-9999-9999<br><a class="text-black text-underline" href="mailto: info@backtokimi.com">Dstay@naver.com</a></p>
                         </div>
                     </div>
-                            	<h3>합계 : ￦10.000</h3>
+                            <h3 style="display:inline-block; margin-left:10px;">합계 : ￦</h3> <h3 id="totalPriceSum" style="display:inline-block">${priceSum}</h3>
                 </div>
-            		<a href="checkout1.do" style="width: 362px; color: #ffffff; background-color: #000;" class="btn btn-default pull-right button-black">주문하기</a>
+            		<button style="width: 362px; color: #ffffff; background-color: #000;" class="btn btn-default pull-right button-black" onclick="selectCheckout()">주문하기</button>
             </div>
             <div class="clearfix maya-small-padding" ></div>
         </div>
     </div>
 
 </div><!-- /.container -->
+
+<script>
+
+
+
+		 var totalPriceSum = parseInt($('#totalPriceSum').html()); 				// 총 상품들의 총합가격
+
+		//상품 + 눌렀을 시 
+		function addTotal(id){
+		
+		
+		
+			
+		var	pdPrice = parseInt($('#pdprice' + id).val()); 							// 상품가격
+		var totalAmountSum = parseInt($('#totalAmount'+id).val()); 					//상품 수량 
+		var totalPrice = parseInt($('#totalPrice' + id).html()); 					// 상품 가격 총합
+		
+		
+		
+				totalPrice += pdPrice;
+				totalAmountSum += 1;
+				totalPriceSum += pdPrice;  
+				
+				
+				
+			    $("#" + id).closest(".row").find("#totalAmount" + id).attr('value',totalAmountSum);
+				
+				$("#" + id).closest(".row").find("#totalPrice" + id).html(totalPrice);
+				$("#totalPriceSum").html(totalPriceSum);
+		}
+		// 상품 - 눌렀으시
+		function minusTotal(id){
+			
+			var	pdPrice = parseInt($('#pdprice' + id).val()); 							// 상품가격
+			var totalAmountSum = parseInt($('#totalAmount'+id).val()); 					//상품 수량 
+			var totalPrice = parseInt($('#totalPrice' + id).html()); 					// 상품 가격 총합
+			
+			
+			
+				if(totalAmountSum < 2){
+					alert("1개 이상 선택 하셔야 합니다.");
+					totalAmountSum = 2;
+					totalPrice = pdPrice+pdPrice;
+					totalPriceSum += pdPrice;
+					$('#totalAmount').attr('value',totalAmountSum);
+					$('#totalPrice').html(totalPrice)
+					
+				} else {
+					totalPrice -= pdPrice;
+					totalAmountSum -= 1;
+					totalPriceSum -= pdPrice;
+					/* $('#totalAmount').attr('value',totalAmountSum); */
+					  $("#" + id).closest(".row").find("#totalAmount" + id).attr('value',totalAmountSum);
+					  $("#" + id).closest(".row").find("#totalPrice" + id).html(totalPrice);
+					  $("#totalPriceSum").html(totalPriceSum);
+				}
+				
+					
+				
+					
+					
+		}
+		
+	 	
+		// 상품 삭제
+		
+		function deleteProduct(id){
+			
+			
+			var cno = $("#cno"+id).val();
+			console.log();
+			
+
+			// 삭제할 장바구니 상품의 가격을 불러오고, 현재 합계의 가격을 불러옵니다.
+			var totalPrice = parseInt($("#totalPriceSum").html());
+			var cartPrice = parseInt($("#totalPrice"+id).html());
+			
+
+			
+			 
+			
+			$.ajax({
+				url : "deleteShoppingCart.do",
+				data:{cno:cno},
+				success:function(result){
+					$("#cno"+id).parent().remove();
+					
+					totalPriceSum = totalPrice - cartPrice;
+					// jQuery로 해당 수치를 빼서 텍스트만 바꿔 끼워줍니다.
+					$("#totalPriceSum").html(totalPriceSum);
+				},error:function(){
+					
+				}
+			})
+		
+
+		}
+
+		function selectCheckout(){
+			
+			var totalPrice = parseInt($("#totalPriceSum").html());
+			
+	
+			location.href ="selectCheckout.do?totalPrice="+totalPrice 
+		
+		}
+		
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
 
 <!--include footer-->
 <jsp:include page="footer.jsp"/>
@@ -166,6 +272,8 @@
 
 <!--kimi basic js-->
 <script src="resources/js/6_lee/kimi.js"></script>
+
+
 
 </body>
 </html>

@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 
     <!-- Custom css -->
-    <link href="${ pageContext.request.contextPath }/resources/css/4_jong/logo-top.css?ver=4" rel="stylesheet">
+    <link href="${ pageContext.request.contextPath }/resources/css/4_jong/logo-top.css?ver=5" rel="stylesheet">
     
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -18,7 +18,7 @@
     <link href="${ pageContext.request.contextPath }/resources/css/1_common/bootstrap.min.css" rel="stylesheet">
     
     <!-- Custom css -->
-    <link href="${ pageContext.request.contextPath }/resources/css/4_jong/top-menu.css?ver=1" rel="stylesheet">
+    <link href="${ pageContext.request.contextPath }/resources/css/4_jong/top-menu.css?ver=8" rel="stylesheet">
 
     <style>
     html, body {
@@ -67,15 +67,15 @@
             </c:if>
             <c:if test="${!empty loginUser && loginUser.email eq 'admin@dstay.com' }">
 	            <a href="">관리자</a>
-	            <a href="logout.do">로그아웃</a>
+	            <a href="${ pageContext.request.contextPath }/logout.do">로그아웃</a>
             </c:if>
             <c:if test="${!empty loginUser && loginUser.email ne 'admin@dstay.com'}">
                 <a href="javascript:logout()">로그아웃</a>
                 <a href="${ pageContext.request.contextPath }/mypage/info.do">마이페이지</a>
             </c:if>
             
-                <a href="">장바구니</a>
-                <a href="customerCenter.do">고객센터</a>
+                <a href="${ pageContext.request.contextPath }/selectShoppingCart.do">장바구니</a>
+                <a href="${ pageContext.request.contextPath }/customerCenter.do">고객센터</a>
             </div>
 
             <!-- 모바일버전 (화면작은) -->
@@ -84,12 +84,30 @@
 
                 <!-- 아이콘 누르면 나타날 메뉴리스트 -->
                 <div class="icon-menuList">
-                    <div class="menuList-title">${loginUser.nickName }님</div>
+                
+                <c:choose>
+                	<c:when test="empty ${loginUser} ">
+                		<div class="menuList-title">${loginUser.nickName }님</div>
+                	</c:when>
+                	
+                	<c:otherwise>
+                		<div class="menuList-title">로그인을 해주세요</div>
+                	</c:otherwise>
+                </c:choose>
+                    
                     <div id="menuList-select"></div>
-                    <div><img src="${ pageContext.request.contextPath }/resources/images/4_jong/menusmallicon.png">로그인</div>
-                    <div><img src="${ pageContext.request.contextPath }/resources/images/4_jong/menusmallicon.png">마이페이지</div>
-                    <div><img src="${ pageContext.request.contextPath }/resources/images/4_jong/menusmallicon.png">장바구니</div>
-                    <div><img src="${ pageContext.request.contextPath }/resources/images/4_jong/menusmallicon.png">고객센터</div>
+                    <c:if test="${empty loginUser}">
+                    	<div onclick="location.href = '${ pageContext.request.contextPath }/loginForm.do'"><img src="${ pageContext.request.contextPath }/resources/images/4_jong/menusmallicon.png">로그인</div>
+                    </c:if>
+                    
+                    <c:if test="${!empty loginUser}">
+                    	<div onclick="location.href = '${ pageContext.request.contextPath }/logout.do'"><img src="${ pageContext.request.contextPath }/resources/images/4_jong/menusmallicon.png">로그아웃</div>
+                    </c:if>
+                    
+                    
+                    <div onclick="location.href = '${ pageContext.request.contextPath }/mypage/info.do'"><img src="${ pageContext.request.contextPath }/resources/images/4_jong/menusmallicon.png">마이페이지</div>
+                    <div onclick="location.href = '${ pageContext.request.contextPath }/selectShoppingCart.do'"><img src="${ pageContext.request.contextPath }/resources/images/4_jong/menusmallicon.png">장바구니</div>
+                    <div onclick="location.href = '${ pageContext.request.contextPath }/customerCenter.do'"><img src="${ pageContext.request.contextPath }/resources/images/4_jong/menusmallicon.png">고객센터</div>
                 </div>
                 <div class="icon-menuList-leave" onclick="mobileCloseMenu();">메뉴바 닫기</div>
             </div>
@@ -98,9 +116,9 @@
 
     <div class="menu-div">
         <div class="menu-line"><a href="product.do">메뉴목록</a></div>
-        <div class="menu-line">베스트목록</div>
-        <div class="menu-line">신상품</div>
-        <div class="menu-line">할인품목</div>
+        <div class="menu-line"><a href="product.do">베스트목록</a></div>
+        <div class="menu-line"><a href="product.do">신상품</a></div>
+        <div class="menu-line"><a href="product.do">할인품목</a></div>
     </div>
     </div>
     </div>
@@ -112,11 +130,11 @@
 		    /* Ready. Make a call to gapi.auth2.init or some other API */
 		   console.log("auth2 loaded");  
 		  googleAuth = gapi.auth2.init({
-			  client_id: "${googleClientId}"
+			  client_id: "772225320155-psolb8vekpte4t7h2bl88b0tt3p3sfn6.apps.googleusercontent.com"
 		  })
 		  });
 		}  
-	Kakao.init('${kakaoJavascriptKey}');
+	Kakao.init('b6ca5845154feff6cc055835f1f75513');
 	function logout() {
 		Kakao.Auth.logout(function() {
 			location.href="logout.do";

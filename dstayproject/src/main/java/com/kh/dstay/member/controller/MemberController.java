@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -30,6 +31,9 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService mService;
+	
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	@RequestMapping(value= {"mypage/diet.do","mypage/order.do","mypage/wishes.do","mypage/review.do","mypage/coupon.do","mypage/info.do"})
 	public String viewMypage(HttpSession session) {
@@ -124,17 +128,17 @@ public class MemberController {
 		gson.toJson(dg,response.getWriter());
 	}
 	@RequestMapping("mypage/pwChange.do")
-	public void updateMyPassword(HttpServletResponse response,HttpSession session,String newPw) throws JsonIOException, IOException {
-		response.setContentType("application/json; charset=utf-8");
-		Member m=(Member)session.getAttribute("loginUser");
-		m.setPassword(newPw);
-		int result=mService.updateMyPassword(m);
-		if(result>0) {
-			session.setAttribute("loginUser", m);
-		}
-		Gson gson=new Gson();
-		gson.toJson(result,response.getWriter());
-	}
+	   public void updateMyPassword(HttpServletResponse response,HttpSession session,String newPw) throws JsonIOException, IOException {
+	      response.setContentType("application/json; charset=utf-8");
+	      Member m=(Member)session.getAttribute("loginUser");
+	      m.setPassword(bcryptPasswordEncoder.encode(newPw));
+	      int result=mService.updateMyPassword(m);
+	      if(result>0) {
+	         session.setAttribute("loginUser", m);
+	      }
+	      Gson gson=new Gson();
+	      gson.toJson(result,response.getWriter());
+	   }
 	@RequestMapping("mypage/nicknameChange.do")
 	public void updateMyNickname(HttpServletResponse response,HttpSession session,String nickname) throws JsonIOException, IOException {
 		response.setContentType("application/json; charset=utf-8");
@@ -300,7 +304,16 @@ public class MemberController {
 		gson.toJson(result,response.getWriter());
 	}
 	
-	
+	@RequestMapping("mypage/currentPwCheck.do")
+	   public void currentPwCheck(String currentPw,HttpSession session,HttpServletResponse response) throws JsonIOException, IOException {
+	      Member m=(Member)session.getAttribute("loginUser");
+	      int result=0;
+	      if(bcryptPasswordEncoder.matches(currentPw,m.getPassword())) {
+	         result=1;
+	      }
+	      Gson gson=new Gson();
+	      gson.toJson(result,response.getWriter());
+	   }
 	
 	
 	

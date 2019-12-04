@@ -57,6 +57,29 @@
 		</resultMap>
 		
 		
+		<!-- 찜하기 -->
+		<resultMap id="BookMark_lee" type="BookMark_lee">
+		
+		<result property="mno" column="mno"/>
+		<result property="pno" column="pno"/>
+		
+		</resultMap>
+		
+		<!-- 리뷰 -->
+		<resultMap  id="Review_lee" type="Review_lee">
+		
+		<id property="prno" column="prno"/>
+		<result property="mno" column="mno"/>
+		<result property="pno" column="pno"/>
+		<result property="mname" column="mname"/>
+		<result property="rcontents" column="rcontents"/>
+		<result property="point" column="point"/>
+		<result property="prdate" column="prdate"/>
+		<result property="prstatus" column="prstatus"/>
+		
+		</resultMap>
+		
+		
 		<!-- resultMap End -->
 		
 		
@@ -69,11 +92,28 @@
 			where pcno = #{caNo}
 		
 		</select>
+			
+		<!-- 총 상품 갯수  -->	
+		<select id="getProductListCount_lee" resultType="_int">
+			select count(*)
+			from product
+		
+		</select>
+			
+		<!-- 상품 리스트 가져오기  -->
+		<select id="getProductList_lee" resultType="Product_lee">
+		
+			select p.*, pi.pipath as pi1
+			from product p , product_image pi
+			where (p.pno = pi.pno) and pstatus= 'Y' 
+			order by p.pno desc
+		
+		</select>
 		
 		<!-- 카테고리의 상세정보와 카테고리에 해당하는 각 상품들의 총 갯수  -->
 		<select id="cateSelect_lee" resultMap="productCateResultSet_lee">
 		
-			select pc.*, (select count(*) from product where (pc.pcno=pcno) and pstatus='Y' )pcsum
+			select pc.PCNO, pc.PCNAME, pc.ORIGIN_FILENAME, (select count(*) from product where (pc.pcno=pcno) and pstatus='Y' )pcsum
 			from product_category pc
 		</select>
 		
@@ -121,12 +161,88 @@
 		</select>
 		<!-- 상품 문의사항 가져오기 -->
 		
-		<select id="selectProductInquery_lee" resultMap="productInqueryResultSet_lee">
+	<!-- 	<select id="selectProductInquery_lee" resultMap="productInqueryResultSet_lee">
+			select *
+			from product_inquery pq, product p
+			where (pq.pno = p.pno) and p.pno=#{pdNo}
+			order by pino desc
+		
+		</select> -->
+		
+		
+		
+		
+		<!-- <select id="selectProductInquery_lee" resultMap="productInqueryResultSet_lee">
 			select *
 			from product_inquery pq, product p
 			where (pq.pno = p.pno) and p.pno=#{pdNo}
 		
+		</select> -->
+		
+		<!-- 문의 작성  -->
+		<insert id="insertInquery_lee">
+		
+		insert into product_inquery values(seq_product_inquery.nextval,#{mno},#{pno},#{pititle},#{picontents},sysdate,default,null,null)
+		</insert>
+		
+		<!-- 문의 조회 -->
+		
+		<select id="selectInqueryList_lee" resultMap="productInqueryResultSet_lee">
+		
+		select pi.*, m.nickname as membernickname
+		from product_inquery pi , member m
+		where (pi.mno=m.mno) and pno = #{pno}
+		order by pino desc
 		</select>
 		
+		<select id="getBookMark_lee" resultType="_int">
+		
+			select count(*)
+			from bookmark
+			where pno=#{pdNo} and mno=#{mNo}
+		
+		</select>
+		
+		<delete id="deleteBookMark_lee">
+		
+			delete from bookmark
+			where mno = #{mno} and pno = #{pno}
+		
+		</delete>
+		
+		<insert id="insertBookMark_lee">
+			
+			insert into bookmark values(#{mno},#{pno})
+		
+		</insert>
+		
+		<select id="checkBookMark_lee" resultType="BookMark_lee">
+		
+		select*
+		from bookmark
+		where mno = #{mNo}
+		
+		</select>
+		
+		<select id="getProductReview_lee" resultType="Review_lee">
+			select pr.*, m.name as mname
+			from product_review pr, member m
+			where (pr.mno = m.mno) and pno = #{pno}
+			order by prno desc
+		</select>
+		
+		<update id="insertAnswer_lee">
+			update product_inquery 
+			set pianswer = '${content}' , pianswerdate = sysdate
+			where pino=${pino}
+		</update>
+		
+		<select id="getNextProduct_lee" resultMap="productResultSet_lee">
+			select p.* ,pipath as pi1
+			from product_image pi , product p
+			where (pi.pno = p.pno and piorderby = 1 ) and (p.pno = #{nextNum1} or p.pno = #{nextNum2} or p.pno = #{nextNum3})
+		
+		
+		</select>
 		
 </mapper>

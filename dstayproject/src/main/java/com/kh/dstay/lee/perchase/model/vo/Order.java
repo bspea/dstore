@@ -1,6 +1,5 @@
 package com.kh.dstay.lee.perchase.model.vo;
 
-import java.io.Serializable;
 import java.sql.Date;
 
 import lombok.AllArgsConstructor;
@@ -10,28 +9,28 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-
 @Getter
 @Setter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class ShoppingCart implements Serializable{
+public class Order {
 
-	private static final long serialVersionUID = 1934923432215186136L;
-	
-	private int cno;
+	private int ono;
 	private int pno;
 	private int mno;
-	private int ccount;
-	private int cpricesum;
-	private String cimpath;
-	private String pname;
-	private String pcname;
-	private String pdprice;
-	private Date cdate;
-	private String cstatus;
+	private int payno;
+	private int ocount;
+	private int mpost;
+	private String maddress;
+	private String maddressdetail;
+	private String orequest;
+	private Date odate;
+	private String ostatus;
+	private int owaybillno;
+	
+	
 	
 	
 }

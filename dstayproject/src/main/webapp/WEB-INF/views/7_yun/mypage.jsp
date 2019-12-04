@@ -878,43 +878,53 @@
 		  $myPage_content.html(str);
 	  }
 	  function pwChange(){
-		  var currentPw=$("input[name='currentPw']").val();
-		  var newPw=$("input[name='newPw']").val();
-		  var newPw2=$("input[name='newPw2']").val();
-		  if(currentPw.trim()!=""&&newPw.trim()!=""&&newPw2.trim()!=""){
-			  if(currentPw=="${loginUser.password}"){
-				  
-				  if(newPw==newPw2){
-					  
-					  $.ajax({
-						 url:"pwChange.do",
-						 data:{newPw:newPw},
-						 type:"post",
-						 success:function(result){
-							 if(result>0){
-								 alert("수정 성공");
-								 location.reload();
-							 }else{
-								 alert("수정 실패");
-							 }
-						 },
-						 error:function(){
-							 console.log("pwchange error");
-						 }
-					  });
-				  
-				  }else{
-					  alert("새로운 비밀번호가 일치하지 않습니다");
-				  }
-				  
-			  }else{
-				  alert("현재 비밀번호를 확인해주세요");
-			  }
-			  
-		  }else{
-			  alert("비밀번호를 입력해주세요");
-		  }
-	  }
+	        var currentPw=$("input[name='currentPw']").val();
+	        var newPw=$("input[name='newPw']").val();
+	        var newPw2=$("input[name='newPw2']").val();
+	        if(currentPw.trim()!=""&&newPw.trim()!=""&&newPw2.trim()!=""){
+	              
+	           $.ajax({
+	               url:"currentPwCheck.do",
+	               data:{currentPw:currentPw},
+	               type:"post",
+	               success:function(result){
+	                  if(result>0){
+	                     
+	                    if(newPw==newPw2){
+	                       
+	                       $.ajax({
+	                         url:"pwChange.do",
+	                         data:{newPw:newPw},
+	                         type:"post",
+	                         success:function(result){
+	                            if(result>0){
+	                               alert("수정 성공");
+	                               location.reload();
+	                            }else{
+	                               alert("수정 실패");
+	                            }
+	                         },
+	                         error:function(){
+	                            console.log("pwchange error");
+	                         }
+	                       });
+	                    
+	                    }else{
+	                       alert("새로운 비밀번호가 일치하지 않습니다");
+	                    }
+	                  }else{
+	                     alert("현재 비밀번호를 확인해주세요");
+	                  }
+	                  
+	               },error:function(){
+	                  console.log("currnetPwCheck error");
+	               }
+	           })
+	           
+	        }else{
+	           alert("비밀번호를 입력해주세요");
+	        }
+	     }
 	  function nicknameChangeForm(){
 		  var $myPageTitle=$(".myPageTitle");
 		  var $myPageTitleInfo=$(".myPageTitleInfo");
